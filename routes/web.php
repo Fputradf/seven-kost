@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdsPackageController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KostDetailController;
@@ -21,6 +22,9 @@ Route::get('/cari', [SearchController::class, 'index'])->name('search');
 // Peta Pencarian Nasional (Leaflet + Marker Cluster)
 Route::get('/peta', [MapController::class, 'index'])->name('map');
 
+// Paket Iklan Unggulan (Monetisasi BR-10, BR-15)
+Route::get('/paket-iklan', [AdsPackageController::class, 'index'])->name('ads.packages.index');
+
 // Detail Kos Publik
 Route::get('/kos/{slug}', [KostDetailController::class, 'show'])->name('kost.detail');
 
@@ -32,6 +36,8 @@ Route::get('/api/wilayah/provinces/{province}/regencies', [WilayahController::cl
 
 // Rute Penghuni & Pemilik (Memerlukan Login)
 Route::middleware('auth')->group(function () {
+    // Pesan Paket Iklan
+    Route::post('/paket-iklan/pesan', [AdsPackageController::class, 'order'])->name('ads.packages.order');
     // Alur Booking Sewa (Minggu 3 Hari 1)
     Route::post('/kos/{kost}/booking', [BookingController::class, 'store'])->name('tenant.bookings.store');
     Route::get('/penghuni/booking-saya', [BookingController::class, 'myBookings'])->name('tenant.bookings.index');

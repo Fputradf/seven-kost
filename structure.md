@@ -12,6 +12,36 @@
 ├── 📁 app/
 │   ├── 📁 Filament/
 │   │   └── 📁 Resources/
+│   │       ├── 📁 AdsPackages/
+│   │       │   ├── 📄 AdsPackageResource.php
+│   │       │   ├── 📁 Pages/
+│   │       │   │   ├── 📄 CreateAdsPackage.php
+│   │       │   │   ├── 📄 EditAdsPackage.php
+│   │       │   │   └── 📄 ListAdsPackages.php
+│   │       │   ├── 📁 Schemas/
+│   │       │   │   └── 📄 AdsPackageForm.php
+│   │       │   └── 📁 Tables/
+│   │       │       └── 📄 AdsPackagesTable.php
+│   │       ├── 📁 AdsPromotions/
+│   │       │   ├── 📄 AdsPromotionResource.php
+│   │       │   ├── 📁 Pages/
+│   │       │   │   ├── 📄 CreateAdsPromotion.php
+│   │       │   │   ├── 📄 EditAdsPromotion.php
+│   │       │   │   └── 📄 ListAdsPromotions.php
+│   │       │   ├── 📁 Schemas/
+│   │       │   │   └── 📄 AdsPromotionForm.php
+│   │       │   └── 📁 Tables/
+│   │       │       └── 📄 AdsPromotionsTable.php
+│   │       ├── 📁 Banners/
+│   │       │   ├── 📄 BannerResource.php
+│   │       │   ├── 📁 Pages/
+│   │       │   │   ├── 📄 CreateBanner.php
+│   │       │   │   ├── 📄 EditBanner.php
+│   │       │   │   └── 📄 ListBanners.php
+│   │       │   ├── 📁 Schemas/
+│   │       │   │   └── 📄 BannerForm.php
+│   │       │   └── 📁 Tables/
+│   │       │       └── 📄 BannersTable.php
 │   │       ├── 📁 Bookings/
 │   │       │   ├── 📄 BookingResource.php
 │   │       │   ├── 📁 Pages/
@@ -44,6 +74,7 @@
 │   │               └── 📄 ReportsTable.php
 │   ├── 📁 Http/
 │   │   ├── 📁 Controllers/
+│   │   │   ├── 📄 AdsPackageController.php
 │   │   │   ├── 📁 Auth/
 │   │   │   │   ├── 📄 AuthenticatedSessionController.php
 │   │   │   │   ├── 📄 ConfirmablePasswordController.php
@@ -71,6 +102,9 @@
 │   │       │   └── 📄 LoginRequest.php
 │   │       └── 📄 ProfileUpdateRequest.php
 │   ├── 📁 Models/
+│   │   ├── 📄 AdsPackage.php
+│   │   ├── 📄 AdsPromotion.php
+│   │   ├── 📄 Banner.php
 │   │   ├── 📄 Booking.php
 │   │   ├── 📄 Facility.php
 │   │   ├── 📄 Kost.php
@@ -130,8 +164,10 @@
 │   │   ├── 📄 2026_11_06_110000_create_provinces_and_regencies_tables.php
 │   │   ├── 📄 2026_11_06_111500_create_kosts_and_related_tables.php
 │   │   ├── 📄 2026_11_06_113000_create_bookings_table.php
-│   │   └── 📄 2026_11_06_114500_create_reports_table.php
+│   │   ├── 📄 2026_11_06_114500_create_reports_table.php
+│   │   └── 📄 2026_11_06_120000_create_ads_packages_and_banners_tables.php
 │   └── 📁 seeders/
+│       ├── 📄 AdsPackageSeeder.php
 │       ├── 📄 DatabaseSeeder.php
 │       ├── 📄 FacilitySeeder.php
 │       ├── 📄 KostSeeder.php
@@ -176,7 +212,7 @@
 │   ├── 📄 .htaccess
 │   ├── 📁 build/
 │   │   ├── 📁 assets/
-│   │   │   ├── 📄 app-BGLAmOkh.css
+│   │   │   ├── 📄 app-BZyKdwHX.css
 │   │   │   └── 📄 app-Dr67-uCa.js
 │   │   └── 📄 manifest.json
 │   ├── 📁 css/
@@ -262,6 +298,7 @@
 │   ├── 📁 js/
 │   │   └── 📄 app.js
 │   └── 📁 views/
+│       ├── 📄 ads-packages.blade.php
 │       ├── 📁 auth/
 │       │   ├── 📄 confirm-password.blade.php
 │       │   ├── 📄 forgot-password.blade.php

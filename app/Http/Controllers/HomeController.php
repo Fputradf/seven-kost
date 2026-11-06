@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
 use App\Models\Kost;
 use App\Models\Province;
 use App\Models\Regency;
@@ -15,6 +16,18 @@ class HomeController extends Controller
     public function index(): View
     {
         $provinces = Province::orderBy('name')->get(['id', 'name']);
+
+        // Banner Promo Aktif (BR-11)
+        $banners = Banner::where('is_active', true)
+            ->where(function ($q) {
+                $q->whereNull('starts_at')->orWhere('starts_at', '<=', now());
+            })
+            ->where(function ($q) {
+                $q->whereNull('ends_at')->orWhere('ends_at', '>=', now());
+            })
+            ->latest()
+            ->take(2)
+            ->get();
 
         // Kota Populer untuk kartu shortcut
         $popularCityIds = ['3171', '3471', '3273', '3578', '3573', '5171']; // Jaksel, Kota Yogya, Bandung, Surabaya, Malang, Denpasar
@@ -47,6 +60,6 @@ class HomeController extends Controller
                 ];
             });
 
-        return view('welcome', compact('provinces', 'popularCities', 'featuredKosts'));
+        return view('welcome', compact('provinces', 'popularCities', 'featuredKosts', 'banners'));
     }
 }

@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             WilayahSeeder::class,
             FacilitySeeder::class,
             KostSeeder::class,
+            AdsPackageSeeder::class,
         ]);
     }
 }

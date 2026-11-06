@@ -161,50 +161,70 @@
 
     {{-- SLOT BANNER / PROMO SECTION (BR-11) --}}
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 relative z-20">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {{-- Banner 1: Promo Pemilik --}}
-            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-blue-700 via-indigo-700 to-navy-900 p-6 text-white shadow-lg flex items-center justify-between">
-                <div class="space-y-2 max-w-sm">
-                    <span class="inline-block px-2.5 py-0.5 rounded-full bg-white/20 text-[10px] font-bold tracking-wider uppercase">
-                        Khusus Pemilik Kos
-                    </span>
-                    <h3 class="text-lg font-bold">Pasang Iklan & Dapatkan Lencana Terverifikasi</h3>
-                    <p class="text-xs text-blue-100">Kamar cepat terisi dengan iklan tampil di halaman utama.</p>
-                    <div class="pt-2">
-                        <x-seven-button href="{{ url('/paket-iklan') }}" variant="secondary" size="sm" class="text-xs font-bold text-blue-900">
-                            Lihat Paket Iklan
-                        </x-seven-button>
+        @if(isset($banners) && $banners->count() > 0)
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                @foreach($banners as $banner)
+                    <a href="{{ $banner->target_url ?: '#' }}" class="group relative overflow-hidden rounded-2xl shadow-lg border border-slate-200/50 block aspect-[21/9] sm:aspect-[16/7] bg-slate-900 transition hover:shadow-xl">
+                        <img src="{{ asset('storage/' . $banner->image_path) }}" alt="{{ $banner->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-5">
+                            <div>
+                                <span class="inline-block px-2 py-0.5 rounded-md bg-amber-400 text-slate-950 text-[10px] font-black uppercase tracking-wider mb-1">
+                                    Promosi Khusus
+                                </span>
+                                <h3 class="text-sm sm:text-base font-bold text-white group-hover:text-amber-300 transition-colors">
+                                    {{ $banner->title }}
+                                </h3>
+                            </div>
+                        </div>
+                    </a>
+                @endforeach
+            </div>
+        @else
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {{-- Banner 1: Promo Pemilik --}}
+                <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-blue-700 via-indigo-700 to-navy-900 p-6 text-white shadow-lg flex items-center justify-between">
+                    <div class="space-y-2 max-w-sm">
+                        <span class="inline-block px-2.5 py-0.5 rounded-full bg-white/20 text-[10px] font-bold tracking-wider uppercase">
+                            Khusus Pemilik Kos
+                        </span>
+                        <h3 class="text-lg font-bold">Pasang Iklan & Dapatkan Lencana Terverifikasi</h3>
+                        <p class="text-xs text-blue-100">Kamar cepat terisi dengan iklan tampil di halaman utama.</p>
+                        <div class="pt-2">
+                            <x-seven-button href="{{ url('/paket-iklan') }}" variant="secondary" size="sm" class="text-xs font-bold text-blue-900">
+                                Lihat Paket Iklan
+                            </x-seven-button>
+                        </div>
+                    </div>
+                    <div class="hidden sm:block text-blue-300/40">
+                        <svg class="w-24 h-24 stroke-[1]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
                     </div>
                 </div>
-                <div class="hidden sm:block text-blue-300/40">
-                    <svg class="w-24 h-24 stroke-[1]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                    </svg>
-                </div>
-            </div>
 
-            {{-- Banner 2: Fitur Peta Nasional --}}
-            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-emerald-700 via-teal-800 to-navy-900 p-6 text-white shadow-lg flex items-center justify-between">
-                <div class="space-y-2 max-w-sm">
-                    <span class="inline-block px-2.5 py-0.5 rounded-full bg-white/20 text-[10px] font-bold tracking-wider uppercase">
-                        Fitur Baru
-                    </span>
-                    <h3 class="text-lg font-bold">Eksplorasi Kos Melalui Peta Interaktif</h3>
-                    <p class="text-xs text-emerald-100">Cek radius kos dekat kampus, stasiun krl, atau pusat perkantoran.</p>
-                    <div class="pt-2">
-                        <x-seven-button href="{{ url('/peta') }}" variant="secondary" size="sm" class="text-xs font-bold text-teal-900">
-                            Buka Peta Leaflet
-                        </x-seven-button>
+                {{-- Banner 2: Fitur Peta Nasional --}}
+                <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-emerald-700 via-teal-800 to-navy-900 p-6 text-white shadow-lg flex items-center justify-between">
+                    <div class="space-y-2 max-w-sm">
+                        <span class="inline-block px-2.5 py-0.5 rounded-full bg-white/20 text-[10px] font-bold tracking-wider uppercase">
+                            Fitur Baru
+                        </span>
+                        <h3 class="text-lg font-bold">Eksplorasi Kos Melalui Peta Interaktif</h3>
+                        <p class="text-xs text-emerald-100">Cek radius kos dekat kampus, stasiun krl, atau pusat perkantoran.</p>
+                        <div class="pt-2">
+                            <x-seven-button href="{{ url('/peta') }}" variant="secondary" size="sm" class="text-xs font-bold text-teal-900">
+                                Buka Peta Leaflet
+                            </x-seven-button>
+                        </div>
+                    </div>
+                    <div class="hidden sm:block text-emerald-300/40">
+                        <svg class="w-24 h-24 stroke-[1]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+                            <circle cx="12" cy="9" r="2.5"/>
+                        </svg>
                     </div>
                 </div>
-                <div class="hidden sm:block text-emerald-300/40">
-                    <svg class="w-24 h-24 stroke-[1]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
-                        <circle cx="12" cy="9" r="2.5"/>
-                    </svg>
-                </div>
             </div>
-        </div>
+        @endif
     </section>
 
     {{-- KOS UNGGULAN & REKOMENDASI TERVERIFIKASI --}}
