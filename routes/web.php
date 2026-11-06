@@ -14,6 +14,10 @@ use App\Http\Controllers\SeoWilayahController;
 use App\Http\Controllers\WilayahController;
 use Illuminate\Support\Facades\Route;
 
+// Halaman Legal & Kepatuhan UU PDP (Minggu 4)
+Route::view('/kebijakan-privasi', 'privacy-policy')->name('privacy.policy');
+Route::view('/syarat-ketentuan', 'terms-and-conditions')->name('terms.conditions');
+
 // Halaman Beranda (Landing Page)
 Route::get('/', [HomeController::class, 'index'])->name('home');
 

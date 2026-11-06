@@ -44,11 +44,11 @@
             <div>
                 <h4 class="text-sm font-semibold uppercase tracking-wider text-white mb-4">Bantuan & Legal</h4>
                 <ul class="space-y-2.5 text-sm">
-                    <li><a href="#" class="hover:text-white transition">Pusat Bantuan</a></li>
-                    <li><a href="#" class="hover:text-white transition">Syarat & Ketentuan</a></li>
-                    <li><a href="#" class="hover:text-white transition">Kebijakan Privasi (UU PDP)</a></li>
-                    <li><a href="#" class="hover:text-white transition">Laporkan Pelanggaran</a></li>
-                    <li><a href="https://wa.me/" target="_blank" class="hover:text-white transition">Hubungi Kami (WhatsApp)</a></li>
+                    <li><a href="{{ url('/syarat-ketentuan') }}" class="hover:text-white transition">Syarat & Ketentuan</a></li>
+                    <li><a href="{{ url('/kebijakan-privasi') }}" class="hover:text-white transition">Kebijakan Privasi (UU PDP)</a></li>
+                    <li><a href="{{ url('/sitemap.xml') }}" class="hover:text-white transition">Peta Situs (Sitemap XML)</a></li>
+                    <li><a href="{{ url('/cari') }}" class="hover:text-white transition">Laporkan Pelanggaran</a></li>
+                    <li><a href="https://wa.me/6281234567890?text=Halo%20Admin%20Seven%20Kost" target="_blank" class="hover:text-white transition">Hubungi Kami (WhatsApp)</a></li>
                 </ul>
             </div>
         </div>

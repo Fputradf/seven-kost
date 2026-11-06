@@ -344,6 +344,7 @@
 │       │   │   └── 📄 index.blade.php
 │       │   └── 📁 tenants/
 │       │       └── 📄 index.blade.php
+│       ├── 📄 privacy-policy.blade.php
 │       ├── 📁 profile/
 │       │   ├── 📄 edit.blade.php
 │       │   └── 📁 partials/
@@ -355,6 +356,7 @@
 │       ├── 📄 sitemap.blade.php
 │       ├── 📁 tenant/
 │       │   └── 📄 bookings.blade.php
+│       ├── 📄 terms-and-conditions.blade.php
 │       └── 📄 welcome.blade.php
 ├── 📁 routes/
 │   ├── 📄 auth.php
