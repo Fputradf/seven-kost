@@ -49,3 +49,4 @@ class FacilitySeeder extends Seeder
         }
     }
 }
+

@@ -123,3 +123,4 @@ class KostSeeder extends Seeder
         }
     }
 }
+

@@ -71,8 +71,10 @@ class KostController extends Controller
             'facilities' => 'nullable|array',
             'facilities.*' => 'exists:facilities,id',
 
-            // Foto cover (opsional di MVP tahap ini)
+            // Foto cover & galeri foto
             'cover_image' => 'nullable|image|max:3072', // Max 3MB
+            'photos' => 'nullable|array|max:8',
+            'photos.*' => 'image|max:3072',
         ]);
 
         DB::transaction(function () use ($validated, $request) {
@@ -118,14 +120,30 @@ class KostController extends Controller
             ]);
 
             // 4. Unggah Foto Cover jika ada
+            $order = 0;
             if ($request->hasFile('cover_image')) {
                 $path = $request->file('cover_image')->store('kosts/covers', 'public');
                 KostImage::create([
                     'kost_id' => $kost->id,
                     'file_path' => $path,
                     'is_primary' => true,
-                    'sort_order' => 0,
+                    'sort_order' => $order++,
                 ]);
+            }
+
+            // 5. Unggah Foto Galeri
+            if ($request->hasFile('photos')) {
+                $isFirst = !$request->hasFile('cover_image');
+                foreach ($request->file('photos') as $photo) {
+                    $path = $photo->store('kosts/gallery', 'public');
+                    KostImage::create([
+                        'kost_id' => $kost->id,
+                        'file_path' => $path,
+                        'is_primary' => $isFirst,
+                        'sort_order' => $order++,
+                    ]);
+                    $isFirst = false;
+                }
             }
         });
 
@@ -219,3 +237,4 @@ class KostController extends Controller
         return redirect()->route('owner.kosts.index')->with('success', 'Iklan kos berhasil dihapus.');
     }
 }
+

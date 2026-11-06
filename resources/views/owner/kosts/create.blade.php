@@ -1,5 +1,16 @@
 <x-seven-layout title="Pasang Iklan Kos Baru - Seven Kost">
 
+    @push('styles')
+        {{-- Leaflet Map CSS --}}
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+        <style>
+            .leaflet-container {
+                z-index: 10 !important;
+                border-radius: 1rem;
+            }
+        </style>
+    @endpush
+
     <div class="bg-navy-950 text-white py-10 border-b border-slate-800">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center gap-2 text-xs text-blue-400 font-semibold mb-2">
@@ -11,7 +22,7 @@
                 Formulir Pasang Iklan Kos Nasional
             </h1>
             <p class="text-xs sm:text-sm text-slate-400 mt-1">
-                Lengkapi rincian kos Anda untuk mulai menerima calon penghuni dari seluruh Indonesia.
+                Lengkapi rincian kos Anda, pin lokasi di peta Leaflet, dan unggah foto properti.
             </p>
         </div>
     </div>
@@ -42,6 +53,10 @@
                 regId: '{{ old('regency_id', '') }}',
                 regencies: [],
                 isLoading: false,
+                lat: '{{ old('latitude', -6.2088) }}',
+                lng: '{{ old('longitude', 106.8456) }}',
+                coverPreview: null,
+                galleryPreviews: [],
                 async onProvChange() {
                     this.regId = '';
                     this.regencies = [];
@@ -55,6 +70,23 @@
                     } finally {
                         this.isLoading = false;
                     }
+                },
+                handleCoverPreview(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        this.coverPreview = URL.createObjectURL(file);
+                    }
+                },
+                handleGalleryPreview(e) {
+                    this.galleryPreviews = [];
+                    const files = Array.from(e.target.files);
+                    files.slice(0, 8).forEach(file => {
+                        this.galleryPreviews.push({
+                            name: file.name,
+                            url: URL.createObjectURL(file),
+                            size: (file.size / 1024 / 1024).toFixed(2)
+                        });
+                    });
                 },
                 init() {
                     if (this.provId) {
@@ -76,13 +108,11 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {{-- Nama Kos --}}
                     <div class="md:col-span-2 space-y-1.5">
                         <label class="block text-xs font-bold text-slate-700 uppercase">Nama Kos <span class="text-red-500">*</span></label>
                         <input type="text" name="name" value="{{ old('name') }}" placeholder="Contoh: Kos Melati Residence Eksklusif" required class="w-full text-sm rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5">
                     </div>
 
-                    {{-- Tipe Kos --}}
                     <div class="space-y-1.5">
                         <label class="block text-xs font-bold text-slate-700 uppercase">Tipe Kos <span class="text-red-500">*</span></label>
                         <select name="type" required class="w-full text-sm rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5">
@@ -92,7 +122,6 @@
                         </select>
                     </div>
 
-                    {{-- Skema Sewa --}}
                     <div class="space-y-1.5">
                         <label class="block text-xs font-bold text-slate-700 uppercase">Skema Periode Sewa <span class="text-red-500">*</span></label>
                         <select name="rent_type" required class="w-full text-sm rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5">
@@ -102,26 +131,24 @@
                         </select>
                     </div>
 
-                    {{-- Deskripsi Kos --}}
                     <div class="md:col-span-2 space-y-1.5">
                         <label class="block text-xs font-bold text-slate-700 uppercase">Deskripsi Kos</label>
-                        <textarea name="description" rows="4" placeholder="Ceritakan keunggulan kos, suasana lingkungan, dan kenyamanan hunian..." class="w-full text-sm rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 p-3">{{ old('description') }}</textarea>
+                        <textarea name="description" rows="3" placeholder="Ceritakan keunggulan kos, suasana lingkungan, dan kenyamanan hunian..." class="w-full text-sm rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 p-3">{{ old('description') }}</textarea>
                     </div>
 
-                    {{-- Aturan Kos --}}
                     <div class="md:col-span-2 space-y-1.5">
                         <label class="block text-xs font-bold text-slate-700 uppercase">Peraturan & Ketentuan Kos</label>
-                        <textarea name="rules" rows="3" placeholder="Contoh: Jam malam pukul 23:00 WIB, dilarang merokok di dalam kamar, tamu lawan jenis dilarang masuk kamar..." class="w-full text-sm rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 p-3">{{ old('rules') }}</textarea>
+                        <textarea name="rules" rows="2" placeholder="Contoh: Jam malam tamu pukul 23:00 WIB, dilarang merokok di dalam kamar..." class="w-full text-sm rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 p-3">{{ old('rules') }}</textarea>
                     </div>
                 </div>
             </div>
 
-            {{-- 2. LOKASI KOS (Wilayah Bertingkat) --}}
+            {{-- 2. LOKASI KOS & PETA LEAFLET --}}
             <div class="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-xs space-y-6">
                 <div class="border-b border-slate-100 pb-4">
                     <span class="text-xs font-bold text-blue-600 uppercase tracking-wider block mb-1">Bagian 2</span>
-                    <h2 class="text-lg font-bold text-slate-900">Lokasi & Alamat Kos</h2>
-                    <p class="text-xs text-slate-500">Pilih provinsi dan kabupaten/kota agar kos muncul di pencarian wilayah yang tepat.</p>
+                    <h2 class="text-lg font-bold text-slate-900">Lokasi & Titik Peta Leaflet</h2>
+                    <p class="text-xs text-slate-500">Pilih wilayah administratif dan geser marker pin tepat di lokasi kos Anda.</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -150,74 +177,140 @@
                     {{-- Alamat Lengkap --}}
                     <div class="md:col-span-2 space-y-1.5">
                         <label class="block text-xs font-bold text-slate-700 uppercase">Alamat Lengkap & Patokan <span class="text-red-500">*</span></label>
-                        <textarea name="address" rows="3" placeholder="Nama jalan, nomor rumah, RT/RW, kelurahan, kecamatan, dan patokan dekat lokasi..." required class="w-full text-sm rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 p-3">{{ old('address') }}</textarea>
+                        <textarea name="address" rows="2" placeholder="Nama jalan, nomor rumah, RT/RW, kelurahan, dan patokan dekat lokasi..." required class="w-full text-sm rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 p-3">{{ old('address') }}</textarea>
                     </div>
 
-                    {{-- Titik Koordinat Opsional --}}
-                    <div class="space-y-1.5">
-                        <label class="block text-xs font-bold text-slate-700 uppercase">Latitude (Opsional)</label>
-                        <input type="text" name="latitude" value="{{ old('latitude') }}" placeholder="Contoh: -6.2088" class="w-full text-sm rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5">
-                    </div>
-                    <div class="space-y-1.5">
-                        <label class="block text-xs font-bold text-slate-700 uppercase">Longitude (Opsional)</label>
-                        <input type="text" name="longitude" value="{{ old('longitude') }}" placeholder="Contoh: 106.8456" class="w-full text-sm rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5">
+                    {{-- PETA INTERAKTIF LEAFLET --}}
+                    <div class="md:col-span-2 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <label class="block text-xs font-bold text-slate-700 uppercase">
+                                📍 Pin Lokasi Kos di Peta
+                            </label>
+                            <button type="button" id="btnDetectGps" class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-800 transition">
+                                <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 3.582 8 8 8h1v2a1 1 0 001.707.707L16.414 19H17c4.418 0 8-3.582 8-8 0-5.523-4.477-10-10-10z"/></svg>
+                                Gunakan GPS Saya
+                            </button>
+                        </div>
+
+                        {{-- Leaflet Map Container --}}
+                        <div id="mapPicker" class="h-80 w-full rounded-2xl border border-slate-200 shadow-inner overflow-hidden"></div>
+                        <p class="text-[11px] text-slate-400">
+                            💡 Klik pada peta atau geser (drag) penanda biru untuk menentukan letak koordinat kos yang tepat.
+                        </p>
+
+                        {{-- Koordinat Input Tersembunyi/Readonly --}}
+                        <div class="grid grid-cols-2 gap-4 pt-1">
+                            <div>
+                                <label class="block text-[11px] text-slate-400 font-semibold">Latitude</label>
+                                <input type="text" name="latitude" id="latInput" x-model="lat" readonly class="w-full text-xs bg-slate-50 rounded-xl border-slate-200 py-2 font-mono">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] text-slate-400 font-semibold">Longitude</label>
+                                <input type="text" name="longitude" id="lngInput" x-model="lng" readonly class="w-full text-xs bg-slate-50 rounded-xl border-slate-200 py-2 font-mono">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            {{-- 3. KAMAR & HARGA AWAL --}}
+            {{-- 3. UNGGAH FOTO COVER & GALERI (Multi-Photo Upload + Live Preview) --}}
             <div class="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-xs space-y-6">
                 <div class="border-b border-slate-100 pb-4">
                     <span class="text-xs font-bold text-blue-600 uppercase tracking-wider block mb-1">Bagian 3</span>
+                    <h2 class="text-lg font-bold text-slate-900">Foto & Galeri Properti</h2>
+                    <p class="text-xs text-slate-500">Iklan dengan foto berkualitas 3x lebih cepat diminati calon penghuni.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {{-- Foto Sampul Utama --}}
+                    <div class="space-y-3">
+                        <label class="block text-xs font-bold text-slate-700 uppercase">
+                            Foto Sampul Utama (Cover)
+                        </label>
+                        <div class="border-2 border-dashed border-slate-200 rounded-2xl p-4 text-center hover:border-blue-500 transition relative bg-slate-50/50">
+                            <template x-if="coverPreview">
+                                <div class="relative aspect-video rounded-xl overflow-hidden mb-3">
+                                    <img :src="coverPreview" class="w-full h-full object-cover">
+                                </div>
+                            </template>
+                            <template x-if="!coverPreview">
+                                <div class="py-6 flex flex-col items-center">
+                                    <svg class="w-10 h-10 text-slate-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                    <span class="text-xs font-medium text-slate-600">Pilih foto utama kos</span>
+                                    <span class="text-[10px] text-slate-400 mt-1">PNG, JPG maksimal 3MB</span>
+                                </div>
+                            </template>
+                            <input type="file" name="cover_image" accept="image/*" @change="handleCoverPreview" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full">
+                        </div>
+                    </div>
+
+                    {{-- Multi Galeri Foto --}}
+                    <div class="space-y-3">
+                        <label class="block text-xs font-bold text-slate-700 uppercase">
+                            Galeri Foto Kamar & Lingkungan (Maksimal 8 Foto)
+                        </label>
+                        <div class="border-2 border-dashed border-slate-200 rounded-2xl p-4 text-center hover:border-blue-500 transition relative bg-slate-50/50">
+                            <div class="py-6 flex flex-col items-center">
+                                <svg class="w-10 h-10 text-blue-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v16m8-8H4"/></svg>
+                                <span class="text-xs font-medium text-slate-700">Pilih beberapa foto sekaligus</span>
+                                <span class="text-[10px] text-slate-400 mt-1">Kamar, kamar mandi, dapur, parkiran</span>
+                            </div>
+                            <input type="file" name="photos[]" multiple accept="image/*" @change="handleGalleryPreview" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full">
+                        </div>
+                    </div>
+
+                    {{-- Preview List Galeri --}}
+                    <template x-if="galleryPreviews.length > 0">
+                        <div class="md:col-span-2 pt-2">
+                            <span class="text-xs font-bold text-slate-700 block mb-2">Pratinjau Foto Galeri:</span>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                                <template x-for="(item, idx) in galleryPreviews" :key="idx">
+                                    <div class="relative aspect-square rounded-xl overflow-hidden border border-slate-200 bg-slate-100 shadow-xs">
+                                        <img :src="item.url" class="w-full h-full object-cover">
+                                        <span class="absolute bottom-1 right-1 px-1.5 py-0.5 rounded bg-black/60 text-white text-[9px] font-mono" x-text="item.size + ' MB'"></span>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            {{-- 4. TARIF & KAMAR AWAL --}}
+            <div class="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-xs space-y-6">
+                <div class="border-b border-slate-100 pb-4">
+                    <span class="text-xs font-bold text-blue-600 uppercase tracking-wider block mb-1">Bagian 4</span>
                     <h2 class="text-lg font-bold text-slate-900">Tarif & Kamar Awal</h2>
-                    <p class="text-xs text-slate-500">Tentukan harga dasar dan jumlah kamar yang tersedia.</p>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {{-- Harga Sewa --}}
                     <div class="space-y-1.5">
                         <label class="block text-xs font-bold text-slate-700 uppercase">Harga Sewa / Bulan (Rp) <span class="text-red-500">*</span></label>
                         <input type="number" name="price_start" value="{{ old('price_start', 1000000) }}" min="100000" step="50000" required class="w-full text-sm font-semibold rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5">
                     </div>
 
-                    {{-- Nama Tipe Kamar --}}
                     <div class="space-y-1.5">
                         <label class="block text-xs font-bold text-slate-700 uppercase">Nama Tipe Kamar <span class="text-red-500">*</span></label>
                         <input type="text" name="room_name" value="{{ old('room_name', 'Tipe Standar') }}" required class="w-full text-sm rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5">
                     </div>
 
-                    {{-- Total Kamar --}}
                     <div class="space-y-1.5">
                         <label class="block text-xs font-bold text-slate-700 uppercase">Total Kamar <span class="text-red-500">*</span></label>
                         <input type="number" name="total_rooms" value="{{ old('total_rooms', 5) }}" min="1" required class="w-full text-sm rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5">
                     </div>
 
-                    {{-- Kamar Tersedia --}}
                     <div class="space-y-1.5">
                         <label class="block text-xs font-bold text-slate-700 uppercase">Kamar Kosong / Siap Huni <span class="text-red-500">*</span></label>
                         <input type="number" name="available_rooms" value="{{ old('available_rooms', 2) }}" min="0" required class="w-full text-sm rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5">
                     </div>
-
-                    {{-- Ukuran Kamar --}}
-                    <div class="sm:col-span-2 space-y-1.5">
-                        <label class="block text-xs font-bold text-slate-700 uppercase">Ukuran Kamar (Opsional)</label>
-                        <input type="text" name="room_size" value="{{ old('room_size', '3x4 meter') }}" placeholder="Contoh: 3x4 meter" class="w-full text-sm rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5">
-                    </div>
-
-                    {{-- Foto Cover --}}
-                    <div class="sm:col-span-2 space-y-1.5">
-                        <label class="block text-xs font-bold text-slate-700 uppercase">Foto Cover Utama (JPG, PNG)</label>
-                        <input type="file" name="cover_image" accept="image/*" class="w-full text-xs file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
-                    </div>
                 </div>
             </div>
 
-            {{-- 4. FASILITAS KOS --}}
+            {{-- 5. FASILITAS KOS --}}
             <div class="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-xs space-y-6">
                 <div class="border-b border-slate-100 pb-4">
-                    <span class="text-xs font-bold text-blue-600 uppercase tracking-wider block mb-1">Bagian 4</span>
-                    <h2 class="text-lg font-bold text-slate-900">Fasilitas Kos</h2>
-                    <p class="text-xs text-slate-500">Centang fasilitas yang tersedia di properti kos Anda.</p>
+                    <span class="text-xs font-bold text-blue-600 uppercase tracking-wider block mb-1">Bagian 5</span>
+                    <h2 class="text-lg font-bold text-slate-900">Fasilitas Properti</h2>
                 </div>
 
                 <div class="space-y-6">
@@ -240,7 +333,7 @@
                 </div>
             </div>
 
-            {{-- 5. TOMBOL SIMPAN & SUBMIT --}}
+            {{-- 6. TOMBOL SIMPAN & SUBMIT --}}
             <div class="bg-white rounded-3xl border border-slate-200/80 p-6 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div class="text-xs text-slate-500">
                     * Status <strong>Pending</strong> akan otomatis masuk antrean verifikasi admin untuk mendapatkan Lencana Resmi.
@@ -257,5 +350,69 @@
             </div>
         </form>
     </div>
+
+    @push('scripts')
+        {{-- Leaflet JS --}}
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const initialLat = parseFloat("{{ old('latitude', -6.2088) }}") || -6.2088;
+                const initialLng = parseFloat("{{ old('longitude', 106.8456) }}") || 106.8456;
+
+                // Inisialisasi peta Leaflet
+                const map = L.map('mapPicker').setView([initialLat, initialLng], 13);
+
+                // Tambahkan tile OpenStreetMap
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '© OpenStreetMap contributors'
+                }).addTo(map);
+
+                // Buat Marker yang dapat digeser (Draggable)
+                const marker = L.marker([initialLat, initialLng], {
+                    draggable: true
+                }).addTo(map);
+
+                function updateCoordinates(lat, lng) {
+                    document.getElementById('latInput').value = lat.toFixed(7);
+                    document.getElementById('lngInput').value = lng.toFixed(7);
+                    // Dispatch change event to Alpine.js
+                    document.getElementById('latInput').dispatchEvent(new Event('input'));
+                    document.getElementById('lngInput').dispatchEvent(new Event('input'));
+                }
+
+                // Saat marker digeser
+                marker.on('dragend', function (e) {
+                    const position = marker.getLatLng();
+                    updateCoordinates(position.lat, position.lng);
+                });
+
+                // Saat peta diklik
+                map.on('click', function (e) {
+                    marker.setLatLng(e.latlng);
+                    updateCoordinates(e.latlng.lat, e.latlng.lng);
+                });
+
+                // Tombol Deteksi Lokasi GPS
+                const btnGps = document.getElementById('btnDetectGps');
+                if (btnGps && navigator.geolocation) {
+                    btnGps.addEventListener('click', function () {
+                        btnGps.innerHTML = '<span>Mendeteksi GPS...</span>';
+                        navigator.geolocation.getCurrentPosition(function (pos) {
+                            const lat = pos.coords.latitude;
+                            const lng = pos.coords.longitude;
+                            map.setView([lat, lng], 16);
+                            marker.setLatLng([lat, lng]);
+                            updateCoordinates(lat, lng);
+                            btnGps.innerHTML = '<span class="text-emerald-600">✓ Lokasi Terdeteksi</span>';
+                        }, function (err) {
+                            alert('Gagal mengambil lokasi GPS: ' + err.message);
+                            btnGps.innerHTML = 'Gunakan GPS Saya';
+                        });
+                    });
+                }
+            });
+        </script>
+    @endpush
 
 </x-seven-layout>

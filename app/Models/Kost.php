@@ -117,3 +117,4 @@ class Kost extends Model
         return $this->hasOne(KostImage::class, 'kost_id')->where('is_primary', true);
     }
 }
+

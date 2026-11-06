@@ -30,3 +30,4 @@ class Room extends Model
         return $this->belongsTo(Kost::class, 'kost_id');
     }
 }
+
