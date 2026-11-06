@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\KostDetailController;
 use App\Http\Controllers\Owner\KostController as OwnerKostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
@@ -12,6 +13,9 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Halaman Pencarian & Filter Kos Nasional
 Route::get('/cari', [SearchController::class, 'index'])->name('search');
+
+// Detail Kos Publik
+Route::get('/kos/{slug}', [KostDetailController::class, 'show'])->name('kost.detail');
 
 // API Data Wilayah Dinamis
 Route::get('/api/wilayah/provinces/{province}/regencies', [WilayahController::class, 'getRegenciesByProvince'])->name('api.wilayah.regencies');

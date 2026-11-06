@@ -24,6 +24,7 @@
 │   │   │   │   └── 📄 VerifyEmailController.php
 │   │   │   ├── 📄 Controller.php
 │   │   │   ├── 📄 HomeController.php
+│   │   │   ├── 📄 KostDetailController.php
 │   │   │   ├── 📁 Owner/
 │   │   │   │   └── 📄 KostController.php
 │   │   │   ├── 📄 ProfileController.php
@@ -135,7 +136,7 @@
 │   ├── 📄 .htaccess
 │   ├── 📁 build/
 │   │   ├── 📁 assets/
-│   │   │   ├── 📄 app-Bbfln7_W.css
+│   │   │   ├── 📄 app-BbnR6pwr.css
 │   │   │   └── 📄 app-Dr67-uCa.js
 │   │   └── 📄 manifest.json
 │   ├── 📁 css/
@@ -249,6 +250,7 @@
 │       │   ├── 📄 seven-navbar.blade.php
 │       │   └── 📄 text-input.blade.php
 │       ├── 📄 dashboard.blade.php
+│       ├── 📄 kost-detail.blade.php
 │       ├── 📁 layouts/
 │       │   ├── 📄 app.blade.php
 │       │   ├── 📄 guest.blade.php
@@ -293,6 +295,7 @@
 │   │   └── 📁 views/
 │   │       ├── 📄 .gitignore
 │   │       ├── 📄 0b51b9c94d7dc367e1955c17a1c67fc1.php
+│   │       ├── 📄 139f55eeb4805572ebcdbda37fb1779c.php
 │   │       ├── 📄 21d1e72ad79e89d7ca1c7c5f0c3e06e5.php
 │   │       ├── 📄 236072e513ac5947d40185bda632a33b.php
 │   │       ├── 📄 53fe4c0c657ff4622708f18f3bd438a1.php
