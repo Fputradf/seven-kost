@@ -11,6 +11,8 @@ class SevenLayout extends Component
         public ?string $title = null,
         public ?string $description = null,
         public bool $transparentNavbar = false,
+        public ?string $robots = null,
+        public ?string $canonical = null,
     ) {}
 
     /**

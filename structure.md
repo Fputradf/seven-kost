@@ -96,6 +96,7 @@
 │   │   │   ├── 📄 ProfileController.php
 │   │   │   ├── 📄 ReportController.php
 │   │   │   ├── 📄 SearchController.php
+│   │   │   ├── 📄 SeoWilayahController.php
 │   │   │   └── 📄 WilayahController.php
 │   │   └── 📁 Requests/
 │   │       ├── 📁 Auth/
@@ -350,6 +351,8 @@
 │       │       ├── 📄 update-password-form.blade.php
 │       │       └── 📄 update-profile-information-form.blade.php
 │       ├── 📄 search.blade.php
+│       ├── 📄 seo-wilayah.blade.php
+│       ├── 📄 sitemap.blade.php
 │       ├── 📁 tenant/
 │       │   └── 📄 bookings.blade.php
 │       └── 📄 welcome.blade.php
@@ -378,6 +381,7 @@
 │   │   │   └── 📄 .gitignore
 │   │   └── 📁 views/
 │   │       ├── 📄 .gitignore
+│   │       ├── 📄 0aa06a57fd4fdfad4d66a172c32a0a5f.php
 │   │       ├── 📄 0b51b9c94d7dc367e1955c17a1c67fc1.php
 │   │       ├── 📄 139f55eeb4805572ebcdbda37fb1779c.php
 │   │       ├── 📄 21d1e72ad79e89d7ca1c7c5f0c3e06e5.php
@@ -399,7 +403,8 @@
 │   │       ├── 📄 eea2247c5960730fd4c921f669c14a6f.php
 │   │       ├── 📄 f13f0f9bdae90ae8597d05b0f1adafc8.php
 │   │       ├── 📄 f7ae3b6788dec2445ff93b0168ca22cd.php
-│   │       └── 📄 fe4d7d32b38a3f08ee6c4b0fbe719c47.php
+│   │       ├── 📄 fe4d7d32b38a3f08ee6c4b0fbe719c47.php
+│   │       └── 📄 feb27d2c641e14f3b023ff538c7251fe.php
 │   └── 📁 logs/
 │       ├── 📄 .gitignore
 │       └── 📄 laravel.log

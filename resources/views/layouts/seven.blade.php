@@ -7,6 +7,10 @@
 
     <title>{{ $title ?? 'Seven Kost - Cari & Sewa Kos Amanah Seluruh Indonesia' }}</title>
     <meta name="description" content="{{ $description ?? 'Platform pencarian kos terlengkap dan terverifikasi di seluruh Indonesia dengan peta interaktif dan kemudahan sewa kos langsung ke pemilik.' }}">
+    <meta name="robots" content="{{ $robots ?? 'index, follow' }}">
+    @if(isset($canonical) && $canonical)
+        <link rel="canonical" href="{{ $canonical }}">
+    @endif
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -16,6 +20,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     @stack('styles')
+    @stack('head')
 </head>
 <body class="font-sans antialiased bg-slate-50 text-slate-800 min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
     <x-seven-navbar :transparent="$transparentNavbar ?? false" />

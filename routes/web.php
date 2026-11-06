@@ -10,6 +10,7 @@ use App\Http\Controllers\Owner\RoomTenantController as OwnerRoomTenantController
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\SeoWilayahController;
 use App\Http\Controllers\WilayahController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,12 @@ Route::get('/peta', [MapController::class, 'index'])->name('map');
 
 // Paket Iklan Unggulan (Monetisasi BR-10, BR-15)
 Route::get('/paket-iklan', [AdsPackageController::class, 'index'])->name('ads.packages.index');
+
+// Sitemap XML untuk Search Engine Crawler (BR-19)
+Route::get('/sitemap.xml', [SeoWilayahController::class, 'sitemap'])->name('sitemap');
+
+// Halaman Landing SEO Regional per Wilayah (BR-19: /kos/{provinsi}/{kota})
+Route::get('/kos/{provinsi}/{kota}', [SeoWilayahController::class, 'show'])->name('seo.wilayah');
 
 // Detail Kos Publik
 Route::get('/kos/{slug}', [KostDetailController::class, 'show'])->name('kost.detail');
