@@ -7,6 +7,7 @@ use App\Http\Controllers\MapController;
 use App\Http\Controllers\Owner\KostController as OwnerKostController;
 use App\Http\Controllers\Owner\RoomTenantController as OwnerRoomTenantController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\WilayahController;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,9 @@ Route::get('/peta', [MapController::class, 'index'])->name('map');
 
 // Detail Kos Publik
 Route::get('/kos/{slug}', [KostDetailController::class, 'show'])->name('kost.detail');
+
+// Laporkan Pelanggaran Iklan Kos
+Route::post('/kos/{kost}/lapor', [ReportController::class, 'store'])->name('kost.report');
 
 // API Data Wilayah Dinamis
 Route::get('/api/wilayah/provinces/{province}/regencies', [WilayahController::class, 'getRegenciesByProvince'])->name('api.wilayah.regencies');

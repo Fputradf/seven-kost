@@ -22,16 +22,26 @@
 │   │       │   │   └── 📄 BookingForm.php
 │   │       │   └── 📁 Tables/
 │   │       │       └── 📄 BookingsTable.php
-│   │       └── 📁 Kosts/
-│   │           ├── 📄 KostResource.php
+│   │       ├── 📁 Kosts/
+│   │       │   ├── 📄 KostResource.php
+│   │       │   ├── 📁 Pages/
+│   │       │   │   ├── 📄 CreateKost.php
+│   │       │   │   ├── 📄 EditKost.php
+│   │       │   │   └── 📄 ListKosts.php
+│   │       │   ├── 📁 Schemas/
+│   │       │   │   └── 📄 KostForm.php
+│   │       │   └── 📁 Tables/
+│   │       │       └── 📄 KostsTable.php
+│   │       └── 📁 Reports/
 │   │           ├── 📁 Pages/
-│   │           │   ├── 📄 CreateKost.php
-│   │           │   ├── 📄 EditKost.php
-│   │           │   └── 📄 ListKosts.php
+│   │           │   ├── 📄 CreateReport.php
+│   │           │   ├── 📄 EditReport.php
+│   │           │   └── 📄 ListReports.php
+│   │           ├── 📄 ReportResource.php
 │   │           ├── 📁 Schemas/
-│   │           │   └── 📄 KostForm.php
+│   │           │   └── 📄 ReportForm.php
 │   │           └── 📁 Tables/
-│   │               └── 📄 KostsTable.php
+│   │               └── 📄 ReportsTable.php
 │   ├── 📁 Http/
 │   │   ├── 📁 Controllers/
 │   │   │   ├── 📁 Auth/
@@ -53,6 +63,7 @@
 │   │   │   │   ├── 📄 KostController.php
 │   │   │   │   └── 📄 RoomTenantController.php
 │   │   │   ├── 📄 ProfileController.php
+│   │   │   ├── 📄 ReportController.php
 │   │   │   ├── 📄 SearchController.php
 │   │   │   └── 📄 WilayahController.php
 │   │   └── 📁 Requests/
@@ -66,6 +77,7 @@
 │   │   ├── 📄 KostImage.php
 │   │   ├── 📄 Province.php
 │   │   ├── 📄 Regency.php
+│   │   ├── 📄 Report.php
 │   │   ├── 📄 Room.php
 │   │   └── 📄 User.php
 │   ├── 📁 Providers/
@@ -117,7 +129,8 @@
 │   │   ├── 📄 2026_11_06_105000_add_phone_and_avatar_to_users_table.php
 │   │   ├── 📄 2026_11_06_110000_create_provinces_and_regencies_tables.php
 │   │   ├── 📄 2026_11_06_111500_create_kosts_and_related_tables.php
-│   │   └── 📄 2026_11_06_113000_create_bookings_table.php
+│   │   ├── 📄 2026_11_06_113000_create_bookings_table.php
+│   │   └── 📄 2026_11_06_114500_create_reports_table.php
 │   └── 📁 seeders/
 │       ├── 📄 DatabaseSeeder.php
 │       ├── 📄 FacilitySeeder.php

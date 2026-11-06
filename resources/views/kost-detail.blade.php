@@ -26,7 +26,7 @@
     </div>
 
     {{-- Main Container --}}
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" x-data="{ activeImageModal: null, bookingModalOpen: false, selectedRoomPrice: {{ $kost->rooms->first()->price ?? $kost->price_start }}, durationMonths: 1 }">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" x-data="{ activeImageModal: null, bookingModalOpen: false, reportModalOpen: false, selectedRoomPrice: {{ $kost->rooms->first()->price ?? $kost->price_start }}, durationMonths: 1 }">
 
         {{-- PHOTO GALLERY SECTION --}}
         <div class="mb-8">
@@ -267,6 +267,12 @@
                             <svg class="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
                             <span>Data kontak terverifikasi tim Seven Kost</span>
                         </div>
+                        <div class="pt-2 border-t border-slate-100 flex justify-center">
+                            <button @click="reportModalOpen = true" type="button" class="text-[11px] text-red-500 hover:text-red-700 hover:underline flex items-center gap-1 font-semibold">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                                Laporkan Pelanggaran Iklan Ini
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -392,6 +398,52 @@
                 </div>
             </div>
         @endauth
+
+        {{-- REPORT MODAL --}}
+        <div x-show="reportModalOpen" x-transition.opacity class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4" style="display: none;">
+            <div @click.outside="reportModalOpen = false" class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl space-y-5 text-slate-800">
+                <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                    <div class="flex items-center gap-2">
+                        <div class="h-8 w-8 rounded-full bg-red-100 text-red-600 flex items-center justify-center">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                        </div>
+                        <h3 class="font-bold text-sm text-slate-900">Laporkan Iklan Ini</h3>
+                    </div>
+                    <button @click="reportModalOpen = false" class="text-slate-400 hover:text-slate-700">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+
+                <form action="{{ route('kost.report', $kost) }}" method="POST" class="space-y-4">
+                    @csrf
+                    <div class="space-y-1">
+                        <label class="block text-xs font-bold text-slate-700 uppercase">Alasan Pelaporan <span class="text-red-500">*</span></label>
+                        <select name="reason" required class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-red-500 focus:ring-red-500 py-2.5">
+                            <option value="Penipuan / Iklan Palsu">Penipuan / Iklan Palsu</option>
+                            <option value="Foto Tidak Sesuai Realita">Foto Tidak Sesuai Realita</option>
+                            <option value="Harga Berbeda di Lapangan">Harga Berbeda di Lapangan</option>
+                            <option value="Kos Sudah Penuh / Tidak Beroperasi">Kos Sudah Penuh / Tidak Beroperasi</option>
+                            <option value="Kontak Pemilik Fiktif">Kontak Pemilik Fiktif</option>
+                            <option value="Lainnya">Alasan Lainnya</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-1">
+                        <label class="block text-xs font-bold text-slate-700 uppercase">Rincian Tambahan</label>
+                        <textarea name="details" rows="3" placeholder="Ceritakan rincian kecurigaan atau keluhan Anda secara objektif..." class="w-full text-xs rounded-xl border-slate-200 p-2.5"></textarea>
+                    </div>
+
+                    <div class="pt-2 flex gap-2">
+                        <button type="button" @click="reportModalOpen = false" class="flex-1 py-2 rounded-xl border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50">
+                            Batal
+                        </button>
+                        <button type="submit" class="flex-1 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold shadow-md shadow-red-500/20">
+                            Kirim Laporan
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
     </div>
 
