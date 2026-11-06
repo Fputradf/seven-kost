@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KostDetailController;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\Owner\KostController as OwnerKostController;
+use App\Http\Controllers\Owner\RoomTenantController as OwnerRoomTenantController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\WilayahController;
@@ -32,6 +33,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/iklan/{kost}/edit', [OwnerKostController::class, 'edit'])->name('owner.kosts.edit');
     Route::put('/iklan/{kost}', [OwnerKostController::class, 'update'])->name('owner.kosts.update');
     Route::delete('/iklan/{kost}', [OwnerKostController::class, 'destroy'])->name('owner.kosts.destroy');
+
+    // Kelola Kamar & Penyewa (Minggu 2 Hari 6)
+    Route::get('/owner/kosts/{kost}/rooms', [OwnerRoomTenantController::class, 'rooms'])->name('owner.rooms.index');
+    Route::post('/owner/kosts/{kost}/rooms', [OwnerRoomTenantController::class, 'storeRoom'])->name('owner.rooms.store');
+    Route::delete('/owner/kosts/{kost}/rooms/{room}', [OwnerRoomTenantController::class, 'destroyRoom'])->name('owner.rooms.destroy');
+    Route::get('/owner/penyewa', [OwnerRoomTenantController::class, 'tenants'])->name('owner.tenants.index');
+    Route::patch('/owner/bookings/{booking}/status', [OwnerRoomTenantController::class, 'updateBookingStatus'])->name('owner.bookings.updateStatus');
 });
 
 Route::get('/dashboard', function () {

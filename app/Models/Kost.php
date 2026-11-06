@@ -110,6 +110,14 @@ class Kost extends Model
     }
 
     /**
+     * Data booking sewa kos.
+     */
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class, 'kost_id');
+    }
+
+    /**
      * Foto utama / cover kos.
      */
     public function primaryImage()

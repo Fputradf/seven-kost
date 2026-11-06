@@ -29,5 +29,10 @@ class Room extends Model
     {
         return $this->belongsTo(Kost::class, 'kost_id');
     }
+
+    public function bookings(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Booking::class, 'room_id');
+    }
 }
 
