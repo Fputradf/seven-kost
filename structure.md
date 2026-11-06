@@ -91,6 +91,7 @@
 │   │       └── 📄 .gitignore
 │   └── 📁 logs/
 │       └── 📄 .gitignore
+├── 📄 structure.md
 ├── 📁 tests/
 │   ├── 📁 Feature/
 │   │   └── 📄 ExampleTest.php
