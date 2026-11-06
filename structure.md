@@ -10,6 +10,28 @@
 ├── 📄 .npmrc
 ├── 📄 AGENTS.md
 ├── 📁 app/
+│   ├── 📁 Filament/
+│   │   └── 📁 Resources/
+│   │       ├── 📁 Bookings/
+│   │       │   ├── 📄 BookingResource.php
+│   │       │   ├── 📁 Pages/
+│   │       │   │   ├── 📄 CreateBooking.php
+│   │       │   │   ├── 📄 EditBooking.php
+│   │       │   │   └── 📄 ListBookings.php
+│   │       │   ├── 📁 Schemas/
+│   │       │   │   └── 📄 BookingForm.php
+│   │       │   └── 📁 Tables/
+│   │       │       └── 📄 BookingsTable.php
+│   │       └── 📁 Kosts/
+│   │           ├── 📄 KostResource.php
+│   │           ├── 📁 Pages/
+│   │           │   ├── 📄 CreateKost.php
+│   │           │   ├── 📄 EditKost.php
+│   │           │   └── 📄 ListKosts.php
+│   │           ├── 📁 Schemas/
+│   │           │   └── 📄 KostForm.php
+│   │           └── 📁 Tables/
+│   │               └── 📄 KostsTable.php
 │   ├── 📁 Http/
 │   │   ├── 📁 Controllers/
 │   │   │   ├── 📁 Auth/
