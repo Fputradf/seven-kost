@@ -1,11 +1,15 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WilayahController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Halaman Beranda (Landing Page)
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+// API Data Wilayah Dinamis
+Route::get('/api/wilayah/provinces/{province}/regencies', [WilayahController::class, 'getRegenciesByProvince'])->name('api.wilayah.regencies');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

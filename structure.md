@@ -23,7 +23,9 @@
 │   │   │   │   ├── 📄 RegisteredUserController.php
 │   │   │   │   └── 📄 VerifyEmailController.php
 │   │   │   ├── 📄 Controller.php
-│   │   │   └── 📄 ProfileController.php
+│   │   │   ├── 📄 HomeController.php
+│   │   │   ├── 📄 ProfileController.php
+│   │   │   └── 📄 WilayahController.php
 │   │   └── 📁 Requests/
 │   │       ├── 📁 Auth/
 │   │       │   └── 📄 LoginRequest.php
@@ -39,7 +41,8 @@
 │   └── 📁 View/
 │       └── 📁 Components/
 │           ├── 📄 AppLayout.php
-│           └── 📄 GuestLayout.php
+│           ├── 📄 GuestLayout.php
+│           └── 📄 SevenLayout.php
 ├── 📄 artisan
 ├── 📁 bootstrap/
 │   ├── 📄 app.php
@@ -271,7 +274,15 @@
 │   │   ├── 📁 testing/
 │   │   │   └── 📄 .gitignore
 │   │   └── 📁 views/
-│   │       └── 📄 .gitignore
+│   │       ├── 📄 .gitignore
+│   │       ├── 📄 0b51b9c94d7dc367e1955c17a1c67fc1.php
+│   │       ├── 📄 53fe4c0c657ff4622708f18f3bd438a1.php
+│   │       ├── 📄 61e26aed2b463b1f2684633871801f0b.php
+│   │       ├── 📄 68bd94e7fa4f514ea9fcf1b9721d97f3.php
+│   │       ├── 📄 e947292da1ff13b0375fcd9dd91cc244.php
+│   │       ├── 📄 eea2247c5960730fd4c921f669c14a6f.php
+│   │       ├── 📄 f13f0f9bdae90ae8597d05b0f1adafc8.php
+│   │       └── 📄 f7ae3b6788dec2445ff93b0168ca22cd.php
 │   └── 📁 logs/
 │       ├── 📄 .gitignore
 │       └── 📄 laravel.log
