@@ -25,6 +25,7 @@
 │   │   │   ├── 📄 Controller.php
 │   │   │   ├── 📄 HomeController.php
 │   │   │   ├── 📄 KostDetailController.php
+│   │   │   ├── 📄 MapController.php
 │   │   │   ├── 📁 Owner/
 │   │   │   │   └── 📄 KostController.php
 │   │   │   ├── 📄 ProfileController.php
@@ -256,6 +257,7 @@
 │       │   ├── 📄 guest.blade.php
 │       │   ├── 📄 navigation.blade.php
 │       │   └── 📄 seven.blade.php
+│       ├── 📄 map-search.blade.php
 │       ├── 📁 owner/
 │       │   └── 📁 kosts/
 │       │       ├── 📄 create.blade.php
@@ -309,6 +311,7 @@
 │   │       ├── 📄 9d3ab3a73f095965e6dd09e352bb4e0b.php
 │   │       ├── 📄 d45a3ed121c1dd7770205830287f9336.php
 │   │       ├── 📄 d5cfc8f84c45255b3b888918b76ce252.php
+│   │       ├── 📄 d9fc96f0667c74fa2a362f962932da39.php
 │   │       ├── 📄 e947292da1ff13b0375fcd9dd91cc244.php
 │   │       ├── 📄 eea2247c5960730fd4c921f669c14a6f.php
 │   │       ├── 📄 f13f0f9bdae90ae8597d05b0f1adafc8.php

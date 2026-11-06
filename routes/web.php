@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KostDetailController;
+use App\Http\Controllers\MapController;
 use App\Http\Controllers\Owner\KostController as OwnerKostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
@@ -13,6 +14,9 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Halaman Pencarian & Filter Kos Nasional
 Route::get('/cari', [SearchController::class, 'index'])->name('search');
+
+// Peta Pencarian Nasional (Leaflet + Marker Cluster)
+Route::get('/peta', [MapController::class, 'index'])->name('map');
 
 // Detail Kos Publik
 Route::get('/kos/{slug}', [KostDetailController::class, 'show'])->name('kost.detail');
