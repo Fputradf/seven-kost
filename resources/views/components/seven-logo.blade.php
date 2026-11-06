@@ -22,3 +22,4 @@
         <span class="text-[9px] font-medium tracking-wider text-slate-400 uppercase mt-0.5">Platform Kos Nasional</span>
     </div>
 </div>
+
