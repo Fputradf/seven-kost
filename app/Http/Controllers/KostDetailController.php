@@ -35,3 +35,4 @@ class KostDetailController extends Controller
         return view('kost-detail', compact('kost', 'similarKosts'));
     }
 }
+

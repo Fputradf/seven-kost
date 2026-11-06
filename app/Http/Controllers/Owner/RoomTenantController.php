@@ -104,3 +104,4 @@ class RoomTenantController extends Controller
         return back()->with('success', 'Status pengajuan sewa berhasil diperbarui menjadi ' . ucfirst($newStatus));
     }
 }
+

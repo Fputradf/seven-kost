@@ -41,3 +41,4 @@ class AdsPackageSeeder extends Seeder
         }
     }
 }
+

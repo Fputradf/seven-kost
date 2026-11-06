@@ -71,3 +71,4 @@ class MapController extends Controller
         ));
     }
 }
+

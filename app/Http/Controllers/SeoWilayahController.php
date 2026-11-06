@@ -153,3 +153,4 @@ class SeoWilayahController extends Controller
             ->header('Content-Type', 'text/xml');
     }
 }
+

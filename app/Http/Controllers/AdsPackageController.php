@@ -49,3 +49,4 @@ class AdsPackageController extends Controller
             ->with('success', 'Pesanan paket iklan unggulan berhasil dikirim! Admin akan memeriksa bukti transfer dan mengaktifkan status unggulan kos Anda.');
     }
 }
+

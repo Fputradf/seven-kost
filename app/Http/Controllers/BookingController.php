@@ -82,3 +82,4 @@ class BookingController extends Controller
         return back()->with('error', 'Pengajuan sewa ini tidak dapat dibatalkan secara sepihak.');
     }
 }
+

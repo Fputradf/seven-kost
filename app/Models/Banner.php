@@ -33,3 +33,4 @@ class Banner extends Model
         return $this->belongsTo(Regency::class, 'regency_id');
     }
 }
+

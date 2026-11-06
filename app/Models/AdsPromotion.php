@@ -35,3 +35,4 @@ class AdsPromotion extends Model
         return $this->belongsTo(AdsPackage::class, 'ads_package_id');
     }
 }
+
