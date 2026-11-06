@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KostDetailController;
 use App\Http\Controllers\MapController;
@@ -25,8 +26,14 @@ Route::get('/kos/{slug}', [KostDetailController::class, 'show'])->name('kost.det
 // API Data Wilayah Dinamis
 Route::get('/api/wilayah/provinces/{province}/regencies', [WilayahController::class, 'getRegenciesByProvince'])->name('api.wilayah.regencies');
 
-// Rute Pemilik Kos (Memerlukan Login)
+// Rute Penghuni & Pemilik (Memerlukan Login)
 Route::middleware('auth')->group(function () {
+    // Alur Booking Sewa (Minggu 3 Hari 1)
+    Route::post('/kos/{kost}/booking', [BookingController::class, 'store'])->name('tenant.bookings.store');
+    Route::get('/penghuni/booking-saya', [BookingController::class, 'myBookings'])->name('tenant.bookings.index');
+    Route::delete('/penghuni/booking/{booking}/batal', [BookingController::class, 'cancel'])->name('tenant.bookings.cancel');
+
+    // Kelola Iklan Pemilik
     Route::get('/iklan/kelola', [OwnerKostController::class, 'index'])->name('owner.kosts.index');
     Route::get('/iklan/buat', [OwnerKostController::class, 'create'])->name('owner.kosts.create');
     Route::post('/iklan', [OwnerKostController::class, 'store'])->name('owner.kosts.store');

@@ -26,7 +26,7 @@
     </div>
 
     {{-- Main Container --}}
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" x-data="{ activeImageModal: null }">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" x-data="{ activeImageModal: null, bookingModalOpen: false, selectedRoomPrice: {{ $kost->rooms->first()->price ?? $kost->price_start }}, durationMonths: 1 }">
 
         {{-- PHOTO GALLERY SECTION --}}
         <div class="mb-8">
@@ -246,9 +246,15 @@
                             Hubungi Pemilik via WA
                         </x-seven-button>
 
-                        <x-seven-button href="#" variant="navy" size="md" class="w-full justify-center">
-                            Ajukan Booking Sewa
-                        </x-seven-button>
+                        @auth
+                            <button @click="bookingModalOpen = true" type="button" class="w-full inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 active:scale-[0.98] text-sm px-4.5 py-2.5 bg-navy-950 hover:bg-slate-900 text-white shadow-md shadow-navy-950/20 border border-slate-800">
+                                Ajukan Booking Sewa
+                            </button>
+                        @else
+                            <a href="{{ route('login') }}" class="w-full inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 active:scale-[0.98] text-sm px-4.5 py-2.5 bg-navy-950 hover:bg-slate-900 text-white shadow-md shadow-navy-950/20 border border-slate-800">
+                                Masuk untuk Booking
+                            </a>
+                        @endauth
                     </div>
 
                     {{-- Card Keamanan --}}
@@ -313,6 +319,79 @@
                 </div>
             </div>
         @endif
+
+        {{-- BOOKING MODAL --}}
+        @auth
+            <div x-show="bookingModalOpen" x-transition.opacity class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4" style="display: none;">
+                <div @click.outside="bookingModalOpen = false" class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl space-y-6 text-slate-800">
+                    <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+                        <div>
+                            <span class="text-xs font-bold text-blue-600 uppercase">Pengajuan Sewa</span>
+                            <h3 class="text-lg font-black text-slate-900 mt-0.5">Booking {{ $kost->name }}</h3>
+                        </div>
+                        <button @click="bookingModalOpen = false" class="text-slate-400 hover:text-slate-700">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                        </button>
+                    </div>
+
+                    <form action="{{ route('tenant.bookings.store', $kost) }}" method="POST" class="space-y-4">
+                        @csrf
+                        {{-- Pilih Kamar --}}
+                        <div class="space-y-1">
+                            <label class="block text-xs font-bold text-slate-700 uppercase">Pilih Tipe Kamar</label>
+                            <select name="room_id" required @change="selectedRoomPrice = $event.target.selectedOptions[0].dataset.price" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5">
+                                @foreach($kost->rooms as $rm)
+                                    <option value="{{ $rm->id }}" data-price="{{ $rm->price }}" {{ $rm->available_rooms <= 0 ? 'disabled' : '' }}>
+                                        {{ $rm->name }} (Rp {{ number_format($rm->price, 0, ',', '.') }}/bln) - {{ $rm->available_rooms > 0 ? "Sisa {$rm->available_rooms} kamar" : 'Penuh' }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        {{-- Tanggal Masuk & Durasi --}}
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="space-y-1">
+                                <label class="block text-xs font-bold text-slate-700 uppercase">Tanggal Masuk</label>
+                                <input type="date" name="start_date" value="{{ date('Y-m-d') }}" min="{{ date('Y-m-d') }}" required class="w-full text-xs rounded-xl border-slate-200 py-2">
+                            </div>
+                            <div class="space-y-1">
+                                <label class="block text-xs font-bold text-slate-700 uppercase">Durasi Sewa</label>
+                                <select name="duration_months" x-model.number="durationMonths" required class="w-full text-xs rounded-xl border-slate-200 py-2">
+                                    <option value="1">1 Bulan</option>
+                                    <option value="3">3 Bulan</option>
+                                    <option value="6">6 Bulan</option>
+                                    <option value="12">1 Tahun (12 Bln)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        {{-- Catatan Tambahan --}}
+                        <div class="space-y-1">
+                            <label class="block text-xs font-bold text-slate-700 uppercase">Catatan ke Pemilik (Opsional)</label>
+                            <textarea name="notes" rows="2" placeholder="Contoh: Bawa kendaraan motor, rencana pindah tanggal..." class="w-full text-xs rounded-xl border-slate-200 p-2.5"></textarea>
+                        </div>
+
+                        {{-- Ringkasan Biaya --}}
+                        <div class="p-4 rounded-2xl bg-blue-50/60 border border-blue-100 flex items-center justify-between">
+                            <div>
+                                <span class="text-xs text-slate-500 block">Estimasi Total Biaya:</span>
+                                <strong class="text-base font-black text-blue-700" x-text="'Rp ' + (selectedRoomPrice * durationMonths).toLocaleString('id-ID')"></strong>
+                            </div>
+                            <span class="text-[10px] text-slate-400 font-medium">Bayar langsung ke pemilik</span>
+                        </div>
+
+                        <div class="pt-2 flex gap-2">
+                            <button type="button" @click="bookingModalOpen = false" class="flex-1 py-2.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50">
+                                Batal
+                            </button>
+                            <button type="submit" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-bold shadow-md shadow-blue-500/20">
+                                Kirim Pengajuan Booking
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        @endauth
 
     </div>
 

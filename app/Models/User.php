@@ -30,6 +30,14 @@ class User extends Authenticatable implements FilamentUser
     }
 
     /**
+     * Booking yang diajukan oleh user (penghuni).
+     */
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class, 'user_id');
+    }
+
+    /**
      * Tentukan akses ke Filament Admin Panel.
      * Hanya pengguna dengan peran 'superadmin' atau 'admin' yang dapat mengakses panel.
      */
