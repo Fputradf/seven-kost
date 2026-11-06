@@ -122,7 +122,7 @@
 │   ├── 📄 .htaccess
 │   ├── 📁 build/
 │   │   ├── 📁 assets/
-│   │   │   ├── 📄 app-DciKFhTV.css
+│   │   │   ├── 📄 app-DgI8jEDV.css
 │   │   │   └── 📄 app-Dr67-uCa.js
 │   │   └── 📄 manifest.json
 │   ├── 📁 css/
@@ -222,17 +222,24 @@
 │       │   ├── 📄 dropdown.blade.php
 │       │   ├── 📄 input-error.blade.php
 │       │   ├── 📄 input-label.blade.php
+│       │   ├── 📄 kost-card.blade.php
 │       │   ├── 📄 modal.blade.php
 │       │   ├── 📄 nav-link.blade.php
 │       │   ├── 📄 primary-button.blade.php
 │       │   ├── 📄 responsive-nav-link.blade.php
 │       │   ├── 📄 secondary-button.blade.php
+│       │   ├── 📄 seven-badge.blade.php
+│       │   ├── 📄 seven-button.blade.php
+│       │   ├── 📄 seven-footer.blade.php
+│       │   ├── 📄 seven-logo.blade.php
+│       │   ├── 📄 seven-navbar.blade.php
 │       │   └── 📄 text-input.blade.php
 │       ├── 📄 dashboard.blade.php
 │       ├── 📁 layouts/
 │       │   ├── 📄 app.blade.php
 │       │   ├── 📄 guest.blade.php
-│       │   └── 📄 navigation.blade.php
+│       │   ├── 📄 navigation.blade.php
+│       │   └── 📄 seven.blade.php
 │       ├── 📁 profile/
 │       │   ├── 📄 edit.blade.php
 │       │   └── 📁 partials/
