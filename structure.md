@@ -29,6 +29,8 @@
 │   │       │   └── 📄 LoginRequest.php
 │   │       └── 📄 ProfileUpdateRequest.php
 │   ├── 📁 Models/
+│   │   ├── 📄 Province.php
+│   │   ├── 📄 Regency.php
 │   │   └── 📄 User.php
 │   ├── 📁 Providers/
 │   │   ├── 📄 AppServiceProvider.php
@@ -64,6 +66,9 @@
 │   └── 📄 session.php
 ├── 📁 database/
 │   ├── 📄 .gitignore
+│   ├── 📁 data/
+│   │   ├── 📄 provinces.json
+│   │   └── 📄 regencies.json
 │   ├── 📄 database.sqlite
 │   ├── 📁 factories/
 │   │   └── 📄 UserFactory.php
@@ -71,9 +76,13 @@
 │   │   ├── 📄 0001_01_01_000000_create_users_table.php
 │   │   ├── 📄 0001_01_01_000001_create_cache_table.php
 │   │   ├── 📄 0001_01_01_000002_create_jobs_table.php
-│   │   └── 📄 2026_11_06_101625_create_permission_tables.php
+│   │   ├── 📄 2026_11_06_101625_create_permission_tables.php
+│   │   ├── 📄 2026_11_06_105000_add_phone_and_avatar_to_users_table.php
+│   │   └── 📄 2026_11_06_110000_create_provinces_and_regencies_tables.php
 │   └── 📁 seeders/
-│       └── 📄 DatabaseSeeder.php
+│       ├── 📄 DatabaseSeeder.php
+│       ├── 📄 RolePermissionSeeder.php
+│       └── 📄 WilayahSeeder.php
 ├── 📁 Desain Aplikasi Seven Kos/
 │   ├── 📄 Alur Login Platform Kos Nasional.png
 │   ├── 📄 Beranda Marketplace Kos Nasional.png
@@ -103,6 +112,7 @@
 │   ├── 📄 Platform Kos Nasional_ Cari Kos di Jakarta.png
 │   ├── 📄 Profil KosNusantara Fajar Putra.png
 │   └── 📄 Tampilan Detail Kos Melati Residence.png
+├── 📄 ERD.md
 ├── 📄 Jadwal_dan_Tools_Seven_Kost.md
 ├── 📄 package-lock.json
 ├── 📄 package.json
@@ -132,6 +142,9 @@
 │   │               ├── 📄 inter-latin-ext-wght-normal-ZIT2UBIY.woff2
 │   │               ├── 📄 inter-latin-wght-normal-DIHYUR35.woff2
 │   │               └── 📄 inter-vietnamese-wght-normal-VWEHJHBA.woff2
+│   ├── 📁 geo/
+│   │   └── 📁 provinsi/
+│   │       └── 📄 README.md
 │   ├── 📄 index.php
 │   ├── 📁 js/
 │   │   └── 📁 filament/
