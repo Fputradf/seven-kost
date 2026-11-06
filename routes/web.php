@@ -2,11 +2,15 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\WilayahController;
 use Illuminate\Support\Facades\Route;
 
 // Halaman Beranda (Landing Page)
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+// Halaman Pencarian & Filter Kos Nasional
+Route::get('/cari', [SearchController::class, 'index'])->name('search');
 
 // API Data Wilayah Dinamis
 Route::get('/api/wilayah/provinces/{province}/regencies', [WilayahController::class, 'getRegenciesByProvince'])->name('api.wilayah.regencies');

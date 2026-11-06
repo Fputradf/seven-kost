@@ -20,3 +20,4 @@ class WilayahController extends Controller
         return response()->json($regencies);
     }
 }
+
