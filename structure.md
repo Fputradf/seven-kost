@@ -11,12 +11,33 @@
 ├── 📄 AGENTS.md
 ├── 📁 app/
 │   ├── 📁 Http/
-│   │   └── 📁 Controllers/
-│   │       └── 📄 Controller.php
+│   │   ├── 📁 Controllers/
+│   │   │   ├── 📁 Auth/
+│   │   │   │   ├── 📄 AuthenticatedSessionController.php
+│   │   │   │   ├── 📄 ConfirmablePasswordController.php
+│   │   │   │   ├── 📄 EmailVerificationNotificationController.php
+│   │   │   │   ├── 📄 EmailVerificationPromptController.php
+│   │   │   │   ├── 📄 NewPasswordController.php
+│   │   │   │   ├── 📄 PasswordController.php
+│   │   │   │   ├── 📄 PasswordResetLinkController.php
+│   │   │   │   ├── 📄 RegisteredUserController.php
+│   │   │   │   └── 📄 VerifyEmailController.php
+│   │   │   ├── 📄 Controller.php
+│   │   │   └── 📄 ProfileController.php
+│   │   └── 📁 Requests/
+│   │       ├── 📁 Auth/
+│   │       │   └── 📄 LoginRequest.php
+│   │       └── 📄 ProfileUpdateRequest.php
 │   ├── 📁 Models/
 │   │   └── 📄 User.php
-│   └── 📁 Providers/
-│       └── 📄 AppServiceProvider.php
+│   ├── 📁 Providers/
+│   │   ├── 📄 AppServiceProvider.php
+│   │   └── 📁 Filament/
+│   │       └── 📄 AdminPanelProvider.php
+│   └── 📁 View/
+│       └── 📁 Components/
+│           ├── 📄 AppLayout.php
+│           └── 📄 GuestLayout.php
 ├── 📄 artisan
 ├── 📁 bootstrap/
 │   ├── 📄 app.php
@@ -25,6 +46,7 @@
 │   │   ├── 📄 packages.php
 │   │   └── 📄 services.php
 │   └── 📄 providers.php
+├── 📄 BRD Platform Kos Nasional.pdf
 ├── 📄 CLAUDE.md
 ├── 📄 composer.json
 ├── 📄 composer.lock
@@ -36,6 +58,7 @@
 │   ├── 📄 filesystems.php
 │   ├── 📄 logging.php
 │   ├── 📄 mail.php
+│   ├── 📄 permission.php
 │   ├── 📄 queue.php
 │   ├── 📄 services.php
 │   └── 📄 session.php
@@ -47,15 +70,122 @@
 │   ├── 📁 migrations/
 │   │   ├── 📄 0001_01_01_000000_create_users_table.php
 │   │   ├── 📄 0001_01_01_000001_create_cache_table.php
-│   │   └── 📄 0001_01_01_000002_create_jobs_table.php
+│   │   ├── 📄 0001_01_01_000002_create_jobs_table.php
+│   │   └── 📄 2026_11_06_101625_create_permission_tables.php
 │   └── 📁 seeders/
 │       └── 📄 DatabaseSeeder.php
+├── 📁 Desain Aplikasi Seven Kos/
+│   ├── 📄 Alur Login Platform Kos Nasional.png
+│   ├── 📄 Beranda Marketplace Kos Nasional.png
+│   ├── 📄 Dasbor Admin KosKu.id Kelola Mitra dan Kos.png
+│   ├── 📄 Dasbor Admin KosKu.id Terpadu berbagai fitur.png
+│   ├── 📄 Dasbor Admin KosKu.id Terpadu.png
+│   ├── 📄 Dasbor Formulir Iklan Kos Nasional.png
+│   ├── 📄 Dasbor Keuangan Platform Kos Nasional.png
+│   ├── 📄 Dasbor Kos Nasional Modern.png
+│   ├── 📄 Dasbor Moderasi KosKu.id.png
+│   ├── 📄 Dasbor Paket Iklan KosKu.id.png
+│   ├── 📄 Dasbor Pemesanan Layanan KosNusantara.png
+│   ├── 📄 Dasbor Penagihan Platform Kos Nasional.png
+│   ├── 📄 Dasbor Pengaturan Kuasa Admin KosKu.id.png
+│   ├── 📄 Dasbor Pengelolaan Kamar Kos.png
+│   ├── 📄 Dasbor Penghuni Kos Modern.png
+│   ├── 📄 Dashboard Keuangan Kos Modern.png
+│   ├── 📄 Dashboard Layanan KosNusantara Modern.png
+│   ├── 📄 Dashboard Pembayaran Kos Nusantara.png
+│   ├── 📄 Dashboard Pengajuan Sewa Kos Nasional.png
+│   ├── 📄 Dashboard Ulasan KosNusantara.png
+│   ├── 📄 Form Marketplace KosNusantara 二四六.png
+│   ├── 📄 Landing Page Kos Dekat UGMneqarpoq.png
+│   ├── 📄 Listing Kasur Premium KosNusantara.png
+│   ├── 📄 Marketplace Kos Nusantara Modern.png
+│   ├── 📄 Pengaturan Profil KosNusantara.png
+│   ├── 📄 Platform Kos Nasional_ Cari Kos di Jakarta.png
+│   ├── 📄 Profil KosNusantara Fajar Putra.png
+│   └── 📄 Tampilan Detail Kos Melati Residence.png
+├── 📄 Jadwal_dan_Tools_Seven_Kost.md
+├── 📄 package-lock.json
 ├── 📄 package.json
 ├── 📄 phpunit.xml
+├── 📄 postcss.config.js
 ├── 📁 public/
 │   ├── 📄 .htaccess
+│   ├── 📁 build/
+│   │   ├── 📁 assets/
+│   │   │   ├── 📄 app-DciKFhTV.css
+│   │   │   └── 📄 app-Dr67-uCa.js
+│   │   └── 📄 manifest.json
+│   ├── 📁 css/
+│   │   └── 📁 filament/
+│   │       └── 📁 filament/
+│   │           └── 📄 app.css
 │   ├── 📄 favicon.ico
+│   ├── 📁 fonts/
+│   │   └── 📁 filament/
+│   │       └── 📁 filament/
+│   │           └── 📁 inter/
+│   │               ├── 📄 index.css
+│   │               ├── 📄 inter-cyrillic-ext-wght-normal-SP7Z6XGK.woff2
+│   │               ├── 📄 inter-cyrillic-wght-normal-DR6K5BQD.woff2
+│   │               ├── 📄 inter-greek-ext-wght-normal-A2J6H3EX.woff2
+│   │               ├── 📄 inter-greek-wght-normal-ZABHMKQG.woff2
+│   │               ├── 📄 inter-latin-ext-wght-normal-ZIT2UBIY.woff2
+│   │               ├── 📄 inter-latin-wght-normal-DIHYUR35.woff2
+│   │               └── 📄 inter-vietnamese-wght-normal-VWEHJHBA.woff2
 │   ├── 📄 index.php
+│   ├── 📁 js/
+│   │   └── 📁 filament/
+│   │       ├── 📁 actions/
+│   │       │   └── 📄 actions.js
+│   │       ├── 📁 filament/
+│   │       │   ├── 📄 app.js
+│   │       │   └── 📄 echo.js
+│   │       ├── 📁 forms/
+│   │       │   └── 📁 components/
+│   │       │       ├── 📄 builder.js
+│   │       │       ├── 📄 checkbox-list.js
+│   │       │       ├── 📄 code-editor.js
+│   │       │       ├── 📄 color-picker.js
+│   │       │       ├── 📄 date-time-picker.js
+│   │       │       ├── 📄 file-upload.js
+│   │       │       ├── 📄 js-field.js
+│   │       │       ├── 📄 key-value.js
+│   │       │       ├── 📄 markdown-editor.js
+│   │       │       ├── 📄 repeater.js
+│   │       │       ├── 📄 rich-editor.js
+│   │       │       ├── 📄 select.js
+│   │       │       ├── 📄 slider.js
+│   │       │       ├── 📄 tags-input.js
+│   │       │       ├── 📁 text-input/
+│   │       │       │   └── 📄 password-reveal.js
+│   │       │       ├── 📄 textarea.js
+│   │       │       └── 📄 toggle-buttons.js
+│   │       ├── 📁 notifications/
+│   │       │   └── 📄 notifications.js
+│   │       ├── 📁 schemas/
+│   │       │   ├── 📁 components/
+│   │       │   │   ├── 📄 actions.js
+│   │       │   │   ├── 📄 js-component.js
+│   │       │   │   ├── 📄 tabs.js
+│   │       │   │   └── 📄 wizard.js
+│   │       │   └── 📄 schemas.js
+│   │       ├── 📁 support/
+│   │       │   └── 📄 support.js
+│   │       ├── 📁 tables/
+│   │       │   ├── 📁 components/
+│   │       │   │   └── 📁 columns/
+│   │       │   │       ├── 📄 checkbox.js
+│   │       │   │       ├── 📄 select.js
+│   │       │   │       ├── 📄 text-input.js
+│   │       │   │       └── 📄 toggle.js
+│   │       │   └── 📄 tables.js
+│   │       └── 📁 widgets/
+│   │           └── 📁 components/
+│   │               ├── 📄 chart.js
+│   │               ├── 📄 js-widget.js
+│   │               └── 📁 stats-overview/
+│   │                   └── 📁 stat/
+│   │                       └── 📄 chart.js
 │   └── 📄 robots.txt
 ├── 📄 README.md
 ├── 📁 resources/
@@ -64,8 +194,41 @@
 │   ├── 📁 js/
 │   │   └── 📄 app.js
 │   └── 📁 views/
+│       ├── 📁 auth/
+│       │   ├── 📄 confirm-password.blade.php
+│       │   ├── 📄 forgot-password.blade.php
+│       │   ├── 📄 login.blade.php
+│       │   ├── 📄 register.blade.php
+│       │   ├── 📄 reset-password.blade.php
+│       │   └── 📄 verify-email.blade.php
+│       ├── 📁 components/
+│       │   ├── 📄 application-logo.blade.php
+│       │   ├── 📄 auth-session-status.blade.php
+│       │   ├── 📄 danger-button.blade.php
+│       │   ├── 📄 dropdown-link.blade.php
+│       │   ├── 📄 dropdown.blade.php
+│       │   ├── 📄 input-error.blade.php
+│       │   ├── 📄 input-label.blade.php
+│       │   ├── 📄 modal.blade.php
+│       │   ├── 📄 nav-link.blade.php
+│       │   ├── 📄 primary-button.blade.php
+│       │   ├── 📄 responsive-nav-link.blade.php
+│       │   ├── 📄 secondary-button.blade.php
+│       │   └── 📄 text-input.blade.php
+│       ├── 📄 dashboard.blade.php
+│       ├── 📁 layouts/
+│       │   ├── 📄 app.blade.php
+│       │   ├── 📄 guest.blade.php
+│       │   └── 📄 navigation.blade.php
+│       ├── 📁 profile/
+│       │   ├── 📄 edit.blade.php
+│       │   └── 📁 partials/
+│       │       ├── 📄 delete-user-form.blade.php
+│       │       ├── 📄 update-password-form.blade.php
+│       │       └── 📄 update-profile-information-form.blade.php
 │       └── 📄 welcome.blade.php
 ├── 📁 routes/
+│   ├── 📄 auth.php
 │   ├── 📄 console.php
 │   └── 📄 web.php
 ├── 📁 storage/
@@ -90,17 +253,47 @@
 │   │   └── 📁 views/
 │   │       └── 📄 .gitignore
 │   └── 📁 logs/
-│       └── 📄 .gitignore
+│       ├── 📄 .gitignore
+│       └── 📄 laravel.log
 ├── 📄 structure.md
+├── 📄 tailwind.config.js
 ├── 📁 tests/
 │   ├── 📁 Feature/
-│   │   └── 📄 ExampleTest.php
+│   │   ├── 📁 Auth/
+│   │   │   ├── 📄 AuthenticationTest.php
+│   │   │   ├── 📄 EmailVerificationTest.php
+│   │   │   ├── 📄 PasswordConfirmationTest.php
+│   │   │   ├── 📄 PasswordResetTest.php
+│   │   │   ├── 📄 PasswordUpdateTest.php
+│   │   │   └── 📄 RegistrationTest.php
+│   │   ├── 📄 ExampleTest.php
+│   │   └── 📄 ProfileTest.php
 │   ├── 📄 TestCase.php
 │   └── 📁 Unit/
 │       └── 📄 ExampleTest.php
 ├── 📁 vendor/
+│   ├── 📁 anourvalar/
+│   │   └── 📁 eloquent-serialize/
+│   │       ├── 📁 .github/
+│   │       │   └── 📁 workflows/
+│   │       │       └── 📄 run-tests.yml
+│   │       ├── 📄 composer.json
+│   │       ├── 📄 LICENSE
+│   │       ├── 📄 phpunit9.xml
+│   │       ├── 📄 README.md
+│   │       └── 📁 src/
+│   │           ├── 📁 Facades/
+│   │           │   └── 📄 EloquentSerializeFacade.php
+│   │           ├── 📁 Grammars/
+│   │           │   ├── 📄 EloquentBuilderGrammar.php
+│   │           │   ├── 📄 ModelGrammar.php
+│   │           │   └── 📄 QueryBuilderGrammar.php
+│   │           ├── 📄 Package.php
+│   │           └── 📄 Service.php
 │   ├── 📄 autoload.php
 │   ├── 📁 bin/
+│   │   ├── 📄 blade-icons-generate
+│   │   ├── 📄 blade-icons-generate.bat
 │   │   ├── 📄 carbon
 │   │   ├── 📄 carbon.bat
 │   │   ├── 📄 patch-type-declarations
@@ -115,6 +308,1334 @@
 │   │   ├── 📄 psysh.bat
 │   │   ├── 📄 var-dump-server
 │   │   └── 📄 var-dump-server.bat
+│   ├── 📁 blade-ui-kit/
+│   │   ├── 📁 blade-heroicons/
+│   │   │   ├── 📄 composer.json
+│   │   │   ├── 📁 config/
+│   │   │   │   └── 📄 blade-heroicons.php
+│   │   │   ├── 📄 LICENSE.md
+│   │   │   ├── 📄 package.json
+│   │   │   ├── 📁 resources/
+│   │   │   │   └── 📁 svg/
+│   │   │   │       ├── 📄 c-academic-cap.svg
+│   │   │   │       ├── 📄 c-adjustments-horizontal.svg
+│   │   │   │       ├── 📄 c-adjustments-vertical.svg
+│   │   │   │       ├── 📄 c-archive-box-arrow-down.svg
+│   │   │   │       ├── 📄 c-archive-box-x-mark.svg
+│   │   │   │       ├── 📄 c-archive-box.svg
+│   │   │   │       ├── 📄 c-arrow-down-circle.svg
+│   │   │   │       ├── 📄 c-arrow-down-left.svg
+│   │   │   │       ├── 📄 c-arrow-down-on-square-stack.svg
+│   │   │   │       ├── 📄 c-arrow-down-on-square.svg
+│   │   │   │       ├── 📄 c-arrow-down-right.svg
+│   │   │   │       ├── 📄 c-arrow-down-tray.svg
+│   │   │   │       ├── 📄 c-arrow-down.svg
+│   │   │   │       ├── 📄 c-arrow-left-circle.svg
+│   │   │   │       ├── 📄 c-arrow-left-end-on-rectangle.svg
+│   │   │   │       ├── 📄 c-arrow-left-start-on-rectangle.svg
+│   │   │   │       ├── 📄 c-arrow-left.svg
+│   │   │   │       ├── 📄 c-arrow-long-down.svg
+│   │   │   │       ├── 📄 c-arrow-long-left.svg
+│   │   │   │       ├── 📄 c-arrow-long-right.svg
+│   │   │   │       ├── 📄 c-arrow-long-up.svg
+│   │   │   │       ├── 📄 c-arrow-path-rounded-square.svg
+│   │   │   │       ├── 📄 c-arrow-path.svg
+│   │   │   │       ├── 📄 c-arrow-right-circle.svg
+│   │   │   │       ├── 📄 c-arrow-right-end-on-rectangle.svg
+│   │   │   │       ├── 📄 c-arrow-right-start-on-rectangle.svg
+│   │   │   │       ├── 📄 c-arrow-right.svg
+│   │   │   │       ├── 📄 c-arrow-top-right-on-square.svg
+│   │   │   │       ├── 📄 c-arrow-trending-down.svg
+│   │   │   │       ├── 📄 c-arrow-trending-up.svg
+│   │   │   │       ├── 📄 c-arrow-turn-down-left.svg
+│   │   │   │       ├── 📄 c-arrow-turn-down-right.svg
+│   │   │   │       ├── 📄 c-arrow-turn-left-down.svg
+│   │   │   │       ├── 📄 c-arrow-turn-left-up.svg
+│   │   │   │       ├── 📄 c-arrow-turn-right-down.svg
+│   │   │   │       ├── 📄 c-arrow-turn-right-up.svg
+│   │   │   │       ├── 📄 c-arrow-turn-up-left.svg
+│   │   │   │       ├── 📄 c-arrow-turn-up-right.svg
+│   │   │   │       ├── 📄 c-arrow-up-circle.svg
+│   │   │   │       ├── 📄 c-arrow-up-left.svg
+│   │   │   │       ├── 📄 c-arrow-up-on-square-stack.svg
+│   │   │   │       ├── 📄 c-arrow-up-on-square.svg
+│   │   │   │       ├── 📄 c-arrow-up-right.svg
+│   │   │   │       ├── 📄 c-arrow-up-tray.svg
+│   │   │   │       ├── 📄 c-arrow-up.svg
+│   │   │   │       ├── 📄 c-arrow-uturn-down.svg
+│   │   │   │       ├── 📄 c-arrow-uturn-left.svg
+│   │   │   │       ├── 📄 c-arrow-uturn-right.svg
+│   │   │   │       ├── 📄 c-arrow-uturn-up.svg
+│   │   │   │       ├── 📄 c-arrows-pointing-in.svg
+│   │   │   │       ├── 📄 c-arrows-pointing-out.svg
+│   │   │   │       ├── 📄 c-arrows-right-left.svg
+│   │   │   │       ├── 📄 c-arrows-up-down.svg
+│   │   │   │       ├── 📄 c-at-symbol.svg
+│   │   │   │       ├── 📄 c-backspace.svg
+│   │   │   │       ├── 📄 c-backward.svg
+│   │   │   │       ├── 📄 c-banknotes.svg
+│   │   │   │       ├── 📄 c-bars-2.svg
+│   │   │   │       ├── 📄 c-bars-3-bottom-left.svg
+│   │   │   │       ├── 📄 c-bars-3-bottom-right.svg
+│   │   │   │       ├── 📄 c-bars-3-center-left.svg
+│   │   │   │       ├── 📄 c-bars-3.svg
+│   │   │   │       ├── 📄 c-bars-4.svg
+│   │   │   │       ├── 📄 c-bars-arrow-down.svg
+│   │   │   │       ├── 📄 c-bars-arrow-up.svg
+│   │   │   │       ├── 📄 c-battery-0.svg
+│   │   │   │       ├── 📄 c-battery-100.svg
+│   │   │   │       ├── 📄 c-battery-50.svg
+│   │   │   │       ├── 📄 c-beaker.svg
+│   │   │   │       ├── 📄 c-bell-alert.svg
+│   │   │   │       ├── 📄 c-bell-slash.svg
+│   │   │   │       ├── 📄 c-bell-snooze.svg
+│   │   │   │       ├── 📄 c-bell.svg
+│   │   │   │       ├── 📄 c-bold.svg
+│   │   │   │       ├── 📄 c-bolt-slash.svg
+│   │   │   │       ├── 📄 c-bolt.svg
+│   │   │   │       ├── 📄 c-book-open.svg
+│   │   │   │       ├── 📄 c-bookmark-slash.svg
+│   │   │   │       ├── 📄 c-bookmark-square.svg
+│   │   │   │       ├── 📄 c-bookmark.svg
+│   │   │   │       ├── 📄 c-briefcase.svg
+│   │   │   │       ├── 📄 c-bug-ant.svg
+│   │   │   │       ├── 📄 c-building-library.svg
+│   │   │   │       ├── 📄 c-building-office-2.svg
+│   │   │   │       ├── 📄 c-building-office.svg
+│   │   │   │       ├── 📄 c-building-storefront.svg
+│   │   │   │       ├── 📄 c-cake.svg
+│   │   │   │       ├── 📄 c-calculator.svg
+│   │   │   │       ├── 📄 c-calendar-date-range.svg
+│   │   │   │       ├── 📄 c-calendar-days.svg
+│   │   │   │       ├── 📄 c-calendar.svg
+│   │   │   │       ├── 📄 c-camera.svg
+│   │   │   │       ├── 📄 c-chart-bar-square.svg
+│   │   │   │       ├── 📄 c-chart-bar.svg
+│   │   │   │       ├── 📄 c-chart-pie.svg
+│   │   │   │       ├── 📄 c-chat-bubble-bottom-center-text.svg
+│   │   │   │       ├── 📄 c-chat-bubble-bottom-center.svg
+│   │   │   │       ├── 📄 c-chat-bubble-left-ellipsis.svg
+│   │   │   │       ├── 📄 c-chat-bubble-left-right.svg
+│   │   │   │       ├── 📄 c-chat-bubble-left.svg
+│   │   │   │       ├── 📄 c-chat-bubble-oval-left-ellipsis.svg
+│   │   │   │       ├── 📄 c-chat-bubble-oval-left.svg
+│   │   │   │       ├── 📄 c-check-badge.svg
+│   │   │   │       ├── 📄 c-check-circle.svg
+│   │   │   │       ├── 📄 c-check.svg
+│   │   │   │       ├── 📄 c-chevron-double-down.svg
+│   │   │   │       ├── 📄 c-chevron-double-left.svg
+│   │   │   │       ├── 📄 c-chevron-double-right.svg
+│   │   │   │       ├── 📄 c-chevron-double-up.svg
+│   │   │   │       ├── 📄 c-chevron-down.svg
+│   │   │   │       ├── 📄 c-chevron-left.svg
+│   │   │   │       ├── 📄 c-chevron-right.svg
+│   │   │   │       ├── 📄 c-chevron-up-down.svg
+│   │   │   │       ├── 📄 c-chevron-up.svg
+│   │   │   │       ├── 📄 c-circle-stack.svg
+│   │   │   │       ├── 📄 c-clipboard-document-check.svg
+│   │   │   │       ├── 📄 c-clipboard-document-list.svg
+│   │   │   │       ├── 📄 c-clipboard-document.svg
+│   │   │   │       ├── 📄 c-clipboard.svg
+│   │   │   │       ├── 📄 c-clock.svg
+│   │   │   │       ├── 📄 c-cloud-arrow-down.svg
+│   │   │   │       ├── 📄 c-cloud-arrow-up.svg
+│   │   │   │       ├── 📄 c-cloud.svg
+│   │   │   │       ├── 📄 c-code-bracket-square.svg
+│   │   │   │       ├── 📄 c-code-bracket.svg
+│   │   │   │       ├── 📄 c-cog-6-tooth.svg
+│   │   │   │       ├── 📄 c-cog-8-tooth.svg
+│   │   │   │       ├── 📄 c-cog.svg
+│   │   │   │       ├── 📄 c-command-line.svg
+│   │   │   │       ├── 📄 c-computer-desktop.svg
+│   │   │   │       ├── 📄 c-cpu-chip.svg
+│   │   │   │       ├── 📄 c-credit-card.svg
+│   │   │   │       ├── 📄 c-cube-transparent.svg
+│   │   │   │       ├── 📄 c-cube.svg
+│   │   │   │       ├── 📄 c-currency-bangladeshi.svg
+│   │   │   │       ├── 📄 c-currency-dollar.svg
+│   │   │   │       ├── 📄 c-currency-euro.svg
+│   │   │   │       ├── 📄 c-currency-pound.svg
+│   │   │   │       ├── 📄 c-currency-rupee.svg
+│   │   │   │       ├── 📄 c-currency-yen.svg
+│   │   │   │       ├── 📄 c-cursor-arrow-rays.svg
+│   │   │   │       ├── 📄 c-cursor-arrow-ripple.svg
+│   │   │   │       ├── 📄 c-device-phone-mobile.svg
+│   │   │   │       ├── 📄 c-device-tablet.svg
+│   │   │   │       ├── 📄 c-divide.svg
+│   │   │   │       ├── 📄 c-document-arrow-down.svg
+│   │   │   │       ├── 📄 c-document-arrow-up.svg
+│   │   │   │       ├── 📄 c-document-chart-bar.svg
+│   │   │   │       ├── 📄 c-document-check.svg
+│   │   │   │       ├── 📄 c-document-currency-bangladeshi.svg
+│   │   │   │       ├── 📄 c-document-currency-dollar.svg
+│   │   │   │       ├── 📄 c-document-currency-euro.svg
+│   │   │   │       ├── 📄 c-document-currency-pound.svg
+│   │   │   │       ├── 📄 c-document-currency-rupee.svg
+│   │   │   │       ├── 📄 c-document-currency-yen.svg
+│   │   │   │       ├── 📄 c-document-duplicate.svg
+│   │   │   │       ├── 📄 c-document-magnifying-glass.svg
+│   │   │   │       ├── 📄 c-document-minus.svg
+│   │   │   │       ├── 📄 c-document-plus.svg
+│   │   │   │       ├── 📄 c-document-text.svg
+│   │   │   │       ├── 📄 c-document.svg
+│   │   │   │       ├── 📄 c-ellipsis-horizontal-circle.svg
+│   │   │   │       ├── 📄 c-ellipsis-horizontal.svg
+│   │   │   │       ├── 📄 c-ellipsis-vertical.svg
+│   │   │   │       ├── 📄 c-envelope-open.svg
+│   │   │   │       ├── 📄 c-envelope.svg
+│   │   │   │       ├── 📄 c-equals.svg
+│   │   │   │       ├── 📄 c-exclamation-circle.svg
+│   │   │   │       ├── 📄 c-exclamation-triangle.svg
+│   │   │   │       ├── 📄 c-eye-dropper.svg
+│   │   │   │       ├── 📄 c-eye-slash.svg
+│   │   │   │       ├── 📄 c-eye.svg
+│   │   │   │       ├── 📄 c-face-frown.svg
+│   │   │   │       ├── 📄 c-face-smile.svg
+│   │   │   │       ├── 📄 c-film.svg
+│   │   │   │       ├── 📄 c-finger-print.svg
+│   │   │   │       ├── 📄 c-fire.svg
+│   │   │   │       ├── 📄 c-flag.svg
+│   │   │   │       ├── 📄 c-folder-arrow-down.svg
+│   │   │   │       ├── 📄 c-folder-minus.svg
+│   │   │   │       ├── 📄 c-folder-open.svg
+│   │   │   │       ├── 📄 c-folder-plus.svg
+│   │   │   │       ├── 📄 c-folder.svg
+│   │   │   │       ├── 📄 c-forward.svg
+│   │   │   │       ├── 📄 c-funnel.svg
+│   │   │   │       ├── 📄 c-gif.svg
+│   │   │   │       ├── 📄 c-gift-top.svg
+│   │   │   │       ├── 📄 c-gift.svg
+│   │   │   │       ├── 📄 c-globe-alt.svg
+│   │   │   │       ├── 📄 c-globe-americas.svg
+│   │   │   │       ├── 📄 c-globe-asia-australia.svg
+│   │   │   │       ├── 📄 c-globe-europe-africa.svg
+│   │   │   │       ├── 📄 c-h1.svg
+│   │   │   │       ├── 📄 c-h2.svg
+│   │   │   │       ├── 📄 c-h3.svg
+│   │   │   │       ├── 📄 c-hand-raised.svg
+│   │   │   │       ├── 📄 c-hand-thumb-down.svg
+│   │   │   │       ├── 📄 c-hand-thumb-up.svg
+│   │   │   │       ├── 📄 c-hashtag.svg
+│   │   │   │       ├── 📄 c-heart.svg
+│   │   │   │       ├── 📄 c-home-modern.svg
+│   │   │   │       ├── 📄 c-home.svg
+│   │   │   │       ├── 📄 c-identification.svg
+│   │   │   │       ├── 📄 c-inbox-arrow-down.svg
+│   │   │   │       ├── 📄 c-inbox-stack.svg
+│   │   │   │       ├── 📄 c-inbox.svg
+│   │   │   │       ├── 📄 c-information-circle.svg
+│   │   │   │       ├── 📄 c-italic.svg
+│   │   │   │       ├── 📄 c-key.svg
+│   │   │   │       ├── 📄 c-language.svg
+│   │   │   │       ├── 📄 c-lifebuoy.svg
+│   │   │   │       ├── 📄 c-light-bulb.svg
+│   │   │   │       ├── 📄 c-link-slash.svg
+│   │   │   │       ├── 📄 c-link.svg
+│   │   │   │       ├── 📄 c-list-bullet.svg
+│   │   │   │       ├── 📄 c-lock-closed.svg
+│   │   │   │       ├── 📄 c-lock-open.svg
+│   │   │   │       ├── 📄 c-magnifying-glass-circle.svg
+│   │   │   │       ├── 📄 c-magnifying-glass-minus.svg
+│   │   │   │       ├── 📄 c-magnifying-glass-plus.svg
+│   │   │   │       ├── 📄 c-magnifying-glass.svg
+│   │   │   │       ├── 📄 c-map-pin.svg
+│   │   │   │       ├── 📄 c-map.svg
+│   │   │   │       ├── 📄 c-megaphone.svg
+│   │   │   │       ├── 📄 c-microphone.svg
+│   │   │   │       ├── 📄 c-minus-circle.svg
+│   │   │   │       ├── 📄 c-minus.svg
+│   │   │   │       ├── 📄 c-moon.svg
+│   │   │   │       ├── 📄 c-musical-note.svg
+│   │   │   │       ├── 📄 c-newspaper.svg
+│   │   │   │       ├── 📄 c-no-symbol.svg
+│   │   │   │       ├── 📄 c-numbered-list.svg
+│   │   │   │       ├── 📄 c-paint-brush.svg
+│   │   │   │       ├── 📄 c-paper-airplane.svg
+│   │   │   │       ├── 📄 c-paper-clip.svg
+│   │   │   │       ├── 📄 c-pause-circle.svg
+│   │   │   │       ├── 📄 c-pause.svg
+│   │   │   │       ├── 📄 c-pencil-square.svg
+│   │   │   │       ├── 📄 c-pencil.svg
+│   │   │   │       ├── 📄 c-percent-badge.svg
+│   │   │   │       ├── 📄 c-phone-arrow-down-left.svg
+│   │   │   │       ├── 📄 c-phone-arrow-up-right.svg
+│   │   │   │       ├── 📄 c-phone-x-mark.svg
+│   │   │   │       ├── 📄 c-phone.svg
+│   │   │   │       ├── 📄 c-photo.svg
+│   │   │   │       ├── 📄 c-play-circle.svg
+│   │   │   │       ├── 📄 c-play-pause.svg
+│   │   │   │       ├── 📄 c-play.svg
+│   │   │   │       ├── 📄 c-plus-circle.svg
+│   │   │   │       ├── 📄 c-plus.svg
+│   │   │   │       ├── 📄 c-power.svg
+│   │   │   │       ├── 📄 c-presentation-chart-bar.svg
+│   │   │   │       ├── 📄 c-presentation-chart-line.svg
+│   │   │   │       ├── 📄 c-printer.svg
+│   │   │   │       ├── 📄 c-puzzle-piece.svg
+│   │   │   │       ├── 📄 c-qr-code.svg
+│   │   │   │       ├── 📄 c-question-mark-circle.svg
+│   │   │   │       ├── 📄 c-queue-list.svg
+│   │   │   │       ├── 📄 c-radio.svg
+│   │   │   │       ├── 📄 c-receipt-percent.svg
+│   │   │   │       ├── 📄 c-receipt-refund.svg
+│   │   │   │       ├── 📄 c-rectangle-group.svg
+│   │   │   │       ├── 📄 c-rectangle-stack.svg
+│   │   │   │       ├── 📄 c-rocket-launch.svg
+│   │   │   │       ├── 📄 c-rss.svg
+│   │   │   │       ├── 📄 c-scale.svg
+│   │   │   │       ├── 📄 c-scissors.svg
+│   │   │   │       ├── 📄 c-server-stack.svg
+│   │   │   │       ├── 📄 c-server.svg
+│   │   │   │       ├── 📄 c-share.svg
+│   │   │   │       ├── 📄 c-shield-check.svg
+│   │   │   │       ├── 📄 c-shield-exclamation.svg
+│   │   │   │       ├── 📄 c-shopping-bag.svg
+│   │   │   │       ├── 📄 c-shopping-cart.svg
+│   │   │   │       ├── 📄 c-signal-slash.svg
+│   │   │   │       ├── 📄 c-signal.svg
+│   │   │   │       ├── 📄 c-slash.svg
+│   │   │   │       ├── 📄 c-sparkles.svg
+│   │   │   │       ├── 📄 c-speaker-wave.svg
+│   │   │   │       ├── 📄 c-speaker-x-mark.svg
+│   │   │   │       ├── 📄 c-square-2-stack.svg
+│   │   │   │       ├── 📄 c-square-3-stack-3d.svg
+│   │   │   │       ├── 📄 c-squares-2x2.svg
+│   │   │   │       ├── 📄 c-squares-plus.svg
+│   │   │   │       ├── 📄 c-star.svg
+│   │   │   │       ├── 📄 c-stop-circle.svg
+│   │   │   │       ├── 📄 c-stop.svg
+│   │   │   │       ├── 📄 c-strikethrough.svg
+│   │   │   │       ├── 📄 c-sun.svg
+│   │   │   │       ├── 📄 c-swatch.svg
+│   │   │   │       ├── 📄 c-table-cells.svg
+│   │   │   │       ├── 📄 c-tag.svg
+│   │   │   │       ├── 📄 c-ticket.svg
+│   │   │   │       ├── 📄 c-trash.svg
+│   │   │   │       ├── 📄 c-trophy.svg
+│   │   │   │       ├── 📄 c-truck.svg
+│   │   │   │       ├── 📄 c-tv.svg
+│   │   │   │       ├── 📄 c-underline.svg
+│   │   │   │       ├── 📄 c-user-circle.svg
+│   │   │   │       ├── 📄 c-user-group.svg
+│   │   │   │       ├── 📄 c-user-minus.svg
+│   │   │   │       ├── 📄 c-user-plus.svg
+│   │   │   │       ├── 📄 c-user.svg
+│   │   │   │       ├── 📄 c-users.svg
+│   │   │   │       ├── 📄 c-variable.svg
+│   │   │   │       ├── 📄 c-video-camera-slash.svg
+│   │   │   │       ├── 📄 c-video-camera.svg
+│   │   │   │       ├── 📄 c-view-columns.svg
+│   │   │   │       ├── 📄 c-viewfinder-circle.svg
+│   │   │   │       ├── 📄 c-wallet.svg
+│   │   │   │       ├── 📄 c-wifi.svg
+│   │   │   │       ├── 📄 c-window.svg
+│   │   │   │       ├── 📄 c-wrench-screwdriver.svg
+│   │   │   │       ├── 📄 c-wrench.svg
+│   │   │   │       ├── 📄 c-x-circle.svg
+│   │   │   │       ├── 📄 c-x-mark.svg
+│   │   │   │       ├── 📄 m-academic-cap.svg
+│   │   │   │       ├── 📄 m-adjustments-horizontal.svg
+│   │   │   │       ├── 📄 m-adjustments-vertical.svg
+│   │   │   │       ├── 📄 m-archive-box-arrow-down.svg
+│   │   │   │       ├── 📄 m-archive-box-x-mark.svg
+│   │   │   │       ├── 📄 m-archive-box.svg
+│   │   │   │       ├── 📄 m-arrow-down-circle.svg
+│   │   │   │       ├── 📄 m-arrow-down-left.svg
+│   │   │   │       ├── 📄 m-arrow-down-on-square-stack.svg
+│   │   │   │       ├── 📄 m-arrow-down-on-square.svg
+│   │   │   │       ├── 📄 m-arrow-down-right.svg
+│   │   │   │       ├── 📄 m-arrow-down-tray.svg
+│   │   │   │       ├── 📄 m-arrow-down.svg
+│   │   │   │       ├── 📄 m-arrow-left-circle.svg
+│   │   │   │       ├── 📄 m-arrow-left-end-on-rectangle.svg
+│   │   │   │       ├── 📄 m-arrow-left-on-rectangle.svg
+│   │   │   │       ├── 📄 m-arrow-left-start-on-rectangle.svg
+│   │   │   │       ├── 📄 m-arrow-left.svg
+│   │   │   │       ├── 📄 m-arrow-long-down.svg
+│   │   │   │       ├── 📄 m-arrow-long-left.svg
+│   │   │   │       ├── 📄 m-arrow-long-right.svg
+│   │   │   │       ├── 📄 m-arrow-long-up.svg
+│   │   │   │       ├── 📄 m-arrow-path-rounded-square.svg
+│   │   │   │       ├── 📄 m-arrow-path.svg
+│   │   │   │       ├── 📄 m-arrow-right-circle.svg
+│   │   │   │       ├── 📄 m-arrow-right-end-on-rectangle.svg
+│   │   │   │       ├── 📄 m-arrow-right-on-rectangle.svg
+│   │   │   │       ├── 📄 m-arrow-right-start-on-rectangle.svg
+│   │   │   │       ├── 📄 m-arrow-right.svg
+│   │   │   │       ├── 📄 m-arrow-small-down.svg
+│   │   │   │       ├── 📄 m-arrow-small-left.svg
+│   │   │   │       ├── 📄 m-arrow-small-right.svg
+│   │   │   │       ├── 📄 m-arrow-small-up.svg
+│   │   │   │       ├── 📄 m-arrow-top-right-on-square.svg
+│   │   │   │       ├── 📄 m-arrow-trending-down.svg
+│   │   │   │       ├── 📄 m-arrow-trending-up.svg
+│   │   │   │       ├── 📄 m-arrow-turn-down-left.svg
+│   │   │   │       ├── 📄 m-arrow-turn-down-right.svg
+│   │   │   │       ├── 📄 m-arrow-turn-left-down.svg
+│   │   │   │       ├── 📄 m-arrow-turn-left-up.svg
+│   │   │   │       ├── 📄 m-arrow-turn-right-down.svg
+│   │   │   │       ├── 📄 m-arrow-turn-right-up.svg
+│   │   │   │       ├── 📄 m-arrow-turn-up-left.svg
+│   │   │   │       ├── 📄 m-arrow-turn-up-right.svg
+│   │   │   │       ├── 📄 m-arrow-up-circle.svg
+│   │   │   │       ├── 📄 m-arrow-up-left.svg
+│   │   │   │       ├── 📄 m-arrow-up-on-square-stack.svg
+│   │   │   │       ├── 📄 m-arrow-up-on-square.svg
+│   │   │   │       ├── 📄 m-arrow-up-right.svg
+│   │   │   │       ├── 📄 m-arrow-up-tray.svg
+│   │   │   │       ├── 📄 m-arrow-up.svg
+│   │   │   │       ├── 📄 m-arrow-uturn-down.svg
+│   │   │   │       ├── 📄 m-arrow-uturn-left.svg
+│   │   │   │       ├── 📄 m-arrow-uturn-right.svg
+│   │   │   │       ├── 📄 m-arrow-uturn-up.svg
+│   │   │   │       ├── 📄 m-arrows-pointing-in.svg
+│   │   │   │       ├── 📄 m-arrows-pointing-out.svg
+│   │   │   │       ├── 📄 m-arrows-right-left.svg
+│   │   │   │       ├── 📄 m-arrows-up-down.svg
+│   │   │   │       ├── 📄 m-at-symbol.svg
+│   │   │   │       ├── 📄 m-backspace.svg
+│   │   │   │       ├── 📄 m-backward.svg
+│   │   │   │       ├── 📄 m-banknotes.svg
+│   │   │   │       ├── 📄 m-bars-2.svg
+│   │   │   │       ├── 📄 m-bars-3-bottom-left.svg
+│   │   │   │       ├── 📄 m-bars-3-bottom-right.svg
+│   │   │   │       ├── 📄 m-bars-3-center-left.svg
+│   │   │   │       ├── 📄 m-bars-3.svg
+│   │   │   │       ├── 📄 m-bars-4.svg
+│   │   │   │       ├── 📄 m-bars-arrow-down.svg
+│   │   │   │       ├── 📄 m-bars-arrow-up.svg
+│   │   │   │       ├── 📄 m-battery-0.svg
+│   │   │   │       ├── 📄 m-battery-100.svg
+│   │   │   │       ├── 📄 m-battery-50.svg
+│   │   │   │       ├── 📄 m-beaker.svg
+│   │   │   │       ├── 📄 m-bell-alert.svg
+│   │   │   │       ├── 📄 m-bell-slash.svg
+│   │   │   │       ├── 📄 m-bell-snooze.svg
+│   │   │   │       ├── 📄 m-bell.svg
+│   │   │   │       ├── 📄 m-bold.svg
+│   │   │   │       ├── 📄 m-bolt-slash.svg
+│   │   │   │       ├── 📄 m-bolt.svg
+│   │   │   │       ├── 📄 m-book-open.svg
+│   │   │   │       ├── 📄 m-bookmark-slash.svg
+│   │   │   │       ├── 📄 m-bookmark-square.svg
+│   │   │   │       ├── 📄 m-bookmark.svg
+│   │   │   │       ├── 📄 m-briefcase.svg
+│   │   │   │       ├── 📄 m-bug-ant.svg
+│   │   │   │       ├── 📄 m-building-library.svg
+│   │   │   │       ├── 📄 m-building-office-2.svg
+│   │   │   │       ├── 📄 m-building-office.svg
+│   │   │   │       ├── 📄 m-building-storefront.svg
+│   │   │   │       ├── 📄 m-cake.svg
+│   │   │   │       ├── 📄 m-calculator.svg
+│   │   │   │       ├── 📄 m-calendar-date-range.svg
+│   │   │   │       ├── 📄 m-calendar-days.svg
+│   │   │   │       ├── 📄 m-calendar.svg
+│   │   │   │       ├── 📄 m-camera.svg
+│   │   │   │       ├── 📄 m-chart-bar-square.svg
+│   │   │   │       ├── 📄 m-chart-bar.svg
+│   │   │   │       ├── 📄 m-chart-pie.svg
+│   │   │   │       ├── 📄 m-chat-bubble-bottom-center-text.svg
+│   │   │   │       ├── 📄 m-chat-bubble-bottom-center.svg
+│   │   │   │       ├── 📄 m-chat-bubble-left-ellipsis.svg
+│   │   │   │       ├── 📄 m-chat-bubble-left-right.svg
+│   │   │   │       ├── 📄 m-chat-bubble-left.svg
+│   │   │   │       ├── 📄 m-chat-bubble-oval-left-ellipsis.svg
+│   │   │   │       ├── 📄 m-chat-bubble-oval-left.svg
+│   │   │   │       ├── 📄 m-check-badge.svg
+│   │   │   │       ├── 📄 m-check-circle.svg
+│   │   │   │       ├── 📄 m-check.svg
+│   │   │   │       ├── 📄 m-chevron-double-down.svg
+│   │   │   │       ├── 📄 m-chevron-double-left.svg
+│   │   │   │       ├── 📄 m-chevron-double-right.svg
+│   │   │   │       ├── 📄 m-chevron-double-up.svg
+│   │   │   │       ├── 📄 m-chevron-down.svg
+│   │   │   │       ├── 📄 m-chevron-left.svg
+│   │   │   │       ├── 📄 m-chevron-right.svg
+│   │   │   │       ├── 📄 m-chevron-up-down.svg
+│   │   │   │       ├── 📄 m-chevron-up.svg
+│   │   │   │       ├── 📄 m-circle-stack.svg
+│   │   │   │       ├── 📄 m-clipboard-document-check.svg
+│   │   │   │       ├── 📄 m-clipboard-document-list.svg
+│   │   │   │       ├── 📄 m-clipboard-document.svg
+│   │   │   │       ├── 📄 m-clipboard.svg
+│   │   │   │       ├── 📄 m-clock.svg
+│   │   │   │       ├── 📄 m-cloud-arrow-down.svg
+│   │   │   │       ├── 📄 m-cloud-arrow-up.svg
+│   │   │   │       ├── 📄 m-cloud.svg
+│   │   │   │       ├── 📄 m-code-bracket-square.svg
+│   │   │   │       ├── 📄 m-code-bracket.svg
+│   │   │   │       ├── 📄 m-cog-6-tooth.svg
+│   │   │   │       ├── 📄 m-cog-8-tooth.svg
+│   │   │   │       ├── 📄 m-cog.svg
+│   │   │   │       ├── 📄 m-command-line.svg
+│   │   │   │       ├── 📄 m-computer-desktop.svg
+│   │   │   │       ├── 📄 m-cpu-chip.svg
+│   │   │   │       ├── 📄 m-credit-card.svg
+│   │   │   │       ├── 📄 m-cube-transparent.svg
+│   │   │   │       ├── 📄 m-cube.svg
+│   │   │   │       ├── 📄 m-currency-bangladeshi.svg
+│   │   │   │       ├── 📄 m-currency-dollar.svg
+│   │   │   │       ├── 📄 m-currency-euro.svg
+│   │   │   │       ├── 📄 m-currency-pound.svg
+│   │   │   │       ├── 📄 m-currency-rupee.svg
+│   │   │   │       ├── 📄 m-currency-yen.svg
+│   │   │   │       ├── 📄 m-cursor-arrow-rays.svg
+│   │   │   │       ├── 📄 m-cursor-arrow-ripple.svg
+│   │   │   │       ├── 📄 m-device-phone-mobile.svg
+│   │   │   │       ├── 📄 m-device-tablet.svg
+│   │   │   │       ├── 📄 m-divide.svg
+│   │   │   │       ├── 📄 m-document-arrow-down.svg
+│   │   │   │       ├── 📄 m-document-arrow-up.svg
+│   │   │   │       ├── 📄 m-document-chart-bar.svg
+│   │   │   │       ├── 📄 m-document-check.svg
+│   │   │   │       ├── 📄 m-document-currency-bangladeshi.svg
+│   │   │   │       ├── 📄 m-document-currency-dollar.svg
+│   │   │   │       ├── 📄 m-document-currency-euro.svg
+│   │   │   │       ├── 📄 m-document-currency-pound.svg
+│   │   │   │       ├── 📄 m-document-currency-rupee.svg
+│   │   │   │       ├── 📄 m-document-currency-yen.svg
+│   │   │   │       ├── 📄 m-document-duplicate.svg
+│   │   │   │       ├── 📄 m-document-magnifying-glass.svg
+│   │   │   │       ├── 📄 m-document-minus.svg
+│   │   │   │       ├── 📄 m-document-plus.svg
+│   │   │   │       ├── 📄 m-document-text.svg
+│   │   │   │       ├── 📄 m-document.svg
+│   │   │   │       ├── 📄 m-ellipsis-horizontal-circle.svg
+│   │   │   │       ├── 📄 m-ellipsis-horizontal.svg
+│   │   │   │       ├── 📄 m-ellipsis-vertical.svg
+│   │   │   │       ├── 📄 m-envelope-open.svg
+│   │   │   │       ├── 📄 m-envelope.svg
+│   │   │   │       ├── 📄 m-equals.svg
+│   │   │   │       ├── 📄 m-exclamation-circle.svg
+│   │   │   │       ├── 📄 m-exclamation-triangle.svg
+│   │   │   │       ├── 📄 m-eye-dropper.svg
+│   │   │   │       ├── 📄 m-eye-slash.svg
+│   │   │   │       ├── 📄 m-eye.svg
+│   │   │   │       ├── 📄 m-face-frown.svg
+│   │   │   │       ├── 📄 m-face-smile.svg
+│   │   │   │       ├── 📄 m-film.svg
+│   │   │   │       ├── 📄 m-finger-print.svg
+│   │   │   │       ├── 📄 m-fire.svg
+│   │   │   │       ├── 📄 m-flag.svg
+│   │   │   │       ├── 📄 m-folder-arrow-down.svg
+│   │   │   │       ├── 📄 m-folder-minus.svg
+│   │   │   │       ├── 📄 m-folder-open.svg
+│   │   │   │       ├── 📄 m-folder-plus.svg
+│   │   │   │       ├── 📄 m-folder.svg
+│   │   │   │       ├── 📄 m-forward.svg
+│   │   │   │       ├── 📄 m-funnel.svg
+│   │   │   │       ├── 📄 m-gif.svg
+│   │   │   │       ├── 📄 m-gift-top.svg
+│   │   │   │       ├── 📄 m-gift.svg
+│   │   │   │       ├── 📄 m-globe-alt.svg
+│   │   │   │       ├── 📄 m-globe-americas.svg
+│   │   │   │       ├── 📄 m-globe-asia-australia.svg
+│   │   │   │       ├── 📄 m-globe-europe-africa.svg
+│   │   │   │       ├── 📄 m-h1.svg
+│   │   │   │       ├── 📄 m-h2.svg
+│   │   │   │       ├── 📄 m-h3.svg
+│   │   │   │       ├── 📄 m-hand-raised.svg
+│   │   │   │       ├── 📄 m-hand-thumb-down.svg
+│   │   │   │       ├── 📄 m-hand-thumb-up.svg
+│   │   │   │       ├── 📄 m-hashtag.svg
+│   │   │   │       ├── 📄 m-heart.svg
+│   │   │   │       ├── 📄 m-home-modern.svg
+│   │   │   │       ├── 📄 m-home.svg
+│   │   │   │       ├── 📄 m-identification.svg
+│   │   │   │       ├── 📄 m-inbox-arrow-down.svg
+│   │   │   │       ├── 📄 m-inbox-stack.svg
+│   │   │   │       ├── 📄 m-inbox.svg
+│   │   │   │       ├── 📄 m-information-circle.svg
+│   │   │   │       ├── 📄 m-italic.svg
+│   │   │   │       ├── 📄 m-key.svg
+│   │   │   │       ├── 📄 m-language.svg
+│   │   │   │       ├── 📄 m-lifebuoy.svg
+│   │   │   │       ├── 📄 m-light-bulb.svg
+│   │   │   │       ├── 📄 m-link-slash.svg
+│   │   │   │       ├── 📄 m-link.svg
+│   │   │   │       ├── 📄 m-list-bullet.svg
+│   │   │   │       ├── 📄 m-lock-closed.svg
+│   │   │   │       ├── 📄 m-lock-open.svg
+│   │   │   │       ├── 📄 m-magnifying-glass-circle.svg
+│   │   │   │       ├── 📄 m-magnifying-glass-minus.svg
+│   │   │   │       ├── 📄 m-magnifying-glass-plus.svg
+│   │   │   │       ├── 📄 m-magnifying-glass.svg
+│   │   │   │       ├── 📄 m-map-pin.svg
+│   │   │   │       ├── 📄 m-map.svg
+│   │   │   │       ├── 📄 m-megaphone.svg
+│   │   │   │       ├── 📄 m-microphone.svg
+│   │   │   │       ├── 📄 m-minus-circle.svg
+│   │   │   │       ├── 📄 m-minus-small.svg
+│   │   │   │       ├── 📄 m-minus.svg
+│   │   │   │       ├── 📄 m-moon.svg
+│   │   │   │       ├── 📄 m-musical-note.svg
+│   │   │   │       ├── 📄 m-newspaper.svg
+│   │   │   │       ├── 📄 m-no-symbol.svg
+│   │   │   │       ├── 📄 m-numbered-list.svg
+│   │   │   │       ├── 📄 m-paint-brush.svg
+│   │   │   │       ├── 📄 m-paper-airplane.svg
+│   │   │   │       ├── 📄 m-paper-clip.svg
+│   │   │   │       ├── 📄 m-pause-circle.svg
+│   │   │   │       ├── 📄 m-pause.svg
+│   │   │   │       ├── 📄 m-pencil-square.svg
+│   │   │   │       ├── 📄 m-pencil.svg
+│   │   │   │       ├── 📄 m-percent-badge.svg
+│   │   │   │       ├── 📄 m-phone-arrow-down-left.svg
+│   │   │   │       ├── 📄 m-phone-arrow-up-right.svg
+│   │   │   │       ├── 📄 m-phone-x-mark.svg
+│   │   │   │       ├── 📄 m-phone.svg
+│   │   │   │       ├── 📄 m-photo.svg
+│   │   │   │       ├── 📄 m-play-circle.svg
+│   │   │   │       ├── 📄 m-play-pause.svg
+│   │   │   │       ├── 📄 m-play.svg
+│   │   │   │       ├── 📄 m-plus-circle.svg
+│   │   │   │       ├── 📄 m-plus-small.svg
+│   │   │   │       ├── 📄 m-plus.svg
+│   │   │   │       ├── 📄 m-power.svg
+│   │   │   │       ├── 📄 m-presentation-chart-bar.svg
+│   │   │   │       ├── 📄 m-presentation-chart-line.svg
+│   │   │   │       ├── 📄 m-printer.svg
+│   │   │   │       ├── 📄 m-puzzle-piece.svg
+│   │   │   │       ├── 📄 m-qr-code.svg
+│   │   │   │       ├── 📄 m-question-mark-circle.svg
+│   │   │   │       ├── 📄 m-queue-list.svg
+│   │   │   │       ├── 📄 m-radio.svg
+│   │   │   │       ├── 📄 m-receipt-percent.svg
+│   │   │   │       ├── 📄 m-receipt-refund.svg
+│   │   │   │       ├── 📄 m-rectangle-group.svg
+│   │   │   │       ├── 📄 m-rectangle-stack.svg
+│   │   │   │       ├── 📄 m-rocket-launch.svg
+│   │   │   │       ├── 📄 m-rss.svg
+│   │   │   │       ├── 📄 m-scale.svg
+│   │   │   │       ├── 📄 m-scissors.svg
+│   │   │   │       ├── 📄 m-server-stack.svg
+│   │   │   │       ├── 📄 m-server.svg
+│   │   │   │       ├── 📄 m-share.svg
+│   │   │   │       ├── 📄 m-shield-check.svg
+│   │   │   │       ├── 📄 m-shield-exclamation.svg
+│   │   │   │       ├── 📄 m-shopping-bag.svg
+│   │   │   │       ├── 📄 m-shopping-cart.svg
+│   │   │   │       ├── 📄 m-signal-slash.svg
+│   │   │   │       ├── 📄 m-signal.svg
+│   │   │   │       ├── 📄 m-slash.svg
+│   │   │   │       ├── 📄 m-sparkles.svg
+│   │   │   │       ├── 📄 m-speaker-wave.svg
+│   │   │   │       ├── 📄 m-speaker-x-mark.svg
+│   │   │   │       ├── 📄 m-square-2-stack.svg
+│   │   │   │       ├── 📄 m-square-3-stack-3d.svg
+│   │   │   │       ├── 📄 m-squares-2x2.svg
+│   │   │   │       ├── 📄 m-squares-plus.svg
+│   │   │   │       ├── 📄 m-star.svg
+│   │   │   │       ├── 📄 m-stop-circle.svg
+│   │   │   │       ├── 📄 m-stop.svg
+│   │   │   │       ├── 📄 m-strikethrough.svg
+│   │   │   │       ├── 📄 m-sun.svg
+│   │   │   │       ├── 📄 m-swatch.svg
+│   │   │   │       ├── 📄 m-table-cells.svg
+│   │   │   │       ├── 📄 m-tag.svg
+│   │   │   │       ├── 📄 m-ticket.svg
+│   │   │   │       ├── 📄 m-trash.svg
+│   │   │   │       ├── 📄 m-trophy.svg
+│   │   │   │       ├── 📄 m-truck.svg
+│   │   │   │       ├── 📄 m-tv.svg
+│   │   │   │       ├── 📄 m-underline.svg
+│   │   │   │       ├── 📄 m-user-circle.svg
+│   │   │   │       ├── 📄 m-user-group.svg
+│   │   │   │       ├── 📄 m-user-minus.svg
+│   │   │   │       ├── 📄 m-user-plus.svg
+│   │   │   │       ├── 📄 m-user.svg
+│   │   │   │       ├── 📄 m-users.svg
+│   │   │   │       ├── 📄 m-variable.svg
+│   │   │   │       ├── 📄 m-video-camera-slash.svg
+│   │   │   │       ├── 📄 m-video-camera.svg
+│   │   │   │       ├── 📄 m-view-columns.svg
+│   │   │   │       ├── 📄 m-viewfinder-circle.svg
+│   │   │   │       ├── 📄 m-wallet.svg
+│   │   │   │       ├── 📄 m-wifi.svg
+│   │   │   │       ├── 📄 m-window.svg
+│   │   │   │       ├── 📄 m-wrench-screwdriver.svg
+│   │   │   │       ├── 📄 m-wrench.svg
+│   │   │   │       ├── 📄 m-x-circle.svg
+│   │   │   │       ├── 📄 m-x-mark.svg
+│   │   │   │       ├── 📄 o-academic-cap.svg
+│   │   │   │       ├── 📄 o-adjustments-horizontal.svg
+│   │   │   │       ├── 📄 o-adjustments-vertical.svg
+│   │   │   │       ├── 📄 o-archive-box-arrow-down.svg
+│   │   │   │       ├── 📄 o-archive-box-x-mark.svg
+│   │   │   │       ├── 📄 o-archive-box.svg
+│   │   │   │       ├── 📄 o-arrow-down-circle.svg
+│   │   │   │       ├── 📄 o-arrow-down-left.svg
+│   │   │   │       ├── 📄 o-arrow-down-on-square-stack.svg
+│   │   │   │       ├── 📄 o-arrow-down-on-square.svg
+│   │   │   │       ├── 📄 o-arrow-down-right.svg
+│   │   │   │       ├── 📄 o-arrow-down-tray.svg
+│   │   │   │       ├── 📄 o-arrow-down.svg
+│   │   │   │       ├── 📄 o-arrow-left-circle.svg
+│   │   │   │       ├── 📄 o-arrow-left-end-on-rectangle.svg
+│   │   │   │       ├── 📄 o-arrow-left-on-rectangle.svg
+│   │   │   │       ├── 📄 o-arrow-left-start-on-rectangle.svg
+│   │   │   │       ├── 📄 o-arrow-left.svg
+│   │   │   │       ├── 📄 o-arrow-long-down.svg
+│   │   │   │       ├── 📄 o-arrow-long-left.svg
+│   │   │   │       ├── 📄 o-arrow-long-right.svg
+│   │   │   │       ├── 📄 o-arrow-long-up.svg
+│   │   │   │       ├── 📄 o-arrow-path-rounded-square.svg
+│   │   │   │       ├── 📄 o-arrow-path.svg
+│   │   │   │       ├── 📄 o-arrow-right-circle.svg
+│   │   │   │       ├── 📄 o-arrow-right-end-on-rectangle.svg
+│   │   │   │       ├── 📄 o-arrow-right-on-rectangle.svg
+│   │   │   │       ├── 📄 o-arrow-right-start-on-rectangle.svg
+│   │   │   │       ├── 📄 o-arrow-right.svg
+│   │   │   │       ├── 📄 o-arrow-small-down.svg
+│   │   │   │       ├── 📄 o-arrow-small-left.svg
+│   │   │   │       ├── 📄 o-arrow-small-right.svg
+│   │   │   │       ├── 📄 o-arrow-small-up.svg
+│   │   │   │       ├── 📄 o-arrow-top-right-on-square.svg
+│   │   │   │       ├── 📄 o-arrow-trending-down.svg
+│   │   │   │       ├── 📄 o-arrow-trending-up.svg
+│   │   │   │       ├── 📄 o-arrow-turn-down-left.svg
+│   │   │   │       ├── 📄 o-arrow-turn-down-right.svg
+│   │   │   │       ├── 📄 o-arrow-turn-left-down.svg
+│   │   │   │       ├── 📄 o-arrow-turn-left-up.svg
+│   │   │   │       ├── 📄 o-arrow-turn-right-down.svg
+│   │   │   │       ├── 📄 o-arrow-turn-right-up.svg
+│   │   │   │       ├── 📄 o-arrow-turn-up-left.svg
+│   │   │   │       ├── 📄 o-arrow-turn-up-right.svg
+│   │   │   │       ├── 📄 o-arrow-up-circle.svg
+│   │   │   │       ├── 📄 o-arrow-up-left.svg
+│   │   │   │       ├── 📄 o-arrow-up-on-square-stack.svg
+│   │   │   │       ├── 📄 o-arrow-up-on-square.svg
+│   │   │   │       ├── 📄 o-arrow-up-right.svg
+│   │   │   │       ├── 📄 o-arrow-up-tray.svg
+│   │   │   │       ├── 📄 o-arrow-up.svg
+│   │   │   │       ├── 📄 o-arrow-uturn-down.svg
+│   │   │   │       ├── 📄 o-arrow-uturn-left.svg
+│   │   │   │       ├── 📄 o-arrow-uturn-right.svg
+│   │   │   │       ├── 📄 o-arrow-uturn-up.svg
+│   │   │   │       ├── 📄 o-arrows-pointing-in.svg
+│   │   │   │       ├── 📄 o-arrows-pointing-out.svg
+│   │   │   │       ├── 📄 o-arrows-right-left.svg
+│   │   │   │       ├── 📄 o-arrows-up-down.svg
+│   │   │   │       ├── 📄 o-at-symbol.svg
+│   │   │   │       ├── 📄 o-backspace.svg
+│   │   │   │       ├── 📄 o-backward.svg
+│   │   │   │       ├── 📄 o-banknotes.svg
+│   │   │   │       ├── 📄 o-bars-2.svg
+│   │   │   │       ├── 📄 o-bars-3-bottom-left.svg
+│   │   │   │       ├── 📄 o-bars-3-bottom-right.svg
+│   │   │   │       ├── 📄 o-bars-3-center-left.svg
+│   │   │   │       ├── 📄 o-bars-3.svg
+│   │   │   │       ├── 📄 o-bars-4.svg
+│   │   │   │       ├── 📄 o-bars-arrow-down.svg
+│   │   │   │       ├── 📄 o-bars-arrow-up.svg
+│   │   │   │       ├── 📄 o-battery-0.svg
+│   │   │   │       ├── 📄 o-battery-100.svg
+│   │   │   │       ├── 📄 o-battery-50.svg
+│   │   │   │       ├── 📄 o-beaker.svg
+│   │   │   │       ├── 📄 o-bell-alert.svg
+│   │   │   │       ├── 📄 o-bell-slash.svg
+│   │   │   │       ├── 📄 o-bell-snooze.svg
+│   │   │   │       ├── 📄 o-bell.svg
+│   │   │   │       ├── 📄 o-bold.svg
+│   │   │   │       ├── 📄 o-bolt-slash.svg
+│   │   │   │       ├── 📄 o-bolt.svg
+│   │   │   │       ├── 📄 o-book-open.svg
+│   │   │   │       ├── 📄 o-bookmark-slash.svg
+│   │   │   │       ├── 📄 o-bookmark-square.svg
+│   │   │   │       ├── 📄 o-bookmark.svg
+│   │   │   │       ├── 📄 o-briefcase.svg
+│   │   │   │       ├── 📄 o-bug-ant.svg
+│   │   │   │       ├── 📄 o-building-library.svg
+│   │   │   │       ├── 📄 o-building-office-2.svg
+│   │   │   │       ├── 📄 o-building-office.svg
+│   │   │   │       ├── 📄 o-building-storefront.svg
+│   │   │   │       ├── 📄 o-cake.svg
+│   │   │   │       ├── 📄 o-calculator.svg
+│   │   │   │       ├── 📄 o-calendar-date-range.svg
+│   │   │   │       ├── 📄 o-calendar-days.svg
+│   │   │   │       ├── 📄 o-calendar.svg
+│   │   │   │       ├── 📄 o-camera.svg
+│   │   │   │       ├── 📄 o-chart-bar-square.svg
+│   │   │   │       ├── 📄 o-chart-bar.svg
+│   │   │   │       ├── 📄 o-chart-pie.svg
+│   │   │   │       ├── 📄 o-chat-bubble-bottom-center-text.svg
+│   │   │   │       ├── 📄 o-chat-bubble-bottom-center.svg
+│   │   │   │       ├── 📄 o-chat-bubble-left-ellipsis.svg
+│   │   │   │       ├── 📄 o-chat-bubble-left-right.svg
+│   │   │   │       ├── 📄 o-chat-bubble-left.svg
+│   │   │   │       ├── 📄 o-chat-bubble-oval-left-ellipsis.svg
+│   │   │   │       ├── 📄 o-chat-bubble-oval-left.svg
+│   │   │   │       ├── 📄 o-check-badge.svg
+│   │   │   │       ├── 📄 o-check-circle.svg
+│   │   │   │       ├── 📄 o-check.svg
+│   │   │   │       ├── 📄 o-chevron-double-down.svg
+│   │   │   │       ├── 📄 o-chevron-double-left.svg
+│   │   │   │       ├── 📄 o-chevron-double-right.svg
+│   │   │   │       ├── 📄 o-chevron-double-up.svg
+│   │   │   │       ├── 📄 o-chevron-down.svg
+│   │   │   │       ├── 📄 o-chevron-left.svg
+│   │   │   │       ├── 📄 o-chevron-right.svg
+│   │   │   │       ├── 📄 o-chevron-up-down.svg
+│   │   │   │       ├── 📄 o-chevron-up.svg
+│   │   │   │       ├── 📄 o-circle-stack.svg
+│   │   │   │       ├── 📄 o-clipboard-document-check.svg
+│   │   │   │       ├── 📄 o-clipboard-document-list.svg
+│   │   │   │       ├── 📄 o-clipboard-document.svg
+│   │   │   │       ├── 📄 o-clipboard.svg
+│   │   │   │       ├── 📄 o-clock.svg
+│   │   │   │       ├── 📄 o-cloud-arrow-down.svg
+│   │   │   │       ├── 📄 o-cloud-arrow-up.svg
+│   │   │   │       ├── 📄 o-cloud.svg
+│   │   │   │       ├── 📄 o-code-bracket-square.svg
+│   │   │   │       ├── 📄 o-code-bracket.svg
+│   │   │   │       ├── 📄 o-cog-6-tooth.svg
+│   │   │   │       ├── 📄 o-cog-8-tooth.svg
+│   │   │   │       ├── 📄 o-cog.svg
+│   │   │   │       ├── 📄 o-command-line.svg
+│   │   │   │       ├── 📄 o-computer-desktop.svg
+│   │   │   │       ├── 📄 o-cpu-chip.svg
+│   │   │   │       ├── 📄 o-credit-card.svg
+│   │   │   │       ├── 📄 o-cube-transparent.svg
+│   │   │   │       ├── 📄 o-cube.svg
+│   │   │   │       ├── 📄 o-currency-bangladeshi.svg
+│   │   │   │       ├── 📄 o-currency-dollar.svg
+│   │   │   │       ├── 📄 o-currency-euro.svg
+│   │   │   │       ├── 📄 o-currency-pound.svg
+│   │   │   │       ├── 📄 o-currency-rupee.svg
+│   │   │   │       ├── 📄 o-currency-yen.svg
+│   │   │   │       ├── 📄 o-cursor-arrow-rays.svg
+│   │   │   │       ├── 📄 o-cursor-arrow-ripple.svg
+│   │   │   │       ├── 📄 o-device-phone-mobile.svg
+│   │   │   │       ├── 📄 o-device-tablet.svg
+│   │   │   │       ├── 📄 o-divide.svg
+│   │   │   │       ├── 📄 o-document-arrow-down.svg
+│   │   │   │       ├── 📄 o-document-arrow-up.svg
+│   │   │   │       ├── 📄 o-document-chart-bar.svg
+│   │   │   │       ├── 📄 o-document-check.svg
+│   │   │   │       ├── 📄 o-document-currency-bangladeshi.svg
+│   │   │   │       ├── 📄 o-document-currency-dollar.svg
+│   │   │   │       ├── 📄 o-document-currency-euro.svg
+│   │   │   │       ├── 📄 o-document-currency-pound.svg
+│   │   │   │       ├── 📄 o-document-currency-rupee.svg
+│   │   │   │       ├── 📄 o-document-currency-yen.svg
+│   │   │   │       ├── 📄 o-document-duplicate.svg
+│   │   │   │       ├── 📄 o-document-magnifying-glass.svg
+│   │   │   │       ├── 📄 o-document-minus.svg
+│   │   │   │       ├── 📄 o-document-plus.svg
+│   │   │   │       ├── 📄 o-document-text.svg
+│   │   │   │       ├── 📄 o-document.svg
+│   │   │   │       ├── 📄 o-ellipsis-horizontal-circle.svg
+│   │   │   │       ├── 📄 o-ellipsis-horizontal.svg
+│   │   │   │       ├── 📄 o-ellipsis-vertical.svg
+│   │   │   │       ├── 📄 o-envelope-open.svg
+│   │   │   │       ├── 📄 o-envelope.svg
+│   │   │   │       ├── 📄 o-equals.svg
+│   │   │   │       ├── 📄 o-exclamation-circle.svg
+│   │   │   │       ├── 📄 o-exclamation-triangle.svg
+│   │   │   │       ├── 📄 o-eye-dropper.svg
+│   │   │   │       ├── 📄 o-eye-slash.svg
+│   │   │   │       ├── 📄 o-eye.svg
+│   │   │   │       ├── 📄 o-face-frown.svg
+│   │   │   │       ├── 📄 o-face-smile.svg
+│   │   │   │       ├── 📄 o-film.svg
+│   │   │   │       ├── 📄 o-finger-print.svg
+│   │   │   │       ├── 📄 o-fire.svg
+│   │   │   │       ├── 📄 o-flag.svg
+│   │   │   │       ├── 📄 o-folder-arrow-down.svg
+│   │   │   │       ├── 📄 o-folder-minus.svg
+│   │   │   │       ├── 📄 o-folder-open.svg
+│   │   │   │       ├── 📄 o-folder-plus.svg
+│   │   │   │       ├── 📄 o-folder.svg
+│   │   │   │       ├── 📄 o-forward.svg
+│   │   │   │       ├── 📄 o-funnel.svg
+│   │   │   │       ├── 📄 o-gif.svg
+│   │   │   │       ├── 📄 o-gift-top.svg
+│   │   │   │       ├── 📄 o-gift.svg
+│   │   │   │       ├── 📄 o-globe-alt.svg
+│   │   │   │       ├── 📄 o-globe-americas.svg
+│   │   │   │       ├── 📄 o-globe-asia-australia.svg
+│   │   │   │       ├── 📄 o-globe-europe-africa.svg
+│   │   │   │       ├── 📄 o-h1.svg
+│   │   │   │       ├── 📄 o-h2.svg
+│   │   │   │       ├── 📄 o-h3.svg
+│   │   │   │       ├── 📄 o-hand-raised.svg
+│   │   │   │       ├── 📄 o-hand-thumb-down.svg
+│   │   │   │       ├── 📄 o-hand-thumb-up.svg
+│   │   │   │       ├── 📄 o-hashtag.svg
+│   │   │   │       ├── 📄 o-heart.svg
+│   │   │   │       ├── 📄 o-home-modern.svg
+│   │   │   │       ├── 📄 o-home.svg
+│   │   │   │       ├── 📄 o-identification.svg
+│   │   │   │       ├── 📄 o-inbox-arrow-down.svg
+│   │   │   │       ├── 📄 o-inbox-stack.svg
+│   │   │   │       ├── 📄 o-inbox.svg
+│   │   │   │       ├── 📄 o-information-circle.svg
+│   │   │   │       ├── 📄 o-italic.svg
+│   │   │   │       ├── 📄 o-key.svg
+│   │   │   │       ├── 📄 o-language.svg
+│   │   │   │       ├── 📄 o-lifebuoy.svg
+│   │   │   │       ├── 📄 o-light-bulb.svg
+│   │   │   │       ├── 📄 o-link-slash.svg
+│   │   │   │       ├── 📄 o-link.svg
+│   │   │   │       ├── 📄 o-list-bullet.svg
+│   │   │   │       ├── 📄 o-lock-closed.svg
+│   │   │   │       ├── 📄 o-lock-open.svg
+│   │   │   │       ├── 📄 o-magnifying-glass-circle.svg
+│   │   │   │       ├── 📄 o-magnifying-glass-minus.svg
+│   │   │   │       ├── 📄 o-magnifying-glass-plus.svg
+│   │   │   │       ├── 📄 o-magnifying-glass.svg
+│   │   │   │       ├── 📄 o-map-pin.svg
+│   │   │   │       ├── 📄 o-map.svg
+│   │   │   │       ├── 📄 o-megaphone.svg
+│   │   │   │       ├── 📄 o-microphone.svg
+│   │   │   │       ├── 📄 o-minus-circle.svg
+│   │   │   │       ├── 📄 o-minus-small.svg
+│   │   │   │       ├── 📄 o-minus.svg
+│   │   │   │       ├── 📄 o-moon.svg
+│   │   │   │       ├── 📄 o-musical-note.svg
+│   │   │   │       ├── 📄 o-newspaper.svg
+│   │   │   │       ├── 📄 o-no-symbol.svg
+│   │   │   │       ├── 📄 o-numbered-list.svg
+│   │   │   │       ├── 📄 o-paint-brush.svg
+│   │   │   │       ├── 📄 o-paper-airplane.svg
+│   │   │   │       ├── 📄 o-paper-clip.svg
+│   │   │   │       ├── 📄 o-pause-circle.svg
+│   │   │   │       ├── 📄 o-pause.svg
+│   │   │   │       ├── 📄 o-pencil-square.svg
+│   │   │   │       ├── 📄 o-pencil.svg
+│   │   │   │       ├── 📄 o-percent-badge.svg
+│   │   │   │       ├── 📄 o-phone-arrow-down-left.svg
+│   │   │   │       ├── 📄 o-phone-arrow-up-right.svg
+│   │   │   │       ├── 📄 o-phone-x-mark.svg
+│   │   │   │       ├── 📄 o-phone.svg
+│   │   │   │       ├── 📄 o-photo.svg
+│   │   │   │       ├── 📄 o-play-circle.svg
+│   │   │   │       ├── 📄 o-play-pause.svg
+│   │   │   │       ├── 📄 o-play.svg
+│   │   │   │       ├── 📄 o-plus-circle.svg
+│   │   │   │       ├── 📄 o-plus-small.svg
+│   │   │   │       ├── 📄 o-plus.svg
+│   │   │   │       ├── 📄 o-power.svg
+│   │   │   │       ├── 📄 o-presentation-chart-bar.svg
+│   │   │   │       ├── 📄 o-presentation-chart-line.svg
+│   │   │   │       ├── 📄 o-printer.svg
+│   │   │   │       ├── 📄 o-puzzle-piece.svg
+│   │   │   │       ├── 📄 o-qr-code.svg
+│   │   │   │       ├── 📄 o-question-mark-circle.svg
+│   │   │   │       ├── 📄 o-queue-list.svg
+│   │   │   │       ├── 📄 o-radio.svg
+│   │   │   │       ├── 📄 o-receipt-percent.svg
+│   │   │   │       ├── 📄 o-receipt-refund.svg
+│   │   │   │       ├── 📄 o-rectangle-group.svg
+│   │   │   │       ├── 📄 o-rectangle-stack.svg
+│   │   │   │       ├── 📄 o-rocket-launch.svg
+│   │   │   │       ├── 📄 o-rss.svg
+│   │   │   │       ├── 📄 o-scale.svg
+│   │   │   │       ├── 📄 o-scissors.svg
+│   │   │   │       ├── 📄 o-server-stack.svg
+│   │   │   │       ├── 📄 o-server.svg
+│   │   │   │       ├── 📄 o-share.svg
+│   │   │   │       ├── 📄 o-shield-check.svg
+│   │   │   │       ├── 📄 o-shield-exclamation.svg
+│   │   │   │       ├── 📄 o-shopping-bag.svg
+│   │   │   │       ├── 📄 o-shopping-cart.svg
+│   │   │   │       ├── 📄 o-signal-slash.svg
+│   │   │   │       ├── 📄 o-signal.svg
+│   │   │   │       ├── 📄 o-slash.svg
+│   │   │   │       ├── 📄 o-sparkles.svg
+│   │   │   │       ├── 📄 o-speaker-wave.svg
+│   │   │   │       ├── 📄 o-speaker-x-mark.svg
+│   │   │   │       ├── 📄 o-square-2-stack.svg
+│   │   │   │       ├── 📄 o-square-3-stack-3d.svg
+│   │   │   │       ├── 📄 o-squares-2x2.svg
+│   │   │   │       ├── 📄 o-squares-plus.svg
+│   │   │   │       ├── 📄 o-star.svg
+│   │   │   │       ├── 📄 o-stop-circle.svg
+│   │   │   │       ├── 📄 o-stop.svg
+│   │   │   │       ├── 📄 o-strikethrough.svg
+│   │   │   │       ├── 📄 o-sun.svg
+│   │   │   │       ├── 📄 o-swatch.svg
+│   │   │   │       ├── 📄 o-table-cells.svg
+│   │   │   │       ├── 📄 o-tag.svg
+│   │   │   │       ├── 📄 o-ticket.svg
+│   │   │   │       ├── 📄 o-trash.svg
+│   │   │   │       ├── 📄 o-trophy.svg
+│   │   │   │       ├── 📄 o-truck.svg
+│   │   │   │       ├── 📄 o-tv.svg
+│   │   │   │       ├── 📄 o-underline.svg
+│   │   │   │       ├── 📄 o-user-circle.svg
+│   │   │   │       ├── 📄 o-user-group.svg
+│   │   │   │       ├── 📄 o-user-minus.svg
+│   │   │   │       ├── 📄 o-user-plus.svg
+│   │   │   │       ├── 📄 o-user.svg
+│   │   │   │       ├── 📄 o-users.svg
+│   │   │   │       ├── 📄 o-variable.svg
+│   │   │   │       ├── 📄 o-video-camera-slash.svg
+│   │   │   │       ├── 📄 o-video-camera.svg
+│   │   │   │       ├── 📄 o-view-columns.svg
+│   │   │   │       ├── 📄 o-viewfinder-circle.svg
+│   │   │   │       ├── 📄 o-wallet.svg
+│   │   │   │       ├── 📄 o-wifi.svg
+│   │   │   │       ├── 📄 o-window.svg
+│   │   │   │       ├── 📄 o-wrench-screwdriver.svg
+│   │   │   │       ├── 📄 o-wrench.svg
+│   │   │   │       ├── 📄 o-x-circle.svg
+│   │   │   │       ├── 📄 o-x-mark.svg
+│   │   │   │       ├── 📄 s-academic-cap.svg
+│   │   │   │       ├── 📄 s-adjustments-horizontal.svg
+│   │   │   │       ├── 📄 s-adjustments-vertical.svg
+│   │   │   │       ├── 📄 s-archive-box-arrow-down.svg
+│   │   │   │       ├── 📄 s-archive-box-x-mark.svg
+│   │   │   │       ├── 📄 s-archive-box.svg
+│   │   │   │       ├── 📄 s-arrow-down-circle.svg
+│   │   │   │       ├── 📄 s-arrow-down-left.svg
+│   │   │   │       ├── 📄 s-arrow-down-on-square-stack.svg
+│   │   │   │       ├── 📄 s-arrow-down-on-square.svg
+│   │   │   │       ├── 📄 s-arrow-down-right.svg
+│   │   │   │       ├── 📄 s-arrow-down-tray.svg
+│   │   │   │       ├── 📄 s-arrow-down.svg
+│   │   │   │       ├── 📄 s-arrow-left-circle.svg
+│   │   │   │       ├── 📄 s-arrow-left-end-on-rectangle.svg
+│   │   │   │       ├── 📄 s-arrow-left-on-rectangle.svg
+│   │   │   │       ├── 📄 s-arrow-left-start-on-rectangle.svg
+│   │   │   │       ├── 📄 s-arrow-left.svg
+│   │   │   │       ├── 📄 s-arrow-long-down.svg
+│   │   │   │       ├── 📄 s-arrow-long-left.svg
+│   │   │   │       ├── 📄 s-arrow-long-right.svg
+│   │   │   │       ├── 📄 s-arrow-long-up.svg
+│   │   │   │       ├── 📄 s-arrow-path-rounded-square.svg
+│   │   │   │       ├── 📄 s-arrow-path.svg
+│   │   │   │       ├── 📄 s-arrow-right-circle.svg
+│   │   │   │       ├── 📄 s-arrow-right-end-on-rectangle.svg
+│   │   │   │       ├── 📄 s-arrow-right-on-rectangle.svg
+│   │   │   │       ├── 📄 s-arrow-right-start-on-rectangle.svg
+│   │   │   │       ├── 📄 s-arrow-right.svg
+│   │   │   │       ├── 📄 s-arrow-small-down.svg
+│   │   │   │       ├── 📄 s-arrow-small-left.svg
+│   │   │   │       ├── 📄 s-arrow-small-right.svg
+│   │   │   │       ├── 📄 s-arrow-small-up.svg
+│   │   │   │       ├── 📄 s-arrow-top-right-on-square.svg
+│   │   │   │       ├── 📄 s-arrow-trending-down.svg
+│   │   │   │       ├── 📄 s-arrow-trending-up.svg
+│   │   │   │       ├── 📄 s-arrow-turn-down-left.svg
+│   │   │   │       ├── 📄 s-arrow-turn-down-right.svg
+│   │   │   │       ├── 📄 s-arrow-turn-left-down.svg
+│   │   │   │       ├── 📄 s-arrow-turn-left-up.svg
+│   │   │   │       ├── 📄 s-arrow-turn-right-down.svg
+│   │   │   │       ├── 📄 s-arrow-turn-right-up.svg
+│   │   │   │       ├── 📄 s-arrow-turn-up-left.svg
+│   │   │   │       ├── 📄 s-arrow-turn-up-right.svg
+│   │   │   │       ├── 📄 s-arrow-up-circle.svg
+│   │   │   │       ├── 📄 s-arrow-up-left.svg
+│   │   │   │       ├── 📄 s-arrow-up-on-square-stack.svg
+│   │   │   │       ├── 📄 s-arrow-up-on-square.svg
+│   │   │   │       ├── 📄 s-arrow-up-right.svg
+│   │   │   │       ├── 📄 s-arrow-up-tray.svg
+│   │   │   │       ├── 📄 s-arrow-up.svg
+│   │   │   │       ├── 📄 s-arrow-uturn-down.svg
+│   │   │   │       ├── 📄 s-arrow-uturn-left.svg
+│   │   │   │       ├── 📄 s-arrow-uturn-right.svg
+│   │   │   │       ├── 📄 s-arrow-uturn-up.svg
+│   │   │   │       ├── 📄 s-arrows-pointing-in.svg
+│   │   │   │       ├── 📄 s-arrows-pointing-out.svg
+│   │   │   │       ├── 📄 s-arrows-right-left.svg
+│   │   │   │       ├── 📄 s-arrows-up-down.svg
+│   │   │   │       ├── 📄 s-at-symbol.svg
+│   │   │   │       ├── 📄 s-backspace.svg
+│   │   │   │       ├── 📄 s-backward.svg
+│   │   │   │       ├── 📄 s-banknotes.svg
+│   │   │   │       ├── 📄 s-bars-2.svg
+│   │   │   │       ├── 📄 s-bars-3-bottom-left.svg
+│   │   │   │       ├── 📄 s-bars-3-bottom-right.svg
+│   │   │   │       ├── 📄 s-bars-3-center-left.svg
+│   │   │   │       ├── 📄 s-bars-3.svg
+│   │   │   │       ├── 📄 s-bars-4.svg
+│   │   │   │       ├── 📄 s-bars-arrow-down.svg
+│   │   │   │       ├── 📄 s-bars-arrow-up.svg
+│   │   │   │       ├── 📄 s-battery-0.svg
+│   │   │   │       ├── 📄 s-battery-100.svg
+│   │   │   │       ├── 📄 s-battery-50.svg
+│   │   │   │       ├── 📄 s-beaker.svg
+│   │   │   │       ├── 📄 s-bell-alert.svg
+│   │   │   │       ├── 📄 s-bell-slash.svg
+│   │   │   │       ├── 📄 s-bell-snooze.svg
+│   │   │   │       ├── 📄 s-bell.svg
+│   │   │   │       ├── 📄 s-bold.svg
+│   │   │   │       ├── 📄 s-bolt-slash.svg
+│   │   │   │       ├── 📄 s-bolt.svg
+│   │   │   │       ├── 📄 s-book-open.svg
+│   │   │   │       ├── 📄 s-bookmark-slash.svg
+│   │   │   │       ├── 📄 s-bookmark-square.svg
+│   │   │   │       ├── 📄 s-bookmark.svg
+│   │   │   │       ├── 📄 s-briefcase.svg
+│   │   │   │       ├── 📄 s-bug-ant.svg
+│   │   │   │       ├── 📄 s-building-library.svg
+│   │   │   │       ├── 📄 s-building-office-2.svg
+│   │   │   │       ├── 📄 s-building-office.svg
+│   │   │   │       ├── 📄 s-building-storefront.svg
+│   │   │   │       ├── 📄 s-cake.svg
+│   │   │   │       ├── 📄 s-calculator.svg
+│   │   │   │       ├── 📄 s-calendar-date-range.svg
+│   │   │   │       ├── 📄 s-calendar-days.svg
+│   │   │   │       ├── 📄 s-calendar.svg
+│   │   │   │       ├── 📄 s-camera.svg
+│   │   │   │       ├── 📄 s-chart-bar-square.svg
+│   │   │   │       ├── 📄 s-chart-bar.svg
+│   │   │   │       ├── 📄 s-chart-pie.svg
+│   │   │   │       ├── 📄 s-chat-bubble-bottom-center-text.svg
+│   │   │   │       ├── 📄 s-chat-bubble-bottom-center.svg
+│   │   │   │       ├── 📄 s-chat-bubble-left-ellipsis.svg
+│   │   │   │       ├── 📄 s-chat-bubble-left-right.svg
+│   │   │   │       ├── 📄 s-chat-bubble-left.svg
+│   │   │   │       ├── 📄 s-chat-bubble-oval-left-ellipsis.svg
+│   │   │   │       ├── 📄 s-chat-bubble-oval-left.svg
+│   │   │   │       ├── 📄 s-check-badge.svg
+│   │   │   │       ├── 📄 s-check-circle.svg
+│   │   │   │       ├── 📄 s-check.svg
+│   │   │   │       ├── 📄 s-chevron-double-down.svg
+│   │   │   │       ├── 📄 s-chevron-double-left.svg
+│   │   │   │       ├── 📄 s-chevron-double-right.svg
+│   │   │   │       ├── 📄 s-chevron-double-up.svg
+│   │   │   │       ├── 📄 s-chevron-down.svg
+│   │   │   │       ├── 📄 s-chevron-left.svg
+│   │   │   │       ├── 📄 s-chevron-right.svg
+│   │   │   │       ├── 📄 s-chevron-up-down.svg
+│   │   │   │       ├── 📄 s-chevron-up.svg
+│   │   │   │       ├── 📄 s-circle-stack.svg
+│   │   │   │       ├── 📄 s-clipboard-document-check.svg
+│   │   │   │       ├── 📄 s-clipboard-document-list.svg
+│   │   │   │       ├── 📄 s-clipboard-document.svg
+│   │   │   │       ├── 📄 s-clipboard.svg
+│   │   │   │       ├── 📄 s-clock.svg
+│   │   │   │       ├── 📄 s-cloud-arrow-down.svg
+│   │   │   │       ├── 📄 s-cloud-arrow-up.svg
+│   │   │   │       ├── 📄 s-cloud.svg
+│   │   │   │       ├── 📄 s-code-bracket-square.svg
+│   │   │   │       ├── 📄 s-code-bracket.svg
+│   │   │   │       ├── 📄 s-cog-6-tooth.svg
+│   │   │   │       ├── 📄 s-cog-8-tooth.svg
+│   │   │   │       ├── 📄 s-cog.svg
+│   │   │   │       ├── 📄 s-command-line.svg
+│   │   │   │       ├── 📄 s-computer-desktop.svg
+│   │   │   │       ├── 📄 s-cpu-chip.svg
+│   │   │   │       ├── 📄 s-credit-card.svg
+│   │   │   │       ├── 📄 s-cube-transparent.svg
+│   │   │   │       ├── 📄 s-cube.svg
+│   │   │   │       ├── 📄 s-currency-bangladeshi.svg
+│   │   │   │       ├── 📄 s-currency-dollar.svg
+│   │   │   │       ├── 📄 s-currency-euro.svg
+│   │   │   │       ├── 📄 s-currency-pound.svg
+│   │   │   │       ├── 📄 s-currency-rupee.svg
+│   │   │   │       ├── 📄 s-currency-yen.svg
+│   │   │   │       ├── 📄 s-cursor-arrow-rays.svg
+│   │   │   │       ├── 📄 s-cursor-arrow-ripple.svg
+│   │   │   │       ├── 📄 s-device-phone-mobile.svg
+│   │   │   │       ├── 📄 s-device-tablet.svg
+│   │   │   │       ├── 📄 s-divide.svg
+│   │   │   │       ├── 📄 s-document-arrow-down.svg
+│   │   │   │       ├── 📄 s-document-arrow-up.svg
+│   │   │   │       ├── 📄 s-document-chart-bar.svg
+│   │   │   │       ├── 📄 s-document-check.svg
+│   │   │   │       ├── 📄 s-document-currency-bangladeshi.svg
+│   │   │   │       ├── 📄 s-document-currency-dollar.svg
+│   │   │   │       ├── 📄 s-document-currency-euro.svg
+│   │   │   │       ├── 📄 s-document-currency-pound.svg
+│   │   │   │       ├── 📄 s-document-currency-rupee.svg
+│   │   │   │       ├── 📄 s-document-currency-yen.svg
+│   │   │   │       ├── 📄 s-document-duplicate.svg
+│   │   │   │       ├── 📄 s-document-magnifying-glass.svg
+│   │   │   │       ├── 📄 s-document-minus.svg
+│   │   │   │       ├── 📄 s-document-plus.svg
+│   │   │   │       ├── 📄 s-document-text.svg
+│   │   │   │       ├── 📄 s-document.svg
+│   │   │   │       ├── 📄 s-ellipsis-horizontal-circle.svg
+│   │   │   │       ├── 📄 s-ellipsis-horizontal.svg
+│   │   │   │       ├── 📄 s-ellipsis-vertical.svg
+│   │   │   │       ├── 📄 s-envelope-open.svg
+│   │   │   │       ├── 📄 s-envelope.svg
+│   │   │   │       ├── 📄 s-equals.svg
+│   │   │   │       ├── 📄 s-exclamation-circle.svg
+│   │   │   │       ├── 📄 s-exclamation-triangle.svg
+│   │   │   │       ├── 📄 s-eye-dropper.svg
+│   │   │   │       ├── 📄 s-eye-slash.svg
+│   │   │   │       ├── 📄 s-eye.svg
+│   │   │   │       ├── 📄 s-face-frown.svg
+│   │   │   │       ├── 📄 s-face-smile.svg
+│   │   │   │       ├── 📄 s-film.svg
+│   │   │   │       ├── 📄 s-finger-print.svg
+│   │   │   │       ├── 📄 s-fire.svg
+│   │   │   │       ├── 📄 s-flag.svg
+│   │   │   │       ├── 📄 s-folder-arrow-down.svg
+│   │   │   │       ├── 📄 s-folder-minus.svg
+│   │   │   │       ├── 📄 s-folder-open.svg
+│   │   │   │       ├── 📄 s-folder-plus.svg
+│   │   │   │       ├── 📄 s-folder.svg
+│   │   │   │       ├── 📄 s-forward.svg
+│   │   │   │       ├── 📄 s-funnel.svg
+│   │   │   │       ├── 📄 s-gif.svg
+│   │   │   │       ├── 📄 s-gift-top.svg
+│   │   │   │       ├── 📄 s-gift.svg
+│   │   │   │       ├── 📄 s-globe-alt.svg
+│   │   │   │       ├── 📄 s-globe-americas.svg
+│   │   │   │       ├── 📄 s-globe-asia-australia.svg
+│   │   │   │       ├── 📄 s-globe-europe-africa.svg
+│   │   │   │       ├── 📄 s-h1.svg
+│   │   │   │       ├── 📄 s-h2.svg
+│   │   │   │       ├── 📄 s-h3.svg
+│   │   │   │       ├── 📄 s-hand-raised.svg
+│   │   │   │       ├── 📄 s-hand-thumb-down.svg
+│   │   │   │       ├── 📄 s-hand-thumb-up.svg
+│   │   │   │       ├── 📄 s-hashtag.svg
+│   │   │   │       ├── 📄 s-heart.svg
+│   │   │   │       ├── 📄 s-home-modern.svg
+│   │   │   │       ├── 📄 s-home.svg
+│   │   │   │       ├── 📄 s-identification.svg
+│   │   │   │       ├── 📄 s-inbox-arrow-down.svg
+│   │   │   │       ├── 📄 s-inbox-stack.svg
+│   │   │   │       ├── 📄 s-inbox.svg
+│   │   │   │       ├── 📄 s-information-circle.svg
+│   │   │   │       ├── 📄 s-italic.svg
+│   │   │   │       ├── 📄 s-key.svg
+│   │   │   │       ├── 📄 s-language.svg
+│   │   │   │       ├── 📄 s-lifebuoy.svg
+│   │   │   │       ├── 📄 s-light-bulb.svg
+│   │   │   │       ├── 📄 s-link-slash.svg
+│   │   │   │       ├── 📄 s-link.svg
+│   │   │   │       ├── 📄 s-list-bullet.svg
+│   │   │   │       ├── 📄 s-lock-closed.svg
+│   │   │   │       ├── 📄 s-lock-open.svg
+│   │   │   │       ├── 📄 s-magnifying-glass-circle.svg
+│   │   │   │       ├── 📄 s-magnifying-glass-minus.svg
+│   │   │   │       ├── 📄 s-magnifying-glass-plus.svg
+│   │   │   │       ├── 📄 s-magnifying-glass.svg
+│   │   │   │       ├── 📄 s-map-pin.svg
+│   │   │   │       ├── 📄 s-map.svg
+│   │   │   │       ├── 📄 s-megaphone.svg
+│   │   │   │       ├── 📄 s-microphone.svg
+│   │   │   │       ├── 📄 s-minus-circle.svg
+│   │   │   │       ├── 📄 s-minus-small.svg
+│   │   │   │       ├── 📄 s-minus.svg
+│   │   │   │       ├── 📄 s-moon.svg
+│   │   │   │       ├── 📄 s-musical-note.svg
+│   │   │   │       ├── 📄 s-newspaper.svg
+│   │   │   │       ├── 📄 s-no-symbol.svg
+│   │   │   │       ├── 📄 s-numbered-list.svg
+│   │   │   │       ├── 📄 s-paint-brush.svg
+│   │   │   │       ├── 📄 s-paper-airplane.svg
+│   │   │   │       ├── 📄 s-paper-clip.svg
+│   │   │   │       ├── 📄 s-pause-circle.svg
+│   │   │   │       ├── 📄 s-pause.svg
+│   │   │   │       ├── 📄 s-pencil-square.svg
+│   │   │   │       ├── 📄 s-pencil.svg
+│   │   │   │       ├── 📄 s-percent-badge.svg
+│   │   │   │       ├── 📄 s-phone-arrow-down-left.svg
+│   │   │   │       ├── 📄 s-phone-arrow-up-right.svg
+│   │   │   │       ├── 📄 s-phone-x-mark.svg
+│   │   │   │       ├── 📄 s-phone.svg
+│   │   │   │       ├── 📄 s-photo.svg
+│   │   │   │       ├── 📄 s-play-circle.svg
+│   │   │   │       ├── 📄 s-play-pause.svg
+│   │   │   │       ├── 📄 s-play.svg
+│   │   │   │       ├── 📄 s-plus-circle.svg
+│   │   │   │       ├── 📄 s-plus-small.svg
+│   │   │   │       ├── 📄 s-plus.svg
+│   │   │   │       ├── 📄 s-power.svg
+│   │   │   │       ├── 📄 s-presentation-chart-bar.svg
+│   │   │   │       ├── 📄 s-presentation-chart-line.svg
+│   │   │   │       ├── 📄 s-printer.svg
+│   │   │   │       ├── 📄 s-puzzle-piece.svg
+│   │   │   │       ├── 📄 s-qr-code.svg
+│   │   │   │       ├── 📄 s-question-mark-circle.svg
+│   │   │   │       ├── 📄 s-queue-list.svg
+│   │   │   │       ├── 📄 s-radio.svg
+│   │   │   │       ├── 📄 s-receipt-percent.svg
+│   │   │   │       ├── 📄 s-receipt-refund.svg
+│   │   │   │       ├── 📄 s-rectangle-group.svg
+│   │   │   │       ├── 📄 s-rectangle-stack.svg
+│   │   │   │       ├── 📄 s-rocket-launch.svg
+│   │   │   │       ├── 📄 s-rss.svg
+│   │   │   │       ├── 📄 s-scale.svg
+│   │   │   │       ├── 📄 s-scissors.svg
+│   │   │   │       ├── 📄 s-server-stack.svg
+│   │   │   │       ├── 📄 s-server.svg
+│   │   │   │       ├── 📄 s-share.svg
+│   │   │   │       ├── 📄 s-shield-check.svg
+│   │   │   │       ├── 📄 s-shield-exclamation.svg
+│   │   │   │       ├── 📄 s-shopping-bag.svg
+│   │   │   │       ├── 📄 s-shopping-cart.svg
+│   │   │   │       ├── 📄 s-signal-slash.svg
+│   │   │   │       ├── 📄 s-signal.svg
+│   │   │   │       ├── 📄 s-slash.svg
+│   │   │   │       ├── 📄 s-sparkles.svg
+│   │   │   │       ├── 📄 s-speaker-wave.svg
+│   │   │   │       ├── 📄 s-speaker-x-mark.svg
+│   │   │   │       ├── 📄 s-square-2-stack.svg
+│   │   │   │       ├── 📄 s-square-3-stack-3d.svg
+│   │   │   │       ├── 📄 s-squares-2x2.svg
+│   │   │   │       ├── 📄 s-squares-plus.svg
+│   │   │   │       ├── 📄 s-star.svg
+│   │   │   │       ├── 📄 s-stop-circle.svg
+│   │   │   │       ├── 📄 s-stop.svg
+│   │   │   │       ├── 📄 s-strikethrough.svg
+│   │   │   │       ├── 📄 s-sun.svg
+│   │   │   │       ├── 📄 s-swatch.svg
+│   │   │   │       ├── 📄 s-table-cells.svg
+│   │   │   │       ├── 📄 s-tag.svg
+│   │   │   │       ├── 📄 s-ticket.svg
+│   │   │   │       ├── 📄 s-trash.svg
+│   │   │   │       ├── 📄 s-trophy.svg
+│   │   │   │       ├── 📄 s-truck.svg
+│   │   │   │       ├── 📄 s-tv.svg
+│   │   │   │       ├── 📄 s-underline.svg
+│   │   │   │       ├── 📄 s-user-circle.svg
+│   │   │   │       ├── 📄 s-user-group.svg
+│   │   │   │       ├── 📄 s-user-minus.svg
+│   │   │   │       ├── 📄 s-user-plus.svg
+│   │   │   │       ├── 📄 s-user.svg
+│   │   │   │       ├── 📄 s-users.svg
+│   │   │   │       ├── 📄 s-variable.svg
+│   │   │   │       ├── 📄 s-video-camera-slash.svg
+│   │   │   │       ├── 📄 s-video-camera.svg
+│   │   │   │       ├── 📄 s-view-columns.svg
+│   │   │   │       ├── 📄 s-viewfinder-circle.svg
+│   │   │   │       ├── 📄 s-wallet.svg
+│   │   │   │       ├── 📄 s-wifi.svg
+│   │   │   │       ├── 📄 s-window.svg
+│   │   │   │       ├── 📄 s-wrench-screwdriver.svg
+│   │   │   │       ├── 📄 s-wrench.svg
+│   │   │   │       ├── 📄 s-x-circle.svg
+│   │   │   │       └── 📄 s-x-mark.svg
+│   │   │   ├── 📄 SECURITY.md
+│   │   │   └── 📁 src/
+│   │   │       └── 📄 BladeHeroiconsServiceProvider.php
+│   │   └── 📁 blade-icons/
+│   │       ├── 📁 bin/
+│   │       │   └── 📄 blade-icons-generate
+│   │       ├── 📄 composer.json
+│   │       ├── 📁 config/
+│   │       │   └── 📄 blade-icons.php
+│   │       ├── 📄 LICENSE.md
+│   │       ├── 📄 pint.json
+│   │       ├── 📄 SECURITY.md
+│   │       └── 📁 src/
+│   │           ├── 📄 BladeIconsServiceProvider.php
+│   │           ├── 📁 Components/
+│   │           │   ├── 📄 Icon.php
+│   │           │   └── 📄 Svg.php
+│   │           ├── 📁 Concerns/
+│   │           │   └── 📄 RendersAttributes.php
+│   │           ├── 📁 Console/
+│   │           │   ├── 📄 CacheCommand.php
+│   │           │   └── 📄 ClearCommand.php
+│   │           ├── 📁 Exceptions/
+│   │           │   ├── 📄 CannotRegisterIconSet.php
+│   │           │   └── 📄 SvgNotFound.php
+│   │           ├── 📄 Factory.php
+│   │           ├── 📁 Generation/
+│   │           │   └── 📄 IconGenerator.php
+│   │           ├── 📄 helpers.php
+│   │           ├── 📄 IconsManifest.php
+│   │           └── 📄 Svg.php
 │   ├── 📁 brick/
 │   │   └── 📁 math/
 │   │       ├── 📄 CHANGELOG.md
@@ -163,6 +1684,94 @@
 │   │                   ├── 📄 DateTimeDefaultPrecision.php
 │   │                   ├── 📄 DateTimeImmutableType.php
 │   │                   └── 📄 DateTimeType.php
+│   ├── 📁 chillerlan/
+│   │   ├── 📁 php-qrcode/
+│   │   │   ├── 📄 composer.json
+│   │   │   ├── 📄 LICENSE-ASL-2.0
+│   │   │   ├── 📄 LICENSE-MIT
+│   │   │   ├── 📄 NOTICE
+│   │   │   ├── 📄 README.md
+│   │   │   └── 📁 src/
+│   │   │       ├── 📁 Common/
+│   │   │       │   ├── 📄 BitBuffer.php
+│   │   │       │   ├── 📄 EccLevel.php
+│   │   │       │   ├── 📄 ECICharset.php
+│   │   │       │   ├── 📄 GDLuminanceSource.php
+│   │   │       │   ├── 📄 GenericGFPoly.php
+│   │   │       │   ├── 📄 GF256.php
+│   │   │       │   ├── 📄 IMagickLuminanceSource.php
+│   │   │       │   ├── 📄 LuminanceSourceAbstract.php
+│   │   │       │   ├── 📄 LuminanceSourceInterface.php
+│   │   │       │   ├── 📄 MaskPattern.php
+│   │   │       │   ├── 📄 Mode.php
+│   │   │       │   └── 📄 Version.php
+│   │   │       ├── 📁 Data/
+│   │   │       │   ├── 📄 AlphaNum.php
+│   │   │       │   ├── 📄 Byte.php
+│   │   │       │   ├── 📄 ECI.php
+│   │   │       │   ├── 📄 Hanzi.php
+│   │   │       │   ├── 📄 Kanji.php
+│   │   │       │   ├── 📄 Number.php
+│   │   │       │   ├── 📄 QRCodeDataException.php
+│   │   │       │   ├── 📄 QRData.php
+│   │   │       │   ├── 📄 QRDataModeAbstract.php
+│   │   │       │   ├── 📄 QRDataModeInterface.php
+│   │   │       │   ├── 📄 QRMatrix.php
+│   │   │       │   └── 📄 ReedSolomonEncoder.php
+│   │   │       ├── 📁 Decoder/
+│   │   │       │   ├── 📄 Binarizer.php
+│   │   │       │   ├── 📄 BitMatrix.php
+│   │   │       │   ├── 📄 Decoder.php
+│   │   │       │   ├── 📄 DecoderResult.php
+│   │   │       │   ├── 📄 QRCodeDecoderException.php
+│   │   │       │   └── 📄 ReedSolomonDecoder.php
+│   │   │       ├── 📁 Detector/
+│   │   │       │   ├── 📄 AlignmentPattern.php
+│   │   │       │   ├── 📄 AlignmentPatternFinder.php
+│   │   │       │   ├── 📄 Detector.php
+│   │   │       │   ├── 📄 FinderPattern.php
+│   │   │       │   ├── 📄 FinderPatternFinder.php
+│   │   │       │   ├── 📄 GridSampler.php
+│   │   │       │   ├── 📄 PerspectiveTransform.php
+│   │   │       │   ├── 📄 QRCodeDetectorException.php
+│   │   │       │   └── 📄 ResultPoint.php
+│   │   │       ├── 📁 Output/
+│   │   │       │   ├── 📄 QRCodeOutputException.php
+│   │   │       │   ├── 📄 QREps.php
+│   │   │       │   ├── 📄 QRFpdf.php
+│   │   │       │   ├── 📄 QRGdImage.php
+│   │   │       │   ├── 📄 QRGdImageBMP.php
+│   │   │       │   ├── 📄 QRGdImageGIF.php
+│   │   │       │   ├── 📄 QRGdImageJPEG.php
+│   │   │       │   ├── 📄 QRGdImagePNG.php
+│   │   │       │   ├── 📄 QRGdImageWEBP.php
+│   │   │       │   ├── 📄 QRImage.php
+│   │   │       │   ├── 📄 QRImagick.php
+│   │   │       │   ├── 📄 QRMarkup.php
+│   │   │       │   ├── 📄 QRMarkupHTML.php
+│   │   │       │   ├── 📄 QRMarkupSVG.php
+│   │   │       │   ├── 📄 QROutputAbstract.php
+│   │   │       │   ├── 📄 QROutputInterface.php
+│   │   │       │   ├── 📄 QRString.php
+│   │   │       │   ├── 📄 QRStringJSON.php
+│   │   │       │   └── 📄 QRStringText.php
+│   │   │       ├── 📄 QRCode.php
+│   │   │       ├── 📄 QRCodeException.php
+│   │   │       ├── 📄 QROptions.php
+│   │   │       └── 📄 QROptionsTrait.php
+│   │   └── 📁 php-settings-container/
+│   │       ├── 📁 .phpstan/
+│   │       │   ├── 📄 baseline-lt-8.4.neon
+│   │       │   └── 📄 ignore-by-php-version.php
+│   │       ├── 📄 composer.json
+│   │       ├── 📄 LICENSE
+│   │       ├── 📄 README.md
+│   │       ├── 📄 rules-magic-access.neon
+│   │       └── 📁 src/
+│   │           ├── 📁 Attributes/
+│   │           │   └── 📄 ThrowOnInvalidProperty.php
+│   │           ├── 📄 SettingsContainerAbstract.php
+│   │           └── 📄 SettingsContainerInterface.php
 │   ├── 📁 composer/
 │   │   ├── 📄 autoload_classmap.php
 │   │   ├── 📄 autoload_files.php
@@ -170,12 +1779,77 @@
 │   │   ├── 📄 autoload_psr4.php
 │   │   ├── 📄 autoload_real.php
 │   │   ├── 📄 autoload_static.php
+│   │   ├── 📁 class-map-generator/
+│   │   │   ├── 📄 .php-cs-fixer.php
+│   │   │   ├── 📄 composer.json
+│   │   │   ├── 📄 LICENSE
+│   │   │   ├── 📄 README.md
+│   │   │   └── 📁 src/
+│   │   │       ├── 📄 ClassMap.php
+│   │   │       ├── 📄 ClassMapGenerator.php
+│   │   │       ├── 📄 FileList.php
+│   │   │       ├── 📄 PhpFileCleaner.php
+│   │   │       └── 📄 PhpFileParser.php
 │   │   ├── 📄 ClassLoader.php
 │   │   ├── 📄 installed.json
 │   │   ├── 📄 installed.php
 │   │   ├── 📄 InstalledVersions.php
 │   │   ├── 📄 LICENSE
+│   │   ├── 📁 pcre/
+│   │   │   ├── 📄 composer.json
+│   │   │   ├── 📄 extension.neon
+│   │   │   ├── 📄 LICENSE
+│   │   │   ├── 📄 README.md
+│   │   │   └── 📁 src/
+│   │   │       ├── 📄 MatchAllResult.php
+│   │   │       ├── 📄 MatchAllStrictGroupsResult.php
+│   │   │       ├── 📄 MatchAllWithOffsetsResult.php
+│   │   │       ├── 📄 MatchResult.php
+│   │   │       ├── 📄 MatchStrictGroupsResult.php
+│   │   │       ├── 📄 MatchWithOffsetsResult.php
+│   │   │       ├── 📄 PcreException.php
+│   │   │       ├── 📁 PHPStan/
+│   │   │       │   ├── 📄 InvalidRegexPatternRule.php
+│   │   │       │   ├── 📄 PregMatchFlags.php
+│   │   │       │   ├── 📄 PregMatchParameterOutTypeExtension.php
+│   │   │       │   ├── 📄 PregMatchTypeSpecifyingExtension.php
+│   │   │       │   ├── 📄 PregReplaceCallbackClosureTypeExtension.php
+│   │   │       │   └── 📄 UnsafeStrictGroupsCallRule.php
+│   │   │       ├── 📄 Preg.php
+│   │   │       ├── 📄 Regex.php
+│   │   │       ├── 📄 ReplaceResult.php
+│   │   │       └── 📄 UnexpectedNullMatchException.php
 │   │   └── 📄 platform_check.php
+│   ├── 📁 danharrin/
+│   │   ├── 📁 date-format-converter/
+│   │   │   ├── 📄 .gitattributes
+│   │   │   ├── 📁 .github/
+│   │   │   │   ├── 📄 FUNDING.yml
+│   │   │   │   └── 📁 ISSUE_TEMPLATE/
+│   │   │   │       ├── 📄 bug_report.md
+│   │   │   │       └── 📄 config.yml
+│   │   │   ├── 📄 .gitignore
+│   │   │   ├── 📄 CODE_OF_CONDUCT.md
+│   │   │   ├── 📄 composer.json
+│   │   │   ├── 📄 LICENSE.md
+│   │   │   ├── 📄 README.md
+│   │   │   ├── 📄 SECURITY.md
+│   │   │   └── 📁 src/
+│   │   │       ├── 📄 Converter.php
+│   │   │       ├── 📄 helpers.php
+│   │   │       └── 📄 standards.php
+│   │   └── 📁 livewire-rate-limiting/
+│   │       ├── 📄 .gitattributes
+│   │       ├── 📄 .gitignore
+│   │       ├── 📄 CODE_OF_CONDUCT.md
+│   │       ├── 📄 composer.json
+│   │       ├── 📄 LICENSE.md
+│   │       ├── 📄 README.md
+│   │       ├── 📄 SECURITY.md
+│   │       └── 📁 src/
+│   │           ├── 📁 Exceptions/
+│   │           │   └── 📄 TooManyRequestsException.php
+│   │           └── 📄 WithRateLimiting.php
 │   ├── 📁 dflydev/
 │   │   └── 📁 dot-access-data/
 │   │       ├── 📄 CHANGELOG.md
@@ -992,6 +2666,7616 @@
 │   │               │       └── 📄 Text.php
 │   │               ├── 📄 UniqueGenerator.php
 │   │               └── 📄 ValidGenerator.php
+│   ├── 📁 filament/
+│   │   ├── 📁 actions/
+│   │   │   ├── 📄 .stubs.php
+│   │   │   ├── 📄 composer.json
+│   │   │   ├── 📁 database/
+│   │   │   │   └── 📁 migrations/
+│   │   │   │       ├── 📄 create_exports_table.php
+│   │   │   │       ├── 📄 create_failed_import_rows_table.php
+│   │   │   │       └── 📄 create_imports_table.php
+│   │   │   ├── 📁 docs/
+│   │   │   │   ├── 📄 01-overview.md
+│   │   │   │   ├── 📄 02-modals.md
+│   │   │   │   ├── 📄 03-grouping-actions.md
+│   │   │   │   ├── 📄 04-create.md
+│   │   │   │   ├── 📄 05-edit.md
+│   │   │   │   ├── 📄 06-view.md
+│   │   │   │   ├── 📄 07-delete.md
+│   │   │   │   ├── 📄 08-replicate.md
+│   │   │   │   ├── 📄 09-force-delete.md
+│   │   │   │   ├── 📄 10-restore.md
+│   │   │   │   ├── 📄 11-import.md
+│   │   │   │   └── 📄 12-export.md
+│   │   │   ├── 📁 resources/
+│   │   │   │   ├── 📁 css/
+│   │   │   │   │   ├── 📄 actions.css
+│   │   │   │   │   └── 📄 index.css
+│   │   │   │   ├── 📁 js/
+│   │   │   │   │   ├── 📁 components/
+│   │   │   │   │   │   └── 📄 modals.js
+│   │   │   │   │   └── 📄 index.js
+│   │   │   │   ├── 📁 lang/
+│   │   │   │   │   ├── 📁 am/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 ar/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 az/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 bg/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 bn/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 bs/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 ca/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 ckb/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 cs/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 da/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 de/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 el/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 en/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 es/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 et/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 eu/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 fa/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 fi/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 fil/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 fr/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 he/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 hi/
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   └── 📄 modal.php
+│   │   │   │   │   ├── 📁 hr/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 hu/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 hy/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 id/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 it/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 ja/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 ka/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 km/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 ko/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 ku/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 lt/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 lus/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 lv/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 mk/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 mn/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 ms/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 my/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 nb/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 ne/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   │   ├── 📄 edit-profile.php
+│   │   │   │   │   │   │   │   ├── 📁 email-verification/
+│   │   │   │   │   │   │   │   │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │   │   ├── 📄 login.php
+│   │   │   │   │   │   │   │   ├── 📁 password-reset/
+│   │   │   │   │   │   │   │   │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │   │   │   └── 📄 reset-password.php
+│   │   │   │   │   │   │   │   └── 📄 register.php
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   ├── 📄 view.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 nl/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 pl/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 pt/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 pt_BR/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 ro/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 ru/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 si/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 sk/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 sl/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 sq/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 sr_Cyrl/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 sr_Latn/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 sv/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 sw/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 tg/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 th/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 tr/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 uk/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 ur/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 uz/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 vi/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 zh_CN/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 notifications.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   ├── 📁 zh_HK/
+│   │   │   │   │   │   ├── 📄 associate.php
+│   │   │   │   │   │   ├── 📄 attach.php
+│   │   │   │   │   │   ├── 📄 create.php
+│   │   │   │   │   │   ├── 📄 delete.php
+│   │   │   │   │   │   ├── 📄 detach.php
+│   │   │   │   │   │   ├── 📄 dissociate.php
+│   │   │   │   │   │   ├── 📄 edit.php
+│   │   │   │   │   │   ├── 📄 export.php
+│   │   │   │   │   │   ├── 📄 force-delete.php
+│   │   │   │   │   │   ├── 📄 group.php
+│   │   │   │   │   │   ├── 📄 import.php
+│   │   │   │   │   │   ├── 📄 modal.php
+│   │   │   │   │   │   ├── 📄 replicate.php
+│   │   │   │   │   │   ├── 📄 restore.php
+│   │   │   │   │   │   └── 📄 view.php
+│   │   │   │   │   └── 📁 zh_TW/
+│   │   │   │   │       ├── 📄 associate.php
+│   │   │   │   │       ├── 📄 attach.php
+│   │   │   │   │       ├── 📄 create.php
+│   │   │   │   │       ├── 📄 delete.php
+│   │   │   │   │       ├── 📄 detach.php
+│   │   │   │   │       ├── 📄 dissociate.php
+│   │   │   │   │       ├── 📄 edit.php
+│   │   │   │   │       ├── 📄 export.php
+│   │   │   │   │       ├── 📄 force-delete.php
+│   │   │   │   │       ├── 📄 group.php
+│   │   │   │   │       ├── 📄 import.php
+│   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │       ├── 📄 notifications.php
+│   │   │   │   │       ├── 📄 replicate.php
+│   │   │   │   │       ├── 📄 restore.php
+│   │   │   │   │       └── 📄 view.php
+│   │   │   │   └── 📁 views/
+│   │   │   │       ├── 📄 action-modal.blade.php
+│   │   │   │       └── 📁 components/
+│   │   │   │           ├── 📄 group.blade.php
+│   │   │   │           └── 📄 modals.blade.php
+│   │   │   ├── 📁 routes/
+│   │   │   │   └── 📄 web.php
+│   │   │   └── 📁 src/
+│   │   │       ├── 📄 Action.php
+│   │   │       ├── 📄 ActionGroup.php
+│   │   │       ├── 📄 ActionName.php
+│   │   │       ├── 📄 ActionsServiceProvider.php
+│   │   │       ├── 📄 AssociateAction.php
+│   │   │       ├── 📄 AttachAction.php
+│   │   │       ├── 📄 BulkAction.php
+│   │   │       ├── 📄 BulkActionGroup.php
+│   │   │       ├── 📄 ButtonAction.php
+│   │   │       ├── 📁 Commands/
+│   │   │       │   ├── 📁 FileGenerators/
+│   │   │       │   │   ├── 📄 ExporterClassGenerator.php
+│   │   │       │   │   └── 📄 ImporterClassGenerator.php
+│   │   │       │   ├── 📄 MakeExporterCommand.php
+│   │   │       │   └── 📄 MakeImporterCommand.php
+│   │   │       ├── 📁 Concerns/
+│   │   │       │   ├── 📄 BelongsToGroup.php
+│   │   │       │   ├── 📄 BelongsToLivewire.php
+│   │   │       │   ├── 📄 BelongsToSchemaComponent.php
+│   │   │       │   ├── 📄 BelongsToTable.php
+│   │   │       │   ├── 📄 CanBeAuthorized.php
+│   │   │       │   ├── 📄 CanBeBooted.php
+│   │   │       │   ├── 📄 CanBeDisabled.php
+│   │   │       │   ├── 📄 CanBeHidden.php
+│   │   │       │   ├── 📄 CanBeLabeledFrom.php
+│   │   │       │   ├── 📄 CanBeMounted.php
+│   │   │       │   ├── 📄 CanBeOutlined.php
+│   │   │       │   ├── 📄 CanBeRateLimited.php
+│   │   │       │   ├── 📄 CanBeSorted.php
+│   │   │       │   ├── 📄 CanCallParentAction.php
+│   │   │       │   ├── 📄 CanClose.php
+│   │   │       │   ├── 📄 CanCustomizeProcess.php
+│   │   │       │   ├── 📄 CanDeselectRecordsAfterCompletion.php
+│   │   │       │   ├── 📄 CanDispatchEvent.php
+│   │   │       │   ├── 📄 CanExportRecords.php
+│   │   │       │   ├── 📄 CanFetchSelectedRecords.php
+│   │   │       │   ├── 📄 CanNotify.php
+│   │   │       │   ├── 📄 CanOpenModal.php
+│   │   │       │   ├── 📄 CanOpenUrl.php
+│   │   │       │   ├── 📄 CanRedirect.php
+│   │   │       │   ├── 📄 CanRequireConfirmation.php
+│   │   │       │   ├── 📄 CanSubmitForm.php
+│   │   │       │   ├── 📄 CanUseDatabaseTransactions.php
+│   │   │       │   ├── 📄 HasAction.php
+│   │   │       │   ├── 📄 HasArguments.php
+│   │   │       │   ├── 📄 HasData.php
+│   │   │       │   ├── 📄 HasDropdown.php
+│   │   │       │   ├── 📄 HasExtraModalOverlayAttributes.php
+│   │   │       │   ├── 📄 HasExtraModalWindowAttributes.php
+│   │   │       │   ├── 📄 HasGroupedIcon.php
+│   │   │       │   ├── 📄 HasId.php
+│   │   │       │   ├── 📄 HasInfolist.php
+│   │   │       │   ├── 📄 HasKeyBindings.php
+│   │   │       │   ├── 📄 HasLabel.php
+│   │   │       │   ├── 📄 HasLifecycleHooks.php
+│   │   │       │   ├── 📄 HasMountableArguments.php
+│   │   │       │   ├── 📄 HasName.php
+│   │   │       │   ├── 📄 HasParentActions.php
+│   │   │       │   ├── 📄 HasSchema.php
+│   │   │       │   ├── 📄 HasSize.php
+│   │   │       │   ├── 📄 HasTableIcon.php
+│   │   │       │   ├── 📄 HasTooltip.php
+│   │   │       │   ├── 📄 HasWizard.php
+│   │   │       │   ├── 📄 InteractsWithActions.php
+│   │   │       │   ├── 📄 InteractsWithRecord.php
+│   │   │       │   └── 📄 InteractsWithSelectedRecords.php
+│   │   │       ├── 📁 Contracts/
+│   │   │       │   └── 📄 HasActions.php
+│   │   │       ├── 📄 CreateAction.php
+│   │   │       ├── 📄 DeleteAction.php
+│   │   │       ├── 📄 DeleteBulkAction.php
+│   │   │       ├── 📄 DetachAction.php
+│   │   │       ├── 📄 DetachBulkAction.php
+│   │   │       ├── 📄 DissociateAction.php
+│   │   │       ├── 📄 DissociateBulkAction.php
+│   │   │       ├── 📄 EditAction.php
+│   │   │       ├── 📁 Enums/
+│   │   │       │   └── 📄 ActionStatus.php
+│   │   │       ├── 📁 Events/
+│   │   │       │   ├── 📄 ActionCalled.php
+│   │   │       │   └── 📄 ActionCalling.php
+│   │   │       ├── 📁 Exceptions/
+│   │   │       │   └── 📄 ActionNotResolvableException.php
+│   │   │       ├── 📄 ExportAction.php
+│   │   │       ├── 📄 ExportBulkAction.php
+│   │   │       ├── 📁 Exports/
+│   │   │       │   ├── 📁 Concerns/
+│   │   │       │   │   ├── 📄 CanBeHidden.php
+│   │   │       │   │   └── 📄 CanFormatState.php
+│   │   │       │   ├── 📁 ContentGenerators/
+│   │   │       │   │   ├── 📄 CsvExportContentGenerator.php
+│   │   │       │   │   └── 📄 XlsxExportContentGenerator.php
+│   │   │       │   ├── 📁 Downloaders/
+│   │   │       │   │   ├── 📁 Contracts/
+│   │   │       │   │   │   └── 📄 Downloader.php
+│   │   │       │   │   ├── 📄 CsvDownloader.php
+│   │   │       │   │   └── 📄 XlsxDownloader.php
+│   │   │       │   ├── 📁 Enums/
+│   │   │       │   │   ├── 📁 Contracts/
+│   │   │       │   │   │   └── 📄 ExportFormat.php
+│   │   │       │   │   └── 📄 ExportFormat.php
+│   │   │       │   ├── 📄 ExportColumn.php
+│   │   │       │   ├── 📄 ExportDispatcher.php
+│   │   │       │   ├── 📄 Exporter.php
+│   │   │       │   ├── 📁 Http/
+│   │   │       │   │   └── 📁 Controllers/
+│   │   │       │   │       └── 📄 DownloadExport.php
+│   │   │       │   ├── 📁 Jobs/
+│   │   │       │   │   ├── 📄 CompleteExport.php
+│   │   │       │   │   ├── 📄 CreateXlsxFile.php
+│   │   │       │   │   ├── 📄 ExportCompletion.php
+│   │   │       │   │   ├── 📄 ExportCsv.php
+│   │   │       │   │   └── 📄 PrepareCsvExport.php
+│   │   │       │   └── 📁 Models/
+│   │   │       │       └── 📄 Export.php
+│   │   │       ├── 📄 ForceDeleteAction.php
+│   │   │       ├── 📄 ForceDeleteBulkAction.php
+│   │   │       ├── 📄 IconButtonAction.php
+│   │   │       ├── 📄 ImportAction.php
+│   │   │       ├── 📁 Imports/
+│   │   │       │   ├── 📁 ContentGenerators/
+│   │   │       │   │   └── 📄 CsvImportFailureContentGenerator.php
+│   │   │       │   ├── 📁 Downloaders/
+│   │   │       │   │   ├── 📁 Contracts/
+│   │   │       │   │   │   └── 📄 Downloader.php
+│   │   │       │   │   └── 📄 CsvDownloader.php
+│   │   │       │   ├── 📁 Events/
+│   │   │       │   │   ├── 📄 ImportChunkProcessed.php
+│   │   │       │   │   ├── 📄 ImportCompleted.php
+│   │   │       │   │   └── 📄 ImportStarted.php
+│   │   │       │   ├── 📁 Exceptions/
+│   │   │       │   │   └── 📄 RowImportFailedException.php
+│   │   │       │   ├── 📁 Http/
+│   │   │       │   │   └── 📁 Controllers/
+│   │   │       │   │       └── 📄 DownloadImportFailureCsv.php
+│   │   │       │   ├── 📄 ImportColumn.php
+│   │   │       │   ├── 📄 ImportDispatcher.php
+│   │   │       │   ├── 📄 Importer.php
+│   │   │       │   ├── 📁 Jobs/
+│   │   │       │   │   └── 📄 ImportCsv.php
+│   │   │       │   └── 📁 Models/
+│   │   │       │       ├── 📄 FailedImportRow.php
+│   │   │       │       └── 📄 Import.php
+│   │   │       ├── 📄 ReplicateAction.php
+│   │   │       ├── 📄 RestoreAction.php
+│   │   │       ├── 📄 RestoreBulkAction.php
+│   │   │       ├── 📄 SelectAction.php
+│   │   │       ├── 📁 Testing/
+│   │   │       │   ├── 📄 ExportFake.php
+│   │   │       │   ├── 📄 ImportFake.php
+│   │   │       │   ├── 📄 TestableExport.php
+│   │   │       │   ├── 📄 TestableImport.php
+│   │   │       │   ├── 📄 TestAction.php
+│   │   │       │   └── 📄 TestsActions.php
+│   │   │       ├── 📁 View/
+│   │   │       │   ├── 📄 ActionsIconAlias.php
+│   │   │       │   └── 📄 ActionsRenderHook.php
+│   │   │       └── 📄 ViewAction.php
+│   │   ├── 📁 filament/
+│   │   │   ├── 📄 composer.json
+│   │   │   ├── 📁 resources/
+│   │   │   │   ├── 📁 boost/
+│   │   │   │   │   └── 📁 skills/
+│   │   │   │   │       └── 📁 filament-development/
+│   │   │   │   │           └── 📄 SKILL.md
+│   │   │   │   ├── 📁 css/
+│   │   │   │   │   ├── 📄 base.css
+│   │   │   │   │   ├── 📁 components/
+│   │   │   │   │   │   ├── 📄 global-search.css
+│   │   │   │   │   │   ├── 📄 header.css
+│   │   │   │   │   │   ├── 📄 layout.css
+│   │   │   │   │   │   ├── 📄 logo.css
+│   │   │   │   │   │   ├── 📄 page.css
+│   │   │   │   │   │   ├── 📄 sidebar.css
+│   │   │   │   │   │   ├── 📄 tenant-menu.css
+│   │   │   │   │   │   ├── 📄 theme-switcher.css
+│   │   │   │   │   │   ├── 📄 topbar.css
+│   │   │   │   │   │   └── 📄 user-menu.css
+│   │   │   │   │   ├── 📄 index.css
+│   │   │   │   │   ├── 📄 theme.css
+│   │   │   │   │   ├── 📄 utilities.css
+│   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │       ├── 📄 account-widget.css
+│   │   │   │   │       └── 📄 filament-info-widget.css
+│   │   │   │   ├── 📁 js/
+│   │   │   │   │   ├── 📁 components/
+│   │   │   │   │   │   ├── 📄 global-search.js
+│   │   │   │   │   │   ├── 📄 sidebar-background.js
+│   │   │   │   │   │   ├── 📄 sidebar-tooltip.js
+│   │   │   │   │   │   ├── 📄 sidebar.js
+│   │   │   │   │   │   └── 📄 tenant-menu.js
+│   │   │   │   │   ├── 📄 dark-mode.js
+│   │   │   │   │   ├── 📄 echo.js
+│   │   │   │   │   ├── 📄 error-notifications.js
+│   │   │   │   │   ├── 📄 index.js
+│   │   │   │   │   ├── 📄 reset-restored-resource-create-record-pages.js
+│   │   │   │   │   ├── 📄 scroll-sidebar.js
+│   │   │   │   │   ├── 📁 stores/
+│   │   │   │   │   │   └── 📄 sidebar.js
+│   │   │   │   │   └── 📄 unsaved-changes-alert.js
+│   │   │   │   ├── 📁 lang/
+│   │   │   │   │   ├── 📁 am/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 ar/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 az/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 bg/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 bn/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 bs/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       └── 📄 login.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   └── 📄 dashboard.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 ca/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 ckb/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 cs/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 da/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 de/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 el/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   └── 📄 dashboard.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 en/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 es/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 et/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 eu/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 fa/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 fi/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 fil/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 fr/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 he/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 hi/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       └── 📄 login.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   └── 📄 dashboard.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 hr/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 hu/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 hy/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 id/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 it/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 ja/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 ka/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 km/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 ko/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 ku/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 lt/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 lus/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 lv/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 mk/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 mn/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 ms/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 my/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 nb/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 ne/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 nl/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 pl/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 pt/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 pt_BR/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 ro/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 ru/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 si/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 sk/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 sl/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 sq/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 sr_Cyrl/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   │   ├── 📄 edit-profile.php
+│   │   │   │   │   │   │   │   ├── 📁 email-verification/
+│   │   │   │   │   │   │   │   │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │   │   ├── 📄 login.php
+│   │   │   │   │   │   │   │   ├── 📁 password-reset/
+│   │   │   │   │   │   │   │   │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │   │   │   └── 📄 reset-password.php
+│   │   │   │   │   │   │   │   └── 📄 register.php
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 sr_Latn/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   │   ├── 📄 edit-profile.php
+│   │   │   │   │   │   │   │   ├── 📁 email-verification/
+│   │   │   │   │   │   │   │   │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │   │   ├── 📄 login.php
+│   │   │   │   │   │   │   │   ├── 📁 password-reset/
+│   │   │   │   │   │   │   │   │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │   │   │   └── 📄 reset-password.php
+│   │   │   │   │   │   │   │   └── 📄 register.php
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 sv/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 sw/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 tg/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 th/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   │   ├── 📄 edit-profile.php
+│   │   │   │   │   │   │   │   ├── 📁 email-verification/
+│   │   │   │   │   │   │   │   │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │   │   ├── 📄 login.php
+│   │   │   │   │   │   │   │   ├── 📁 password-reset/
+│   │   │   │   │   │   │   │   │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │   │   │   └── 📄 reset-password.php
+│   │   │   │   │   │   │   │   └── 📄 register.php
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📄 query-builder.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 tr/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 uk/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 ur/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   ├── 📄 create-record.php
+│   │   │   │   │   │   │   ├── 📄 edit-record.php
+│   │   │   │   │   │   │   ├── 📄 list-records.php
+│   │   │   │   │   │   │   └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 uz/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 vi/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 zh_CN/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   ├── 📁 http/
+│   │   │   │   │   │   │   │   └── 📁 controllers/
+│   │   │   │   │   │   │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │   │   │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │   │   │   ├── 📁 multi-factor/
+│   │   │   │   │   │   │   │   ├── 📁 app/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 email/
+│   │   │   │   │   │   │   │   │   ├── 📁 actions/
+│   │   │   │   │   │   │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │   │   │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │   │   │   │   │   └── 📄 provider.php
+│   │   │   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │   │   │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │   │   │   ├── 📁 notifications/
+│   │   │   │   │   │   │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 edit-profile.php
+│   │   │   │   │   │   │       ├── 📁 email-verification/
+│   │   │   │   │   │   │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │   │   │       ├── 📄 login.php
+│   │   │   │   │   │   │       ├── 📁 password-reset/
+│   │   │   │   │   │   │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │   │   │       │   └── 📄 reset-password.php
+│   │   │   │   │   │   │       └── 📄 register.php
+│   │   │   │   │   │   ├── 📄 error-notifications.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   ├── 📄 dashboard.php
+│   │   │   │   │   │   │   └── 📁 tenancy/
+│   │   │   │   │   │   │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       ├── 📄 manage-related-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   ├── 📁 zh_HK/
+│   │   │   │   │   │   ├── 📁 auth/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       └── 📄 login.php
+│   │   │   │   │   │   ├── 📄 global-search.php
+│   │   │   │   │   │   ├── 📄 layout.php
+│   │   │   │   │   │   ├── 📁 pages/
+│   │   │   │   │   │   │   └── 📄 dashboard.php
+│   │   │   │   │   │   ├── 📁 resources/
+│   │   │   │   │   │   │   └── 📁 pages/
+│   │   │   │   │   │   │       ├── 📄 create-record.php
+│   │   │   │   │   │   │       ├── 📄 edit-record.php
+│   │   │   │   │   │   │       ├── 📄 list-records.php
+│   │   │   │   │   │   │       └── 📄 view-record.php
+│   │   │   │   │   │   └── 📁 widgets/
+│   │   │   │   │   │       ├── 📄 account-widget.php
+│   │   │   │   │   │       └── 📄 filament-info-widget.php
+│   │   │   │   │   └── 📁 zh_TW/
+│   │   │   │   │       ├── 📁 auth/
+│   │   │   │   │       │   ├── 📁 http/
+│   │   │   │   │       │   │   └── 📁 controllers/
+│   │   │   │   │       │   │       ├── 📄 block-email-change-verification-controller.php
+│   │   │   │   │       │   │       └── 📄 email-change-verification-controller.php
+│   │   │   │   │       │   ├── 📁 multi-factor/
+│   │   │   │   │       │   │   ├── 📁 app/
+│   │   │   │   │       │   │   │   ├── 📁 actions/
+│   │   │   │   │       │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │       │   │   │   │   ├── 📄 regenerate-recovery-codes.php
+│   │   │   │   │       │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │       │   │   │   └── 📄 provider.php
+│   │   │   │   │       │   │   ├── 📁 email/
+│   │   │   │   │       │   │   │   ├── 📁 actions/
+│   │   │   │   │       │   │   │   │   ├── 📄 disable.php
+│   │   │   │   │       │   │   │   │   └── 📄 set-up.php
+│   │   │   │   │       │   │   │   ├── 📁 notifications/
+│   │   │   │   │       │   │   │   │   └── 📄 verify-email-authentication.php
+│   │   │   │   │       │   │   │   └── 📄 provider.php
+│   │   │   │   │       │   │   ├── 📁 pages/
+│   │   │   │   │       │   │   │   └── 📄 set-up-required-multi-factor-authentication.php
+│   │   │   │   │       │   │   └── 📄 recovery-codes-modal-content.php
+│   │   │   │   │       │   ├── 📁 notifications/
+│   │   │   │   │       │   │   └── 📄 notice-of-email-change-request.php
+│   │   │   │   │       │   └── 📁 pages/
+│   │   │   │   │       │       ├── 📄 edit-profile.php
+│   │   │   │   │       │       ├── 📁 email-verification/
+│   │   │   │   │       │       │   └── 📄 email-verification-prompt.php
+│   │   │   │   │       │       ├── 📄 login.php
+│   │   │   │   │       │       ├── 📁 password-reset/
+│   │   │   │   │       │       │   ├── 📄 request-password-reset.php
+│   │   │   │   │       │       │   └── 📄 reset-password.php
+│   │   │   │   │       │       └── 📄 register.php
+│   │   │   │   │       ├── 📄 error-notifications.php
+│   │   │   │   │       ├── 📄 global-search.php
+│   │   │   │   │       ├── 📄 layout.php
+│   │   │   │   │       ├── 📁 pages/
+│   │   │   │   │       │   ├── 📄 dashboard.php
+│   │   │   │   │       │   └── 📁 tenancy/
+│   │   │   │   │       │       └── 📄 edit-tenant-profile.php
+│   │   │   │   │       ├── 📁 resources/
+│   │   │   │   │       │   └── 📁 pages/
+│   │   │   │   │       │       ├── 📄 create-record.php
+│   │   │   │   │       │       ├── 📄 edit-record.php
+│   │   │   │   │       │       ├── 📄 list-records.php
+│   │   │   │   │       │       ├── 📄 manage-related-records.php
+│   │   │   │   │       │       └── 📄 view-record.php
+│   │   │   │   │       ├── 📄 unsaved-changes-alert.php
+│   │   │   │   │       └── 📁 widgets/
+│   │   │   │   │           ├── 📄 account-widget.php
+│   │   │   │   │           └── 📄 filament-info-widget.php
+│   │   │   │   └── 📁 views/
+│   │   │   │       ├── 📁 auth/
+│   │   │   │       │   └── 📁 pages/
+│   │   │   │       │       └── 📄 edit-profile.blade.php
+│   │   │   │       ├── 📁 components/
+│   │   │   │       │   ├── 📁 avatar/
+│   │   │   │       │   │   ├── 📄 tenant.blade.php
+│   │   │   │       │   │   └── 📄 user.blade.php
+│   │   │   │       │   ├── 📁 header/
+│   │   │   │       │   │   ├── 📄 index.blade.php
+│   │   │   │       │   │   └── 📄 simple.blade.php
+│   │   │   │       │   ├── 📁 layout/
+│   │   │   │       │   │   ├── 📄 base.blade.php
+│   │   │   │       │   │   ├── 📄 index.blade.php
+│   │   │   │       │   │   └── 📄 simple.blade.php
+│   │   │   │       │   ├── 📄 logo.blade.php
+│   │   │   │       │   ├── 📁 page/
+│   │   │   │       │   │   ├── 📄 index.blade.php
+│   │   │   │       │   │   ├── 📄 simple.blade.php
+│   │   │   │       │   │   └── 📁 sub-navigation/
+│   │   │   │       │   │       ├── 📄 mobile-menu.blade.php
+│   │   │   │       │   │       ├── 📄 sidebar.blade.php
+│   │   │   │       │   │       └── 📄 tabs.blade.php
+│   │   │   │       │   ├── 📁 sidebar/
+│   │   │   │       │   │   ├── 📄 database-notifications-trigger.blade.php
+│   │   │   │       │   │   ├── 📄 group.blade.php
+│   │   │   │       │   │   └── 📄 item.blade.php
+│   │   │   │       │   ├── 📄 tenant-menu.blade.php
+│   │   │   │       │   ├── 📁 theme-switcher/
+│   │   │   │       │   │   ├── 📄 button.blade.php
+│   │   │   │       │   │   └── 📄 index.blade.php
+│   │   │   │       │   ├── 📁 topbar/
+│   │   │   │       │   │   ├── 📄 database-notifications-trigger.blade.php
+│   │   │   │       │   │   └── 📄 item.blade.php
+│   │   │   │       │   ├── 📄 unsaved-action-changes-alert.blade.php
+│   │   │   │       │   └── 📄 user-menu.blade.php
+│   │   │   │       ├── 📁 livewire/
+│   │   │   │       │   ├── 📄 global-search.blade.php
+│   │   │   │       │   ├── 📄 sidebar.blade.php
+│   │   │   │       │   ├── 📄 simple-user-menu.blade.php
+│   │   │   │       │   └── 📄 topbar.blade.php
+│   │   │   │       ├── 📁 pages/
+│   │   │   │       │   ├── 📄 page.blade.php
+│   │   │   │       │   └── 📄 simple.blade.php
+│   │   │   │       ├── 📁 resources/
+│   │   │   │       │   └── 📄 relation-manager.blade.php
+│   │   │   │       └── 📁 widgets/
+│   │   │   │           ├── 📄 account-widget.blade.php
+│   │   │   │           └── 📄 filament-info-widget.blade.php
+│   │   │   ├── 📁 routes/
+│   │   │   │   └── 📄 web.php
+│   │   │   ├── 📁 src/
+│   │   │   │   ├── 📁 Auth/
+│   │   │   │   │   ├── 📁 Events/
+│   │   │   │   │   │   └── 📄 Registered.php
+│   │   │   │   │   ├── 📁 Http/
+│   │   │   │   │   │   ├── 📁 Controllers/
+│   │   │   │   │   │   │   ├── 📄 BlockEmailChangeVerificationController.php
+│   │   │   │   │   │   │   ├── 📄 EmailChangeVerificationController.php
+│   │   │   │   │   │   │   ├── 📄 EmailVerificationController.php
+│   │   │   │   │   │   │   └── 📄 LogoutController.php
+│   │   │   │   │   │   ├── 📁 Requests/
+│   │   │   │   │   │   │   ├── 📄 BlockEmailChangeVerificationRequest.php
+│   │   │   │   │   │   │   └── 📄 EmailChangeVerificationRequest.php
+│   │   │   │   │   │   └── 📁 Responses/
+│   │   │   │   │   │       ├── 📄 BlockEmailChangeVerificationResponse.php
+│   │   │   │   │   │       ├── 📁 Contracts/
+│   │   │   │   │   │       │   ├── 📄 BlockEmailChangeVerificationResponse.php
+│   │   │   │   │   │       │   ├── 📄 EmailChangeVerificationResponse.php
+│   │   │   │   │   │       │   ├── 📄 EmailVerificationResponse.php
+│   │   │   │   │   │       │   ├── 📄 LoginResponse.php
+│   │   │   │   │   │       │   ├── 📄 LogoutResponse.php
+│   │   │   │   │   │       │   ├── 📄 PasswordResetResponse.php
+│   │   │   │   │   │       │   └── 📄 RegistrationResponse.php
+│   │   │   │   │   │       ├── 📄 EmailChangeVerificationResponse.php
+│   │   │   │   │   │       ├── 📄 EmailVerificationResponse.php
+│   │   │   │   │   │       ├── 📄 LoginResponse.php
+│   │   │   │   │   │       ├── 📄 LogoutResponse.php
+│   │   │   │   │   │       ├── 📄 PasswordResetResponse.php
+│   │   │   │   │   │       └── 📄 RegistrationResponse.php
+│   │   │   │   │   ├── 📁 MultiFactor/
+│   │   │   │   │   │   ├── 📁 App/
+│   │   │   │   │   │   │   ├── 📁 Actions/
+│   │   │   │   │   │   │   │   ├── 📄 DisableAppAuthenticationAction.php
+│   │   │   │   │   │   │   │   ├── 📄 RegenerateAppAuthenticationRecoveryCodesAction.php
+│   │   │   │   │   │   │   │   └── 📄 SetUpAppAuthenticationAction.php
+│   │   │   │   │   │   │   ├── 📄 AppAuthentication.php
+│   │   │   │   │   │   │   ├── 📁 Concerns/
+│   │   │   │   │   │   │   │   ├── 📄 InteractsWithAppAuthentication.php
+│   │   │   │   │   │   │   │   └── 📄 InteractsWithAppAuthenticationRecovery.php
+│   │   │   │   │   │   │   └── 📁 Contracts/
+│   │   │   │   │   │   │       ├── 📄 HasAppAuthentication.php
+│   │   │   │   │   │   │       └── 📄 HasAppAuthenticationRecovery.php
+│   │   │   │   │   │   ├── 📁 Concerns/
+│   │   │   │   │   │   │   └── 📄 HasCacheStore.php
+│   │   │   │   │   │   ├── 📁 Contracts/
+│   │   │   │   │   │   │   ├── 📄 HasBeforeChallengeHook.php
+│   │   │   │   │   │   │   └── 📄 MultiFactorAuthenticationProvider.php
+│   │   │   │   │   │   ├── 📁 Email/
+│   │   │   │   │   │   │   ├── 📁 Actions/
+│   │   │   │   │   │   │   │   ├── 📄 DisableEmailAuthenticationAction.php
+│   │   │   │   │   │   │   │   └── 📄 SetUpEmailAuthenticationAction.php
+│   │   │   │   │   │   │   ├── 📁 Concerns/
+│   │   │   │   │   │   │   │   └── 📄 InteractsWithEmailAuthentication.php
+│   │   │   │   │   │   │   ├── 📁 Contracts/
+│   │   │   │   │   │   │   │   └── 📄 HasEmailAuthentication.php
+│   │   │   │   │   │   │   ├── 📄 EmailAuthentication.php
+│   │   │   │   │   │   │   └── 📁 Notifications/
+│   │   │   │   │   │   │       └── 📄 VerifyEmailAuthentication.php
+│   │   │   │   │   │   ├── 📁 Http/
+│   │   │   │   │   │   │   └── 📁 Middleware/
+│   │   │   │   │   │   │       └── 📄 EnsureMultiFactorAuthenticationIsEnabled.php
+│   │   │   │   │   │   ├── 📄 MultiFactorChallenge.php
+│   │   │   │   │   │   └── 📁 Pages/
+│   │   │   │   │   │       └── 📄 SetUpRequiredMultiFactorAuthentication.php
+│   │   │   │   │   ├── 📁 Notifications/
+│   │   │   │   │   │   ├── 📄 NoticeOfEmailChangeRequest.php
+│   │   │   │   │   │   ├── 📄 ResetPassword.php
+│   │   │   │   │   │   ├── 📄 VerifyEmail.php
+│   │   │   │   │   │   └── 📄 VerifyEmailChange.php
+│   │   │   │   │   └── 📁 Pages/
+│   │   │   │   │       ├── 📄 EditProfile.php
+│   │   │   │   │       ├── 📁 EmailVerification/
+│   │   │   │   │       │   └── 📄 EmailVerificationPrompt.php
+│   │   │   │   │       ├── 📄 Login.php
+│   │   │   │   │       ├── 📁 PasswordReset/
+│   │   │   │   │       │   ├── 📄 RequestPasswordReset.php
+│   │   │   │   │       │   └── 📄 ResetPassword.php
+│   │   │   │   │       └── 📄 Register.php
+│   │   │   │   ├── 📁 AvatarProviders/
+│   │   │   │   │   ├── 📁 Contracts/
+│   │   │   │   │   │   └── 📄 AvatarProvider.php
+│   │   │   │   │   └── 📄 UiAvatarsProvider.php
+│   │   │   │   ├── 📁 Billing/
+│   │   │   │   │   └── 📁 Providers/
+│   │   │   │   │       └── 📁 Contracts/
+│   │   │   │   │           └── 📄 BillingProvider.php
+│   │   │   │   ├── 📁 Clusters/
+│   │   │   │   │   └── 📄 Cluster.php
+│   │   │   │   ├── 📁 Commands/
+│   │   │   │   │   ├── 📄 CacheComponentsCommand.php
+│   │   │   │   │   ├── 📄 ClearCachedComponentsCommand.php
+│   │   │   │   │   ├── 📁 FileGenerators/
+│   │   │   │   │   │   ├── 📄 ClusterClassGenerator.php
+│   │   │   │   │   │   ├── 📁 Concerns/
+│   │   │   │   │   │   │   └── 📄 CanGenerateGetHeaderActionsMethod.php
+│   │   │   │   │   │   ├── 📄 CustomPageClassGenerator.php
+│   │   │   │   │   │   ├── 📄 PanelProviderClassGenerator.php
+│   │   │   │   │   │   └── 📁 Resources/
+│   │   │   │   │   │       ├── 📁 Concerns/
+│   │   │   │   │   │       │   ├── 📄 CanGenerateResourceForms.php
+│   │   │   │   │   │       │   ├── 📄 CanGenerateResourceInfolists.php
+│   │   │   │   │   │       │   └── 📄 CanGenerateResourceTables.php
+│   │   │   │   │   │       ├── 📁 Pages/
+│   │   │   │   │   │       │   ├── 📁 Concerns/
+│   │   │   │   │   │       │   │   └── 📄 CanGenerateResourceProperty.php
+│   │   │   │   │   │       │   ├── 📄 ResourceCreateRecordPageClassGenerator.php
+│   │   │   │   │   │       │   ├── 📄 ResourceCustomPageClassGenerator.php
+│   │   │   │   │   │       │   ├── 📄 ResourceEditRecordPageClassGenerator.php
+│   │   │   │   │   │       │   ├── 📄 ResourceListRecordsPageClassGenerator.php
+│   │   │   │   │   │       │   ├── 📄 ResourceManageRecordsPageClassGenerator.php
+│   │   │   │   │   │       │   ├── 📄 ResourceManageRelatedRecordsPageClassGenerator.php
+│   │   │   │   │   │       │   └── 📄 ResourceViewRecordPageClassGenerator.php
+│   │   │   │   │   │       ├── 📄 RelationManagerClassGenerator.php
+│   │   │   │   │   │       ├── 📄 ResourceClassGenerator.php
+│   │   │   │   │   │       └── 📁 Schemas/
+│   │   │   │   │   │           ├── 📄 ResourceFormSchemaClassGenerator.php
+│   │   │   │   │   │           ├── 📄 ResourceInfolistSchemaClassGenerator.php
+│   │   │   │   │   │           └── 📄 ResourceTableClassGenerator.php
+│   │   │   │   │   ├── 📄 MakeClusterCommand.php
+│   │   │   │   │   ├── 📄 MakePageCommand.php
+│   │   │   │   │   ├── 📄 MakePanelCommand.php
+│   │   │   │   │   ├── 📄 MakeRelationManagerCommand.php
+│   │   │   │   │   ├── 📄 MakeResourceCommand.php
+│   │   │   │   │   ├── 📄 MakeThemeCommand.php
+│   │   │   │   │   └── 📄 MakeUserCommand.php
+│   │   │   │   ├── 📁 Contracts/
+│   │   │   │   │   └── 📄 Plugin.php
+│   │   │   │   ├── 📁 Enums/
+│   │   │   │   │   ├── 📄 DatabaseNotificationsPosition.php
+│   │   │   │   │   ├── 📄 GlobalSearchPosition.php
+│   │   │   │   │   ├── 📄 ThemeMode.php
+│   │   │   │   │   └── 📄 UserMenuPosition.php
+│   │   │   │   ├── 📁 Events/
+│   │   │   │   │   ├── 📄 ServingFilament.php
+│   │   │   │   │   └── 📄 TenantSet.php
+│   │   │   │   ├── 📁 Exceptions/
+│   │   │   │   │   └── 📄 NoDefaultPanelSetException.php
+│   │   │   │   ├── 📁 Facades/
+│   │   │   │   │   └── 📄 Filament.php
+│   │   │   │   ├── 📄 FilamentManager.php
+│   │   │   │   ├── 📄 FilamentServiceProvider.php
+│   │   │   │   ├── 📁 FontProviders/
+│   │   │   │   │   ├── 📄 BunnyFontProvider.php
+│   │   │   │   │   ├── 📁 Contracts/
+│   │   │   │   │   │   └── 📄 FontProvider.php
+│   │   │   │   │   ├── 📄 GoogleFontProvider.php
+│   │   │   │   │   └── 📄 LocalFontProvider.php
+│   │   │   │   ├── 📁 GlobalSearch/
+│   │   │   │   │   ├── 📄 GlobalSearchResult.php
+│   │   │   │   │   ├── 📄 GlobalSearchResults.php
+│   │   │   │   │   └── 📁 Providers/
+│   │   │   │   │       ├── 📁 Contracts/
+│   │   │   │   │       │   └── 📄 GlobalSearchProvider.php
+│   │   │   │   │       └── 📄 DefaultGlobalSearchProvider.php
+│   │   │   │   ├── 📄 global_helpers.php
+│   │   │   │   ├── 📄 helpers.php
+│   │   │   │   ├── 📁 Http/
+│   │   │   │   │   ├── 📁 Controllers/
+│   │   │   │   │   │   ├── 📄 RedirectToHomeController.php
+│   │   │   │   │   │   └── 📄 RedirectToTenantController.php
+│   │   │   │   │   └── 📁 Middleware/
+│   │   │   │   │       ├── 📄 Authenticate.php
+│   │   │   │   │       ├── 📄 AuthenticateSession.php
+│   │   │   │   │       ├── 📄 DisableBladeIconComponents.php
+│   │   │   │   │       ├── 📄 DispatchServingFilamentEvent.php
+│   │   │   │   │       ├── 📄 IdentifyPageConfiguration.php
+│   │   │   │   │       ├── 📄 IdentifyResourceConfiguration.php
+│   │   │   │   │       ├── 📄 IdentifyTenant.php
+│   │   │   │   │       └── 📄 SetUpPanel.php
+│   │   │   │   ├── 📁 Livewire/
+│   │   │   │   │   ├── 📁 Concerns/
+│   │   │   │   │   │   ├── 📄 HasTenantMenu.php
+│   │   │   │   │   │   └── 📄 HasUserMenu.php
+│   │   │   │   │   ├── 📄 DatabaseNotifications.php
+│   │   │   │   │   ├── 📄 GlobalSearch.php
+│   │   │   │   │   ├── 📄 Notifications.php
+│   │   │   │   │   ├── 📄 ScopedModelPropertiesComponentHook.php
+│   │   │   │   │   ├── 📄 Sidebar.php
+│   │   │   │   │   ├── 📄 SimpleUserMenu.php
+│   │   │   │   │   └── 📄 Topbar.php
+│   │   │   │   ├── 📁 Models/
+│   │   │   │   │   └── 📁 Contracts/
+│   │   │   │   │       ├── 📄 FilamentUser.php
+│   │   │   │   │       ├── 📄 HasAvatar.php
+│   │   │   │   │       ├── 📄 HasCurrentTenantLabel.php
+│   │   │   │   │       ├── 📄 HasDefaultTenant.php
+│   │   │   │   │       ├── 📄 HasName.php
+│   │   │   │   │       └── 📄 HasTenants.php
+│   │   │   │   ├── 📁 Navigation/
+│   │   │   │   │   ├── 📁 Concerns/
+│   │   │   │   │   │   ├── 📄 HasExtraSidebarAttributes.php
+│   │   │   │   │   │   └── 📄 HasExtraTopbarAttributes.php
+│   │   │   │   │   ├── 📄 MenuItem.php
+│   │   │   │   │   ├── 📄 NavigationBuilder.php
+│   │   │   │   │   ├── 📄 NavigationGroup.php
+│   │   │   │   │   ├── 📄 NavigationItem.php
+│   │   │   │   │   └── 📄 NavigationManager.php
+│   │   │   │   ├── 📁 Pages/
+│   │   │   │   │   ├── 📄 BasePage.php
+│   │   │   │   │   ├── 📁 Concerns/
+│   │   │   │   │   │   ├── 📄 CanAuthorizeAccess.php
+│   │   │   │   │   │   ├── 📄 CanUseDatabaseTransactions.php
+│   │   │   │   │   │   ├── 📄 ExposesTableToWidgets.php
+│   │   │   │   │   │   ├── 📄 HasErrorNotifications.php
+│   │   │   │   │   │   ├── 📄 HasMaxWidth.php
+│   │   │   │   │   │   ├── 📄 HasRoutes.php
+│   │   │   │   │   │   ├── 📄 HasSubNavigation.php
+│   │   │   │   │   │   ├── 📄 HasTopbar.php
+│   │   │   │   │   │   ├── 📄 HasUnsavedDataChangesAlert.php
+│   │   │   │   │   │   ├── 📄 InteractsWithFormActions.php
+│   │   │   │   │   │   └── 📄 InteractsWithHeaderActions.php
+│   │   │   │   │   ├── 📁 Dashboard/
+│   │   │   │   │   │   ├── 📁 Actions/
+│   │   │   │   │   │   │   └── 📄 FilterAction.php
+│   │   │   │   │   │   └── 📁 Concerns/
+│   │   │   │   │   │       ├── 📄 HasFilters.php
+│   │   │   │   │   │       ├── 📄 HasFiltersAction.php
+│   │   │   │   │   │       └── 📄 HasFiltersForm.php
+│   │   │   │   │   ├── 📄 Dashboard.php
+│   │   │   │   │   ├── 📁 Enums/
+│   │   │   │   │   │   └── 📄 SubNavigationPosition.php
+│   │   │   │   │   ├── 📄 Page.php
+│   │   │   │   │   ├── 📄 PageConfiguration.php
+│   │   │   │   │   ├── 📄 SimplePage.php
+│   │   │   │   │   └── 📁 Tenancy/
+│   │   │   │   │       ├── 📄 EditTenantProfile.php
+│   │   │   │   │       └── 📄 RegisterTenant.php
+│   │   │   │   ├── 📁 Panel/
+│   │   │   │   │   └── 📁 Concerns/
+│   │   │   │   │       ├── 📄 CanGenerateResourceUrls.php
+│   │   │   │   │       ├── 📄 HasAssets.php
+│   │   │   │   │       ├── 📄 HasAuth.php
+│   │   │   │   │       ├── 📄 HasAvatars.php
+│   │   │   │   │       ├── 📄 HasBrandLogo.php
+│   │   │   │   │       ├── 📄 HasBrandName.php
+│   │   │   │   │       ├── 📄 HasBreadcrumbs.php
+│   │   │   │   │       ├── 📄 HasBroadcasting.php
+│   │   │   │   │       ├── 📄 HasColors.php
+│   │   │   │   │       ├── 📄 HasComponents.php
+│   │   │   │   │       ├── 📄 HasDarkMode.php
+│   │   │   │   │       ├── 📄 HasDatabaseTransactions.php
+│   │   │   │   │       ├── 📄 HasErrorNotifications.php
+│   │   │   │   │       ├── 📄 HasFavicon.php
+│   │   │   │   │       ├── 📄 HasFont.php
+│   │   │   │   │       ├── 📄 HasGlobalSearch.php
+│   │   │   │   │       ├── 📄 HasIcons.php
+│   │   │   │   │       ├── 📄 HasId.php
+│   │   │   │   │       ├── 📄 HasMaxContentWidth.php
+│   │   │   │   │       ├── 📄 HasMiddleware.php
+│   │   │   │   │       ├── 📄 HasNavigation.php
+│   │   │   │   │       ├── 📄 HasNotifications.php
+│   │   │   │   │       ├── 📄 HasPlugins.php
+│   │   │   │   │       ├── 📄 HasRenderHooks.php
+│   │   │   │   │       ├── 📄 HasRoutes.php
+│   │   │   │   │       ├── 📄 HasSidebar.php
+│   │   │   │   │       ├── 📄 HasSpaMode.php
+│   │   │   │   │       ├── 📄 HasSubNavigation.php
+│   │   │   │   │       ├── 📄 HasTenancy.php
+│   │   │   │   │       ├── 📄 HasTheme.php
+│   │   │   │   │       ├── 📄 HasTopbar.php
+│   │   │   │   │       ├── 📄 HasTopNavigation.php
+│   │   │   │   │       ├── 📄 HasUnsavedChangesAlerts.php
+│   │   │   │   │       └── 📄 HasUserMenu.php
+│   │   │   │   ├── 📄 Panel.php
+│   │   │   │   ├── 📄 PanelProvider.php
+│   │   │   │   ├── 📄 PanelRegistry.php
+│   │   │   │   ├── 📁 Queue/
+│   │   │   │   │   └── 📁 Middleware/
+│   │   │   │   │       └── 📄 RestoreImportTenant.php
+│   │   │   │   ├── 📁 Resources/
+│   │   │   │   │   ├── 📁 Concerns/
+│   │   │   │   │   │   ├── 📄 HasTabs.php
+│   │   │   │   │   │   └── 📄 InteractsWithRelationshipTable.php
+│   │   │   │   │   ├── 📁 Events/
+│   │   │   │   │   │   ├── 📄 RecordCreated.php
+│   │   │   │   │   │   ├── 📄 RecordSaved.php
+│   │   │   │   │   │   └── 📄 RecordUpdated.php
+│   │   │   │   │   ├── 📁 Pages/
+│   │   │   │   │   │   ├── 📁 Concerns/
+│   │   │   │   │   │   │   ├── 📄 CanAuthorizeResourceAccess.php
+│   │   │   │   │   │   │   ├── 📄 HasRelationManagers.php
+│   │   │   │   │   │   │   ├── 📄 HasWizard.php
+│   │   │   │   │   │   │   ├── 📄 InteractsWithParentRecord.php
+│   │   │   │   │   │   │   └── 📄 InteractsWithRecord.php
+│   │   │   │   │   │   ├── 📁 CreateRecord/
+│   │   │   │   │   │   │   └── 📁 Concerns/
+│   │   │   │   │   │   │       └── 📄 HasWizard.php
+│   │   │   │   │   │   ├── 📄 CreateRecord.php
+│   │   │   │   │   │   ├── 📁 EditRecord/
+│   │   │   │   │   │   │   └── 📁 Concerns/
+│   │   │   │   │   │   │       └── 📄 HasWizard.php
+│   │   │   │   │   │   ├── 📄 EditRecord.php
+│   │   │   │   │   │   ├── 📁 Enums/
+│   │   │   │   │   │   │   └── 📄 ContentTabPosition.php
+│   │   │   │   │   │   ├── 📄 ListRecords.php
+│   │   │   │   │   │   ├── 📄 ManageRecords.php
+│   │   │   │   │   │   ├── 📄 ManageRelatedRecords.php
+│   │   │   │   │   │   ├── 📄 Page.php
+│   │   │   │   │   │   ├── 📄 PageRegistration.php
+│   │   │   │   │   │   └── 📄 ViewRecord.php
+│   │   │   │   │   ├── 📄 ParentResourceRegistration.php
+│   │   │   │   │   ├── 📁 RelationManagers/
+│   │   │   │   │   │   ├── 📁 Concerns/
+│   │   │   │   │   │   │   └── 📄 CanAuthorizeAccess.php
+│   │   │   │   │   │   ├── 📄 RelationGroup.php
+│   │   │   │   │   │   ├── 📄 RelationManager.php
+│   │   │   │   │   │   └── 📄 RelationManagerConfiguration.php
+│   │   │   │   │   ├── 📁 Resource/
+│   │   │   │   │   │   └── 📁 Concerns/
+│   │   │   │   │   │       ├── 📄 BelongsToCluster.php
+│   │   │   │   │   │       ├── 📄 BelongsToParent.php
+│   │   │   │   │   │       ├── 📄 BelongsToTenant.php
+│   │   │   │   │   │       ├── 📄 CanGenerateUrls.php
+│   │   │   │   │   │       ├── 📄 HasAuthorization.php
+│   │   │   │   │   │       ├── 📄 HasBreadcrumbs.php
+│   │   │   │   │   │       ├── 📄 HasConfiguration.php
+│   │   │   │   │   │       ├── 📄 HasGlobalSearch.php
+│   │   │   │   │   │       ├── 📄 HasLabels.php
+│   │   │   │   │   │       ├── 📄 HasNavigation.php
+│   │   │   │   │   │       ├── 📄 HasPages.php
+│   │   │   │   │   │       └── 📄 HasRoutes.php
+│   │   │   │   │   ├── 📄 Resource.php
+│   │   │   │   │   └── 📄 ResourceConfiguration.php
+│   │   │   │   ├── 📁 View/
+│   │   │   │   │   ├── 📁 LegacyComponents/
+│   │   │   │   │   │   ├── 📄 PageComponent.php
+│   │   │   │   │   │   └── 📄 WidgetComponent.php
+│   │   │   │   │   ├── 📄 PanelsIconAlias.php
+│   │   │   │   │   └── 📄 PanelsRenderHook.php
+│   │   │   │   └── 📁 Widgets/
+│   │   │   │       ├── 📄 AccountWidget.php
+│   │   │   │       ├── 📁 Concerns/
+│   │   │   │       │   ├── 📄 InteractsWithPageFilters.php
+│   │   │   │       │   └── 📄 InteractsWithPageTable.php
+│   │   │   │       └── 📄 FilamentInfoWidget.php
+│   │   │   └── 📁 stubs/
+│   │   │       ├── 📄 PageView.stub
+│   │   │       └── 📄 ThemeCss.stub
+│   │   ├── 📁 forms/
+│   │   │   ├── 📄 .stubs.php
+│   │   │   ├── 📄 composer.json
+│   │   │   ├── 📁 docs/
+│   │   │   │   ├── 📄 01-overview.md
+│   │   │   │   ├── 📄 02-text-input.md
+│   │   │   │   ├── 📄 03-select.md
+│   │   │   │   ├── 📄 04-checkbox.md
+│   │   │   │   ├── 📄 05-toggle.md
+│   │   │   │   ├── 📄 06-checkbox-list.md
+│   │   │   │   ├── 📄 07-radio.md
+│   │   │   │   ├── 📄 08-date-time-picker.md
+│   │   │   │   ├── 📄 09-file-upload.md
+│   │   │   │   ├── 📄 10-rich-editor.md
+│   │   │   │   ├── 📄 11-markdown-editor.md
+│   │   │   │   ├── 📄 12-repeater.md
+│   │   │   │   ├── 📄 13-builder.md
+│   │   │   │   ├── 📄 14-tags-input.md
+│   │   │   │   ├── 📄 15-textarea.md
+│   │   │   │   ├── 📄 16-key-value.md
+│   │   │   │   ├── 📄 17-color-picker.md
+│   │   │   │   ├── 📄 18-toggle-buttons.md
+│   │   │   │   ├── 📄 19-slider.md
+│   │   │   │   ├── 📄 20-code-editor.md
+│   │   │   │   ├── 📄 21-hidden.md
+│   │   │   │   ├── 📄 22-custom-fields.md
+│   │   │   │   └── 📄 23-validation.md
+│   │   │   ├── 📁 resources/
+│   │   │   │   ├── 📁 css/
+│   │   │   │   │   ├── 📁 components/
+│   │   │   │   │   │   ├── 📄 builder.css
+│   │   │   │   │   │   ├── 📄 checkbox-list.css
+│   │   │   │   │   │   ├── 📄 code-editor.css
+│   │   │   │   │   │   ├── 📄 color-picker.css
+│   │   │   │   │   │   ├── 📄 date-time-picker.css
+│   │   │   │   │   │   ├── 📄 field.css
+│   │   │   │   │   │   ├── 📁 file-upload/
+│   │   │   │   │   │   │   └── 📄 filepond-plugin-media-preview.css
+│   │   │   │   │   │   ├── 📄 file-upload.css
+│   │   │   │   │   │   ├── 📄 key-value.css
+│   │   │   │   │   │   ├── 📄 markdown-editor.css
+│   │   │   │   │   │   ├── 📄 modal-table-select.css
+│   │   │   │   │   │   ├── 📄 radio.css
+│   │   │   │   │   │   ├── 📄 repeater.css
+│   │   │   │   │   │   ├── 📄 rich-editor.css
+│   │   │   │   │   │   ├── 📄 select.css
+│   │   │   │   │   │   ├── 📄 slider.css
+│   │   │   │   │   │   ├── 📄 tags-input.css
+│   │   │   │   │   │   ├── 📄 text-input.css
+│   │   │   │   │   │   ├── 📄 textarea.css
+│   │   │   │   │   │   └── 📄 toggle-buttons.css
+│   │   │   │   │   └── 📄 index.css
+│   │   │   │   ├── 📁 js/
+│   │   │   │   │   ├── 📁 components/
+│   │   │   │   │   │   ├── 📄 builder.js
+│   │   │   │   │   │   ├── 📄 checkbox-list.js
+│   │   │   │   │   │   ├── 📄 code-editor.js
+│   │   │   │   │   │   ├── 📄 color-picker.js
+│   │   │   │   │   │   ├── 📄 date-time-picker.js
+│   │   │   │   │   │   ├── 📁 file-upload/
+│   │   │   │   │   │   │   └── 📄 filepond-plugin-media-preview.js
+│   │   │   │   │   │   ├── 📄 file-upload.js
+│   │   │   │   │   │   ├── 📄 js-field.js
+│   │   │   │   │   │   ├── 📄 key-value.js
+│   │   │   │   │   │   ├── 📁 markdown-editor/
+│   │   │   │   │   │   │   └── 📄 EasyMDE.js
+│   │   │   │   │   │   ├── 📄 markdown-editor.js
+│   │   │   │   │   │   ├── 📄 repeater.js
+│   │   │   │   │   │   ├── 📁 rich-editor/
+│   │   │   │   │   │   │   ├── 📄 extension-custom-block.js
+│   │   │   │   │   │   │   ├── 📄 extension-grid-column.js
+│   │   │   │   │   │   │   ├── 📄 extension-grid.js
+│   │   │   │   │   │   │   ├── 📄 extension-image.js
+│   │   │   │   │   │   │   ├── 📄 extension-lead.js
+│   │   │   │   │   │   │   ├── 📄 extension-local-files.js
+│   │   │   │   │   │   │   ├── 📄 extension-mention.js
+│   │   │   │   │   │   │   ├── 📄 extension-merge-tag.js
+│   │   │   │   │   │   │   ├── 📄 extension-small.js
+│   │   │   │   │   │   │   ├── 📄 extension-text-color.js
+│   │   │   │   │   │   │   ├── 📄 extensions.js
+│   │   │   │   │   │   │   ├── 📄 mention-suggestion.js
+│   │   │   │   │   │   │   ├── 📄 merge-tag-suggestion.js
+│   │   │   │   │   │   │   ├── 📄 normalize-list-item-content.js
+│   │   │   │   │   │   │   └── 📄 suggestion-position.js
+│   │   │   │   │   │   ├── 📄 rich-editor.js
+│   │   │   │   │   │   ├── 📄 select.js
+│   │   │   │   │   │   ├── 📄 slider.js
+│   │   │   │   │   │   ├── 📄 tags-input.js
+│   │   │   │   │   │   ├── 📁 text-input/
+│   │   │   │   │   │   │   └── 📄 password-reveal.js
+│   │   │   │   │   │   ├── 📄 textarea.js
+│   │   │   │   │   │   └── 📄 toggle-buttons.js
+│   │   │   │   │   ├── 📄 index.js
+│   │   │   │   │   ├── 📁 types/
+│   │   │   │   │   │   └── 📄 js-field.d.ts
+│   │   │   │   │   └── 📁 utilities/
+│   │   │   │   │       ├── 📄 collapsible-item.js
+│   │   │   │   │       ├── 📄 field-accessibility.js
+│   │   │   │   │       └── 📄 reordering.js
+│   │   │   │   ├── 📁 lang/
+│   │   │   │   │   ├── 📁 am/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 ar/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 az/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 bg/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 bn/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 bs/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 ca/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 ckb/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 cs/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 cy/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 da/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 de/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 el/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 en/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 es/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 et/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 eu/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 fa/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 fi/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 fil/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 fr/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 he/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 hi/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 hr/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 hu/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 hy/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 id/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 it/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 ja/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 ka/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 km/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 ko/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 ku/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 lt/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 lus/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 lv/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 mk/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 mn/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 ms/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 my/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 nb/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 ne/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 nl/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 pl/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 pt/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 pt_BR/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 ro/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 ru/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 si/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 sk/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 sq/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 sr_Cyrl/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 sr_Latn/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 sv/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 sw/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 tg/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 th/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 tr/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 uk/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 ur/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 uz/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 vi/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 zh_CN/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   ├── 📁 zh_HK/
+│   │   │   │   │   │   ├── 📄 components.php
+│   │   │   │   │   │   └── 📄 validation.php
+│   │   │   │   │   └── 📁 zh_TW/
+│   │   │   │   │       ├── 📄 components.php
+│   │   │   │   │       └── 📄 validation.php
+│   │   │   │   └── 📁 views/
+│   │   │   │       └── 📁 components/
+│   │   │   │           ├── 📁 builder/
+│   │   │   │           │   └── 📄 block-picker.blade.php
+│   │   │   │           ├── 📄 field-wrapper.blade.php
+│   │   │   │           └── 📄 plain-field-wrapper.blade.php
+│   │   │   ├── 📁 src/
+│   │   │   │   ├── 📁 Commands/
+│   │   │   │   │   ├── 📁 FileGenerators/
+│   │   │   │   │   │   ├── 📁 Concerns/
+│   │   │   │   │   │   │   └── 📄 CanGenerateModelForms.php
+│   │   │   │   │   │   ├── 📄 FieldClassGenerator.php
+│   │   │   │   │   │   ├── 📄 FormSchemaClassGenerator.php
+│   │   │   │   │   │   ├── 📄 LivewireFormComponentClassGenerator.php
+│   │   │   │   │   │   └── 📄 RichContentCustomBlockClassGenerator.php
+│   │   │   │   │   ├── 📄 MakeFieldCommand.php
+│   │   │   │   │   ├── 📄 MakeFormCommand.php
+│   │   │   │   │   ├── 📄 MakeLivewireFormCommand.php
+│   │   │   │   │   └── 📄 MakeRichContentCustomBlockCommand.php
+│   │   │   │   ├── 📁 Components/
+│   │   │   │   │   ├── 📄 BaseFileUpload.php
+│   │   │   │   │   ├── 📁 Builder/
+│   │   │   │   │   │   └── 📄 Block.php
+│   │   │   │   │   ├── 📄 Builder.php
+│   │   │   │   │   ├── 📄 Checkbox.php
+│   │   │   │   │   ├── 📄 CheckboxList.php
+│   │   │   │   │   ├── 📁 CodeEditor/
+│   │   │   │   │   │   └── 📁 Enums/
+│   │   │   │   │   │       └── 📄 Language.php
+│   │   │   │   │   ├── 📄 CodeEditor.php
+│   │   │   │   │   ├── 📄 ColorPicker.php
+│   │   │   │   │   ├── 📁 Concerns/
+│   │   │   │   │   │   ├── 📄 CanAllowHtml.php
+│   │   │   │   │   │   ├── 📄 CanBeAccepted.php
+│   │   │   │   │   │   ├── 📄 CanBeAutocapitalized.php
+│   │   │   │   │   │   ├── 📄 CanBeAutocompleted.php
+│   │   │   │   │   │   ├── 📄 CanBeAutofocused.php
+│   │   │   │   │   │   ├── 📄 CanBeCloned.php
+│   │   │   │   │   │   ├── 📄 CanBeInline.php
+│   │   │   │   │   │   ├── 📄 CanBeLengthConstrained.php
+│   │   │   │   │   │   ├── 📄 CanBeMarkedAsRequired.php
+│   │   │   │   │   │   ├── 📄 CanBeNative.php
+│   │   │   │   │   │   ├── 📄 CanBePreloaded.php
+│   │   │   │   │   │   ├── 📄 CanBeReadOnly.php
+│   │   │   │   │   │   ├── 📄 CanBeSearchable.php
+│   │   │   │   │   │   ├── 📄 CanBeValidated.php
+│   │   │   │   │   │   ├── 📄 CanDisableGrammarly.php
+│   │   │   │   │   │   ├── 📄 CanDisableOptions.php
+│   │   │   │   │   │   ├── 📄 CanDisableOptionsWhenSelectedInSiblingRepeaterItems.php
+│   │   │   │   │   │   ├── 📄 CanFixIndistinctState.php
+│   │   │   │   │   │   ├── 📄 CanGenerateUuids.php
+│   │   │   │   │   │   ├── 📄 CanLimitItemsCount.php
+│   │   │   │   │   │   ├── 📄 CanLimitItemsLength.php
+│   │   │   │   │   │   ├── 📄 CanSelectPlaceholder.php
+│   │   │   │   │   │   ├── 📄 HasAffixes.php
+│   │   │   │   │   │   ├── 📄 HasColors.php
+│   │   │   │   │   │   ├── 📄 HasDatalistOptions.php
+│   │   │   │   │   │   ├── 📄 HasDescriptions.php
+│   │   │   │   │   │   ├── 📄 HasEnum.php
+│   │   │   │   │   │   ├── 📄 HasExtraFieldWrapperAttributes.php
+│   │   │   │   │   │   ├── 📄 HasExtraInputAttributes.php
+│   │   │   │   │   │   ├── 📄 HasExtraItemActions.php
+│   │   │   │   │   │   ├── 📄 HasFileAttachments.php
+│   │   │   │   │   │   ├── 📄 HasGridDirection.php
+│   │   │   │   │   │   ├── 📄 HasHelperText.php
+│   │   │   │   │   │   ├── 📄 HasHint.php
+│   │   │   │   │   │   ├── 📄 HasIcons.php
+│   │   │   │   │   │   ├── 📄 HasInputMode.php
+│   │   │   │   │   │   ├── 📄 HasJsRenderer.php
+│   │   │   │   │   │   ├── 📄 HasLoadingMessage.php
+│   │   │   │   │   │   ├── 📄 HasMaxHeight.php
+│   │   │   │   │   │   ├── 📄 HasMinHeight.php
+│   │   │   │   │   │   ├── 📄 HasNestedRecursiveValidationRules.php
+│   │   │   │   │   │   ├── 📄 HasOptions.php
+│   │   │   │   │   │   ├── 📄 HasPivotData.php
+│   │   │   │   │   │   ├── 📄 HasPlaceholder.php
+│   │   │   │   │   │   ├── 📄 HasPreview.php
+│   │   │   │   │   │   ├── 📄 HasStep.php
+│   │   │   │   │   │   ├── 📄 HasToggleColors.php
+│   │   │   │   │   │   ├── 📄 HasToggleIcons.php
+│   │   │   │   │   │   ├── 📄 HasTooltips.php
+│   │   │   │   │   │   ├── 📄 HasUploadingMessage.php
+│   │   │   │   │   │   └── 📄 InteractsWithToolbarButtons.php
+│   │   │   │   │   ├── 📄 ContentFaker.php
+│   │   │   │   │   ├── 📁 Contracts/
+│   │   │   │   │   │   ├── 📄 CanBeLengthConstrained.php
+│   │   │   │   │   │   ├── 📄 CanDisableOptions.php
+│   │   │   │   │   │   ├── 📄 CanHaveNumericState.php
+│   │   │   │   │   │   ├── 📄 HasAffixes.php
+│   │   │   │   │   │   ├── 📄 HasNestedRecursiveValidationRules.php
+│   │   │   │   │   │   └── 📄 HasValidationRules.php
+│   │   │   │   │   ├── 📄 DatePicker.php
+│   │   │   │   │   ├── 📄 DateTimePicker.php
+│   │   │   │   │   ├── 📄 Field.php
+│   │   │   │   │   ├── 📄 FileUpload.php
+│   │   │   │   │   ├── 📄 Hidden.php
+│   │   │   │   │   ├── 📄 JsField.php
+│   │   │   │   │   ├── 📄 KeyValue.php
+│   │   │   │   │   ├── 📄 LivewireField.php
+│   │   │   │   │   ├── 📁 MarkdownEditor/
+│   │   │   │   │   │   └── 📄 MarkdownFaker.php
+│   │   │   │   │   ├── 📄 MarkdownEditor.php
+│   │   │   │   │   ├── 📄 ModalTableSelect.php
+│   │   │   │   │   ├── 📁 MorphToSelect/
+│   │   │   │   │   │   └── 📄 Type.php
+│   │   │   │   │   ├── 📄 MorphToSelect.php
+│   │   │   │   │   ├── 📄 MultiSelect.php
+│   │   │   │   │   ├── 📄 OneTimeCodeInput.php
+│   │   │   │   │   ├── 📄 Placeholder.php
+│   │   │   │   │   ├── 📄 Radio.php
+│   │   │   │   │   ├── 📄 RelationshipRepeater.php
+│   │   │   │   │   ├── 📁 Repeater/
+│   │   │   │   │   │   └── 📄 TableColumn.php
+│   │   │   │   │   ├── 📄 Repeater.php
+│   │   │   │   │   ├── 📁 RichEditor/
+│   │   │   │   │   │   ├── 📁 Actions/
+│   │   │   │   │   │   │   ├── 📄 AttachFilesAction.php
+│   │   │   │   │   │   │   ├── 📄 CustomBlockAction.php
+│   │   │   │   │   │   │   ├── 📄 GridAction.php
+│   │   │   │   │   │   │   ├── 📄 LinkAction.php
+│   │   │   │   │   │   │   └── 📄 TextColorAction.php
+│   │   │   │   │   │   ├── 📁 Contracts/
+│   │   │   │   │   │   │   └── 📄 CanGenerateFakeConfiguration.php
+│   │   │   │   │   │   ├── 📄 EditorCommand.php
+│   │   │   │   │   │   ├── 📁 FileAttachmentProviders/
+│   │   │   │   │   │   │   └── 📁 Contracts/
+│   │   │   │   │   │   │       └── 📄 FileAttachmentProvider.php
+│   │   │   │   │   │   ├── 📄 MentionProvider.php
+│   │   │   │   │   │   ├── 📁 Models/
+│   │   │   │   │   │   │   ├── 📁 Concerns/
+│   │   │   │   │   │   │   │   └── 📄 InteractsWithRichContent.php
+│   │   │   │   │   │   │   └── 📁 Contracts/
+│   │   │   │   │   │   │       └── 📄 HasRichContent.php
+│   │   │   │   │   │   ├── 📁 Plugins/
+│   │   │   │   │   │   │   └── 📁 Contracts/
+│   │   │   │   │   │   │       ├── 📄 HasFileAttachmentProvider.php
+│   │   │   │   │   │   │       ├── 📄 HasToolbarButtons.php
+│   │   │   │   │   │   │       └── 📄 RichContentPlugin.php
+│   │   │   │   │   │   ├── 📄 RichContentAttribute.php
+│   │   │   │   │   │   ├── 📄 RichContentCustomBlock.php
+│   │   │   │   │   │   ├── 📄 RichContentFaker.php
+│   │   │   │   │   │   ├── 📄 RichContentRenderer.php
+│   │   │   │   │   │   ├── 📄 RichEditorTool.php
+│   │   │   │   │   │   ├── 📁 StateCasts/
+│   │   │   │   │   │   │   └── 📄 RichEditorStateCast.php
+│   │   │   │   │   │   ├── 📄 TextColor.php
+│   │   │   │   │   │   ├── 📁 TipTapExtensions/
+│   │   │   │   │   │   │   ├── 📄 CustomBlockExtension.php
+│   │   │   │   │   │   │   ├── 📄 DetailsContentExtension.php
+│   │   │   │   │   │   │   ├── 📄 DetailsExtension.php
+│   │   │   │   │   │   │   ├── 📄 DetailsSummaryExtension.php
+│   │   │   │   │   │   │   ├── 📄 GridColumnExtension.php
+│   │   │   │   │   │   │   ├── 📄 GridExtension.php
+│   │   │   │   │   │   │   ├── 📄 ImageExtension.php
+│   │   │   │   │   │   │   ├── 📄 LeadExtension.php
+│   │   │   │   │   │   │   ├── 📄 MentionExtension.php
+│   │   │   │   │   │   │   ├── 📄 MergeTagExtension.php
+│   │   │   │   │   │   │   ├── 📄 RawHtmlMergeTagExtension.php
+│   │   │   │   │   │   │   ├── 📄 RenderedCustomBlockExtension.php
+│   │   │   │   │   │   │   ├── 📄 SmallExtension.php
+│   │   │   │   │   │   │   └── 📄 TextColorExtension.php
+│   │   │   │   │   │   └── 📄 ToolbarButtonGroup.php
+│   │   │   │   │   ├── 📄 RichEditor.php
+│   │   │   │   │   ├── 📄 Select.php
+│   │   │   │   │   ├── 📁 Slider/
+│   │   │   │   │   │   └── 📁 Enums/
+│   │   │   │   │   │       ├── 📄 Behavior.php
+│   │   │   │   │   │       └── 📄 PipsMode.php
+│   │   │   │   │   ├── 📄 Slider.php
+│   │   │   │   │   ├── 📁 TableSelect/
+│   │   │   │   │   │   └── 📁 Livewire/
+│   │   │   │   │   │       └── 📄 TableSelectLivewireComponent.php
+│   │   │   │   │   ├── 📄 TableSelect.php
+│   │   │   │   │   ├── 📄 TagsInput.php
+│   │   │   │   │   ├── 📄 Textarea.php
+│   │   │   │   │   ├── 📁 TextInput/
+│   │   │   │   │   │   └── 📁 Actions/
+│   │   │   │   │   │       ├── 📄 CopyAction.php
+│   │   │   │   │   │       ├── 📄 HidePasswordAction.php
+│   │   │   │   │   │       └── 📄 ShowPasswordAction.php
+│   │   │   │   │   ├── 📄 TextInput.php
+│   │   │   │   │   ├── 📄 TimePicker.php
+│   │   │   │   │   ├── 📄 Toggle.php
+│   │   │   │   │   ├── 📄 ToggleButtons.php
+│   │   │   │   │   └── 📄 ViewField.php
+│   │   │   │   ├── 📁 Concerns/
+│   │   │   │   │   └── 📄 InteractsWithForms.php
+│   │   │   │   ├── 📁 Contracts/
+│   │   │   │   │   └── 📄 HasForms.php
+│   │   │   │   ├── 📄 FakerProvider.php
+│   │   │   │   ├── 📄 FormsComponent.php
+│   │   │   │   ├── 📄 FormsServiceProvider.php
+│   │   │   │   ├── 📄 helpers.php
+│   │   │   │   ├── 📁 Testing/
+│   │   │   │   │   ├── 📄 TestsFormComponentActions.php
+│   │   │   │   │   └── 📄 TestsForms.php
+│   │   │   │   └── 📁 View/
+│   │   │   │       └── 📄 FormsIconAlias.php
+│   │   │   └── 📁 stubs/
+│   │   │       ├── 📄 FieldView.stub
+│   │   │       ├── 📄 JsFieldRenderer.stub
+│   │   │       ├── 📄 JsTypeScriptFieldRenderer.stub
+│   │   │       ├── 📄 LivewireFormView.stub
+│   │   │       ├── 📄 ReactFieldRenderer.stub
+│   │   │       ├── 📄 ReactTypeScriptFieldRenderer.stub
+│   │   │       ├── 📄 RichContentCustomBlockPreviewView.stub
+│   │   │       ├── 📄 RichContentCustomBlockView.stub
+│   │   │       ├── 📄 SvelteFieldComponent.stub
+│   │   │       ├── 📄 SvelteFieldRenderer.stub
+│   │   │       ├── 📄 SvelteTypeScriptFieldComponent.stub
+│   │   │       ├── 📄 SvelteTypeScriptFieldRenderer.stub
+│   │   │       ├── 📄 VueFieldComponent.stub
+│   │   │       ├── 📄 VueFieldRenderer.stub
+│   │   │       ├── 📄 VueTypeScriptFieldComponent.stub
+│   │   │       └── 📄 VueTypeScriptFieldRenderer.stub
+│   │   ├── 📁 infolists/
+│   │   │   ├── 📄 .stubs.php
+│   │   │   ├── 📄 composer.json
+│   │   │   ├── 📁 docs/
+│   │   │   │   ├── 📄 01-overview.md
+│   │   │   │   ├── 📄 02-text-entry.md
+│   │   │   │   ├── 📄 03-icon-entry.md
+│   │   │   │   ├── 📄 04-image-entry.md
+│   │   │   │   ├── 📄 05-color-entry.md
+│   │   │   │   ├── 📄 06-code-entry.md
+│   │   │   │   ├── 📄 07-key-value-entry.md
+│   │   │   │   ├── 📄 08-repeatable-entry.md
+│   │   │   │   └── 📄 09-custom-entries.md
+│   │   │   ├── 📁 resources/
+│   │   │   │   ├── 📁 css/
+│   │   │   │   │   ├── 📁 components/
+│   │   │   │   │   │   ├── 📄 code.css
+│   │   │   │   │   │   ├── 📄 color.css
+│   │   │   │   │   │   ├── 📄 entry.css
+│   │   │   │   │   │   ├── 📄 icon.css
+│   │   │   │   │   │   ├── 📄 image.css
+│   │   │   │   │   │   ├── 📄 key-value.css
+│   │   │   │   │   │   ├── 📄 repeatable.css
+│   │   │   │   │   │   └── 📄 text.css
+│   │   │   │   │   └── 📄 index.css
+│   │   │   │   ├── 📁 lang/
+│   │   │   │   │   ├── 📁 am/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 ar/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 az/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 bg/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 bn/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 bs/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 ca/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 ckb/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 cs/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 da/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 de/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 en/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 es/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 et/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 eu/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 fa/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 fi/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 fil/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 fr/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 he/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 hr/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 hu/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 hy/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 id/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 it/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 ja/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 ka/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 km/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 ko/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 ku/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 lt/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 lus/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 mk/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 my/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 nb/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 ne/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 nl/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 pl/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 pt/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 pt_BR/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 ro/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 ru/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 si/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 sk/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 sr_Cyrl/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 sr_Latn/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 sv/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 sw/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 tg/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 th/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 tr/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 uk/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 ur/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 uz/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 vi/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 zh_CN/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 zh_HK/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   └── 📁 zh_TW/
+│   │   │   │   │       └── 📄 components.php
+│   │   │   │   └── 📁 views/
+│   │   │   │       └── 📁 components/
+│   │   │   │           └── 📄 entry-wrapper.blade.php
+│   │   │   ├── 📁 src/
+│   │   │   │   ├── 📁 Commands/
+│   │   │   │   │   ├── 📁 FileGenerators/
+│   │   │   │   │   │   ├── 📁 Concerns/
+│   │   │   │   │   │   │   └── 📄 CanGenerateModelInfolists.php
+│   │   │   │   │   │   └── 📄 EntryClassGenerator.php
+│   │   │   │   │   └── 📄 MakeEntryCommand.php
+│   │   │   │   ├── 📁 Components/
+│   │   │   │   │   ├── 📄 CodeEntry.php
+│   │   │   │   │   ├── 📄 ColorEntry.php
+│   │   │   │   │   ├── 📁 Concerns/
+│   │   │   │   │   │   ├── 📄 CanFormatState.php
+│   │   │   │   │   │   ├── 📄 HasAffixes.php
+│   │   │   │   │   │   ├── 📄 HasColor.php
+│   │   │   │   │   │   ├── 📄 HasExtraEntryWrapperAttributes.php
+│   │   │   │   │   │   ├── 📄 HasHelperText.php
+│   │   │   │   │   │   ├── 📄 HasHint.php
+│   │   │   │   │   │   ├── 📄 HasIcon.php
+│   │   │   │   │   │   ├── 📄 HasIconColor.php
+│   │   │   │   │   │   └── 📄 HasTooltip.php
+│   │   │   │   │   ├── 📄 Entry.php
+│   │   │   │   │   ├── 📄 IconEntry.php
+│   │   │   │   │   ├── 📄 ImageEntry.php
+│   │   │   │   │   ├── 📄 KeyValueEntry.php
+│   │   │   │   │   ├── 📁 RepeatableEntry/
+│   │   │   │   │   │   └── 📄 TableColumn.php
+│   │   │   │   │   ├── 📄 RepeatableEntry.php
+│   │   │   │   │   ├── 📄 TextEntry.php
+│   │   │   │   │   └── 📄 ViewEntry.php
+│   │   │   │   ├── 📁 Concerns/
+│   │   │   │   │   └── 📄 InteractsWithInfolists.php
+│   │   │   │   ├── 📁 Contracts/
+│   │   │   │   │   └── 📄 HasInfolists.php
+│   │   │   │   ├── 📄 InfolistsServiceProvider.php
+│   │   │   │   ├── 📁 Testing/
+│   │   │   │   │   └── 📄 TestsInfolistActions.php
+│   │   │   │   └── 📁 View/
+│   │   │   │       ├── 📁 Components/
+│   │   │   │       │   ├── 📁 IconEntryComponent/
+│   │   │   │       │   │   └── 📄 IconComponent.php
+│   │   │   │       │   └── 📁 TextEntryComponent/
+│   │   │   │       │       ├── 📁 ItemComponent/
+│   │   │   │       │       │   └── 📄 IconComponent.php
+│   │   │   │       │       └── 📄 ItemComponent.php
+│   │   │   │       └── 📄 InfolistsIconAlias.php
+│   │   │   └── 📁 stubs/
+│   │   │       └── 📄 EntryView.stub
+│   │   ├── 📁 notifications/
+│   │   │   ├── 📄 .stubs.php
+│   │   │   ├── 📄 composer.json
+│   │   │   ├── 📁 docs/
+│   │   │   │   ├── 📄 01-overview.md
+│   │   │   │   ├── 📄 02-database-notifications.md
+│   │   │   │   └── 📄 03-broadcast-notifications.md
+│   │   │   ├── 📁 resources/
+│   │   │   │   ├── 📁 css/
+│   │   │   │   │   ├── 📄 database-notifications.css
+│   │   │   │   │   ├── 📄 index.css
+│   │   │   │   │   ├── 📄 notification.css
+│   │   │   │   │   └── 📄 notifications.css
+│   │   │   │   ├── 📁 js/
+│   │   │   │   │   ├── 📄 broadcast-notifications.js
+│   │   │   │   │   ├── 📁 components/
+│   │   │   │   │   │   ├── 📄 notification.js
+│   │   │   │   │   │   └── 📄 notifications.js
+│   │   │   │   │   ├── 📄 index.js
+│   │   │   │   │   └── 📄 notification.js
+│   │   │   │   ├── 📁 lang/
+│   │   │   │   │   ├── 📁 am/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 ar/
+│   │   │   │   │   │   ├── 📄 database.php
+│   │   │   │   │   │   └── 📄 notification.php
+│   │   │   │   │   ├── 📁 az/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 bg/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 bn/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 bs/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 ca/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 ckb/
+│   │   │   │   │   │   ├── 📄 database.php
+│   │   │   │   │   │   └── 📄 notification.php
+│   │   │   │   │   ├── 📁 cs/
+│   │   │   │   │   │   ├── 📄 database.php
+│   │   │   │   │   │   └── 📄 notification.php
+│   │   │   │   │   ├── 📁 cy/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 da/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 de/
+│   │   │   │   │   │   ├── 📄 database.php
+│   │   │   │   │   │   └── 📄 notification.php
+│   │   │   │   │   ├── 📁 el/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 en/
+│   │   │   │   │   │   ├── 📄 database.php
+│   │   │   │   │   │   └── 📄 notification.php
+│   │   │   │   │   ├── 📁 es/
+│   │   │   │   │   │   ├── 📄 database.php
+│   │   │   │   │   │   └── 📄 notification.php
+│   │   │   │   │   ├── 📁 et/
+│   │   │   │   │   │   ├── 📄 database.php
+│   │   │   │   │   │   └── 📄 notification.php
+│   │   │   │   │   ├── 📁 eu/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 fa/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 fi/
+│   │   │   │   │   │   ├── 📄 database.php
+│   │   │   │   │   │   └── 📄 notification.php
+│   │   │   │   │   ├── 📁 fil/
+│   │   │   │   │   │   ├── 📄 database.php
+│   │   │   │   │   │   └── 📄 notification.php
+│   │   │   │   │   ├── 📁 fr/
+│   │   │   │   │   │   ├── 📄 database.php
+│   │   │   │   │   │   └── 📄 notification.php
+│   │   │   │   │   ├── 📁 he/
+│   │   │   │   │   │   ├── 📄 database.php
+│   │   │   │   │   │   └── 📄 notification.php
+│   │   │   │   │   ├── 📁 hr/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 hu/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 hy/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 id/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 it/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 ja/
+│   │   │   │   │   │   ├── 📄 database.php
+│   │   │   │   │   │   └── 📄 notification.php
+│   │   │   │   │   ├── 📁 ka/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 km/
+│   │   │   │   │   │   ├── 📄 database.php
+│   │   │   │   │   │   └── 📄 notification.php
+│   │   │   │   │   ├── 📁 ko/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 ku/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 lt/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 lus/
+│   │   │   │   │   │   ├── 📄 database.php
+│   │   │   │   │   │   └── 📄 notification.php
+│   │   │   │   │   ├── 📁 lv/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 mk/
+│   │   │   │   │   │   ├── 📄 database.php
+│   │   │   │   │   │   └── 📄 notification.php
+│   │   │   │   │   ├── 📁 ms/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 my/
+│   │   │   │   │   │   ├── 📄 database.php
+│   │   │   │   │   │   └── 📄 notification.php
+│   │   │   │   │   ├── 📁 nb/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 ne/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 nl/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 pl/
+│   │   │   │   │   │   ├── 📄 database.php
+│   │   │   │   │   │   └── 📄 notification.php
+│   │   │   │   │   ├── 📁 pt/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 pt_BR/
+│   │   │   │   │   │   ├── 📄 database.php
+│   │   │   │   │   │   └── 📄 notification.php
+│   │   │   │   │   ├── 📁 ro/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 ru/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 si/
+│   │   │   │   │   │   ├── 📄 database.php
+│   │   │   │   │   │   └── 📄 notification.php
+│   │   │   │   │   ├── 📁 sk/
+│   │   │   │   │   │   ├── 📄 database.php
+│   │   │   │   │   │   └── 📄 notification.php
+│   │   │   │   │   ├── 📁 sl/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 sq/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 sr_Cyrl/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 sr_Latn/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 sv/
+│   │   │   │   │   │   ├── 📄 database.php
+│   │   │   │   │   │   └── 📄 notification.php
+│   │   │   │   │   ├── 📁 sw/
+│   │   │   │   │   │   ├── 📄 database.php
+│   │   │   │   │   │   └── 📄 notification.php
+│   │   │   │   │   ├── 📁 tg/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 th/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 tr/
+│   │   │   │   │   │   ├── 📄 database.php
+│   │   │   │   │   │   └── 📄 notification.php
+│   │   │   │   │   ├── 📁 uk/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 ur/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 uz/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   ├── 📁 vi/
+│   │   │   │   │   │   ├── 📄 database.php
+│   │   │   │   │   │   └── 📄 notification.php
+│   │   │   │   │   ├── 📁 zh_CN/
+│   │   │   │   │   │   ├── 📄 database.php
+│   │   │   │   │   │   └── 📄 notification.php
+│   │   │   │   │   ├── 📁 zh_HK/
+│   │   │   │   │   │   └── 📄 database.php
+│   │   │   │   │   └── 📁 zh_TW/
+│   │   │   │   │       ├── 📄 database.php
+│   │   │   │   │       └── 📄 notification.php
+│   │   │   │   └── 📁 views/
+│   │   │   │       ├── 📄 database-notifications.blade.php
+│   │   │   │       └── 📄 notifications.blade.php
+│   │   │   └── 📁 src/
+│   │   │       ├── 📄 BroadcastNotification.php
+│   │   │       ├── 📄 Collection.php
+│   │   │       ├── 📁 Concerns/
+│   │   │       │   ├── 📄 CanBeInline.php
+│   │   │       │   ├── 📄 HasActions.php
+│   │   │       │   ├── 📄 HasBody.php
+│   │   │       │   ├── 📄 HasDate.php
+│   │   │       │   ├── 📄 HasDuration.php
+│   │   │       │   ├── 📄 HasIcon.php
+│   │   │       │   ├── 📄 HasIconColor.php
+│   │   │       │   ├── 📄 HasId.php
+│   │   │       │   ├── 📄 HasStatus.php
+│   │   │       │   └── 📄 HasTitle.php
+│   │   │       ├── 📄 DatabaseNotification.php
+│   │   │       ├── 📁 Events/
+│   │   │       │   └── 📄 DatabaseNotificationsSent.php
+│   │   │       ├── 📁 Http/
+│   │   │       │   └── 📁 Middleware/
+│   │   │       │       ├── 📄 InitializeNotificationMailbox.php
+│   │   │       │       └── 📄 PublishNotifications.php
+│   │   │       ├── 📁 Livewire/
+│   │   │       │   ├── 📄 DatabaseNotifications.php
+│   │   │       │   └── 📄 Notifications.php
+│   │   │       ├── 📄 Notification.php
+│   │   │       ├── 📄 NotificationMailbox.php
+│   │   │       ├── 📄 NotificationsServiceProvider.php
+│   │   │       ├── 📁 Testing/
+│   │   │       │   ├── 📄 helpers.php
+│   │   │       │   └── 📄 TestsNotifications.php
+│   │   │       └── 📁 View/
+│   │   │           ├── 📁 Components/
+│   │   │           │   ├── 📁 NotificationComponent/
+│   │   │           │   │   └── 📄 IconComponent.php
+│   │   │           │   └── 📄 NotificationComponent.php
+│   │   │           └── 📄 NotificationsIconAlias.php
+│   │   ├── 📁 query-builder/
+│   │   │   ├── 📄 composer.json
+│   │   │   ├── 📁 resources/
+│   │   │   │   └── 📁 lang/
+│   │   │   │       ├── 📁 am/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 ar/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 az/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 bg/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 bn/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 ca/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 ckb/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 cs/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 da/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 de/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 el/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 en/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 es/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 et/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 eu/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 fa/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 fi/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 fil/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 fr/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 he/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 hr/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 hu/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 hy/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 id/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 it/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 ja/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 ka/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 km/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 ko/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 lt/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 lus/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 mk/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 mn/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 ms/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 my/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 nb/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 nl/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 pl/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 pt/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 pt_BR/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 ro/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 ru/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 si/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 sk/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 sl/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 sr_Cyrl/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 sr_Latn/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 sv/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 sw/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 tg/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 th/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 tr/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 uk/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 ur/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 uz/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 vi/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 zh_CN/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       ├── 📁 zh_HK/
+│   │   │   │       │   └── 📄 query-builder.php
+│   │   │   │       └── 📁 zh_TW/
+│   │   │   │           └── 📄 query-builder.php
+│   │   │   └── 📁 src/
+│   │   │       ├── 📁 Concerns/
+│   │   │       │   └── 📄 HasConstraints.php
+│   │   │       ├── 📁 Constraints/
+│   │   │       │   ├── 📁 BooleanConstraint/
+│   │   │       │   │   └── 📁 Operators/
+│   │   │       │   │       └── 📄 IsTrueOperator.php
+│   │   │       │   ├── 📄 BooleanConstraint.php
+│   │   │       │   ├── 📁 Concerns/
+│   │   │       │   │   ├── 📄 CanBeNullable.php
+│   │   │       │   │   ├── 📄 HasLabel.php
+│   │   │       │   │   ├── 📄 HasName.php
+│   │   │       │   │   └── 📄 HasOperators.php
+│   │   │       │   ├── 📄 Constraint.php
+│   │   │       │   ├── 📁 DateConstraint/
+│   │   │       │   │   ├── 📄 DateUnit.php
+│   │   │       │   │   └── 📁 Operators/
+│   │   │       │   │       ├── 📄 IsAfterOperator.php
+│   │   │       │   │       ├── 📄 IsBeforeOperator.php
+│   │   │       │   │       ├── 📄 IsDateOperator.php
+│   │   │       │   │       ├── 📄 IsMonthOperator.php
+│   │   │       │   │       └── 📄 IsYearOperator.php
+│   │   │       │   ├── 📄 DateConstraint.php
+│   │   │       │   ├── 📁 NumberConstraint/
+│   │   │       │   │   └── 📁 Operators/
+│   │   │       │   │       ├── 📁 Concerns/
+│   │   │       │   │       │   └── 📄 CanAggregateRelationships.php
+│   │   │       │   │       ├── 📄 EqualsOperator.php
+│   │   │       │   │       ├── 📄 IsMaxOperator.php
+│   │   │       │   │       └── 📄 IsMinOperator.php
+│   │   │       │   ├── 📄 NumberConstraint.php
+│   │   │       │   ├── 📁 Operators/
+│   │   │       │   │   ├── 📁 Concerns/
+│   │   │       │   │   │   └── 📄 CanBeHidden.php
+│   │   │       │   │   ├── 📄 IsFilledOperator.php
+│   │   │       │   │   └── 📄 Operator.php
+│   │   │       │   ├── 📁 RelationshipConstraint/
+│   │   │       │   │   └── 📁 Operators/
+│   │   │       │   │       ├── 📄 EqualsOperator.php
+│   │   │       │   │       ├── 📄 HasMaxOperator.php
+│   │   │       │   │       ├── 📄 HasMinOperator.php
+│   │   │       │   │       ├── 📄 IsEmptyOperator.php
+│   │   │       │   │       └── 📄 IsRelatedToOperator.php
+│   │   │       │   ├── 📄 RelationshipConstraint.php
+│   │   │       │   ├── 📁 SelectConstraint/
+│   │   │       │   │   └── 📁 Operators/
+│   │   │       │   │       └── 📄 IsOperator.php
+│   │   │       │   ├── 📄 SelectConstraint.php
+│   │   │       │   ├── 📁 TextConstraint/
+│   │   │       │   │   └── 📁 Operators/
+│   │   │       │   │       ├── 📄 ContainsOperator.php
+│   │   │       │   │       ├── 📄 EndsWithOperator.php
+│   │   │       │   │       ├── 📄 EqualsOperator.php
+│   │   │       │   │       └── 📄 StartsWithOperator.php
+│   │   │       │   └── 📄 TextConstraint.php
+│   │   │       ├── 📁 Forms/
+│   │   │       │   └── 📁 Components/
+│   │   │       │       └── 📄 RuleBuilder.php
+│   │   │       ├── 📁 Models/
+│   │   │       │   └── 📁 Scopes/
+│   │   │       │       └── 📄 QueryBuilderScope.php
+│   │   │       ├── 📄 QueryBuilderServiceProvider.php
+│   │   │       └── 📁 View/
+│   │   │           └── 📄 QueryBuilderIconAlias.php
+│   │   ├── 📁 schemas/
+│   │   │   ├── 📄 .stubs.php
+│   │   │   ├── 📄 composer.json
+│   │   │   ├── 📁 docs/
+│   │   │   │   ├── 📄 01-overview.md
+│   │   │   │   ├── 📄 02-layouts.md
+│   │   │   │   ├── 📄 03-sections.md
+│   │   │   │   ├── 📄 04-tabs.md
+│   │   │   │   ├── 📄 05-wizards.md
+│   │   │   │   ├── 📄 06-callouts.md
+│   │   │   │   ├── 📄 07-empty-states.md
+│   │   │   │   ├── 📄 08-primes.md
+│   │   │   │   └── 📄 09-custom-components.md
+│   │   │   ├── 📁 resources/
+│   │   │   │   ├── 📁 css/
+│   │   │   │   │   ├── 📁 components/
+│   │   │   │   │   │   ├── 📄 actions.css
+│   │   │   │   │   │   ├── 📄 flex.css
+│   │   │   │   │   │   ├── 📄 form.css
+│   │   │   │   │   │   ├── 📄 fused-group.css
+│   │   │   │   │   │   ├── 📄 icon.css
+│   │   │   │   │   │   ├── 📄 image.css
+│   │   │   │   │   │   ├── 📄 section.css
+│   │   │   │   │   │   ├── 📄 tabs.css
+│   │   │   │   │   │   ├── 📄 text.css
+│   │   │   │   │   │   ├── 📄 unordered-list.css
+│   │   │   │   │   │   └── 📄 wizard.css
+│   │   │   │   │   ├── 📄 index.css
+│   │   │   │   │   └── 📄 schema.css
+│   │   │   │   ├── 📁 js/
+│   │   │   │   │   ├── 📁 components/
+│   │   │   │   │   │   ├── 📄 actions.js
+│   │   │   │   │   │   ├── 📄 component.js
+│   │   │   │   │   │   ├── 📄 js-component.js
+│   │   │   │   │   │   ├── 📄 tabs.js
+│   │   │   │   │   │   └── 📄 wizard.js
+│   │   │   │   │   ├── 📄 index.js
+│   │   │   │   │   └── 📁 types/
+│   │   │   │   │       └── 📄 js-component.d.ts
+│   │   │   │   ├── 📁 lang/
+│   │   │   │   │   ├── 📁 am/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 ar/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 az/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 bg/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 bn/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 bs/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 ca/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 ckb/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 cs/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 cy/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 da/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 de/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 el/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 en/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 es/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 et/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 eu/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 fa/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 fi/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 fil/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 fr/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 he/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 hr/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 hu/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 hy/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 id/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 it/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 ja/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 ka/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 km/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 ko/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 ku/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 lt/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 lus/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 lv/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 mk/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 mn/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 ms/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 my/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 nb/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 ne/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 nl/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 pl/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 pt/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 pt_BR/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 ro/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 ru/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 si/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 sk/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 sq/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 sr_Cyrl/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 sr_Latn/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 sv/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 sw/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 tg/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 th/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 tr/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 uk/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 ur/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 uz/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 vi/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 zh_CN/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   ├── 📁 zh_HK/
+│   │   │   │   │   │   └── 📄 components.php
+│   │   │   │   │   └── 📁 zh_TW/
+│   │   │   │   │       └── 📄 components.php
+│   │   │   │   └── 📁 views/
+│   │   │   │       └── 📁 components/
+│   │   │   │           ├── 📄 fieldset.blade.php
+│   │   │   │           └── 📄 grid.blade.php
+│   │   │   ├── 📁 src/
+│   │   │   │   ├── 📁 Commands/
+│   │   │   │   │   ├── 📁 FileGenerators/
+│   │   │   │   │   │   ├── 📄 ComponentClassGenerator.php
+│   │   │   │   │   │   ├── 📄 LivewireSchemaComponentClassGenerator.php
+│   │   │   │   │   │   └── 📄 SchemaClassGenerator.php
+│   │   │   │   │   ├── 📄 MakeComponentCommand.php
+│   │   │   │   │   ├── 📄 MakeLivewireSchemaCommand.php
+│   │   │   │   │   └── 📄 MakeSchemaCommand.php
+│   │   │   │   ├── 📁 Components/
+│   │   │   │   │   ├── 📄 Actions.php
+│   │   │   │   │   ├── 📄 Callout.php
+│   │   │   │   │   ├── 📄 Component.php
+│   │   │   │   │   ├── 📁 Concerns/
+│   │   │   │   │   │   ├── 📄 BelongsToContainer.php
+│   │   │   │   │   │   ├── 📄 BelongsToModel.php
+│   │   │   │   │   │   ├── 📄 CanBeCollapsed.php
+│   │   │   │   │   │   ├── 📄 CanBeCompact.php
+│   │   │   │   │   │   ├── 📄 CanBeDisabled.php
+│   │   │   │   │   │   ├── 📄 CanBeDivided.php
+│   │   │   │   │   │   ├── 📄 CanBeGridContainer.php
+│   │   │   │   │   │   ├── 📄 CanBeHidden.php
+│   │   │   │   │   │   ├── 📄 CanBeLiberatedFromContainerGrid.php
+│   │   │   │   │   │   ├── 📄 CanBeRepeated.php
+│   │   │   │   │   │   ├── 📄 CanBeSecondary.php
+│   │   │   │   │   │   ├── 📄 CanGetStateFromRelationships.php
+│   │   │   │   │   │   ├── 📄 CanLimitItemsForProcessing.php
+│   │   │   │   │   │   ├── 📄 CanOpenUrl.php
+│   │   │   │   │   │   ├── 📄 CanPartiallyRender.php
+│   │   │   │   │   │   ├── 📄 CanPersistTab.php
+│   │   │   │   │   │   ├── 📄 CanPoll.php
+│   │   │   │   │   │   ├── 📄 CanStripCharactersFromState.php
+│   │   │   │   │   │   ├── 📄 CanTrimState.php
+│   │   │   │   │   │   ├── 📄 Cloneable.php
+│   │   │   │   │   │   ├── 📄 EntanglesStateWithSingularRelationship.php
+│   │   │   │   │   │   ├── 📄 HasActions.php
+│   │   │   │   │   │   ├── 📄 HasChildComponents.php
+│   │   │   │   │   │   ├── 📄 HasContainerGridLayout.php
+│   │   │   │   │   │   ├── 📄 HasDescription.php
+│   │   │   │   │   │   ├── 📄 HasEntryWrapper.php
+│   │   │   │   │   │   ├── 📄 HasFieldWrapper.php
+│   │   │   │   │   │   ├── 📄 HasFooterActions.php
+│   │   │   │   │   │   ├── 📄 HasFooterActionsAlignment.php
+│   │   │   │   │   │   ├── 📄 HasHeaderActions.php
+│   │   │   │   │   │   ├── 📄 HasHeading.php
+│   │   │   │   │   │   ├── 📄 HasHeadings.php
+│   │   │   │   │   │   ├── 📄 HasId.php
+│   │   │   │   │   │   ├── 📄 HasInlineLabel.php
+│   │   │   │   │   │   ├── 📄 HasJsRenderer.php
+│   │   │   │   │   │   ├── 📄 HasKey.php
+│   │   │   │   │   │   ├── 📄 HasLabel.php
+│   │   │   │   │   │   ├── 📄 HasMaxWidth.php
+│   │   │   │   │   │   ├── 📄 HasMeta.php
+│   │   │   │   │   │   ├── 📄 HasName.php
+│   │   │   │   │   │   └── 📄 HasState.php
+│   │   │   │   │   ├── 📁 Contracts/
+│   │   │   │   │   │   ├── 📄 CanConcealComponents.php
+│   │   │   │   │   │   ├── 📄 CanEntangleWithSingularRelationships.php
+│   │   │   │   │   │   ├── 📄 ExposesStateToActionData.php
+│   │   │   │   │   │   ├── 📄 HasAffixActions.php
+│   │   │   │   │   │   └── 📄 HasExtraItemActions.php
+│   │   │   │   │   ├── 📄 EmbeddedSchema.php
+│   │   │   │   │   ├── 📄 EmbeddedTable.php
+│   │   │   │   │   ├── 📄 EmptyState.php
+│   │   │   │   │   ├── 📄 Fieldset.php
+│   │   │   │   │   ├── 📄 Flex.php
+│   │   │   │   │   ├── 📄 Form.php
+│   │   │   │   │   ├── 📄 FusedGroup.php
+│   │   │   │   │   ├── 📄 Grid.php
+│   │   │   │   │   ├── 📄 Group.php
+│   │   │   │   │   ├── 📄 Html.php
+│   │   │   │   │   ├── 📄 Icon.php
+│   │   │   │   │   ├── 📄 Image.php
+│   │   │   │   │   ├── 📄 JsComponent.php
+│   │   │   │   │   ├── 📄 Livewire.php
+│   │   │   │   │   ├── 📄 RenderHook.php
+│   │   │   │   │   ├── 📄 Section.php
+│   │   │   │   │   ├── 📁 StateCasts/
+│   │   │   │   │   │   ├── 📄 BooleanStateCast.php
+│   │   │   │   │   │   ├── 📁 Contracts/
+│   │   │   │   │   │   │   └── 📄 StateCast.php
+│   │   │   │   │   │   ├── 📄 DateTimeStateCast.php
+│   │   │   │   │   │   ├── 📄 EnumArrayStateCast.php
+│   │   │   │   │   │   ├── 📄 EnumStateCast.php
+│   │   │   │   │   │   ├── 📄 FileUploadStateCast.php
+│   │   │   │   │   │   ├── 📄 KeyValueStateCast.php
+│   │   │   │   │   │   ├── 📄 NumberStateCast.php
+│   │   │   │   │   │   ├── 📄 OptionsArrayStateCast.php
+│   │   │   │   │   │   ├── 📄 OptionStateCast.php
+│   │   │   │   │   │   ├── 📄 SliderStateCast.php
+│   │   │   │   │   │   └── 📄 StripCharactersStateCast.php
+│   │   │   │   │   ├── 📁 Tabs/
+│   │   │   │   │   │   └── 📄 Tab.php
+│   │   │   │   │   ├── 📄 Tabs.php
+│   │   │   │   │   ├── 📄 Text.php
+│   │   │   │   │   ├── 📄 UnorderedList.php
+│   │   │   │   │   ├── 📁 Utilities/
+│   │   │   │   │   │   ├── 📄 Get.php
+│   │   │   │   │   │   └── 📄 Set.php
+│   │   │   │   │   ├── 📄 View.php
+│   │   │   │   │   ├── 📁 Wizard/
+│   │   │   │   │   │   └── 📄 Step.php
+│   │   │   │   │   └── 📄 Wizard.php
+│   │   │   │   ├── 📁 Concerns/
+│   │   │   │   │   ├── 📄 BelongsToLivewire.php
+│   │   │   │   │   ├── 📄 BelongsToModel.php
+│   │   │   │   │   ├── 📄 BelongsToParentComponent.php
+│   │   │   │   │   ├── 📄 CanBeDisabled.php
+│   │   │   │   │   ├── 📄 CanBeEmbeddedInParentComponent.php
+│   │   │   │   │   ├── 📄 CanBeHidden.php
+│   │   │   │   │   ├── 📄 CanBeInline.php
+│   │   │   │   │   ├── 📄 CanBeValidated.php
+│   │   │   │   │   ├── 📄 CanModifyActions.php
+│   │   │   │   │   ├── 📄 Cloneable.php
+│   │   │   │   │   ├── 📄 HasColumns.php
+│   │   │   │   │   ├── 📄 HasComponents.php
+│   │   │   │   │   ├── 📄 HasEntryWrapper.php
+│   │   │   │   │   ├── 📄 HasFieldWrapper.php
+│   │   │   │   │   ├── 📄 HasGap.php
+│   │   │   │   │   ├── 📄 HasHeadings.php
+│   │   │   │   │   ├── 📄 HasInlineLabels.php
+│   │   │   │   │   ├── 📄 HasKey.php
+│   │   │   │   │   ├── 📄 HasOperation.php
+│   │   │   │   │   ├── 📄 HasState.php
+│   │   │   │   │   ├── 📄 HasStateBindingModifiers.php
+│   │   │   │   │   ├── 📄 InteractsWithSchemas.php
+│   │   │   │   │   ├── 📄 ResolvesDynamicLivewireProperties.php
+│   │   │   │   │   └── 📄 RestrictsFileUploadsToSchemaComponents.php
+│   │   │   │   ├── 📁 Contracts/
+│   │   │   │   │   ├── 📄 HasRenderHookScopes.php
+│   │   │   │   │   └── 📄 HasSchemas.php
+│   │   │   │   ├── 📄 JsContent.php
+│   │   │   │   ├── 📄 Schema.php
+│   │   │   │   ├── 📄 SchemasServiceProvider.php
+│   │   │   │   ├── 📁 Testing/
+│   │   │   │   │   └── 📄 TestsSchemas.php
+│   │   │   │   └── 📁 View/
+│   │   │   │       ├── 📁 Components/
+│   │   │   │       │   ├── 📄 IconComponent.php
+│   │   │   │       │   └── 📄 TextComponent.php
+│   │   │   │       ├── 📄 SchemaIconAlias.php
+│   │   │   │       └── 📄 SchemasIconAlias.php
+│   │   │   └── 📁 stubs/
+│   │   │       ├── 📄 ComponentView.stub
+│   │   │       ├── 📄 JsSchemaComponentRenderer.stub
+│   │   │       ├── 📄 JsTypeScriptSchemaComponentRenderer.stub
+│   │   │       ├── 📄 LivewireSchemaView.stub
+│   │   │       ├── 📄 ReactSchemaComponentRenderer.stub
+│   │   │       ├── 📄 ReactTypeScriptSchemaComponentRenderer.stub
+│   │   │       ├── 📄 SvelteSchemaComponent.stub
+│   │   │       ├── 📄 SvelteSchemaComponentRenderer.stub
+│   │   │       ├── 📄 SvelteTypeScriptSchemaComponent.stub
+│   │   │       ├── 📄 SvelteTypeScriptSchemaComponentRenderer.stub
+│   │   │       ├── 📄 VueSchemaComponent.stub
+│   │   │       ├── 📄 VueSchemaComponentRenderer.stub
+│   │   │       ├── 📄 VueTypeScriptSchemaComponent.stub
+│   │   │       └── 📄 VueTypeScriptSchemaComponentRenderer.stub
+│   │   ├── 📁 support/
+│   │   │   ├── 📄 composer.json
+│   │   │   ├── 📁 config/
+│   │   │   │   └── 📄 filament.php
+│   │   │   ├── 📁 resources/
+│   │   │   │   ├── 📁 css/
+│   │   │   │   │   ├── 📄 base.css
+│   │   │   │   │   ├── 📁 components/
+│   │   │   │   │   │   ├── 📄 avatar.css
+│   │   │   │   │   │   ├── 📄 badge.css
+│   │   │   │   │   │   ├── 📄 breadcrumbs.css
+│   │   │   │   │   │   ├── 📄 button.css
+│   │   │   │   │   │   ├── 📄 callout.css
+│   │   │   │   │   │   ├── 📁 dropdown/
+│   │   │   │   │   │   │   ├── 📄 header.css
+│   │   │   │   │   │   │   ├── 📄 index.css
+│   │   │   │   │   │   │   └── 📁 list/
+│   │   │   │   │   │   │       ├── 📄 index.css
+│   │   │   │   │   │   │       └── 📄 item.css
+│   │   │   │   │   │   ├── 📄 empty-state.css
+│   │   │   │   │   │   ├── 📄 fieldset.css
+│   │   │   │   │   │   ├── 📄 grid.css
+│   │   │   │   │   │   ├── 📄 icon-button.css
+│   │   │   │   │   │   ├── 📄 icon.css
+│   │   │   │   │   │   ├── 📁 input/
+│   │   │   │   │   │   │   ├── 📄 checkbox.css
+│   │   │   │   │   │   │   ├── 📄 index.css
+│   │   │   │   │   │   │   ├── 📄 one-time-code.css
+│   │   │   │   │   │   │   ├── 📄 radio.css
+│   │   │   │   │   │   │   ├── 📄 select.css
+│   │   │   │   │   │   │   └── 📄 wrapper.css
+│   │   │   │   │   │   ├── 📄 link.css
+│   │   │   │   │   │   ├── 📄 loading-indicator.css
+│   │   │   │   │   │   ├── 📄 loading-section.css
+│   │   │   │   │   │   ├── 📄 modal.css
+│   │   │   │   │   │   ├── 📄 pagination.css
+│   │   │   │   │   │   ├── 📄 section.css
+│   │   │   │   │   │   ├── 📄 tabs.css
+│   │   │   │   │   │   ├── 📄 toggle.css
+│   │   │   │   │   │   └── 📄 tooltip.css
+│   │   │   │   │   ├── 📄 index.css
+│   │   │   │   │   ├── 📄 sortable.css
+│   │   │   │   │   └── 📄 utilities.css
+│   │   │   │   ├── 📁 js/
+│   │   │   │   │   ├── 📁 components/
+│   │   │   │   │   │   ├── 📄 copyable.js
+│   │   │   │   │   │   ├── 📄 dropdown.js
+│   │   │   │   │   │   ├── 📄 form-button.js
+│   │   │   │   │   │   ├── 📄 modal.js
+│   │   │   │   │   │   └── 📄 one-time-code.js
+│   │   │   │   │   ├── 📄 disabled-button.js
+│   │   │   │   │   ├── 📄 index.js
+│   │   │   │   │   ├── 📄 js-renderer.js
+│   │   │   │   │   ├── 📄 partials.js
+│   │   │   │   │   ├── 📄 sortable.js
+│   │   │   │   │   ├── 📄 tooltip.js
+│   │   │   │   │   ├── 📁 types/
+│   │   │   │   │   │   └── 📄 js-renderer.d.ts
+│   │   │   │   │   └── 📁 utilities/
+│   │   │   │   │       ├── 📄 normalize-search-string.js
+│   │   │   │   │       ├── 📄 pluralize.js
+│   │   │   │   │       └── 📄 select.js
+│   │   │   │   ├── 📁 lang/
+│   │   │   │   │   ├── 📁 am/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 ar/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 badge.php
+│   │   │   │   │   │       ├── 📄 breadcrumbs.php
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📁 input/
+│   │   │   │   │   │       │   └── 📄 one-time-code.php
+│   │   │   │   │   │       ├── 📄 loading-section.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       ├── 📄 pagination.php
+│   │   │   │   │   │       ├── 📄 section.php
+│   │   │   │   │   │       └── 📄 tabs.php
+│   │   │   │   │   ├── 📁 az/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 bg/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 bn/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 bs/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 ca/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 ckb/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 badge.php
+│   │   │   │   │   │       ├── 📄 breadcrumbs.php
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📁 input/
+│   │   │   │   │   │       │   └── 📄 one-time-code.php
+│   │   │   │   │   │       ├── 📄 loading-section.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       ├── 📄 pagination.php
+│   │   │   │   │   │       ├── 📄 section.php
+│   │   │   │   │   │       └── 📄 tabs.php
+│   │   │   │   │   ├── 📁 cs/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 badge.php
+│   │   │   │   │   │       ├── 📄 breadcrumbs.php
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📁 input/
+│   │   │   │   │   │       │   └── 📄 one-time-code.php
+│   │   │   │   │   │       ├── 📄 loading-section.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       ├── 📄 pagination.php
+│   │   │   │   │   │       ├── 📄 section.php
+│   │   │   │   │   │       └── 📄 tabs.php
+│   │   │   │   │   ├── 📁 cy/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 da/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 de/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 badge.php
+│   │   │   │   │   │       ├── 📄 breadcrumbs.php
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📁 input/
+│   │   │   │   │   │       │   └── 📄 one-time-code.php
+│   │   │   │   │   │       ├── 📄 loading-section.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       ├── 📄 pagination.php
+│   │   │   │   │   │       ├── 📄 section.php
+│   │   │   │   │   │       └── 📄 tabs.php
+│   │   │   │   │   ├── 📁 el/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 en/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 badge.php
+│   │   │   │   │   │       ├── 📄 breadcrumbs.php
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📁 input/
+│   │   │   │   │   │       │   └── 📄 one-time-code.php
+│   │   │   │   │   │       ├── 📄 loading-section.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       ├── 📄 pagination.php
+│   │   │   │   │   │       ├── 📄 section.php
+│   │   │   │   │   │       └── 📄 tabs.php
+│   │   │   │   │   ├── 📁 es/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 badge.php
+│   │   │   │   │   │       ├── 📄 breadcrumbs.php
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📁 input/
+│   │   │   │   │   │       │   └── 📄 one-time-code.php
+│   │   │   │   │   │       ├── 📄 loading-section.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       ├── 📄 pagination.php
+│   │   │   │   │   │       ├── 📄 section.php
+│   │   │   │   │   │       └── 📄 tabs.php
+│   │   │   │   │   ├── 📁 et/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 badge.php
+│   │   │   │   │   │       ├── 📄 breadcrumbs.php
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📁 input/
+│   │   │   │   │   │       │   └── 📄 one-time-code.php
+│   │   │   │   │   │       ├── 📄 loading-section.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       ├── 📄 pagination.php
+│   │   │   │   │   │       ├── 📄 section.php
+│   │   │   │   │   │       └── 📄 tabs.php
+│   │   │   │   │   ├── 📁 eu/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 fa/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 fi/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 badge.php
+│   │   │   │   │   │       ├── 📄 breadcrumbs.php
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📁 input/
+│   │   │   │   │   │       │   └── 📄 one-time-code.php
+│   │   │   │   │   │       ├── 📄 loading-section.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       ├── 📄 pagination.php
+│   │   │   │   │   │       ├── 📄 section.php
+│   │   │   │   │   │       └── 📄 tabs.php
+│   │   │   │   │   ├── 📁 fil/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 badge.php
+│   │   │   │   │   │       ├── 📄 breadcrumbs.php
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📁 input/
+│   │   │   │   │   │       │   └── 📄 one-time-code.php
+│   │   │   │   │   │       ├── 📄 loading-section.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       ├── 📄 pagination.php
+│   │   │   │   │   │       ├── 📄 section.php
+│   │   │   │   │   │       └── 📄 tabs.php
+│   │   │   │   │   ├── 📁 fr/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 badge.php
+│   │   │   │   │   │       ├── 📄 breadcrumbs.php
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📁 input/
+│   │   │   │   │   │       │   └── 📄 one-time-code.php
+│   │   │   │   │   │       ├── 📄 loading-section.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       ├── 📄 pagination.php
+│   │   │   │   │   │       ├── 📄 section.php
+│   │   │   │   │   │       └── 📄 tabs.php
+│   │   │   │   │   ├── 📁 he/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 hi/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 hr/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 hu/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 hy/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 id/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 it/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 ja/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 badge.php
+│   │   │   │   │   │       ├── 📄 breadcrumbs.php
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📁 input/
+│   │   │   │   │   │       │   └── 📄 one-time-code.php
+│   │   │   │   │   │       ├── 📄 loading-section.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       ├── 📄 pagination.php
+│   │   │   │   │   │       ├── 📄 section.php
+│   │   │   │   │   │       └── 📄 tabs.php
+│   │   │   │   │   ├── 📁 ka/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 km/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 badge.php
+│   │   │   │   │   │       ├── 📄 breadcrumbs.php
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📁 input/
+│   │   │   │   │   │       │   └── 📄 one-time-code.php
+│   │   │   │   │   │       ├── 📄 loading-section.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       ├── 📄 pagination.php
+│   │   │   │   │   │       ├── 📄 section.php
+│   │   │   │   │   │       └── 📄 tabs.php
+│   │   │   │   │   ├── 📁 ko/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 ku/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 lt/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 lus/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 badge.php
+│   │   │   │   │   │       ├── 📄 breadcrumbs.php
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📁 input/
+│   │   │   │   │   │       │   └── 📄 one-time-code.php
+│   │   │   │   │   │       ├── 📄 loading-section.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       ├── 📄 pagination.php
+│   │   │   │   │   │       ├── 📄 section.php
+│   │   │   │   │   │       └── 📄 tabs.php
+│   │   │   │   │   ├── 📁 lv/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 mk/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 mn/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 ms/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 my/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 badge.php
+│   │   │   │   │   │       ├── 📄 breadcrumbs.php
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📁 input/
+│   │   │   │   │   │       │   └── 📄 one-time-code.php
+│   │   │   │   │   │       ├── 📄 loading-section.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       ├── 📄 pagination.php
+│   │   │   │   │   │       ├── 📄 section.php
+│   │   │   │   │   │       └── 📄 tabs.php
+│   │   │   │   │   ├── 📁 nb/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 ne/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 nl/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 pl/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 badge.php
+│   │   │   │   │   │       ├── 📄 breadcrumbs.php
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📁 input/
+│   │   │   │   │   │       │   └── 📄 one-time-code.php
+│   │   │   │   │   │       ├── 📄 loading-section.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       ├── 📄 pagination.php
+│   │   │   │   │   │       ├── 📄 section.php
+│   │   │   │   │   │       └── 📄 tabs.php
+│   │   │   │   │   ├── 📁 pt/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 pt_BR/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 badge.php
+│   │   │   │   │   │       ├── 📄 breadcrumbs.php
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📁 input/
+│   │   │   │   │   │       │   └── 📄 one-time-code.php
+│   │   │   │   │   │       ├── 📄 loading-section.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       ├── 📄 pagination.php
+│   │   │   │   │   │       ├── 📄 section.php
+│   │   │   │   │   │       └── 📄 tabs.php
+│   │   │   │   │   ├── 📁 ro/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 ru/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 si/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 badge.php
+│   │   │   │   │   │       ├── 📄 breadcrumbs.php
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📁 input/
+│   │   │   │   │   │       │   └── 📄 one-time-code.php
+│   │   │   │   │   │       ├── 📄 loading-section.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       ├── 📄 pagination.php
+│   │   │   │   │   │       ├── 📄 section.php
+│   │   │   │   │   │       └── 📄 tabs.php
+│   │   │   │   │   ├── 📁 sk/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 badge.php
+│   │   │   │   │   │       ├── 📄 breadcrumbs.php
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📁 input/
+│   │   │   │   │   │       │   └── 📄 one-time-code.php
+│   │   │   │   │   │       ├── 📄 loading-section.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       ├── 📄 pagination.php
+│   │   │   │   │   │       ├── 📄 section.php
+│   │   │   │   │   │       └── 📄 tabs.php
+│   │   │   │   │   ├── 📁 sl/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 sq/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 sr_Cyrl/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 sr_Latn/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 sv/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 badge.php
+│   │   │   │   │   │       ├── 📄 breadcrumbs.php
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📁 input/
+│   │   │   │   │   │       │   └── 📄 one-time-code.php
+│   │   │   │   │   │       ├── 📄 loading-section.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       ├── 📄 pagination.php
+│   │   │   │   │   │       ├── 📄 section.php
+│   │   │   │   │   │       └── 📄 tabs.php
+│   │   │   │   │   ├── 📁 sw/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 badge.php
+│   │   │   │   │   │       ├── 📄 breadcrumbs.php
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📁 input/
+│   │   │   │   │   │       │   └── 📄 one-time-code.php
+│   │   │   │   │   │       ├── 📄 loading-section.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       ├── 📄 pagination.php
+│   │   │   │   │   │       ├── 📄 section.php
+│   │   │   │   │   │       └── 📄 tabs.php
+│   │   │   │   │   ├── 📁 tg/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 th/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 tr/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 badge.php
+│   │   │   │   │   │       ├── 📄 breadcrumbs.php
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📁 input/
+│   │   │   │   │   │       │   └── 📄 one-time-code.php
+│   │   │   │   │   │       ├── 📄 loading-section.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       ├── 📄 pagination.php
+│   │   │   │   │   │       ├── 📄 section.php
+│   │   │   │   │   │       └── 📄 tabs.php
+│   │   │   │   │   ├── 📁 uk/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 ur/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 uz/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   ├── 📁 vi/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 badge.php
+│   │   │   │   │   │       ├── 📄 breadcrumbs.php
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📁 input/
+│   │   │   │   │   │       │   └── 📄 one-time-code.php
+│   │   │   │   │   │       ├── 📄 loading-section.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       ├── 📄 pagination.php
+│   │   │   │   │   │       ├── 📄 section.php
+│   │   │   │   │   │       └── 📄 tabs.php
+│   │   │   │   │   ├── 📁 zh_CN/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 badge.php
+│   │   │   │   │   │       ├── 📄 breadcrumbs.php
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📁 input/
+│   │   │   │   │   │       │   └── 📄 one-time-code.php
+│   │   │   │   │   │       ├── 📄 loading-section.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       ├── 📄 pagination.php
+│   │   │   │   │   │       ├── 📄 section.php
+│   │   │   │   │   │       └── 📄 tabs.php
+│   │   │   │   │   ├── 📁 zh_HK/
+│   │   │   │   │   │   └── 📁 components/
+│   │   │   │   │   │       ├── 📄 button.php
+│   │   │   │   │   │       ├── 📄 copyable.php
+│   │   │   │   │   │       ├── 📄 modal.php
+│   │   │   │   │   │       └── 📄 pagination.php
+│   │   │   │   │   └── 📁 zh_TW/
+│   │   │   │   │       └── 📁 components/
+│   │   │   │   │           ├── 📄 badge.php
+│   │   │   │   │           ├── 📄 breadcrumbs.php
+│   │   │   │   │           ├── 📄 button.php
+│   │   │   │   │           ├── 📄 copyable.php
+│   │   │   │   │           ├── 📁 input/
+│   │   │   │   │           │   └── 📄 one-time-code.php
+│   │   │   │   │           ├── 📄 loading-section.php
+│   │   │   │   │           ├── 📄 modal.php
+│   │   │   │   │           ├── 📄 pagination.php
+│   │   │   │   │           ├── 📄 section.php
+│   │   │   │   │           └── 📄 tabs.php
+│   │   │   │   ├── 📁 svg/
+│   │   │   │   │   ├── 📄 m-pencil-slash.svg
+│   │   │   │   │   ├── 📄 o-align-center.svg
+│   │   │   │   │   ├── 📄 o-align-end.svg
+│   │   │   │   │   ├── 📄 o-align-justify.svg
+│   │   │   │   │   ├── 📄 o-align-start.svg
+│   │   │   │   │   ├── 📄 o-arrows-move.svg
+│   │   │   │   │   ├── 📄 o-clear-formatting.svg
+│   │   │   │   │   ├── 📄 o-code-block.svg
+│   │   │   │   │   ├── 📄 o-code.svg
+│   │   │   │   │   ├── 📄 o-columns-delete.svg
+│   │   │   │   │   ├── 📄 o-columns.svg
+│   │   │   │   │   ├── 📄 o-crop.svg
+│   │   │   │   │   ├── 📄 o-details.svg
+│   │   │   │   │   ├── 📄 o-flip-horizontal.svg
+│   │   │   │   │   ├── 📄 o-flip-vertical.svg
+│   │   │   │   │   ├── 📄 o-h1.svg
+│   │   │   │   │   ├── 📄 o-h2.svg
+│   │   │   │   │   ├── 📄 o-h3.svg
+│   │   │   │   │   ├── 📄 o-h4.svg
+│   │   │   │   │   ├── 📄 o-h5.svg
+│   │   │   │   │   ├── 📄 o-h6.svg
+│   │   │   │   │   ├── 📄 o-heading.svg
+│   │   │   │   │   ├── 📄 o-highlight.svg
+│   │   │   │   │   ├── 📄 o-lead.svg
+│   │   │   │   │   ├── 📄 o-merge-tag.svg
+│   │   │   │   │   ├── 📄 o-paragraph.svg
+│   │   │   │   │   ├── 📄 o-small.svg
+│   │   │   │   │   ├── 📄 o-subscript.svg
+│   │   │   │   │   ├── 📄 o-superscript.svg
+│   │   │   │   │   ├── 📄 o-table-add-column-after.svg
+│   │   │   │   │   ├── 📄 o-table-add-column-before.svg
+│   │   │   │   │   ├── 📄 o-table-add-row-after.svg
+│   │   │   │   │   ├── 📄 o-table-add-row-before.svg
+│   │   │   │   │   ├── 📄 o-table-delete-column.svg
+│   │   │   │   │   ├── 📄 o-table-delete-row.svg
+│   │   │   │   │   ├── 📄 o-table-delete.svg
+│   │   │   │   │   ├── 📄 o-table-merge-cells.svg
+│   │   │   │   │   ├── 📄 o-table-split-cell.svg
+│   │   │   │   │   ├── 📄 o-table-toggle-header-cell.svg
+│   │   │   │   │   ├── 📄 o-table-toggle-header-row.svg
+│   │   │   │   │   └── 📄 o-table.svg
+│   │   │   │   └── 📁 views/
+│   │   │   │       ├── 📄 anonymous-partial.blade.php
+│   │   │   │       ├── 📄 assets.blade.php
+│   │   │   │       └── 📁 components/
+│   │   │   │           ├── 📄 actions.blade.php
+│   │   │   │           ├── 📄 avatar.blade.php
+│   │   │   │           ├── 📄 badge.blade.php
+│   │   │   │           ├── 📄 breadcrumbs.blade.php
+│   │   │   │           ├── 📁 button/
+│   │   │   │           │   ├── 📄 group.blade.php
+│   │   │   │           │   └── 📄 index.blade.php
+│   │   │   │           ├── 📄 callout.blade.php
+│   │   │   │           ├── 📄 card.blade.php
+│   │   │   │           ├── 📁 dropdown/
+│   │   │   │           │   ├── 📄 header.blade.php
+│   │   │   │           │   ├── 📄 index.blade.php
+│   │   │   │           │   └── 📁 list/
+│   │   │   │           │       ├── 📄 index.blade.php
+│   │   │   │           │       └── 📄 item.blade.php
+│   │   │   │           ├── 📄 empty-state.blade.php
+│   │   │   │           ├── 📄 fieldset.blade.php
+│   │   │   │           ├── 📄 icon-button.blade.php
+│   │   │   │           ├── 📄 icon.blade.php
+│   │   │   │           ├── 📁 input/
+│   │   │   │           │   ├── 📄 checkbox.blade.php
+│   │   │   │           │   ├── 📄 index.blade.php
+│   │   │   │           │   ├── 📄 one-time-code.blade.php
+│   │   │   │           │   ├── 📄 radio.blade.php
+│   │   │   │           │   ├── 📄 select.blade.php
+│   │   │   │           │   └── 📄 wrapper.blade.php
+│   │   │   │           ├── 📄 link.blade.php
+│   │   │   │           ├── 📄 loading-indicator.blade.php
+│   │   │   │           ├── 📄 loading-section.blade.php
+│   │   │   │           ├── 📁 modal/
+│   │   │   │           │   ├── 📄 description.blade.php
+│   │   │   │           │   ├── 📄 heading.blade.php
+│   │   │   │           │   └── 📄 index.blade.php
+│   │   │   │           ├── 📁 pagination/
+│   │   │   │           │   ├── 📄 index.blade.php
+│   │   │   │           │   └── 📄 item.blade.php
+│   │   │   │           ├── 📁 section/
+│   │   │   │           │   ├── 📄 description.blade.php
+│   │   │   │           │   ├── 📄 heading.blade.php
+│   │   │   │           │   └── 📄 index.blade.php
+│   │   │   │           ├── 📁 tabs/
+│   │   │   │           │   ├── 📄 index.blade.php
+│   │   │   │           │   └── 📄 item.blade.php
+│   │   │   │           └── 📄 toggle.blade.php
+│   │   │   ├── 📁 src/
+│   │   │   │   ├── 📄 ArrayRecord.php
+│   │   │   │   ├── 📁 Assets/
+│   │   │   │   │   ├── 📄 AlpineComponent.php
+│   │   │   │   │   ├── 📄 Asset.php
+│   │   │   │   │   ├── 📄 AssetManager.php
+│   │   │   │   │   ├── 📄 Css.php
+│   │   │   │   │   ├── 📄 Font.php
+│   │   │   │   │   ├── 📄 Js.php
+│   │   │   │   │   └── 📄 Theme.php
+│   │   │   │   ├── 📁 Authorization/
+│   │   │   │   │   └── 📄 DenyResponse.php
+│   │   │   │   ├── 📄 ChunkIterator.php
+│   │   │   │   ├── 📄 CliManager.php
+│   │   │   │   ├── 📁 Colors/
+│   │   │   │   │   ├── 📄 Color.php
+│   │   │   │   │   └── 📄 ColorManager.php
+│   │   │   │   ├── 📁 Commands/
+│   │   │   │   │   ├── 📄 AboutCommand.php
+│   │   │   │   │   ├── 📄 AssetsCommand.php
+│   │   │   │   │   ├── 📄 CheckTranslationsCommand.php
+│   │   │   │   │   ├── 📁 Concerns/
+│   │   │   │   │   │   ├── 📄 CanAskForComponentLocation.php
+│   │   │   │   │   │   ├── 📄 CanAskForLivewireComponentLocation.php
+│   │   │   │   │   │   ├── 📄 CanAskForRelatedModel.php
+│   │   │   │   │   │   ├── 📄 CanAskForRelatedResource.php
+│   │   │   │   │   │   ├── 📄 CanAskForResource.php
+│   │   │   │   │   │   ├── 📄 CanAskForSchema.php
+│   │   │   │   │   │   ├── 📄 CanAskForViewLocation.php
+│   │   │   │   │   │   ├── 📄 CanCachePanelComponents.php
+│   │   │   │   │   │   ├── 📄 CanConfigureVite.php
+│   │   │   │   │   │   ├── 📄 CanGeneratePanels.php
+│   │   │   │   │   │   ├── 📄 CanIndentStrings.php
+│   │   │   │   │   │   ├── 📄 CanManageJavaScriptPackages.php
+│   │   │   │   │   │   ├── 📄 CanManipulateFiles.php
+│   │   │   │   │   │   ├── 📄 CanOpenUrlInBrowser.php
+│   │   │   │   │   │   ├── 📄 CanReadModelSchemas.php
+│   │   │   │   │   │   ├── 📄 HasCluster.php
+│   │   │   │   │   │   ├── 📄 HasClusterPagesLocation.php
+│   │   │   │   │   │   ├── 📄 HasPanel.php
+│   │   │   │   │   │   └── 📄 HasResourcesLocation.php
+│   │   │   │   │   ├── 📁 Exceptions/
+│   │   │   │   │   │   ├── 📄 FailureCommandOutput.php
+│   │   │   │   │   │   └── 📄 SuccessCommandOutput.php
+│   │   │   │   │   ├── 📁 FileGenerators/
+│   │   │   │   │   │   ├── 📄 ClassGenerator.php
+│   │   │   │   │   │   ├── 📁 Concerns/
+│   │   │   │   │   │   │   ├── 📄 CanCheckFileGenerationFlags.php
+│   │   │   │   │   │   │   └── 📄 CanGenerateViewProperty.php
+│   │   │   │   │   │   ├── 📁 Contracts/
+│   │   │   │   │   │   │   ├── 📄 FileGenerator.php
+│   │   │   │   │   │   │   └── 📄 HasSkippedColumns.php
+│   │   │   │   │   │   └── 📄 FileGenerationFlag.php
+│   │   │   │   │   ├── 📄 InstallCommand.php
+│   │   │   │   │   ├── 📄 MakeIssueCommand.php
+│   │   │   │   │   ├── 📄 OptimizeClearCommand.php
+│   │   │   │   │   ├── 📄 OptimizeCommand.php
+│   │   │   │   │   └── 📄 UpgradeCommand.php
+│   │   │   │   ├── 📁 Components/
+│   │   │   │   │   ├── 📁 Attributes/
+│   │   │   │   │   │   ├── 📄 Exposed.php
+│   │   │   │   │   │   ├── 📄 ExposedLivewireMethod.php
+│   │   │   │   │   │   └── 📄 Unexposed.php
+│   │   │   │   │   ├── 📄 Component.php
+│   │   │   │   │   ├── 📄 ComponentManager.php
+│   │   │   │   │   ├── 📁 Contracts/
+│   │   │   │   │   │   ├── 📄 HasEmbeddedView.php
+│   │   │   │   │   │   └── 📄 ScopedComponentManager.php
+│   │   │   │   │   └── 📄 ViewComponent.php
+│   │   │   │   ├── 📁 Concerns/
+│   │   │   │   │   ├── 📄 CanAggregateRelatedModels.php
+│   │   │   │   │   ├── 📄 CanBeContained.php
+│   │   │   │   │   ├── 📄 CanBeCopied.php
+│   │   │   │   │   ├── 📄 CanBeLazy.php
+│   │   │   │   │   ├── 📄 CanCallHooks.php
+│   │   │   │   │   ├── 📄 CanConfigureCommonMark.php
+│   │   │   │   │   ├── 📄 CanGrow.php
+│   │   │   │   │   ├── 📄 CanOrderColumns.php
+│   │   │   │   │   ├── 📄 CanSpanColumns.php
+│   │   │   │   │   ├── 📄 CanWrap.php
+│   │   │   │   │   ├── 📄 CanWrapHeader.php
+│   │   │   │   │   ├── 📄 Configurable.php
+│   │   │   │   │   ├── 📄 EvaluatesClosures.php
+│   │   │   │   │   ├── 📄 HasAlignment.php
+│   │   │   │   │   ├── 📄 HasBadge.php
+│   │   │   │   │   ├── 📄 HasBadgeTooltip.php
+│   │   │   │   │   ├── 📄 HasCellState.php
+│   │   │   │   │   ├── 📄 HasColor.php
+│   │   │   │   │   ├── 📄 HasDefaultDataFormattingSettings.php
+│   │   │   │   │   ├── 📄 HasExtraAlpineAttributes.php
+│   │   │   │   │   ├── 📄 HasExtraAttributes.php
+│   │   │   │   │   ├── 📄 HasFontFamily.php
+│   │   │   │   │   ├── 📄 HasFromBreakpoint.php
+│   │   │   │   │   ├── 📄 HasIcon.php
+│   │   │   │   │   ├── 📄 HasIconColor.php
+│   │   │   │   │   ├── 📄 HasIconPosition.php
+│   │   │   │   │   ├── 📄 HasIconSize.php
+│   │   │   │   │   ├── 📄 HasLineClamp.php
+│   │   │   │   │   ├── 📄 HasPlaceholder.php
+│   │   │   │   │   ├── 📄 HasRelatedRecord.php
+│   │   │   │   │   ├── 📄 HasReorderAnimationDuration.php
+│   │   │   │   │   ├── 📄 HasTooltip.php
+│   │   │   │   │   ├── 📄 HasVerticalAlignment.php
+│   │   │   │   │   ├── 📄 HasWeight.php
+│   │   │   │   │   ├── 📄 HasWidth.php
+│   │   │   │   │   └── 📄 Macroable.php
+│   │   │   │   ├── 📁 Contracts/
+│   │   │   │   │   ├── 📄 Collapsible.php
+│   │   │   │   │   ├── 📄 HasColor.php
+│   │   │   │   │   ├── 📄 HasDescription.php
+│   │   │   │   │   ├── 📄 HasIcon.php
+│   │   │   │   │   ├── 📄 HasLabel.php
+│   │   │   │   │   ├── 📄 LoadingIndicator.php
+│   │   │   │   │   ├── 📄 ScalableIcon.php
+│   │   │   │   │   └── 📄 TranslatableContentDriver.php
+│   │   │   │   ├── 📁 Enums/
+│   │   │   │   │   ├── 📄 Alignment.php
+│   │   │   │   │   ├── 📄 ArgumentValue.php
+│   │   │   │   │   ├── 📄 FontFamily.php
+│   │   │   │   │   ├── 📄 FontWeight.php
+│   │   │   │   │   ├── 📄 GridDirection.php
+│   │   │   │   │   ├── 📄 IconPosition.php
+│   │   │   │   │   ├── 📄 IconSize.php
+│   │   │   │   │   ├── 📄 Operation.php
+│   │   │   │   │   ├── 📄 Platform.php
+│   │   │   │   │   ├── 📄 Size.php
+│   │   │   │   │   ├── 📄 SlideOverPosition.php
+│   │   │   │   │   ├── 📄 TextSize.php
+│   │   │   │   │   ├── 📄 VerticalAlignment.php
+│   │   │   │   │   └── 📄 Width.php
+│   │   │   │   ├── 📁 Events/
+│   │   │   │   │   └── 📄 FilamentUpgraded.php
+│   │   │   │   ├── 📁 Exceptions/
+│   │   │   │   │   ├── 📄 Cancel.php
+│   │   │   │   │   └── 📄 Halt.php
+│   │   │   │   ├── 📁 Facades/
+│   │   │   │   │   ├── 📄 FilamentAsset.php
+│   │   │   │   │   ├── 📄 FilamentCli.php
+│   │   │   │   │   ├── 📄 FilamentColor.php
+│   │   │   │   │   ├── 📄 FilamentIcon.php
+│   │   │   │   │   ├── 📄 FilamentTimezone.php
+│   │   │   │   │   └── 📄 FilamentView.php
+│   │   │   │   ├── 📄 helpers.php
+│   │   │   │   ├── 📁 Icons/
+│   │   │   │   │   ├── 📄 Heroicon.php
+│   │   │   │   │   └── 📄 IconManager.php
+│   │   │   │   ├── 📁 Livewire/
+│   │   │   │   │   ├── 📄 MethodAccess.php
+│   │   │   │   │   └── 📁 Partials/
+│   │   │   │   │       ├── 📄 DataStoreOverride.php
+│   │   │   │   │       └── 📄 PartialsComponentHook.php
+│   │   │   │   ├── 📄 Markdown.php
+│   │   │   │   ├── 📄 RawJs.php
+│   │   │   │   ├── 📁 Services/
+│   │   │   │   │   ├── 📄 RelationshipJoiner.php
+│   │   │   │   │   └── 📄 RelationshipOrderer.php
+│   │   │   │   ├── 📄 SupportServiceProvider.php
+│   │   │   │   ├── 📄 TimezoneManager.php
+│   │   │   │   └── 📁 View/
+│   │   │   │       ├── 📄 ComponentAttributeBag.php
+│   │   │   │       ├── 📁 Components/
+│   │   │   │       │   ├── 📄 BadgeComponent.php
+│   │   │   │       │   ├── 📄 ButtonComponent.php
+│   │   │   │       │   ├── 📁 CalloutComponent/
+│   │   │   │       │   │   └── 📄 IconComponent.php
+│   │   │   │       │   ├── 📄 CalloutComponent.php
+│   │   │   │       │   ├── 📁 ColorMaps/
+│   │   │   │       │   │   ├── 📄 ButtonComponentColorMap.php
+│   │   │   │       │   │   ├── 📄 ComponentColorMap.php
+│   │   │   │       │   │   └── 📄 IconButtonComponentColorMap.php
+│   │   │   │       │   ├── 📁 Contracts/
+│   │   │   │       │   │   ├── 📄 HasColor.php
+│   │   │   │       │   │   └── 📄 HasDefaultGrayColor.php
+│   │   │   │       │   ├── 📁 DropdownComponent/
+│   │   │   │       │   │   ├── 📄 HeaderComponent.php
+│   │   │   │       │   │   ├── 📁 ItemComponent/
+│   │   │   │       │   │   │   └── 📄 IconComponent.php
+│   │   │   │       │   │   └── 📄 ItemComponent.php
+│   │   │   │       │   ├── 📄 IconButtonComponent.php
+│   │   │   │       │   ├── 📁 InputComponent/
+│   │   │   │       │   │   └── 📁 WrapperComponent/
+│   │   │   │       │   │       └── 📄 IconComponent.php
+│   │   │   │       │   ├── 📄 LinkComponent.php
+│   │   │   │       │   ├── 📁 ModalComponent/
+│   │   │   │       │   │   └── 📄 IconComponent.php
+│   │   │   │       │   ├── 📄 ModalComponent.php
+│   │   │   │       │   ├── 📁 SectionComponent/
+│   │   │   │       │   │   └── 📄 IconComponent.php
+│   │   │   │       │   └── 📄 ToggleComponent.php
+│   │   │   │       ├── 📁 Concerns/
+│   │   │   │       │   ├── 📄 CanGenerateBadgeHtml.php
+│   │   │   │       │   ├── 📄 CanGenerateButtonHtml.php
+│   │   │   │       │   ├── 📄 CanGenerateDropdownItemHtml.php
+│   │   │   │       │   ├── 📄 CanGenerateIconButtonHtml.php
+│   │   │   │       │   └── 📄 CanGenerateLinkHtml.php
+│   │   │   │       ├── 📄 DefaultLoadingIndicator.php
+│   │   │   │       ├── 📄 SupportIconAlias.php
+│   │   │   │       └── 📄 ViewManager.php
+│   │   │   └── 📁 stubs/
+│   │   │       └── 📁 scaffolding/
+│   │   │           └── 📁 resources/
+│   │   │               ├── 📁 css/
+│   │   │               │   └── 📄 app.css
+│   │   │               └── 📁 views/
+│   │   │                   └── 📁 layouts/
+│   │   │                       └── 📄 app.blade.php
+│   │   ├── 📁 tables/
+│   │   │   ├── 📄 .stubs.php
+│   │   │   ├── 📄 composer.json
+│   │   │   ├── 📁 docs/
+│   │   │   │   ├── 📄 01-overview.md
+│   │   │   │   ├── 📁 02-columns/
+│   │   │   │   │   ├── 📄 01-overview.md
+│   │   │   │   │   ├── 📄 02-text.md
+│   │   │   │   │   ├── 📄 03-icon.md
+│   │   │   │   │   ├── 📄 04-image.md
+│   │   │   │   │   ├── 📄 05-color.md
+│   │   │   │   │   ├── 📄 06-select.md
+│   │   │   │   │   ├── 📄 07-toggle.md
+│   │   │   │   │   ├── 📄 08-text-input.md
+│   │   │   │   │   ├── 📄 09-checkbox.md
+│   │   │   │   │   └── 📄 10-custom-columns.md
+│   │   │   │   ├── 📁 03-filters/
+│   │   │   │   │   ├── 📄 01-overview.md
+│   │   │   │   │   ├── 📄 02-select.md
+│   │   │   │   │   ├── 📄 03-ternary.md
+│   │   │   │   │   ├── 📄 04-query-builder.md
+│   │   │   │   │   ├── 📄 05-custom.md
+│   │   │   │   │   └── 📄 06-layout.md
+│   │   │   │   ├── 📄 04-actions.md
+│   │   │   │   ├── 📄 05-layout.md
+│   │   │   │   ├── 📄 06-summaries.md
+│   │   │   │   ├── 📄 07-grouping.md
+│   │   │   │   ├── 📄 08-empty-state.md
+│   │   │   │   └── 📄 09-custom-data.md
+│   │   │   ├── 📁 resources/
+│   │   │   │   ├── 📁 css/
+│   │   │   │   │   ├── 📄 actions.css
+│   │   │   │   │   ├── 📄 cell.css
+│   │   │   │   │   ├── 📄 column-manager.css
+│   │   │   │   │   ├── 📁 columns/
+│   │   │   │   │   │   ├── 📄 checkbox.css
+│   │   │   │   │   │   ├── 📄 color.css
+│   │   │   │   │   │   ├── 📄 icon.css
+│   │   │   │   │   │   ├── 📄 image.css
+│   │   │   │   │   │   ├── 📁 layout/
+│   │   │   │   │   │   │   ├── 📄 grid.css
+│   │   │   │   │   │   │   ├── 📄 panel.css
+│   │   │   │   │   │   │   ├── 📄 split.css
+│   │   │   │   │   │   │   └── 📄 stack.css
+│   │   │   │   │   │   ├── 📄 select.css
+│   │   │   │   │   │   ├── 📁 summaries/
+│   │   │   │   │   │   │   ├── 📄 icon-count.css
+│   │   │   │   │   │   │   ├── 📄 range.css
+│   │   │   │   │   │   │   ├── 📄 text.css
+│   │   │   │   │   │   │   └── 📄 values.css
+│   │   │   │   │   │   ├── 📄 text-input.css
+│   │   │   │   │   │   ├── 📄 text.css
+│   │   │   │   │   │   └── 📄 toggle.css
+│   │   │   │   │   ├── 📄 container.css
+│   │   │   │   │   ├── 📄 content.css
+│   │   │   │   │   ├── 📄 empty-state.css
+│   │   │   │   │   ├── 📄 group-header.css
+│   │   │   │   │   ├── 📄 header-cell.css
+│   │   │   │   │   ├── 📄 index.css
+│   │   │   │   │   ├── 📄 row.css
+│   │   │   │   │   └── 📄 table.css
+│   │   │   │   ├── 📁 js/
+│   │   │   │   │   ├── 📁 components/
+│   │   │   │   │   │   ├── 📄 column-manager.js
+│   │   │   │   │   │   ├── 📁 columns/
+│   │   │   │   │   │   │   ├── 📄 checkbox.js
+│   │   │   │   │   │   │   ├── 📄 select.js
+│   │   │   │   │   │   │   ├── 📄 text-input.js
+│   │   │   │   │   │   │   └── 📄 toggle.js
+│   │   │   │   │   │   └── 📄 table.js
+│   │   │   │   │   ├── 📄 index.js
+│   │   │   │   │   └── 📁 utilities/
+│   │   │   │   │       └── 📄 editable-table-column.js
+│   │   │   │   ├── 📁 lang/
+│   │   │   │   │   ├── 📁 am/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 ar/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 az/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 bg/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 bn/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 bs/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 ca/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 ckb/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 cs/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 cy/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 da/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 de/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 el/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 en/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 es/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 et/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 eu/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 fa/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 fi/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 fil/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 fr/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 he/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 hi/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 hr/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 hu/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 hy/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 id/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 it/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 ja/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 ka/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 km/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 ko/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 ku/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 lt/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 lus/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 lv/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 mk/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 mn/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 ms/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 my/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 nb/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 ne/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 nl/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 pl/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 pt/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 pt_BR/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 ro/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 ru/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 si/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 sk/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 sl/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 sq/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 sr_Cyrl/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 sr_Latn/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 sv/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 sw/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 tg/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 th/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 tr/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 uk/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 ur/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 uz/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 vi/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 zh_CN/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   ├── 📁 zh_HK/
+│   │   │   │   │   │   └── 📄 table.php
+│   │   │   │   │   └── 📁 zh_TW/
+│   │   │   │   │       └── 📄 table.php
+│   │   │   │   └── 📁 views/
+│   │   │   │       ├── 📁 components/
+│   │   │   │       │   ├── 📁 column-manager/
+│   │   │   │       │   │   ├── 📄 content.blade.php
+│   │   │   │       │   │   └── 📄 index.blade.php
+│   │   │   │       │   ├── 📁 columns/
+│   │   │   │       │   │   └── 📄 layout.blade.php
+│   │   │   │       │   ├── 📄 filters.blade.php
+│   │   │   │       │   ├── 📄 search-field.blade.php
+│   │   │   │       │   └── 📁 summary/
+│   │   │   │       │       ├── 📄 index.blade.php
+│   │   │   │       │       └── 📄 row.blade.php
+│   │   │   │       └── 📄 index.blade.php
+│   │   │   ├── 📁 src/
+│   │   │   │   ├── 📁 Actions/
+│   │   │   │   │   └── 📄 HeaderActionsPosition.php
+│   │   │   │   ├── 📁 Columns/
+│   │   │   │   │   ├── 📄 BadgeColumn.php
+│   │   │   │   │   ├── 📄 BooleanColumn.php
+│   │   │   │   │   ├── 📄 CheckboxColumn.php
+│   │   │   │   │   ├── 📄 ColorColumn.php
+│   │   │   │   │   ├── 📄 Column.php
+│   │   │   │   │   ├── 📄 ColumnGroup.php
+│   │   │   │   │   ├── 📁 Concerns/
+│   │   │   │   │   │   ├── 📄 BelongsToGroup.php
+│   │   │   │   │   │   ├── 📄 BelongsToLayout.php
+│   │   │   │   │   │   ├── 📄 BelongsToTable.php
+│   │   │   │   │   │   ├── 📄 CanBeCopied.php
+│   │   │   │   │   │   ├── 📄 CanBeDisabled.php
+│   │   │   │   │   │   ├── 📄 CanBeHidden.php
+│   │   │   │   │   │   ├── 📄 CanBeHiddenResponsively.php
+│   │   │   │   │   │   ├── 📄 CanBeInline.php
+│   │   │   │   │   │   ├── 📄 CanBeSearchable.php
+│   │   │   │   │   │   ├── 📄 CanBeSortable.php
+│   │   │   │   │   │   ├── 📄 CanBeSummarized.php
+│   │   │   │   │   │   ├── 📄 CanBeToggled.php
+│   │   │   │   │   │   ├── 📄 CanBeValidated.php
+│   │   │   │   │   │   ├── 📄 CanCallAction.php
+│   │   │   │   │   │   ├── 📄 CanFormatState.php
+│   │   │   │   │   │   ├── 📄 CanOpenUrl.php
+│   │   │   │   │   │   ├── 📄 CanUpdateState.php
+│   │   │   │   │   │   ├── 📄 HasColor.php
+│   │   │   │   │   │   ├── 📄 HasDescription.php
+│   │   │   │   │   │   ├── 📄 HasExtraCellAttributes.php
+│   │   │   │   │   │   ├── 📄 HasExtraHeaderAttributes.php
+│   │   │   │   │   │   ├── 📄 HasIcon.php
+│   │   │   │   │   │   ├── 📄 HasIconColor.php
+│   │   │   │   │   │   ├── 📄 HasLabel.php
+│   │   │   │   │   │   ├── 📄 HasName.php
+│   │   │   │   │   │   ├── 📄 HasRecord.php
+│   │   │   │   │   │   ├── 📄 HasRowLoop.php
+│   │   │   │   │   │   ├── 📄 HasRowLoopObject.php
+│   │   │   │   │   │   ├── 📄 HasSpace.php
+│   │   │   │   │   │   ├── 📄 HasTooltip.php
+│   │   │   │   │   │   └── 📄 InteractsWithTableQuery.php
+│   │   │   │   │   ├── 📁 Contracts/
+│   │   │   │   │   │   └── 📄 Editable.php
+│   │   │   │   │   ├── 📄 IconColumn.php
+│   │   │   │   │   ├── 📄 ImageColumn.php
+│   │   │   │   │   ├── 📁 Layout/
+│   │   │   │   │   │   ├── 📄 Component.php
+│   │   │   │   │   │   ├── 📄 Grid.php
+│   │   │   │   │   │   ├── 📄 Panel.php
+│   │   │   │   │   │   ├── 📄 Split.php
+│   │   │   │   │   │   ├── 📄 Stack.php
+│   │   │   │   │   │   └── 📄 View.php
+│   │   │   │   │   ├── 📄 SelectColumn.php
+│   │   │   │   │   ├── 📁 Summarizers/
+│   │   │   │   │   │   ├── 📄 Average.php
+│   │   │   │   │   │   ├── 📁 Concerns/
+│   │   │   │   │   │   │   ├── 📄 BelongsToColumn.php
+│   │   │   │   │   │   │   ├── 📄 CanBeHidden.php
+│   │   │   │   │   │   │   ├── 📄 CanFormatState.php
+│   │   │   │   │   │   │   ├── 📄 HasLabel.php
+│   │   │   │   │   │   │   └── 📄 InteractsWithTableQuery.php
+│   │   │   │   │   │   ├── 📄 Count.php
+│   │   │   │   │   │   ├── 📄 Range.php
+│   │   │   │   │   │   ├── 📄 Sum.php
+│   │   │   │   │   │   ├── 📄 Summarizer.php
+│   │   │   │   │   │   └── 📄 Values.php
+│   │   │   │   │   ├── 📄 TagsColumn.php
+│   │   │   │   │   ├── 📄 TextColumn.php
+│   │   │   │   │   ├── 📄 TextInputColumn.php
+│   │   │   │   │   ├── 📄 ToggleColumn.php
+│   │   │   │   │   └── 📄 ViewColumn.php
+│   │   │   │   ├── 📁 Commands/
+│   │   │   │   │   ├── 📁 FileGenerators/
+│   │   │   │   │   │   ├── 📄 ColumnClassGenerator.php
+│   │   │   │   │   │   ├── 📁 Concerns/
+│   │   │   │   │   │   │   └── 📄 CanGenerateModelTables.php
+│   │   │   │   │   │   ├── 📄 LivewireTableComponentClassGenerator.php
+│   │   │   │   │   │   └── 📄 TableClassGenerator.php
+│   │   │   │   │   ├── 📄 MakeColumnCommand.php
+│   │   │   │   │   ├── 📄 MakeLivewireTableCommand.php
+│   │   │   │   │   └── 📄 MakeTableCommand.php
+│   │   │   │   ├── 📁 Concerns/
+│   │   │   │   │   ├── 📄 CanBeLazyLoaded.php
+│   │   │   │   │   ├── 📄 CanBeStriped.php
+│   │   │   │   │   ├── 📄 CanDeferLoading.php
+│   │   │   │   │   ├── 📄 CanGroupRecords.php
+│   │   │   │   │   ├── 📄 CanPaginateRecords.php
+│   │   │   │   │   ├── 📄 CanPollRecords.php
+│   │   │   │   │   ├── 📄 CanReorderRecords.php
+│   │   │   │   │   ├── 📄 CanSearchRecords.php
+│   │   │   │   │   ├── 📄 CanSortRecords.php
+│   │   │   │   │   ├── 📄 CanSummarizeRecords.php
+│   │   │   │   │   ├── 📄 HasActions.php
+│   │   │   │   │   ├── 📄 HasBulkActions.php
+│   │   │   │   │   ├── 📄 HasColumnManager.php
+│   │   │   │   │   ├── 📄 HasColumns.php
+│   │   │   │   │   ├── 📄 HasContent.php
+│   │   │   │   │   ├── 📄 HasEmptyState.php
+│   │   │   │   │   ├── 📄 HasFilters.php
+│   │   │   │   │   ├── 📄 HasHeader.php
+│   │   │   │   │   ├── 📄 HasRecordAction.php
+│   │   │   │   │   ├── 📄 HasRecords.php
+│   │   │   │   │   └── 📄 InteractsWithTable.php
+│   │   │   │   ├── 📁 Contracts/
+│   │   │   │   │   └── 📄 HasTable.php
+│   │   │   │   ├── 📁 Enums/
+│   │   │   │   │   ├── 📄 ColumnManagerLayout.php
+│   │   │   │   │   ├── 📄 ColumnManagerResetActionPosition.php
+│   │   │   │   │   ├── 📄 FiltersLayout.php
+│   │   │   │   │   ├── 📄 FiltersResetActionPosition.php
+│   │   │   │   │   ├── 📄 PaginationMode.php
+│   │   │   │   │   ├── 📄 RecordActionsPosition.php
+│   │   │   │   │   └── 📄 RecordCheckboxPosition.php
+│   │   │   │   ├── 📁 Filters/
+│   │   │   │   │   ├── 📄 BaseFilter.php
+│   │   │   │   │   ├── 📁 Concerns/
+│   │   │   │   │   │   ├── 📄 BelongsToTable.php
+│   │   │   │   │   │   ├── 📄 CanBeHidden.php
+│   │   │   │   │   │   ├── 📄 CanResetState.php
+│   │   │   │   │   │   ├── 📄 CanSpanColumns.php
+│   │   │   │   │   │   ├── 📄 HasColumns.php
+│   │   │   │   │   │   ├── 📄 HasDefaultState.php
+│   │   │   │   │   │   ├── 📄 HasIndicators.php
+│   │   │   │   │   │   ├── 📄 HasLabel.php
+│   │   │   │   │   │   ├── 📄 HasName.php
+│   │   │   │   │   │   ├── 📄 HasOptions.php
+│   │   │   │   │   │   ├── 📄 HasPlaceholder.php
+│   │   │   │   │   │   ├── 📄 HasRelationship.php
+│   │   │   │   │   │   ├── 📄 HasSchema.php
+│   │   │   │   │   │   └── 📄 InteractsWithTableQuery.php
+│   │   │   │   │   ├── 📄 Filter.php
+│   │   │   │   │   ├── 📄 Indicator.php
+│   │   │   │   │   ├── 📄 MultiSelectFilter.php
+│   │   │   │   │   ├── 📁 QueryBuilder/
+│   │   │   │   │   │   └── 📁 Constraints/
+│   │   │   │   │   │       ├── 📁 BooleanConstraint/
+│   │   │   │   │   │       │   └── 📁 Operators/
+│   │   │   │   │   │       │       └── 📄 IsTrueOperator.php
+│   │   │   │   │   │       ├── 📄 BooleanConstraint.php
+│   │   │   │   │   │       ├── 📁 Concerns/
+│   │   │   │   │   │       │   └── 📄 CanBeNullable.php
+│   │   │   │   │   │       ├── 📄 Constraint.php
+│   │   │   │   │   │       ├── 📁 DateConstraint/
+│   │   │   │   │   │       │   └── 📁 Operators/
+│   │   │   │   │   │       │       ├── 📄 IsAfterOperator.php
+│   │   │   │   │   │       │       ├── 📄 IsBeforeOperator.php
+│   │   │   │   │   │       │       ├── 📄 IsDateOperator.php
+│   │   │   │   │   │       │       ├── 📄 IsMonthOperator.php
+│   │   │   │   │   │       │       └── 📄 IsYearOperator.php
+│   │   │   │   │   │       ├── 📄 DateConstraint.php
+│   │   │   │   │   │       ├── 📁 NumberConstraint/
+│   │   │   │   │   │       │   └── 📁 Operators/
+│   │   │   │   │   │       │       ├── 📁 Concerns/
+│   │   │   │   │   │       │       │   └── 📄 CanAggregateRelationships.php
+│   │   │   │   │   │       │       ├── 📄 EqualsOperator.php
+│   │   │   │   │   │       │       ├── 📄 IsMaxOperator.php
+│   │   │   │   │   │       │       └── 📄 IsMinOperator.php
+│   │   │   │   │   │       ├── 📄 NumberConstraint.php
+│   │   │   │   │   │       ├── 📁 Operators/
+│   │   │   │   │   │       │   ├── 📄 IsFilledOperator.php
+│   │   │   │   │   │       │   └── 📄 Operator.php
+│   │   │   │   │   │       ├── 📁 RelationshipConstraint/
+│   │   │   │   │   │       │   └── 📁 Operators/
+│   │   │   │   │   │       │       ├── 📄 EqualsOperator.php
+│   │   │   │   │   │       │       ├── 📄 HasMaxOperator.php
+│   │   │   │   │   │       │       ├── 📄 HasMinOperator.php
+│   │   │   │   │   │       │       ├── 📄 IsEmptyOperator.php
+│   │   │   │   │   │       │       └── 📄 IsRelatedToOperator.php
+│   │   │   │   │   │       ├── 📄 RelationshipConstraint.php
+│   │   │   │   │   │       ├── 📁 SelectConstraint/
+│   │   │   │   │   │       │   └── 📁 Operators/
+│   │   │   │   │   │       │       └── 📄 IsOperator.php
+│   │   │   │   │   │       ├── 📄 SelectConstraint.php
+│   │   │   │   │   │       ├── 📁 TextConstraint/
+│   │   │   │   │   │       │   └── 📁 Operators/
+│   │   │   │   │   │       │       ├── 📄 ContainsOperator.php
+│   │   │   │   │   │       │       ├── 📄 EndsWithOperator.php
+│   │   │   │   │   │       │       ├── 📄 EqualsOperator.php
+│   │   │   │   │   │       │       └── 📄 StartsWithOperator.php
+│   │   │   │   │   │       └── 📄 TextConstraint.php
+│   │   │   │   │   ├── 📄 QueryBuilder.php
+│   │   │   │   │   ├── 📄 SelectFilter.php
+│   │   │   │   │   ├── 📄 TernaryFilter.php
+│   │   │   │   │   └── 📄 TrashedFilter.php
+│   │   │   │   ├── 📁 Grouping/
+│   │   │   │   │   ├── 📁 Concerns/
+│   │   │   │   │   │   └── 📄 BelongsToTable.php
+│   │   │   │   │   └── 📄 Group.php
+│   │   │   │   ├── 📁 Table/
+│   │   │   │   │   └── 📁 Concerns/
+│   │   │   │   │       ├── 📄 BelongsToLivewire.php
+│   │   │   │   │       ├── 📄 CanBeLazyLoaded.php
+│   │   │   │   │       ├── 📄 CanBeStackedOnMobile.php
+│   │   │   │   │       ├── 📄 CanBeStriped.php
+│   │   │   │   │       ├── 📄 CanDeferLoading.php
+│   │   │   │   │       ├── 📄 CanGroupRecords.php
+│   │   │   │   │       ├── 📄 CanPaginateRecords.php
+│   │   │   │   │       ├── 📄 CanPersistInSession.php
+│   │   │   │   │       ├── 📄 CanPollRecords.php
+│   │   │   │   │       ├── 📄 CanReorderRecords.php
+│   │   │   │   │       ├── 📄 CanSearchRecords.php
+│   │   │   │   │       ├── 📄 CanSortRecords.php
+│   │   │   │   │       ├── 📄 CanSummarizeRecords.php
+│   │   │   │   │       ├── 📄 HasActions.php
+│   │   │   │   │       ├── 📄 HasArguments.php
+│   │   │   │   │       ├── 📄 HasBulkActions.php
+│   │   │   │   │       ├── 📄 HasColumnManager.php
+│   │   │   │   │       ├── 📄 HasColumns.php
+│   │   │   │   │       ├── 📄 HasContent.php
+│   │   │   │   │       ├── 📄 HasEmptyState.php
+│   │   │   │   │       ├── 📄 HasFilterIndicators.php
+│   │   │   │   │       ├── 📄 HasFilters.php
+│   │   │   │   │       ├── 📄 HasHeader.php
+│   │   │   │   │       ├── 📄 HasHeaderActions.php
+│   │   │   │   │       ├── 📄 HasHeadings.php
+│   │   │   │   │       ├── 📄 HasIdentifier.php
+│   │   │   │   │       ├── 📄 HasLoadingSkeleton.php
+│   │   │   │   │       ├── 📄 HasQuery.php
+│   │   │   │   │       ├── 📄 HasQueryStringIdentifier.php
+│   │   │   │   │       ├── 📄 HasRecordAction.php
+│   │   │   │   │       ├── 📄 HasRecordActions.php
+│   │   │   │   │       ├── 📄 HasRecordClasses.php
+│   │   │   │   │       ├── 📄 HasRecords.php
+│   │   │   │   │       ├── 📄 HasRecordUrl.php
+│   │   │   │   │       └── 📄 HasToolbarActions.php
+│   │   │   │   ├── 📄 Table.php
+│   │   │   │   ├── 📄 TableComponent.php
+│   │   │   │   ├── 📄 TablesServiceProvider.php
+│   │   │   │   ├── 📁 Testing/
+│   │   │   │   │   ├── 📄 TestsActions.php
+│   │   │   │   │   ├── 📄 TestsBulkActions.php
+│   │   │   │   │   ├── 📄 TestsColumns.php
+│   │   │   │   │   ├── 📄 TestsFilters.php
+│   │   │   │   │   ├── 📄 TestsRecords.php
+│   │   │   │   │   └── 📄 TestsSummaries.php
+│   │   │   │   └── 📁 View/
+│   │   │   │       ├── 📁 Components/
+│   │   │   │       │   └── 📁 Columns/
+│   │   │   │       │       ├── 📁 IconColumnComponent/
+│   │   │   │       │       │   └── 📄 IconComponent.php
+│   │   │   │       │       ├── 📁 Summarizers/
+│   │   │   │       │       │   └── 📁 CountComponent/
+│   │   │   │       │       │       └── 📄 IconComponent.php
+│   │   │   │       │       └── 📁 TextColumnComponent/
+│   │   │   │       │           ├── 📁 ItemComponent/
+│   │   │   │       │           │   └── 📄 IconComponent.php
+│   │   │   │       │           └── 📄 ItemComponent.php
+│   │   │   │       ├── 📄 TablesIconAlias.php
+│   │   │   │       └── 📄 TablesRenderHook.php
+│   │   │   └── 📁 stubs/
+│   │   │       ├── 📄 ColumnView.stub
+│   │   │       └── 📄 LivewireTableView.stub
+│   │   └── 📁 widgets/
+│   │       ├── 📄 composer.json
+│   │       ├── 📁 docs/
+│   │       │   ├── 📄 01-overview.md
+│   │       │   ├── 📄 02-stats-overview.md
+│   │       │   ├── 📄 03-charts.md
+│   │       │   └── 📄 04-custom-widgets.md
+│   │       ├── 📁 resources/
+│   │       │   ├── 📁 css/
+│   │       │   │   ├── 📄 chart-widget.css
+│   │       │   │   ├── 📄 index.css
+│   │       │   │   ├── 📄 stats-overview-widget.css
+│   │       │   │   └── 📄 widget.css
+│   │       │   ├── 📁 js/
+│   │       │   │   ├── 📁 components/
+│   │       │   │   │   ├── 📄 chart.js
+│   │       │   │   │   ├── 📄 js-widget.js
+│   │       │   │   │   └── 📁 stats-overview/
+│   │       │   │   │       └── 📁 stat/
+│   │       │   │   │           └── 📄 chart.js
+│   │       │   │   ├── 📁 types/
+│   │       │   │   │   └── 📄 js-widget.d.ts
+│   │       │   │   └── 📁 utilities/
+│   │       │   │       └── 📄 custom-properties.js
+│   │       │   ├── 📁 lang/
+│   │       │   │   ├── 📁 am/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 ar/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 bn/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 ca/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 ckb/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 cs/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 de/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 en/
+│   │       │   │   │   ├── 📄 chart.php
+│   │       │   │   │   └── 📄 js-widget.php
+│   │       │   │   ├── 📁 es/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 et/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 eu/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 fil/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 fr/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 he/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 hu/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 id/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 it/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 ja/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 km/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 ko/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 lt/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 lus/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 mk/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 my/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 nb/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 nl/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 pl/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 pt/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 pt_BR/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 ro/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 ru/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 si/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 sk/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 sr_Cyrl/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 sr_Latn/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 sv/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 sw/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 tg/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 tr/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 uk/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 ur/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 vi/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   ├── 📁 zh_CN/
+│   │       │   │   │   └── 📄 chart.php
+│   │       │   │   └── 📁 zh_TW/
+│   │       │   │       └── 📄 chart.php
+│   │       │   └── 📁 views/
+│   │       │       ├── 📄 chart-widget.blade.php
+│   │       │       ├── 📁 components/
+│   │       │       │   ├── 📄 widget.blade.php
+│   │       │       │   └── 📄 widgets.blade.php
+│   │       │       ├── 📄 js-widget.blade.php
+│   │       │       ├── 📁 stats-overview-widget/
+│   │       │       │   └── 📄 stat.blade.php
+│   │       │       ├── 📄 stats-overview-widget.blade.php
+│   │       │       └── 📄 table-widget.blade.php
+│   │       ├── 📁 src/
+│   │       │   ├── 📄 BarChartWidget.php
+│   │       │   ├── 📄 BubbleChartWidget.php
+│   │       │   ├── 📁 ChartWidget/
+│   │       │   │   └── 📁 Concerns/
+│   │       │   │       ├── 📄 HasEmptyState.php
+│   │       │   │       └── 📄 HasFiltersSchema.php
+│   │       │   ├── 📄 ChartWidget.php
+│   │       │   ├── 📁 Commands/
+│   │       │   │   ├── 📁 FileGenerators/
+│   │       │   │   │   ├── 📄 ChartWidgetClassGenerator.php
+│   │       │   │   │   ├── 📄 CustomWidgetClassGenerator.php
+│   │       │   │   │   ├── 📄 StatsOverviewWidgetClassGenerator.php
+│   │       │   │   │   └── 📄 TableWidgetClassGenerator.php
+│   │       │   │   └── 📄 MakeWidgetCommand.php
+│   │       │   ├── 📁 Concerns/
+│   │       │   │   ├── 📄 CanAuthorizeAccess.php
+│   │       │   │   ├── 📄 CanPoll.php
+│   │       │   │   └── 📄 HasJsRenderer.php
+│   │       │   ├── 📄 DoughnutChartWidget.php
+│   │       │   ├── 📄 LineChartWidget.php
+│   │       │   ├── 📄 PieChartWidget.php
+│   │       │   ├── 📄 PolarAreaChartWidget.php
+│   │       │   ├── 📄 RadarChartWidget.php
+│   │       │   ├── 📄 ScatterChartWidget.php
+│   │       │   ├── 📁 StatsOverviewWidget/
+│   │       │   │   ├── 📁 Concerns/
+│   │       │   │   │   └── 📄 HasChartData.php
+│   │       │   │   └── 📄 Stat.php
+│   │       │   ├── 📄 StatsOverviewWidget.php
+│   │       │   ├── 📄 TableWidget.php
+│   │       │   ├── 📁 View/
+│   │       │   │   ├── 📁 Components/
+│   │       │   │   │   ├── 📄 ChartWidgetComponent.php
+│   │       │   │   │   └── 📁 StatsOverviewWidgetComponent/
+│   │       │   │   │       └── 📁 StatComponent/
+│   │       │   │   │           ├── 📄 ChartComponent.php
+│   │       │   │   │           ├── 📄 DescriptionComponent.php
+│   │       │   │   │           └── 📄 StatsOverviewWidgetStatChartComponent.php
+│   │       │   │   ├── 📄 WidgetsIconAlias.php
+│   │       │   │   └── 📄 WidgetsRenderHook.php
+│   │       │   ├── 📄 Widget.php
+│   │       │   ├── 📄 WidgetConfiguration.php
+│   │       │   └── 📄 WidgetsServiceProvider.php
+│   │       └── 📁 stubs/
+│   │           ├── 📄 JsTypeScriptWidgetRenderer.stub
+│   │           ├── 📄 JsWidgetRenderer.stub
+│   │           ├── 📄 ReactTypeScriptWidgetRenderer.stub
+│   │           ├── 📄 ReactWidgetRenderer.stub
+│   │           ├── 📄 SvelteTypeScriptWidgetComponent.stub
+│   │           ├── 📄 SvelteTypeScriptWidgetRenderer.stub
+│   │           ├── 📄 SvelteWidgetComponent.stub
+│   │           ├── 📄 SvelteWidgetRenderer.stub
+│   │           ├── 📄 VueTypeScriptWidgetComponent.stub
+│   │           ├── 📄 VueTypeScriptWidgetRenderer.stub
+│   │           ├── 📄 VueWidgetComponent.stub
+│   │           ├── 📄 VueWidgetRenderer.stub
+│   │           └── 📄 WidgetView.stub
 │   ├── 📁 filp/
 │   │   └── 📁 whoops/
 │   │       ├── 📄 CHANGELOG.md
@@ -1367,6 +10651,31 @@
 │   │       ├── 📄 LICENSE.txt
 │   │       ├── 📄 phpstan.neon
 │   │       └── 📄 README.md
+│   ├── 📁 kirschbaum-development/
+│   │   └── 📁 eloquent-power-joins/
+│   │       ├── 📄 .php-cs-fixer.php
+│   │       ├── 📄 .php_cs
+│   │       ├── 📄 .stubs.php
+│   │       ├── 📄 AGENTS.md
+│   │       ├── 📄 CHANGELOG.md
+│   │       ├── 📄 composer.json
+│   │       ├── 📁 config/
+│   │       │   └── 📄 config.php
+│   │       ├── 📄 CONTRIBUTING.md
+│   │       ├── 📄 LICENSE.md
+│   │       ├── 📄 README.md
+│   │       └── 📁 src/
+│   │           ├── 📄 EloquentJoins.php
+│   │           ├── 📄 FakeJoinCallback.php
+│   │           ├── 📄 JoinsHelper.php
+│   │           ├── 📁 Mixins/
+│   │           │   ├── 📄 JoinRelationship.php
+│   │           │   ├── 📄 QueryBuilderExtraMethods.php
+│   │           │   ├── 📄 QueryRelationshipExistence.php
+│   │           │   └── 📄 RelationshipsExtraMethods.php
+│   │           ├── 📄 PowerJoinClause.php
+│   │           ├── 📄 PowerJoinsServiceProvider.php
+│   │           └── 📄 StaticCache.php
 │   ├── 📁 laravel/
 │   │   ├── 📁 agent-detector/
 │   │   │   ├── 📄 composer.json
@@ -1376,6 +10685,442 @@
 │   │   │       ├── 📄 AgentResult.php
 │   │   │       ├── 📄 functions.php
 │   │   │       └── 📄 KnownAgent.php
+│   │   ├── 📁 breeze/
+│   │   │   ├── 📄 composer.json
+│   │   │   ├── 📄 LICENSE.md
+│   │   │   ├── 📄 README.md
+│   │   │   ├── 📁 src/
+│   │   │   │   ├── 📄 BreezeServiceProvider.php
+│   │   │   │   └── 📁 Console/
+│   │   │   │       ├── 📄 InstallCommand.php
+│   │   │   │       ├── 📄 InstallsApiStack.php
+│   │   │   │       ├── 📄 InstallsBladeStack.php
+│   │   │   │       ├── 📄 InstallsInertiaStacks.php
+│   │   │   │       └── 📄 InstallsLivewireStack.php
+│   │   │   └── 📁 stubs/
+│   │   │       ├── 📁 api/
+│   │   │       │   ├── 📁 app/
+│   │   │       │   │   ├── 📁 Http/
+│   │   │       │   │   │   ├── 📁 Controllers/
+│   │   │       │   │   │   │   └── 📁 Auth/
+│   │   │       │   │   │   │       ├── 📄 AuthenticatedSessionController.php
+│   │   │       │   │   │   │       ├── 📄 EmailVerificationNotificationController.php
+│   │   │       │   │   │   │       ├── 📄 NewPasswordController.php
+│   │   │       │   │   │   │       ├── 📄 PasswordResetLinkController.php
+│   │   │       │   │   │   │       ├── 📄 RegisteredUserController.php
+│   │   │       │   │   │   │       └── 📄 VerifyEmailController.php
+│   │   │       │   │   │   ├── 📁 Middleware/
+│   │   │       │   │   │   │   └── 📄 EnsureEmailIsVerified.php
+│   │   │       │   │   │   └── 📁 Requests/
+│   │   │       │   │   │       └── 📁 Auth/
+│   │   │       │   │   │           └── 📄 LoginRequest.php
+│   │   │       │   │   └── 📁 Providers/
+│   │   │       │   │       └── 📄 AppServiceProvider.php
+│   │   │       │   ├── 📁 config/
+│   │   │       │   │   ├── 📄 cors.php
+│   │   │       │   │   └── 📄 sanctum.php
+│   │   │       │   ├── 📁 pest-tests/
+│   │   │       │   │   ├── 📁 Feature/
+│   │   │       │   │   │   ├── 📁 Auth/
+│   │   │       │   │   │   │   ├── 📄 AuthenticationTest.php
+│   │   │       │   │   │   │   ├── 📄 EmailVerificationTest.php
+│   │   │       │   │   │   │   ├── 📄 PasswordResetTest.php
+│   │   │       │   │   │   │   └── 📄 RegistrationTest.php
+│   │   │       │   │   │   └── 📄 ExampleTest.php
+│   │   │       │   │   ├── 📄 Pest.php
+│   │   │       │   │   └── 📁 Unit/
+│   │   │       │   │       └── 📄 ExampleTest.php
+│   │   │       │   ├── 📁 routes/
+│   │   │       │   │   ├── 📄 api.php
+│   │   │       │   │   ├── 📄 auth.php
+│   │   │       │   │   └── 📄 web.php
+│   │   │       │   └── 📁 tests/
+│   │   │       │       └── 📁 Feature/
+│   │   │       │           └── 📁 Auth/
+│   │   │       │               ├── 📄 AuthenticationTest.php
+│   │   │       │               ├── 📄 EmailVerificationTest.php
+│   │   │       │               ├── 📄 PasswordResetTest.php
+│   │   │       │               └── 📄 RegistrationTest.php
+│   │   │       ├── 📁 default/
+│   │   │       │   ├── 📁 app/
+│   │   │       │   │   ├── 📁 Http/
+│   │   │       │   │   │   ├── 📁 Controllers/
+│   │   │       │   │   │   │   ├── 📁 Auth/
+│   │   │       │   │   │   │   │   ├── 📄 AuthenticatedSessionController.php
+│   │   │       │   │   │   │   │   ├── 📄 ConfirmablePasswordController.php
+│   │   │       │   │   │   │   │   ├── 📄 EmailVerificationNotificationController.php
+│   │   │       │   │   │   │   │   ├── 📄 EmailVerificationPromptController.php
+│   │   │       │   │   │   │   │   ├── 📄 NewPasswordController.php
+│   │   │       │   │   │   │   │   ├── 📄 PasswordController.php
+│   │   │       │   │   │   │   │   ├── 📄 PasswordResetLinkController.php
+│   │   │       │   │   │   │   │   ├── 📄 RegisteredUserController.php
+│   │   │       │   │   │   │   │   └── 📄 VerifyEmailController.php
+│   │   │       │   │   │   │   └── 📄 ProfileController.php
+│   │   │       │   │   │   └── 📁 Requests/
+│   │   │       │   │   │       ├── 📁 Auth/
+│   │   │       │   │   │       │   └── 📄 LoginRequest.php
+│   │   │       │   │   │       └── 📄 ProfileUpdateRequest.php
+│   │   │       │   │   └── 📁 View/
+│   │   │       │   │       └── 📁 Components/
+│   │   │       │   │           ├── 📄 AppLayout.php
+│   │   │       │   │           └── 📄 GuestLayout.php
+│   │   │       │   ├── 📁 pest-tests/
+│   │   │       │   │   ├── 📁 Feature/
+│   │   │       │   │   │   ├── 📁 Auth/
+│   │   │       │   │   │   │   ├── 📄 AuthenticationTest.php
+│   │   │       │   │   │   │   ├── 📄 EmailVerificationTest.php
+│   │   │       │   │   │   │   ├── 📄 PasswordConfirmationTest.php
+│   │   │       │   │   │   │   ├── 📄 PasswordResetTest.php
+│   │   │       │   │   │   │   ├── 📄 PasswordUpdateTest.php
+│   │   │       │   │   │   │   └── 📄 RegistrationTest.php
+│   │   │       │   │   │   ├── 📄 ExampleTest.php
+│   │   │       │   │   │   └── 📄 ProfileTest.php
+│   │   │       │   │   ├── 📄 Pest.php
+│   │   │       │   │   └── 📁 Unit/
+│   │   │       │   │       └── 📄 ExampleTest.php
+│   │   │       │   ├── 📄 postcss.config.js
+│   │   │       │   ├── 📁 resources/
+│   │   │       │   │   ├── 📁 css/
+│   │   │       │   │   │   └── 📄 app.css
+│   │   │       │   │   ├── 📁 js/
+│   │   │       │   │   │   └── 📄 app.js
+│   │   │       │   │   └── 📁 views/
+│   │   │       │   │       ├── 📁 auth/
+│   │   │       │   │       │   ├── 📄 confirm-password.blade.php
+│   │   │       │   │       │   ├── 📄 forgot-password.blade.php
+│   │   │       │   │       │   ├── 📄 login.blade.php
+│   │   │       │   │       │   ├── 📄 register.blade.php
+│   │   │       │   │       │   ├── 📄 reset-password.blade.php
+│   │   │       │   │       │   └── 📄 verify-email.blade.php
+│   │   │       │   │       ├── 📁 components/
+│   │   │       │   │       │   ├── 📄 application-logo.blade.php
+│   │   │       │   │       │   ├── 📄 auth-session-status.blade.php
+│   │   │       │   │       │   ├── 📄 danger-button.blade.php
+│   │   │       │   │       │   ├── 📄 dropdown-link.blade.php
+│   │   │       │   │       │   ├── 📄 dropdown.blade.php
+│   │   │       │   │       │   ├── 📄 input-error.blade.php
+│   │   │       │   │       │   ├── 📄 input-label.blade.php
+│   │   │       │   │       │   ├── 📄 modal.blade.php
+│   │   │       │   │       │   ├── 📄 nav-link.blade.php
+│   │   │       │   │       │   ├── 📄 primary-button.blade.php
+│   │   │       │   │       │   ├── 📄 responsive-nav-link.blade.php
+│   │   │       │   │       │   ├── 📄 secondary-button.blade.php
+│   │   │       │   │       │   └── 📄 text-input.blade.php
+│   │   │       │   │       ├── 📄 dashboard.blade.php
+│   │   │       │   │       ├── 📁 layouts/
+│   │   │       │   │       │   ├── 📄 app.blade.php
+│   │   │       │   │       │   ├── 📄 guest.blade.php
+│   │   │       │   │       │   └── 📄 navigation.blade.php
+│   │   │       │   │       └── 📁 profile/
+│   │   │       │   │           ├── 📄 edit.blade.php
+│   │   │       │   │           └── 📁 partials/
+│   │   │       │   │               ├── 📄 delete-user-form.blade.php
+│   │   │       │   │               ├── 📄 update-password-form.blade.php
+│   │   │       │   │               └── 📄 update-profile-information-form.blade.php
+│   │   │       │   ├── 📁 routes/
+│   │   │       │   │   ├── 📄 auth.php
+│   │   │       │   │   └── 📄 web.php
+│   │   │       │   ├── 📄 tailwind.config.js
+│   │   │       │   ├── 📁 tests/
+│   │   │       │   │   └── 📁 Feature/
+│   │   │       │   │       ├── 📁 Auth/
+│   │   │       │   │       │   ├── 📄 AuthenticationTest.php
+│   │   │       │   │       │   ├── 📄 EmailVerificationTest.php
+│   │   │       │   │       │   ├── 📄 PasswordConfirmationTest.php
+│   │   │       │   │       │   ├── 📄 PasswordResetTest.php
+│   │   │       │   │       │   ├── 📄 PasswordUpdateTest.php
+│   │   │       │   │       │   └── 📄 RegistrationTest.php
+│   │   │       │   │       └── 📄 ProfileTest.php
+│   │   │       │   └── 📄 vite.config.js
+│   │   │       ├── 📁 inertia-common/
+│   │   │       │   ├── 📄 .prettierrc
+│   │   │       │   ├── 📁 app/
+│   │   │       │   │   ├── 📁 Http/
+│   │   │       │   │   │   ├── 📁 Controllers/
+│   │   │       │   │   │   │   ├── 📁 Auth/
+│   │   │       │   │   │   │   │   ├── 📄 AuthenticatedSessionController.php
+│   │   │       │   │   │   │   │   ├── 📄 ConfirmablePasswordController.php
+│   │   │       │   │   │   │   │   ├── 📄 EmailVerificationNotificationController.php
+│   │   │       │   │   │   │   │   ├── 📄 EmailVerificationPromptController.php
+│   │   │       │   │   │   │   │   ├── 📄 NewPasswordController.php
+│   │   │       │   │   │   │   │   ├── 📄 PasswordController.php
+│   │   │       │   │   │   │   │   ├── 📄 PasswordResetLinkController.php
+│   │   │       │   │   │   │   │   ├── 📄 RegisteredUserController.php
+│   │   │       │   │   │   │   │   └── 📄 VerifyEmailController.php
+│   │   │       │   │   │   │   └── 📄 ProfileController.php
+│   │   │       │   │   │   └── 📁 Middleware/
+│   │   │       │   │   │       └── 📄 HandleInertiaRequests.php
+│   │   │       │   │   └── 📁 Providers/
+│   │   │       │   │       └── 📄 AppServiceProvider.php
+│   │   │       │   ├── 📄 jsconfig.json
+│   │   │       │   ├── 📁 pest-tests/
+│   │   │       │   │   └── 📁 Feature/
+│   │   │       │   │       ├── 📁 Auth/
+│   │   │       │   │       │   └── 📄 PasswordUpdateTest.php
+│   │   │       │   │       └── 📄 ProfileTest.php
+│   │   │       │   ├── 📁 routes/
+│   │   │       │   │   ├── 📄 auth.php
+│   │   │       │   │   └── 📄 web.php
+│   │   │       │   ├── 📄 tailwind.config.js
+│   │   │       │   └── 📁 tests/
+│   │   │       │       └── 📁 Feature/
+│   │   │       │           ├── 📁 Auth/
+│   │   │       │           │   └── 📄 PasswordUpdateTest.php
+│   │   │       │           └── 📄 ProfileTest.php
+│   │   │       ├── 📁 inertia-react/
+│   │   │       │   ├── 📄 .eslintrc.json
+│   │   │       │   ├── 📁 resources/
+│   │   │       │   │   ├── 📁 js/
+│   │   │       │   │   │   ├── 📄 app.jsx
+│   │   │       │   │   │   ├── 📁 Components/
+│   │   │       │   │   │   │   ├── 📄 ApplicationLogo.jsx
+│   │   │       │   │   │   │   ├── 📄 Checkbox.jsx
+│   │   │       │   │   │   │   ├── 📄 DangerButton.jsx
+│   │   │       │   │   │   │   ├── 📄 Dropdown.jsx
+│   │   │       │   │   │   │   ├── 📄 InputError.jsx
+│   │   │       │   │   │   │   ├── 📄 InputLabel.jsx
+│   │   │       │   │   │   │   ├── 📄 Modal.jsx
+│   │   │       │   │   │   │   ├── 📄 NavLink.jsx
+│   │   │       │   │   │   │   ├── 📄 PrimaryButton.jsx
+│   │   │       │   │   │   │   ├── 📄 ResponsiveNavLink.jsx
+│   │   │       │   │   │   │   ├── 📄 SecondaryButton.jsx
+│   │   │       │   │   │   │   └── 📄 TextInput.jsx
+│   │   │       │   │   │   ├── 📁 Layouts/
+│   │   │       │   │   │   │   ├── 📄 AuthenticatedLayout.jsx
+│   │   │       │   │   │   │   └── 📄 GuestLayout.jsx
+│   │   │       │   │   │   ├── 📁 Pages/
+│   │   │       │   │   │   │   ├── 📁 Auth/
+│   │   │       │   │   │   │   │   ├── 📄 ConfirmPassword.jsx
+│   │   │       │   │   │   │   │   ├── 📄 ForgotPassword.jsx
+│   │   │       │   │   │   │   │   ├── 📄 Login.jsx
+│   │   │       │   │   │   │   │   ├── 📄 Register.jsx
+│   │   │       │   │   │   │   │   ├── 📄 ResetPassword.jsx
+│   │   │       │   │   │   │   │   └── 📄 VerifyEmail.jsx
+│   │   │       │   │   │   │   ├── 📄 Dashboard.jsx
+│   │   │       │   │   │   │   ├── 📁 Profile/
+│   │   │       │   │   │   │   │   ├── 📄 Edit.jsx
+│   │   │       │   │   │   │   │   └── 📁 Partials/
+│   │   │       │   │   │   │   │       ├── 📄 DeleteUserForm.jsx
+│   │   │       │   │   │   │   │       ├── 📄 UpdatePasswordForm.jsx
+│   │   │       │   │   │   │   │       └── 📄 UpdateProfileInformationForm.jsx
+│   │   │       │   │   │   │   └── 📄 Welcome.jsx
+│   │   │       │   │   │   └── 📄 ssr.jsx
+│   │   │       │   │   └── 📁 views/
+│   │   │       │   │       └── 📄 app.blade.php
+│   │   │       │   └── 📄 vite.config.js
+│   │   │       ├── 📁 inertia-react-ts/
+│   │   │       │   ├── 📄 .eslintrc.json
+│   │   │       │   ├── 📁 resources/
+│   │   │       │   │   └── 📁 js/
+│   │   │       │   │       ├── 📄 app.tsx
+│   │   │       │   │       ├── 📁 Components/
+│   │   │       │   │       │   ├── 📄 ApplicationLogo.tsx
+│   │   │       │   │       │   ├── 📄 Checkbox.tsx
+│   │   │       │   │       │   ├── 📄 DangerButton.tsx
+│   │   │       │   │       │   ├── 📄 Dropdown.tsx
+│   │   │       │   │       │   ├── 📄 InputError.tsx
+│   │   │       │   │       │   ├── 📄 InputLabel.tsx
+│   │   │       │   │       │   ├── 📄 Modal.tsx
+│   │   │       │   │       │   ├── 📄 NavLink.tsx
+│   │   │       │   │       │   ├── 📄 PrimaryButton.tsx
+│   │   │       │   │       │   ├── 📄 ResponsiveNavLink.tsx
+│   │   │       │   │       │   ├── 📄 SecondaryButton.tsx
+│   │   │       │   │       │   └── 📄 TextInput.tsx
+│   │   │       │   │       ├── 📁 Layouts/
+│   │   │       │   │       │   ├── 📄 AuthenticatedLayout.tsx
+│   │   │       │   │       │   └── 📄 GuestLayout.tsx
+│   │   │       │   │       ├── 📁 Pages/
+│   │   │       │   │       │   ├── 📁 Auth/
+│   │   │       │   │       │   │   ├── 📄 ConfirmPassword.tsx
+│   │   │       │   │       │   │   ├── 📄 ForgotPassword.tsx
+│   │   │       │   │       │   │   ├── 📄 Login.tsx
+│   │   │       │   │       │   │   ├── 📄 Register.tsx
+│   │   │       │   │       │   │   ├── 📄 ResetPassword.tsx
+│   │   │       │   │       │   │   └── 📄 VerifyEmail.tsx
+│   │   │       │   │       │   ├── 📄 Dashboard.tsx
+│   │   │       │   │       │   ├── 📁 Profile/
+│   │   │       │   │       │   │   ├── 📄 Edit.tsx
+│   │   │       │   │       │   │   └── 📁 Partials/
+│   │   │       │   │       │   │       ├── 📄 DeleteUserForm.tsx
+│   │   │       │   │       │   │       ├── 📄 UpdatePasswordForm.tsx
+│   │   │       │   │       │   │       └── 📄 UpdateProfileInformationForm.tsx
+│   │   │       │   │       │   └── 📄 Welcome.tsx
+│   │   │       │   │       ├── 📄 ssr.tsx
+│   │   │       │   │       └── 📁 types/
+│   │   │       │   │           ├── 📄 global.d.ts
+│   │   │       │   │           ├── 📄 index.d.ts
+│   │   │       │   │           └── 📄 vite-env.d.ts
+│   │   │       │   └── 📄 tsconfig.json
+│   │   │       ├── 📁 inertia-vue/
+│   │   │       │   ├── 📄 .eslintrc.cjs
+│   │   │       │   ├── 📁 resources/
+│   │   │       │   │   ├── 📁 js/
+│   │   │       │   │   │   ├── 📄 app.js
+│   │   │       │   │   │   ├── 📁 Components/
+│   │   │       │   │   │   │   ├── 📄 ApplicationLogo.vue
+│   │   │       │   │   │   │   ├── 📄 Checkbox.vue
+│   │   │       │   │   │   │   ├── 📄 DangerButton.vue
+│   │   │       │   │   │   │   ├── 📄 Dropdown.vue
+│   │   │       │   │   │   │   ├── 📄 DropdownLink.vue
+│   │   │       │   │   │   │   ├── 📄 InputError.vue
+│   │   │       │   │   │   │   ├── 📄 InputLabel.vue
+│   │   │       │   │   │   │   ├── 📄 Modal.vue
+│   │   │       │   │   │   │   ├── 📄 NavLink.vue
+│   │   │       │   │   │   │   ├── 📄 PrimaryButton.vue
+│   │   │       │   │   │   │   ├── 📄 ResponsiveNavLink.vue
+│   │   │       │   │   │   │   ├── 📄 SecondaryButton.vue
+│   │   │       │   │   │   │   └── 📄 TextInput.vue
+│   │   │       │   │   │   ├── 📁 Layouts/
+│   │   │       │   │   │   │   ├── 📄 AuthenticatedLayout.vue
+│   │   │       │   │   │   │   └── 📄 GuestLayout.vue
+│   │   │       │   │   │   ├── 📁 Pages/
+│   │   │       │   │   │   │   ├── 📁 Auth/
+│   │   │       │   │   │   │   │   ├── 📄 ConfirmPassword.vue
+│   │   │       │   │   │   │   │   ├── 📄 ForgotPassword.vue
+│   │   │       │   │   │   │   │   ├── 📄 Login.vue
+│   │   │       │   │   │   │   │   ├── 📄 Register.vue
+│   │   │       │   │   │   │   │   ├── 📄 ResetPassword.vue
+│   │   │       │   │   │   │   │   └── 📄 VerifyEmail.vue
+│   │   │       │   │   │   │   ├── 📄 Dashboard.vue
+│   │   │       │   │   │   │   ├── 📁 Profile/
+│   │   │       │   │   │   │   │   ├── 📄 Edit.vue
+│   │   │       │   │   │   │   │   └── 📁 Partials/
+│   │   │       │   │   │   │   │       ├── 📄 DeleteUserForm.vue
+│   │   │       │   │   │   │   │       ├── 📄 UpdatePasswordForm.vue
+│   │   │       │   │   │   │   │       └── 📄 UpdateProfileInformationForm.vue
+│   │   │       │   │   │   │   └── 📄 Welcome.vue
+│   │   │       │   │   │   └── 📄 ssr.js
+│   │   │       │   │   └── 📁 views/
+│   │   │       │   │       └── 📄 app.blade.php
+│   │   │       │   └── 📄 vite.config.js
+│   │   │       ├── 📁 inertia-vue-ts/
+│   │   │       │   ├── 📄 .eslintrc.cjs
+│   │   │       │   ├── 📁 resources/
+│   │   │       │   │   └── 📁 js/
+│   │   │       │   │       ├── 📄 app.ts
+│   │   │       │   │       ├── 📁 Components/
+│   │   │       │   │       │   ├── 📄 ApplicationLogo.vue
+│   │   │       │   │       │   ├── 📄 Checkbox.vue
+│   │   │       │   │       │   ├── 📄 DangerButton.vue
+│   │   │       │   │       │   ├── 📄 Dropdown.vue
+│   │   │       │   │       │   ├── 📄 DropdownLink.vue
+│   │   │       │   │       │   ├── 📄 InputError.vue
+│   │   │       │   │       │   ├── 📄 InputLabel.vue
+│   │   │       │   │       │   ├── 📄 Modal.vue
+│   │   │       │   │       │   ├── 📄 NavLink.vue
+│   │   │       │   │       │   ├── 📄 PrimaryButton.vue
+│   │   │       │   │       │   ├── 📄 ResponsiveNavLink.vue
+│   │   │       │   │       │   ├── 📄 SecondaryButton.vue
+│   │   │       │   │       │   └── 📄 TextInput.vue
+│   │   │       │   │       ├── 📁 Layouts/
+│   │   │       │   │       │   ├── 📄 AuthenticatedLayout.vue
+│   │   │       │   │       │   └── 📄 GuestLayout.vue
+│   │   │       │   │       ├── 📁 Pages/
+│   │   │       │   │       │   ├── 📁 Auth/
+│   │   │       │   │       │   │   ├── 📄 ConfirmPassword.vue
+│   │   │       │   │       │   │   ├── 📄 ForgotPassword.vue
+│   │   │       │   │       │   │   ├── 📄 Login.vue
+│   │   │       │   │       │   │   ├── 📄 Register.vue
+│   │   │       │   │       │   │   ├── 📄 ResetPassword.vue
+│   │   │       │   │       │   │   └── 📄 VerifyEmail.vue
+│   │   │       │   │       │   ├── 📄 Dashboard.vue
+│   │   │       │   │       │   ├── 📁 Profile/
+│   │   │       │   │       │   │   ├── 📄 Edit.vue
+│   │   │       │   │       │   │   └── 📁 Partials/
+│   │   │       │   │       │   │       ├── 📄 DeleteUserForm.vue
+│   │   │       │   │       │   │       ├── 📄 UpdatePasswordForm.vue
+│   │   │       │   │       │   │       └── 📄 UpdateProfileInformationForm.vue
+│   │   │       │   │       │   └── 📄 Welcome.vue
+│   │   │       │   │       ├── 📄 ssr.ts
+│   │   │       │   │       └── 📁 types/
+│   │   │       │   │           ├── 📄 global.d.ts
+│   │   │       │   │           ├── 📄 index.d.ts
+│   │   │       │   │           └── 📄 vite-env.d.ts
+│   │   │       │   └── 📄 tsconfig.json
+│   │   │       ├── 📁 livewire/
+│   │   │       │   └── 📁 resources/
+│   │   │       │       └── 📁 views/
+│   │   │       │           └── 📁 livewire/
+│   │   │       │               ├── 📁 layout/
+│   │   │       │               │   └── 📄 navigation.blade.php
+│   │   │       │               ├── 📁 pages/
+│   │   │       │               │   └── 📁 auth/
+│   │   │       │               │       ├── 📄 confirm-password.blade.php
+│   │   │       │               │       ├── 📄 forgot-password.blade.php
+│   │   │       │               │       ├── 📄 login.blade.php
+│   │   │       │               │       ├── 📄 register.blade.php
+│   │   │       │               │       ├── 📄 reset-password.blade.php
+│   │   │       │               │       └── 📄 verify-email.blade.php
+│   │   │       │               ├── 📁 profile/
+│   │   │       │               │   ├── 📄 delete-user-form.blade.php
+│   │   │       │               │   ├── 📄 update-password-form.blade.php
+│   │   │       │               │   └── 📄 update-profile-information-form.blade.php
+│   │   │       │               └── 📁 welcome/
+│   │   │       │                   └── 📄 navigation.blade.php
+│   │   │       ├── 📁 livewire-common/
+│   │   │       │   ├── 📁 app/
+│   │   │       │   │   └── 📁 Livewire/
+│   │   │       │   │       ├── 📁 Actions/
+│   │   │       │   │       │   └── 📄 Logout.php
+│   │   │       │   │       └── 📁 Forms/
+│   │   │       │   │           └── 📄 LoginForm.php
+│   │   │       │   ├── 📁 pest-tests/
+│   │   │       │   │   ├── 📁 Feature/
+│   │   │       │   │   │   ├── 📁 Auth/
+│   │   │       │   │   │   │   ├── 📄 AuthenticationTest.php
+│   │   │       │   │   │   │   ├── 📄 EmailVerificationTest.php
+│   │   │       │   │   │   │   ├── 📄 PasswordConfirmationTest.php
+│   │   │       │   │   │   │   ├── 📄 PasswordResetTest.php
+│   │   │       │   │   │   │   ├── 📄 PasswordUpdateTest.php
+│   │   │       │   │   │   │   └── 📄 RegistrationTest.php
+│   │   │       │   │   │   ├── 📄 ExampleTest.php
+│   │   │       │   │   │   └── 📄 ProfileTest.php
+│   │   │       │   │   ├── 📄 Pest.php
+│   │   │       │   │   └── 📁 Unit/
+│   │   │       │   │       └── 📄 ExampleTest.php
+│   │   │       │   ├── 📁 resources/
+│   │   │       │   │   └── 📁 views/
+│   │   │       │   │       ├── 📁 components/
+│   │   │       │   │       │   └── 📄 action-message.blade.php
+│   │   │       │   │       ├── 📄 dashboard.blade.php
+│   │   │       │   │       ├── 📁 layouts/
+│   │   │       │   │       │   ├── 📄 app.blade.php
+│   │   │       │   │       │   └── 📄 guest.blade.php
+│   │   │       │   │       ├── 📄 profile.blade.php
+│   │   │       │   │       └── 📄 welcome.blade.php
+│   │   │       │   ├── 📁 routes/
+│   │   │       │   │   ├── 📄 auth.php
+│   │   │       │   │   └── 📄 web.php
+│   │   │       │   └── 📁 tests/
+│   │   │       │       └── 📁 Feature/
+│   │   │       │           ├── 📁 Auth/
+│   │   │       │           │   ├── 📄 AuthenticationTest.php
+│   │   │       │           │   ├── 📄 EmailVerificationTest.php
+│   │   │       │           │   ├── 📄 PasswordConfirmationTest.php
+│   │   │       │           │   ├── 📄 PasswordResetTest.php
+│   │   │       │           │   ├── 📄 PasswordUpdateTest.php
+│   │   │       │           │   └── 📄 RegistrationTest.php
+│   │   │       │           └── 📄 ProfileTest.php
+│   │   │       └── 📁 livewire-functional/
+│   │   │           └── 📁 resources/
+│   │   │               └── 📁 views/
+│   │   │                   └── 📁 livewire/
+│   │   │                       ├── 📁 layout/
+│   │   │                       │   └── 📄 navigation.blade.php
+│   │   │                       ├── 📁 pages/
+│   │   │                       │   └── 📁 auth/
+│   │   │                       │       ├── 📄 confirm-password.blade.php
+│   │   │                       │       ├── 📄 forgot-password.blade.php
+│   │   │                       │       ├── 📄 login.blade.php
+│   │   │                       │       ├── 📄 register.blade.php
+│   │   │                       │       ├── 📄 reset-password.blade.php
+│   │   │                       │       └── 📄 verify-email.blade.php
+│   │   │                       ├── 📁 profile/
+│   │   │                       │   ├── 📄 delete-user-form.blade.php
+│   │   │                       │   ├── 📄 update-password-form.blade.php
+│   │   │                       │   └── 📄 update-profile-information-form.blade.php
+│   │   │                       └── 📁 welcome/
+│   │   │                           └── 📄 navigation.blade.php
 │   │   ├── 📁 framework/
 │   │   │   ├── 📁 .agents/
 │   │   │   │   ├── 📄 resume
@@ -4206,6 +13951,121 @@
 │   │   │       ├── 📄 MutableConfigurationInterface.php
 │   │   │       ├── 📄 ReadOnlyConfiguration.php
 │   │   │       └── 📄 SchemaBuilderInterface.php
+│   │   ├── 📁 csv/
+│   │   │   ├── 📄 autoload.php
+│   │   │   ├── 📄 composer.json
+│   │   │   ├── 📄 LICENSE
+│   │   │   ├── 📁 polyfill/
+│   │   │   │   └── 📄 SortDirection.php
+│   │   │   ├── 📄 rector.php
+│   │   │   └── 📁 src/
+│   │   │       ├── 📄 AbstractCsv.php
+│   │   │       ├── 📄 Bom.php
+│   │   │       ├── 📄 BomSkippingIterator.php
+│   │   │       ├── 📄 Buffer.php
+│   │   │       ├── 📄 ByteSequence.php
+│   │   │       ├── 📄 CallbackStreamFilter.php
+│   │   │       ├── 📄 CannotInsertRecord.php
+│   │   │       ├── 📄 CharsetConverter.php
+│   │   │       ├── 📄 ColumnConsistency.php
+│   │   │       ├── 📄 EncloseField.php
+│   │   │       ├── 📄 EnumFormatter.php
+│   │   │       ├── 📄 EscapeFormula.php
+│   │   │       ├── 📄 Exception.php
+│   │   │       ├── 📄 FragmentFinder.php
+│   │   │       ├── 📄 FragmentNotFound.php
+│   │   │       ├── 📄 functions.php
+│   │   │       ├── 📄 functions_include.php
+│   │   │       ├── 📄 HTMLConverter.php
+│   │   │       ├── 📄 HttpHeaders.php
+│   │   │       ├── 📄 Info.php
+│   │   │       ├── 📄 InvalidArgument.php
+│   │   │       ├── 📄 JsonConverter.php
+│   │   │       ├── 📄 JsonFormat.php
+│   │   │       ├── 📄 MapIterator.php
+│   │   │       ├── 📁 Query/
+│   │   │       │   ├── 📁 Constraint/
+│   │   │       │   │   ├── 📄 Column.php
+│   │   │       │   │   ├── 📄 Comparison.php
+│   │   │       │   │   ├── 📄 Criteria.php
+│   │   │       │   │   ├── 📄 Offset.php
+│   │   │       │   │   └── 📄 TwoColumns.php
+│   │   │       │   ├── 📄 Limit.php
+│   │   │       │   ├── 📁 Ordering/
+│   │   │       │   │   ├── 📄 Column.php
+│   │   │       │   │   └── 📄 MultiSort.php
+│   │   │       │   ├── 📄 Predicate.php
+│   │   │       │   ├── 📄 PredicateCombinator.php
+│   │   │       │   ├── 📄 QueryException.php
+│   │   │       │   ├── 📄 Row.php
+│   │   │       │   ├── 📄 Sort.php
+│   │   │       │   └── 📄 SortCombinator.php
+│   │   │       ├── 📄 RdbmsResult.php
+│   │   │       ├── 📄 Reader.php
+│   │   │       ├── 📄 ResultSet.php
+│   │   │       ├── 📄 RFC4180Field.php
+│   │   │       ├── 📁 Schema/
+│   │   │       │   ├── 📄 BooleanField.php
+│   │   │       │   ├── 📄 CallbackFieldParser.php
+│   │   │       │   ├── 📄 CustomField.php
+│   │   │       │   ├── 📄 DateTimeField.php
+│   │   │       │   ├── 📄 EnumField.php
+│   │   │       │   ├── 📄 Field.php
+│   │   │       │   ├── 📄 FieldEvaluator.php
+│   │   │       │   ├── 📄 FieldList.php
+│   │   │       │   ├── 📄 FieldMetadata.php
+│   │   │       │   ├── 📄 FieldParser.php
+│   │   │       │   ├── 📄 FieldType.php
+│   │   │       │   ├── 📄 Inspector.php
+│   │   │       │   ├── 📄 JsonField.php
+│   │   │       │   ├── 📄 NumericField.php
+│   │   │       │   ├── 📄 Schema.php
+│   │   │       │   ├── 📄 SetField.php
+│   │   │       │   ├── 📄 StringConstraint.php
+│   │   │       │   ├── 📄 StringField.php
+│   │   │       │   ├── 📄 StringLengthConstraint.php
+│   │   │       │   ├── 📄 StructuredStringConstraint.php
+│   │   │       │   ├── 📄 TimeField.php
+│   │   │       │   ├── 📄 TimePadding.php
+│   │   │       │   └── 📄 TimePrecision.php
+│   │   │       ├── 📁 Serializer/
+│   │   │       │   ├── 📄 AfterMapping.php
+│   │   │       │   ├── 📄 ArrayShape.php
+│   │   │       │   ├── 📄 CallbackCasting.php
+│   │   │       │   ├── 📄 CastToArray.php
+│   │   │       │   ├── 📄 CastToBool.php
+│   │   │       │   ├── 📄 CastToDate.php
+│   │   │       │   ├── 📄 CastToEnum.php
+│   │   │       │   ├── 📄 CastToFloat.php
+│   │   │       │   ├── 📄 CastToInt.php
+│   │   │       │   ├── 📄 CastToString.php
+│   │   │       │   ├── 📄 DenormalizationFailed.php
+│   │   │       │   ├── 📄 Denormalizer.php
+│   │   │       │   ├── 📄 MapCell.php
+│   │   │       │   ├── 📄 MappingFailed.php
+│   │   │       │   ├── 📄 MapRecord.php
+│   │   │       │   ├── 📄 PropertySetter.php
+│   │   │       │   ├── 📄 SerializationFailed.php
+│   │   │       │   ├── 📄 Type.php
+│   │   │       │   ├── 📄 TypeCasting.php
+│   │   │       │   ├── 📄 TypeCastingFailed.php
+│   │   │       │   ├── 📄 TypeCastingInfo.php
+│   │   │       │   └── 📄 TypeCastingTargetType.php
+│   │   │       ├── 📄 Statement.php
+│   │   │       ├── 📄 Stream.php
+│   │   │       ├── 📄 StreamFilter.php
+│   │   │       ├── 📄 SwapDelimiter.php
+│   │   │       ├── 📄 SyntaxError.php
+│   │   │       ├── 📄 TabularData.php
+│   │   │       ├── 📄 TabularDataProvider.php
+│   │   │       ├── 📄 TabularDataReader.php
+│   │   │       ├── 📄 TabularDataWriter.php
+│   │   │       ├── 📄 UnableToProcessCsv.php
+│   │   │       ├── 📄 UnavailableFeature.php
+│   │   │       ├── 📄 UnavailableStream.php
+│   │   │       ├── 📄 Warning.php
+│   │   │       ├── 📄 Writer.php
+│   │   │       └── 📄 XMLConverter.php
 │   │   ├── 📁 flysystem/
 │   │   │   ├── 📄 composer.json
 │   │   │   ├── 📄 INFO.md
@@ -4332,6 +14192,32 @@
 │   │   │   ├── 📄 UrlPattern.php
 │   │   │   ├── 📄 UrlPatternBuilder.php
 │   │   │   └── 📄 Urn.php
+│   │   ├── 📁 uri-components/
+│   │   │   ├── 📁 Components/
+│   │   │   │   ├── 📄 Authority.php
+│   │   │   │   ├── 📄 Component.php
+│   │   │   │   ├── 📄 DataPath.php
+│   │   │   │   ├── 📄 Domain.php
+│   │   │   │   ├── 📄 Fragment.php
+│   │   │   │   ├── 📁 FragmentDirectives/
+│   │   │   │   │   ├── 📄 DirectiveString.php
+│   │   │   │   │   ├── 📄 Encoder.php
+│   │   │   │   │   ├── 📄 GenericDirective.php
+│   │   │   │   │   └── 📄 TextDirective.php
+│   │   │   │   ├── 📄 FragmentDirectives.php
+│   │   │   │   ├── 📄 HierarchicalPath.php
+│   │   │   │   ├── 📄 Host.php
+│   │   │   │   ├── 📄 Path.php
+│   │   │   │   ├── 📄 Port.php
+│   │   │   │   ├── 📄 Query.php
+│   │   │   │   ├── 📄 Scheme.php
+│   │   │   │   ├── 📄 URLSearchParams.php
+│   │   │   │   └── 📄 UserInfo.php
+│   │   │   ├── 📄 composer.json
+│   │   │   ├── 📄 IPv4Normalizer.php
+│   │   │   ├── 📄 LICENSE
+│   │   │   ├── 📄 Modifier.php
+│   │   │   └── 📄 UriModifier.php
 │   │   └── 📁 uri-interfaces/
 │   │       ├── 📄 composer.json
 │   │       ├── 📁 Contracts/
@@ -4387,6 +14273,506 @@
 │   │       ├── 📄 UriComparisonMode.php
 │   │       ├── 📄 UriString.php
 │   │       └── 📄 UrnComparisonMode.php
+│   ├── 📁 livewire/
+│   │   └── 📁 livewire/
+│   │       ├── 📄 CLAUDE.md
+│   │       ├── 📄 composer.json
+│   │       ├── 📁 config/
+│   │       │   └── 📄 livewire.php
+│   │       ├── 📄 LICENSE.md
+│   │       ├── 📄 PRD-wire-model-modifiers.md
+│   │       ├── 📄 README.md
+│   │       ├── 📁 src/
+│   │       │   ├── 📄 Attribute.php
+│   │       │   ├── 📁 Attributes/
+│   │       │   │   ├── 📄 Async.php
+│   │       │   │   ├── 📄 Authorize.php
+│   │       │   │   ├── 📄 Computed.php
+│   │       │   │   ├── 📄 Defer.php
+│   │       │   │   ├── 📄 Isolate.php
+│   │       │   │   ├── 📄 Js.php
+│   │       │   │   ├── 📄 Json.php
+│   │       │   │   ├── 📄 Layout.php
+│   │       │   │   ├── 📄 Lazy.php
+│   │       │   │   ├── 📄 Locked.php
+│   │       │   │   ├── 📄 Modelable.php
+│   │       │   │   ├── 📄 On.php
+│   │       │   │   ├── 📄 Reactive.php
+│   │       │   │   ├── 📄 Renderless.php
+│   │       │   │   ├── 📄 Rule.php
+│   │       │   │   ├── 📄 Session.php
+│   │       │   │   ├── 📄 Title.php
+│   │       │   │   ├── 📄 Transition.php
+│   │       │   │   ├── 📄 Url.php
+│   │       │   │   └── 📄 Validate.php
+│   │       │   ├── 📁 Compiler/
+│   │       │   │   ├── 📄 CacheManager.php
+│   │       │   │   ├── 📄 Compiler.php
+│   │       │   │   └── 📁 Parser/
+│   │       │   │       ├── 📄 MultiFileParser.php
+│   │       │   │       ├── 📄 Parser.php
+│   │       │   │       └── 📄 SingleFileParser.php
+│   │       │   ├── 📄 Component.php
+│   │       │   ├── 📄 ComponentHook.php
+│   │       │   ├── 📄 ComponentHookRegistry.php
+│   │       │   ├── 📁 Concerns/
+│   │       │   │   └── 📄 InteractsWithProperties.php
+│   │       │   ├── 📁 Drawer/
+│   │       │   │   ├── 📄 BaseUtils.php
+│   │       │   │   ├── 📄 ImplicitRouteBinding.php
+│   │       │   │   ├── 📄 Regexes.php
+│   │       │   │   └── 📄 Utils.php
+│   │       │   ├── 📄 EventBus.php
+│   │       │   ├── 📁 Exceptions/
+│   │       │   │   ├── 📄 BypassViewHandler.php
+│   │       │   │   ├── 📄 ComponentAttributeMissingOnDynamicComponentException.php
+│   │       │   │   ├── 📄 ComponentNotFoundException.php
+│   │       │   │   ├── 📄 EventHandlerDoesNotExist.php
+│   │       │   │   ├── 📄 LivewireReleaseTokenMismatchException.php
+│   │       │   │   ├── 📄 MaxNestingDepthExceededException.php
+│   │       │   │   ├── 📄 MethodNotFoundException.php
+│   │       │   │   ├── 📄 MissingRulesException.php
+│   │       │   │   ├── 📄 ModelableRootHasWireModelException.php
+│   │       │   │   ├── 📄 NonPublicComponentMethodCall.php
+│   │       │   │   ├── 📄 PayloadTooLargeException.php
+│   │       │   │   ├── 📄 PropertyNotFoundException.php
+│   │       │   │   ├── 📄 PublicPropertyNotFoundException.php
+│   │       │   │   ├── 📄 RootTagMissingFromViewException.php
+│   │       │   │   ├── 📄 TooManyCallsException.php
+│   │       │   │   └── 📄 TooManyComponentsException.php
+│   │       │   ├── 📁 Facades/
+│   │       │   │   └── 📄 GenerateSignedUploadUrlFacade.php
+│   │       │   ├── 📁 Factory/
+│   │       │   │   └── 📄 Factory.php
+│   │       │   ├── 📁 Features/
+│   │       │   │   ├── 📁 SupportAccessingParent/
+│   │       │   │   ├── 📁 SupportAsync/
+│   │       │   │   │   └── 📄 BaseAsync.php
+│   │       │   │   ├── 📁 SupportAttributes/
+│   │       │   │   │   ├── 📄 Attribute.php
+│   │       │   │   │   ├── 📄 AttributeCollection.php
+│   │       │   │   │   ├── 📄 AttributeLevel.php
+│   │       │   │   │   ├── 📄 HandlesAttributes.php
+│   │       │   │   │   └── 📄 SupportAttributes.php
+│   │       │   │   ├── 📁 SupportAuthorization/
+│   │       │   │   │   └── 📄 BaseAuthorize.php
+│   │       │   │   ├── 📁 SupportAutoInjectedAssets/
+│   │       │   │   │   └── 📄 SupportAutoInjectedAssets.php
+│   │       │   │   ├── 📁 SupportBladeAttributes/
+│   │       │   │   │   └── 📄 SupportBladeAttributes.php
+│   │       │   │   ├── 📁 SupportChecksumErrorDebugging/
+│   │       │   │   │   └── 📄 SupportChecksumErrorDebugging.php
+│   │       │   │   ├── 📁 SupportCompiledWireKeys/
+│   │       │   │   │   └── 📄 SupportCompiledWireKeys.php
+│   │       │   │   ├── 📁 SupportComputed/
+│   │       │   │   │   ├── 📄 BaseComputed.php
+│   │       │   │   │   ├── 📄 CannotCallComputedDirectlyException.php
+│   │       │   │   │   └── 📄 SupportLegacyComputedPropertySyntax.php
+│   │       │   │   ├── 📁 SupportConsoleCommands/
+│   │       │   │   │   ├── 📁 Commands/
+│   │       │   │   │   │   ├── 📄 AttributeCommand.php
+│   │       │   │   │   │   ├── 📄 ConfigCommand.php
+│   │       │   │   │   │   ├── 📄 ConvertCommand.php
+│   │       │   │   │   │   ├── 📄 FileManipulationCommand.php
+│   │       │   │   │   │   ├── 📄 FormCommand.php
+│   │       │   │   │   │   ├── 📄 LayoutCommand.php
+│   │       │   │   │   │   ├── 📄 livewire-mfc-class.stub
+│   │       │   │   │   │   ├── 📄 livewire-mfc-css.stub
+│   │       │   │   │   │   ├── 📄 livewire-mfc-js.stub
+│   │       │   │   │   │   ├── 📄 livewire-mfc-test.stub
+│   │       │   │   │   │   ├── 📄 livewire-mfc-view.stub
+│   │       │   │   │   │   ├── 📄 livewire-sfc.stub
+│   │       │   │   │   │   ├── 📄 livewire.attribute.stub
+│   │       │   │   │   │   ├── 📄 livewire.form.stub
+│   │       │   │   │   │   ├── 📄 livewire.inline.stub
+│   │       │   │   │   │   ├── 📄 livewire.layout.stub
+│   │       │   │   │   │   ├── 📄 livewire.pest.stub
+│   │       │   │   │   │   ├── 📄 livewire.stub
+│   │       │   │   │   │   ├── 📄 livewire.test.stub
+│   │       │   │   │   │   ├── 📄 livewire.view.stub
+│   │       │   │   │   │   ├── 📄 LivewireMakeCommand.php
+│   │       │   │   │   │   ├── 📄 MakeCommand.php
+│   │       │   │   │   │   ├── 📄 PublishCommand.php
+│   │       │   │   │   │   ├── 📄 S3CleanupCommand.php
+│   │       │   │   │   │   ├── 📄 StubsCommand.php
+│   │       │   │   │   │   └── 📄 the-tao.php
+│   │       │   │   │   └── 📄 SupportConsoleCommands.php
+│   │       │   │   ├── 📁 SupportCSP/
+│   │       │   │   │   └── 📁 test-views/
+│   │       │   │   │       └── 📄 csp-layout.blade.php
+│   │       │   │   ├── 📁 SupportCssModules/
+│   │       │   │   │   ├── 📁 fixtures/
+│   │       │   │   │   │   ├── 📁 nested/
+│   │       │   │   │   │   │   └── 📁 component/
+│   │       │   │   │   │   │       └── 📄 index.blade.php
+│   │       │   │   │   │   └── 📄 no-module.blade.php
+│   │       │   │   │   └── 📄 SupportCssModules.php
+│   │       │   │   ├── 📁 SupportDataBinding/
+│   │       │   │   ├── 📁 SupportDataLoading/
+│   │       │   │   ├── 📁 SupportDisablingBackButtonCache/
+│   │       │   │   │   ├── 📄 DisableBackButtonCacheMiddleware.php
+│   │       │   │   │   ├── 📄 HandlesDisablingBackButtonCache.php
+│   │       │   │   │   └── 📄 SupportDisablingBackButtonCache.php
+│   │       │   │   ├── 📁 SupportDisablingFormsDuringRequest/
+│   │       │   │   ├── 📁 SupportEntangle/
+│   │       │   │   │   └── 📄 SupportEntangle.php
+│   │       │   │   ├── 📁 SupportErrorResponses/
+│   │       │   │   ├── 📁 SupportEvents/
+│   │       │   │   │   ├── 📄 BaseOn.php
+│   │       │   │   │   ├── 📄 Event.php
+│   │       │   │   │   ├── 📄 fake-echo.js
+│   │       │   │   │   ├── 📄 HandlesEvents.php
+│   │       │   │   │   ├── 📄 SupportEvents.php
+│   │       │   │   │   └── 📄 TestsEvents.php
+│   │       │   │   ├── 📁 SupportFileDownloads/
+│   │       │   │   │   ├── 📄 SupportFileDownloads.php
+│   │       │   │   │   └── 📄 TestsFileDownloads.php
+│   │       │   │   ├── 📁 SupportFileUploads/
+│   │       │   │   │   ├── 📄 browser_test_image.png
+│   │       │   │   │   ├── 📄 browser_test_image2.png
+│   │       │   │   │   ├── 📄 browser_test_image_big.jpg
+│   │       │   │   │   ├── 📄 FileNotPreviewableException.php
+│   │       │   │   │   ├── 📄 FilePreviewController.php
+│   │       │   │   │   ├── 📄 FileUploadConfiguration.php
+│   │       │   │   │   ├── 📄 FileUploadController.php
+│   │       │   │   │   ├── 📄 FileUploadSynth.php
+│   │       │   │   │   ├── 📄 GenerateSignedUploadUrl.php
+│   │       │   │   │   ├── 📄 MissingFileUploadsTraitException.php
+│   │       │   │   │   ├── 📄 S3DoesntSupportMultipleFileUploads.php
+│   │       │   │   │   ├── 📄 SupportFileUploads.php
+│   │       │   │   │   ├── 📄 TemporaryUploadedFile.php
+│   │       │   │   │   └── 📄 WithFileUploads.php
+│   │       │   │   ├── 📁 SupportFormObjects/
+│   │       │   │   │   ├── 📄 Form.php
+│   │       │   │   │   ├── 📄 FormObjectSynth.php
+│   │       │   │   │   ├── 📄 HandlesFormObjects.php
+│   │       │   │   │   └── 📄 SupportFormObjects.php
+│   │       │   │   ├── 📁 SupportHtmlAttributeForwarding/
+│   │       │   │   │   ├── 📄 HandlesHtmlAttributeForwarding.php
+│   │       │   │   │   └── 📄 SupportHtmlAttributeForwarding.php
+│   │       │   │   ├── 📁 SupportInterceptors/
+│   │       │   │   ├── 📁 SupportIslands/
+│   │       │   │   │   ├── 📁 Compiler/
+│   │       │   │   │   │   └── 📄 IslandCompiler.php
+│   │       │   │   │   ├── 📁 fixtures/
+│   │       │   │   │   │   ├── 📄 sfc-island-imports.blade.php
+│   │       │   │   │   │   ├── 📄 twelve-islands.blade.php
+│   │       │   │   │   │   └── 📁 views/
+│   │       │   │   │   │       └── 📄 island-partial.blade.php
+│   │       │   │   │   ├── 📄 HandlesIslands.php
+│   │       │   │   │   └── 📄 SupportIslands.php
+│   │       │   │   ├── 📁 SupportIsolating/
+│   │       │   │   │   ├── 📄 BaseIsolate.php
+│   │       │   │   │   └── 📄 SupportIsolating.php
+│   │       │   │   ├── 📁 SupportJsComponent/
+│   │       │   │   ├── 📁 SupportJsEvaluation/
+│   │       │   │   │   ├── 📄 BaseJs.php
+│   │       │   │   │   ├── 📁 fixtures/
+│   │       │   │   │   │   ├── 📁 mfc-component-with-dollar-js-magic/
+│   │       │   │   │   │   │   ├── 📄 mfc-component-with-dollar-js-magic.blade.php
+│   │       │   │   │   │   │   ├── 📄 mfc-component-with-dollar-js-magic.js
+│   │       │   │   │   │   │   └── 📄 mfc-component-with-dollar-js-magic.php
+│   │       │   │   │   │   └── 📄 sfc-component-with-dollar-js-magic.blade.php
+│   │       │   │   │   ├── 📄 HandlesJsEvaluation.php
+│   │       │   │   │   ├── 📄 SupportJsEvaluation.php
+│   │       │   │   │   └── 📄 TestsJsEvaluation.php
+│   │       │   │   ├── 📁 SupportJsModules/
+│   │       │   │   │   ├── 📁 fixtures/
+│   │       │   │   │   │   ├── 📄 alpine-data.blade.php
+│   │       │   │   │   │   ├── 📁 back-forward/
+│   │       │   │   │   │   │   ├── 📄 back-forward.blade.php
+│   │       │   │   │   │   │   ├── 📄 back-forward.js
+│   │       │   │   │   │   │   └── 📄 back-forward.php
+│   │       │   │   │   │   ├── 📄 back-forward-second.blade.php
+│   │       │   │   │   │   ├── 📄 broken-import.blade.php
+│   │       │   │   │   │   ├── 📄 island-with-alpine-data.blade.php
+│   │       │   │   │   │   ├── 📄 lazy-probe.blade.php
+│   │       │   │   │   │   ├── 📄 lazy-wrapper.blade.php
+│   │       │   │   │   │   ├── 📁 mfc-with-imports/
+│   │       │   │   │   │   │   ├── 📄 mfc-with-imports.blade.php
+│   │       │   │   │   │   │   ├── 📄 mfc-with-imports.js
+│   │       │   │   │   │   │   └── 📄 mfc-with-imports.php
+│   │       │   │   │   │   ├── 📄 navigate-page.blade.php
+│   │       │   │   │   │   ├── 📁 nested/
+│   │       │   │   │   │   │   └── 📁 component/
+│   │       │   │   │   │   │       └── 📄 index.blade.php
+│   │       │   │   │   │   ├── 📄 no-module.blade.php
+│   │       │   │   │   │   ├── 📄 run-throws.blade.php
+│   │       │   │   │   │   ├── 📄 sfc-with-imports.blade.php
+│   │       │   │   │   │   └── 📄 slow-alpine-data.blade.php
+│   │       │   │   │   └── 📄 SupportJsModules.php
+│   │       │   │   ├── 📁 SupportJson/
+│   │       │   │   │   ├── 📄 BaseJson.php
+│   │       │   │   │   └── 📄 SupportJson.php
+│   │       │   │   ├── 📁 SupportLargePayloads/
+│   │       │   │   ├── 📁 SupportLazyLoading/
+│   │       │   │   │   ├── 📄 BaseDefer.php
+│   │       │   │   │   ├── 📄 BaseLazy.php
+│   │       │   │   │   └── 📄 SupportLazyLoading.php
+│   │       │   │   ├── 📁 SupportLegacyModels/
+│   │       │   │   │   ├── 📄 CannotBindToModelDataWithoutValidationRuleException.php
+│   │       │   │   │   ├── 📄 EloquentCollectionSynth.php
+│   │       │   │   │   ├── 📄 EloquentModelSynth.php
+│   │       │   │   │   └── 📄 SupportLegacyModels.php
+│   │       │   │   ├── 📁 SupportLifecycleHooks/
+│   │       │   │   │   ├── 📄 DirectlyCallingLifecycleHooksNotAllowedException.php
+│   │       │   │   │   └── 📄 SupportLifecycleHooks.php
+│   │       │   │   ├── 📁 SupportLocales/
+│   │       │   │   │   └── 📄 SupportLocales.php
+│   │       │   │   ├── 📁 SupportLockedProperties/
+│   │       │   │   │   ├── 📄 BaseLocked.php
+│   │       │   │   │   └── 📄 CannotUpdateLockedPropertyException.php
+│   │       │   │   ├── 📁 SupportMagicActions/
+│   │       │   │   │   └── 📄 SupportMagicActions.php
+│   │       │   │   ├── 📁 SupportMagicErrors/
+│   │       │   │   ├── 📁 SupportModels/
+│   │       │   │   │   ├── 📄 EloquentCollectionSynth.php
+│   │       │   │   │   ├── 📄 IsLazy.php
+│   │       │   │   │   ├── 📄 ModelSynth.php
+│   │       │   │   │   └── 📄 SupportModels.php
+│   │       │   │   ├── 📁 SupportMorphAwareBladeCompilation/
+│   │       │   │   │   └── 📄 SupportMorphAwareBladeCompilation.php
+│   │       │   │   ├── 📁 SupportMultipleRootElementDetection/
+│   │       │   │   │   ├── 📄 MultipleRootElementsDetectedException.php
+│   │       │   │   │   └── 📄 SupportMultipleRootElementDetection.php
+│   │       │   │   ├── 📁 SupportNavigate/
+│   │       │   │   │   ├── 📄 SupportNavigate.php
+│   │       │   │   │   └── 📁 test-views/
+│   │       │   │   │       ├── 📄 changed-layout.blade.php
+│   │       │   │   │       ├── 📄 changed-tracked-layout.blade.php
+│   │       │   │   │       ├── 📄 html-attributes1.blade.php
+│   │       │   │   │       ├── 📄 html-attributes2.blade.php
+│   │       │   │   │       ├── 📄 layout-with-navigate-outside.blade.php
+│   │       │   │   │       ├── 📄 layout-with-noscript.blade.php
+│   │       │   │   │       ├── 📄 layout.blade.php
+│   │       │   │   │       ├── 📄 navbar-sidebar.blade.php
+│   │       │   │   │       ├── 📄 test-navigate-asset.js
+│   │       │   │   │       └── 📄 tracked-layout.blade.php
+│   │       │   │   ├── 📁 SupportNestedComponentListeners/
+│   │       │   │   │   └── 📄 SupportNestedComponentListeners.php
+│   │       │   │   ├── 📁 SupportNestingComponents/
+│   │       │   │   │   └── 📄 SupportNestingComponents.php
+│   │       │   │   ├── 📁 SupportOctane/
+│   │       │   │   ├── 📁 SupportPageComponents/
+│   │       │   │   │   ├── 📄 BaseLayout.php
+│   │       │   │   │   ├── 📄 BaseTitle.php
+│   │       │   │   │   ├── 📄 HandlesPageComponents.php
+│   │       │   │   │   ├── 📄 MissingLayoutException.php
+│   │       │   │   │   ├── 📄 PageComponentConfig.php
+│   │       │   │   │   └── 📄 SupportPageComponents.php
+│   │       │   │   ├── 📁 SupportPagination/
+│   │       │   │   │   ├── 📄 HandlesPagination.php
+│   │       │   │   │   ├── 📄 PaginationUrl.php
+│   │       │   │   │   ├── 📄 SupportPagination.php
+│   │       │   │   │   ├── 📁 views/
+│   │       │   │   │   │   ├── 📄 bootstrap.blade.php
+│   │       │   │   │   │   ├── 📄 simple-bootstrap.blade.php
+│   │       │   │   │   │   ├── 📄 simple-tailwind.blade.php
+│   │       │   │   │   │   └── 📄 tailwind.blade.php
+│   │       │   │   │   └── 📄 WithoutUrlPagination.php
+│   │       │   │   ├── 📁 SupportPolling/
+│   │       │   │   ├── 📁 SupportPreserveScroll/
+│   │       │   │   ├── 📁 SupportQueryString/
+│   │       │   │   │   ├── 📄 BaseUrl.php
+│   │       │   │   │   └── 📄 SupportQueryString.php
+│   │       │   │   ├── 📁 SupportReactiveProps/
+│   │       │   │   │   ├── 📄 BaseReactive.php
+│   │       │   │   │   ├── 📄 CannotMutateReactivePropException.php
+│   │       │   │   │   └── 📄 SupportReactiveProps.php
+│   │       │   │   ├── 📁 SupportRedirects/
+│   │       │   │   │   ├── 📄 HandlesRedirects.php
+│   │       │   │   │   ├── 📄 Redirector.php
+│   │       │   │   │   ├── 📄 SupportRedirects.php
+│   │       │   │   │   └── 📄 TestsRedirects.php
+│   │       │   │   ├── 📁 SupportReleaseTokens/
+│   │       │   │   │   ├── 📄 HandlesReleaseTokens.php
+│   │       │   │   │   ├── 📄 ReleaseToken.php
+│   │       │   │   │   └── 📄 SupportReleaseTokens.php
+│   │       │   │   ├── 📁 SupportRenderless/
+│   │       │   │   │   ├── 📄 BaseRenderless.php
+│   │       │   │   │   └── 📄 HandlesRenderless.php
+│   │       │   │   ├── 📁 SupportRequestInteractions/
+│   │       │   │   ├── 📁 SupportScriptsAndAssets/
+│   │       │   │   │   ├── 📄 asset-after-stylesheet.js
+│   │       │   │   │   ├── 📄 asset-stylesheet.css
+│   │       │   │   │   ├── 📁 fixtures/
+│   │       │   │   │   │   └── 📄 lazy-with-assets.blade.php
+│   │       │   │   │   ├── 📄 non-livewire-asset.js
+│   │       │   │   │   ├── 📄 SupportScriptsAndAssets.php
+│   │       │   │   │   └── 📄 test.js
+│   │       │   │   ├── 📁 SupportSession/
+│   │       │   │   │   └── 📄 BaseSession.php
+│   │       │   │   ├── 📁 SupportSingleAndMultiFileComponents/
+│   │       │   │   │   ├── 📁 fixtures/
+│   │       │   │   │   │   ├── 📁 mfc-counter/
+│   │       │   │   │   │   │   ├── 📄 mfc-counter.blade.php
+│   │       │   │   │   │   │   └── 📄 mfc-counter.php
+│   │       │   │   │   │   ├── 📄 sfc-component-with-render-and-data.blade.php
+│   │       │   │   │   │   ├── 📄 sfc-counter.blade.php
+│   │       │   │   │   │   ├── 📄 sfc-scripts-with-js-action.blade.php
+│   │       │   │   │   │   └── 📄 sfc-scripts.blade.php
+│   │       │   │   │   └── 📄 SupportSingleAndMultiFileComponents.php
+│   │       │   │   ├── 📁 SupportSlots/
+│   │       │   │   │   ├── 📄 HandlesSlots.php
+│   │       │   │   │   ├── 📄 PlaceholderSlot.php
+│   │       │   │   │   ├── 📄 Slot.php
+│   │       │   │   │   ├── 📄 SlotProxy.php
+│   │       │   │   │   └── 📄 SupportSlots.php
+│   │       │   │   ├── 📁 SupportStdClasses/
+│   │       │   │   ├── 📁 SupportStreaming/
+│   │       │   │   │   ├── 📄 HandlesStreaming.php
+│   │       │   │   │   ├── 📄 StreamManager.php
+│   │       │   │   │   └── 📄 SupportStreaming.php
+│   │       │   │   ├── 📁 SupportTeleporting/
+│   │       │   │   │   └── 📄 SupportTeleporting.php
+│   │       │   │   ├── 📁 SupportTesting/
+│   │       │   │   │   ├── 📄 ComponentState.php
+│   │       │   │   │   ├── 📄 DuskBrowserMacros.php
+│   │       │   │   │   ├── 📄 DuskTestable.php
+│   │       │   │   │   ├── 📄 InitialRender.php
+│   │       │   │   │   ├── 📄 MakesAssertions.php
+│   │       │   │   │   ├── 📄 Render.php
+│   │       │   │   │   ├── 📄 RequestBroker.php
+│   │       │   │   │   ├── 📄 ShowDuskComponent.php
+│   │       │   │   │   ├── 📄 SubsequentRender.php
+│   │       │   │   │   ├── 📄 SupportTesting.php
+│   │       │   │   │   └── 📄 Testable.php
+│   │       │   │   ├── 📁 SupportTransitions/
+│   │       │   │   │   ├── 📄 BaseTransitionAttribute.php
+│   │       │   │   │   ├── 📄 HandlesTransitions.php
+│   │       │   │   │   └── 📄 SupportTransitions.php
+│   │       │   │   ├── 📁 SupportValidation/
+│   │       │   │   │   ├── 📄 BaseRule.php
+│   │       │   │   │   ├── 📄 BaseValidate.php
+│   │       │   │   │   ├── 📄 HandlesValidation.php
+│   │       │   │   │   ├── 📄 SupportValidation.php
+│   │       │   │   │   └── 📄 TestsValidation.php
+│   │       │   │   ├── 📁 SupportWireables/
+│   │       │   │   │   ├── 📄 SupportWireables.php
+│   │       │   │   │   └── 📄 WireableSynth.php
+│   │       │   │   ├── 📁 SupportWireBind/
+│   │       │   │   ├── 📁 SupportWireConfirm/
+│   │       │   │   ├── 📁 SupportWireCurrent/
+│   │       │   │   │   └── 📁 test-views/
+│   │       │   │   │       └── 📄 navbar-sidebar.blade.php
+│   │       │   │   ├── 📁 SupportWireIgnore/
+│   │       │   │   ├── 📁 SupportWireIntersect/
+│   │       │   │   ├── 📁 SupportWireLoading/
+│   │       │   │   │   └── 📄 browser_test_image.png
+│   │       │   │   ├── 📁 SupportWireModelingNestedComponents/
+│   │       │   │   │   ├── 📄 BaseModelable.php
+│   │       │   │   │   └── 📄 SupportWireModelingNestedComponents.php
+│   │       │   │   ├── 📁 SupportWireRef/
+│   │       │   │   │   └── 📄 SupportWireRef.php
+│   │       │   │   ├── 📁 SupportWireShow/
+│   │       │   │   ├── 📁 SupportWireSort/
+│   │       │   │   ├── 📁 SupportWireText/
+│   │       │   │   └── 📁 SupportWithMethod/
+│   │       │   │       └── 📄 SupportWithMethod.php
+│   │       │   ├── 📁 Finder/
+│   │       │   │   └── 📄 Finder.php
+│   │       │   ├── 📄 Form.php
+│   │       │   ├── 📄 helpers.php
+│   │       │   ├── 📄 ImplicitlyBoundMethod.php
+│   │       │   ├── 📄 Livewire.php
+│   │       │   ├── 📄 LivewireManager.php
+│   │       │   ├── 📄 LivewireServiceProvider.php
+│   │       │   ├── 📁 Mechanisms/
+│   │       │   │   ├── 📄 ClearCachedFiles.php
+│   │       │   │   ├── 📁 CompileLivewireTags/
+│   │       │   │   │   ├── 📄 CompileLivewireTags.php
+│   │       │   │   │   └── 📄 LivewireTagPrecompiler.php
+│   │       │   │   ├── 📄 DataStore.php
+│   │       │   │   ├── 📁 ExtendBlade/
+│   │       │   │   │   ├── 📄 DeterministicBladeKeys.php
+│   │       │   │   │   ├── 📄 ExtendBlade.php
+│   │       │   │   │   └── 📄 ExtendedCompilerEngine.php
+│   │       │   │   ├── 📁 FrontendAssets/
+│   │       │   │   │   └── 📄 FrontendAssets.php
+│   │       │   │   ├── 📁 HandleComponents/
+│   │       │   │   │   ├── 📄 Checksum.php
+│   │       │   │   │   ├── 📄 ComponentContext.php
+│   │       │   │   │   ├── 📄 CorruptComponentPayloadException.php
+│   │       │   │   │   ├── 📄 HandleComponents.php
+│   │       │   │   │   ├── 📄 SecurityPolicy.php
+│   │       │   │   │   ├── 📁 Synthesizers/
+│   │       │   │   │   │   ├── 📄 ArrayShapedSynth.php
+│   │       │   │   │   │   ├── 📄 ArraySynth.php
+│   │       │   │   │   │   ├── 📄 CarbonSynth.php
+│   │       │   │   │   │   ├── 📄 CollectionSynth.php
+│   │       │   │   │   │   ├── 📄 EnumSynth.php
+│   │       │   │   │   │   ├── 📄 FloatSynth.php
+│   │       │   │   │   │   ├── 📄 IntSynth.php
+│   │       │   │   │   │   ├── 📄 StdClassSynth.php
+│   │       │   │   │   │   ├── 📄 StringableSynth.php
+│   │       │   │   │   │   └── 📄 Synth.php
+│   │       │   │   │   └── 📄 ViewContext.php
+│   │       │   │   ├── 📁 HandleRequests/
+│   │       │   │   │   ├── 📄 EndpointResolver.php
+│   │       │   │   │   ├── 📄 HandleRequests.php
+│   │       │   │   │   ├── 📄 RequireLivewireHeaders.php
+│   │       │   │   │   └── 📄 StreamedResponse.php
+│   │       │   │   ├── 📁 HandleRouting/
+│   │       │   │   │   ├── 📁 fixtures/
+│   │       │   │   │   │   ├── 📄 sfc-counter.blade.php
+│   │       │   │   │   │   └── 📄 sfc-post.blade.php
+│   │       │   │   │   ├── 📄 HandleRouting.php
+│   │       │   │   │   └── 📄 LivewirePageController.php
+│   │       │   │   ├── 📁 HandleSynths/
+│   │       │   │   │   ├── 📄 CorruptPersistedValueException.php
+│   │       │   │   │   ├── 📄 HandleSynths.php
+│   │       │   │   │   └── 📄 PersistedValueCodec.php
+│   │       │   │   ├── 📄 Mechanism.php
+│   │       │   │   ├── 📁 PersistentMiddleware/
+│   │       │   │   │   └── 📄 PersistentMiddleware.php
+│   │       │   │   └── 📄 RenderComponent.php
+│   │       │   ├── 📁 Performance/
+│   │       │   ├── 📄 Pipe.php
+│   │       │   ├── 📄 Transparency.php
+│   │       │   ├── 📄 Wireable.php
+│   │       │   ├── 📄 WireDirective.php
+│   │       │   ├── 📄 WithFileUploads.php
+│   │       │   ├── 📄 WithoutUrlPagination.php
+│   │       │   ├── 📄 WithPagination.php
+│   │       │   └── 📄 Wrapped.php
+│   │       ├── 📄 test_unified_scripts.php
+│   │       └── 📄 vitest.config.js
+│   ├── 📁 masterminds/
+│   │   └── 📁 html5/
+│   │       ├── 📁 bin/
+│   │       │   └── 📄 entities.php
+│   │       ├── 📄 composer.json
+│   │       ├── 📄 CREDITS
+│   │       ├── 📄 LICENSE.txt
+│   │       ├── 📄 README.md
+│   │       ├── 📄 RELEASE.md
+│   │       ├── 📄 SECURITY.md
+│   │       ├── 📁 src/
+│   │       │   ├── 📁 HTML5/
+│   │       │   │   ├── 📄 Elements.php
+│   │       │   │   ├── 📄 Entities.php
+│   │       │   │   ├── 📄 Exception.php
+│   │       │   │   ├── 📄 InstructionProcessor.php
+│   │       │   │   ├── 📁 Parser/
+│   │       │   │   │   ├── 📄 CharacterReference.php
+│   │       │   │   │   ├── 📄 DOMTreeBuilder.php
+│   │       │   │   │   ├── 📄 EventHandler.php
+│   │       │   │   │   ├── 📄 FileInputStream.php
+│   │       │   │   │   ├── 📄 InputStream.php
+│   │       │   │   │   ├── 📄 ParseError.php
+│   │       │   │   │   ├── 📄 README.md
+│   │       │   │   │   ├── 📄 Scanner.php
+│   │       │   │   │   ├── 📄 StringInputStream.php
+│   │       │   │   │   ├── 📄 Tokenizer.php
+│   │       │   │   │   ├── 📄 TreeBuildingRules.php
+│   │       │   │   │   └── 📄 UTF8Utils.php
+│   │       │   │   └── 📁 Serializer/
+│   │       │   │       ├── 📄 OutputRules.php
+│   │       │   │       ├── 📄 README.md
+│   │       │   │       ├── 📄 RulesInterface.php
+│   │       │   │       └── 📄 Traverser.php
+│   │       │   └── 📄 HTML5.php
+│   │       └── 📄 UPGRADING.md
 │   ├── 📁 mockery/
 │   │   └── 📁 mockery/
 │   │       ├── 📄 .phpstorm.meta.php
@@ -5643,6 +16029,53 @@
 │   │               ├── 📄 WeekDay.php
 │   │               └── 📄 WrapperClock.php
 │   ├── 📁 nette/
+│   │   ├── 📁 php-generator/
+│   │   │   ├── 📄 composer.json
+│   │   │   ├── 📄 license.md
+│   │   │   ├── 📄 readme.md
+│   │   │   └── 📁 src/
+│   │   │       ├── 📄 compatibility.php
+│   │   │       └── 📁 PhpGenerator/
+│   │   │           ├── 📄 Attribute.php
+│   │   │           ├── 📄 ClassLike.php
+│   │   │           ├── 📄 ClassManipulator.php
+│   │   │           ├── 📄 ClassType.php
+│   │   │           ├── 📄 Closure.php
+│   │   │           ├── 📄 Constant.php
+│   │   │           ├── 📄 Dumper.php
+│   │   │           ├── 📄 EnumCase.php
+│   │   │           ├── 📄 enums.php
+│   │   │           ├── 📄 EnumType.php
+│   │   │           ├── 📄 Extractor.php
+│   │   │           ├── 📄 Factory.php
+│   │   │           ├── 📄 GlobalFunction.php
+│   │   │           ├── 📄 Helpers.php
+│   │   │           ├── 📄 InterfaceType.php
+│   │   │           ├── 📄 Literal.php
+│   │   │           ├── 📄 Method.php
+│   │   │           ├── 📄 Parameter.php
+│   │   │           ├── 📄 PhpFile.php
+│   │   │           ├── 📄 PhpLiteral.php
+│   │   │           ├── 📄 PhpNamespace.php
+│   │   │           ├── 📄 Printer.php
+│   │   │           ├── 📄 PromotedParameter.php
+│   │   │           ├── 📄 Property.php
+│   │   │           ├── 📄 PropertyHook.php
+│   │   │           ├── 📄 PsrPrinter.php
+│   │   │           ├── 📁 Traits/
+│   │   │           │   ├── 📄 AttributeAware.php
+│   │   │           │   ├── 📄 CommentAware.php
+│   │   │           │   ├── 📄 ConstantsAware.php
+│   │   │           │   ├── 📄 FunctionLike.php
+│   │   │           │   ├── 📄 MethodsAware.php
+│   │   │           │   ├── 📄 NameAware.php
+│   │   │           │   ├── 📄 PropertiesAware.php
+│   │   │           │   ├── 📄 PropertyLike.php
+│   │   │           │   ├── 📄 TraitsAware.php
+│   │   │           │   └── 📄 VisibilityAware.php
+│   │   │           ├── 📄 TraitType.php
+│   │   │           ├── 📄 TraitUse.php
+│   │   │           └── 📄 Type.php
 │   │   ├── 📁 schema/
 │   │   │   ├── 📄 composer.json
 │   │   │   ├── 📄 license.md
@@ -6121,6 +16554,223 @@
 │   │               ├── 📄 Node.php
 │   │               ├── 📄 Style.php
 │   │               └── 📄 Styles.php
+│   ├── 📁 openspout/
+│   │   └── 📁 openspout/
+│   │       ├── 📄 composer.json
+│   │       ├── 📄 LICENSE
+│   │       ├── 📄 LICENSE-for-cc42c1d
+│   │       ├── 📄 README.md
+│   │       ├── 📄 renovate.json
+│   │       ├── 📁 src/
+│   │       │   ├── 📁 Common/
+│   │       │   │   ├── 📁 Entity/
+│   │       │   │   │   ├── 📁 Cell/
+│   │       │   │   │   │   ├── 📄 BooleanCell.php
+│   │       │   │   │   │   ├── 📄 DateIntervalCell.php
+│   │       │   │   │   │   ├── 📄 DateTimeCell.php
+│   │       │   │   │   │   ├── 📄 EmptyCell.php
+│   │       │   │   │   │   ├── 📄 ErrorCell.php
+│   │       │   │   │   │   ├── 📄 FormulaCell.php
+│   │       │   │   │   │   ├── 📄 NumericCell.php
+│   │       │   │   │   │   └── 📄 StringCell.php
+│   │       │   │   │   ├── 📄 Cell.php
+│   │       │   │   │   ├── 📁 Comment/
+│   │       │   │   │   │   ├── 📄 Comment.php
+│   │       │   │   │   │   └── 📄 TextRun.php
+│   │       │   │   │   ├── 📄 Row.php
+│   │       │   │   │   └── 📁 Style/
+│   │       │   │   │       ├── 📄 Border.php
+│   │       │   │   │       ├── 📄 BorderPart.php
+│   │       │   │   │       ├── 📄 CellAlignment.php
+│   │       │   │   │       ├── 📄 CellVerticalAlignment.php
+│   │       │   │   │       ├── 📄 Color.php
+│   │       │   │   │       └── 📄 Style.php
+│   │       │   │   ├── 📁 Exception/
+│   │       │   │   │   ├── 📄 EncodingConversionException.php
+│   │       │   │   │   ├── 📄 InvalidArgumentException.php
+│   │       │   │   │   ├── 📄 InvalidColorException.php
+│   │       │   │   │   ├── 📄 IOException.php
+│   │       │   │   │   ├── 📄 OpenSpoutException.php
+│   │       │   │   │   └── 📄 UnsupportedTypeException.php
+│   │       │   │   ├── 📁 Helper/
+│   │       │   │   │   ├── 📄 EncodingHelper.php
+│   │       │   │   │   ├── 📁 Escaper/
+│   │       │   │   │   │   ├── 📄 EscaperInterface.php
+│   │       │   │   │   │   ├── 📄 ODS.php
+│   │       │   │   │   │   └── 📄 XLSX.php
+│   │       │   │   │   ├── 📄 FileSystemHelper.php
+│   │       │   │   │   ├── 📄 FileSystemHelperInterface.php
+│   │       │   │   │   └── 📄 StringHelper.php
+│   │       │   │   └── 📄 TempFolderOptionTrait.php
+│   │       │   ├── 📁 Reader/
+│   │       │   │   ├── 📄 AbstractReader.php
+│   │       │   │   ├── 📁 Common/
+│   │       │   │   │   ├── 📄 ColumnWidth.php
+│   │       │   │   │   ├── 📁 Creator/
+│   │       │   │   │   │   └── 📄 ReaderFactory.php
+│   │       │   │   │   ├── 📁 Manager/
+│   │       │   │   │   │   └── 📄 RowManager.php
+│   │       │   │   │   └── 📄 XMLProcessor.php
+│   │       │   │   ├── 📁 CSV/
+│   │       │   │   │   ├── 📄 Options.php
+│   │       │   │   │   ├── 📄 Reader.php
+│   │       │   │   │   ├── 📄 RowIterator.php
+│   │       │   │   │   ├── 📄 Sheet.php
+│   │       │   │   │   └── 📄 SheetIterator.php
+│   │       │   │   ├── 📁 Exception/
+│   │       │   │   │   ├── 📄 InvalidValueException.php
+│   │       │   │   │   ├── 📄 IteratorNotRewindableException.php
+│   │       │   │   │   ├── 📄 NoSheetsFoundException.php
+│   │       │   │   │   ├── 📄 ReaderException.php
+│   │       │   │   │   ├── 📄 ReaderNotOpenedException.php
+│   │       │   │   │   ├── 📄 SharedStringNotFoundException.php
+│   │       │   │   │   └── 📄 XMLProcessingException.php
+│   │       │   │   ├── 📁 ODS/
+│   │       │   │   │   ├── 📁 Helper/
+│   │       │   │   │   │   ├── 📄 CellValueFormatter.php
+│   │       │   │   │   │   └── 📄 SettingsHelper.php
+│   │       │   │   │   ├── 📄 Options.php
+│   │       │   │   │   ├── 📄 Reader.php
+│   │       │   │   │   ├── 📄 RowIterator.php
+│   │       │   │   │   ├── 📄 Sheet.php
+│   │       │   │   │   └── 📄 SheetIterator.php
+│   │       │   │   ├── 📄 ReaderInterface.php
+│   │       │   │   ├── 📄 RowIteratorInterface.php
+│   │       │   │   ├── 📄 SheetInterface.php
+│   │       │   │   ├── 📄 SheetIteratorInterface.php
+│   │       │   │   ├── 📄 SheetWithMergeCellsInterface.php
+│   │       │   │   ├── 📄 SheetWithVisibilityInterface.php
+│   │       │   │   ├── 📁 Wrapper/
+│   │       │   │   │   ├── 📄 XMLInternalErrorsHelper.php
+│   │       │   │   │   └── 📄 XMLReader.php
+│   │       │   │   └── 📁 XLSX/
+│   │       │   │       ├── 📁 Helper/
+│   │       │   │       │   ├── 📄 CellHelper.php
+│   │       │   │       │   ├── 📄 CellValueFormatter.php
+│   │       │   │       │   ├── 📄 DateFormatHelper.php
+│   │       │   │       │   └── 📄 DateIntervalFormatHelper.php
+│   │       │   │       ├── 📁 Manager/
+│   │       │   │       │   ├── 📁 SharedStringsCaching/
+│   │       │   │       │   │   ├── 📄 CachingStrategyFactory.php
+│   │       │   │       │   │   ├── 📄 CachingStrategyFactoryInterface.php
+│   │       │   │       │   │   ├── 📄 CachingStrategyInterface.php
+│   │       │   │       │   │   ├── 📄 FileBasedStrategy.php
+│   │       │   │       │   │   ├── 📄 InMemoryStrategy.php
+│   │       │   │       │   │   └── 📄 MemoryLimit.php
+│   │       │   │       │   ├── 📄 SharedStringsManager.php
+│   │       │   │       │   ├── 📄 SheetManager.php
+│   │       │   │       │   ├── 📄 StyleManager.php
+│   │       │   │       │   ├── 📄 StyleManagerInterface.php
+│   │       │   │       │   └── 📄 WorkbookRelationshipsManager.php
+│   │       │   │       ├── 📄 Options.php
+│   │       │   │       ├── 📄 Reader.php
+│   │       │   │       ├── 📄 RowIterator.php
+│   │       │   │       ├── 📄 Sheet.php
+│   │       │   │       ├── 📄 SheetHeaderReader.php
+│   │       │   │       ├── 📄 SheetIterator.php
+│   │       │   │       └── 📄 SheetMergeCellsReader.php
+│   │       │   └── 📁 Writer/
+│   │       │       ├── 📄 AbstractWriter.php
+│   │       │       ├── 📄 AbstractWriterMultiSheets.php
+│   │       │       ├── 📄 AutoFilter.php
+│   │       │       ├── 📁 Common/
+│   │       │       │   ├── 📄 AbstractOptions.php
+│   │       │       │   ├── 📄 ColumnWidth.php
+│   │       │       │   ├── 📁 Creator/
+│   │       │       │   │   └── 📄 WriterFactory.php
+│   │       │       │   ├── 📁 Entity/
+│   │       │       │   │   ├── 📄 Sheet.php
+│   │       │       │   │   ├── 📄 Workbook.php
+│   │       │       │   │   └── 📄 Worksheet.php
+│   │       │       │   ├── 📁 Helper/
+│   │       │       │   │   ├── 📄 CellHelper.php
+│   │       │       │   │   ├── 📄 FileSystemWithRootFolderHelperInterface.php
+│   │       │       │   │   └── 📄 ZipHelper.php
+│   │       │       │   └── 📁 Manager/
+│   │       │       │       ├── 📄 AbstractWorkbookManager.php
+│   │       │       │       ├── 📄 RegisteredStyle.php
+│   │       │       │       ├── 📄 SheetManager.php
+│   │       │       │       ├── 📁 Style/
+│   │       │       │       │   ├── 📄 AbstractStyleManager.php
+│   │       │       │       │   ├── 📄 AbstractStyleRegistry.php
+│   │       │       │       │   ├── 📄 PossiblyUpdatedStyle.php
+│   │       │       │       │   ├── 📄 StyleManagerInterface.php
+│   │       │       │       │   └── 📄 StyleMerger.php
+│   │       │       │       ├── 📄 WorkbookManagerInterface.php
+│   │       │       │       └── 📄 WorksheetManagerInterface.php
+│   │       │       ├── 📁 CSV/
+│   │       │       │   ├── 📄 Options.php
+│   │       │       │   └── 📄 Writer.php
+│   │       │       ├── 📁 Exception/
+│   │       │       │   ├── 📁 Border/
+│   │       │       │   │   ├── 📄 InvalidNameException.php
+│   │       │       │   │   ├── 📄 InvalidStyleException.php
+│   │       │       │   │   └── 📄 InvalidWidthException.php
+│   │       │       │   ├── 📄 InvalidSheetNameException.php
+│   │       │       │   ├── 📄 SheetNotFoundException.php
+│   │       │       │   ├── 📄 WriterAlreadyOpenedException.php
+│   │       │       │   ├── 📄 WriterException.php
+│   │       │       │   └── 📄 WriterNotOpenedException.php
+│   │       │       ├── 📁 ODS/
+│   │       │       │   ├── 📁 Helper/
+│   │       │       │   │   ├── 📄 BorderHelper.php
+│   │       │       │   │   └── 📄 FileSystemHelper.php
+│   │       │       │   ├── 📁 Manager/
+│   │       │       │   │   ├── 📁 Style/
+│   │       │       │   │   │   ├── 📄 StyleManager.php
+│   │       │       │   │   │   └── 📄 StyleRegistry.php
+│   │       │       │   │   ├── 📄 WorkbookManager.php
+│   │       │       │   │   └── 📄 WorksheetManager.php
+│   │       │       │   ├── 📄 Options.php
+│   │       │       │   └── 📄 Writer.php
+│   │       │       ├── 📄 WriterInterface.php
+│   │       │       └── 📁 XLSX/
+│   │       │           ├── 📁 Entity/
+│   │       │           │   └── 📄 SheetView.php
+│   │       │           ├── 📁 Helper/
+│   │       │           │   ├── 📄 BorderHelper.php
+│   │       │           │   ├── 📄 DateHelper.php
+│   │       │           │   ├── 📄 DateIntervalHelper.php
+│   │       │           │   ├── 📄 FileSystemHelper.php
+│   │       │           │   └── 📄 PasswordHashHelper.php
+│   │       │           ├── 📁 Manager/
+│   │       │           │   ├── 📄 CommentsManager.php
+│   │       │           │   ├── 📄 SharedStringsManager.php
+│   │       │           │   ├── 📁 Style/
+│   │       │           │   │   ├── 📄 StyleManager.php
+│   │       │           │   │   └── 📄 StyleRegistry.php
+│   │       │           │   ├── 📄 WorkbookManager.php
+│   │       │           │   └── 📄 WorksheetManager.php
+│   │       │           ├── 📄 MergeCell.php
+│   │       │           ├── 📁 Options/
+│   │       │           │   ├── 📄 HeaderFooter.php
+│   │       │           │   ├── 📄 PageMargin.php
+│   │       │           │   ├── 📄 PageOrientation.php
+│   │       │           │   ├── 📄 PageSetup.php
+│   │       │           │   ├── 📄 PaperSize.php
+│   │       │           │   ├── 📄 SheetProtection.php
+│   │       │           │   └── 📄 WorkbookProtection.php
+│   │       │           ├── 📄 Options.php
+│   │       │           ├── 📄 Properties.php
+│   │       │           └── 📄 Writer.php
+│   │       └── 📄 UPGRADE.md
+│   ├── 📁 paragonie/
+│   │   └── 📁 constant_time_encoding/
+│   │       ├── 📄 composer.json
+│   │       ├── 📄 LICENSE.txt
+│   │       ├── 📄 README.md
+│   │       └── 📁 src/
+│   │           ├── 📄 Base32.php
+│   │           ├── 📄 Base32Hex.php
+│   │           ├── 📄 Base64.php
+│   │           ├── 📄 Base64DotSlash.php
+│   │           ├── 📄 Base64DotSlashOrdered.php
+│   │           ├── 📄 Base64UrlSafe.php
+│   │           ├── 📄 Binary.php
+│   │           ├── 📄 EncoderInterface.php
+│   │           ├── 📄 Encoding.php
+│   │           ├── 📄 Hex.php
+│   │           └── 📄 RFC4648.php
 │   ├── 📁 phar-io/
 │   │   ├── 📁 manifest/
 │   │   │   ├── 📁 .github/
@@ -7631,6 +18281,46 @@
 │   │               └── 📁 Xml/
 │   │                   ├── 📄 Loader.php
 │   │                   └── 📄 Xml.php
+│   ├── 📁 pragmarx/
+│   │   ├── 📁 google2fa/
+│   │   │   ├── 📄 CODE_OF_CONDUCT.md
+│   │   │   ├── 📄 composer.json
+│   │   │   ├── 📄 CONTRIBUTING.md
+│   │   │   ├── 📄 LICENSE.md
+│   │   │   ├── 📄 README.md
+│   │   │   ├── 📄 SECURITY.md
+│   │   │   ├── 📁 src/
+│   │   │   │   ├── 📁 Exceptions/
+│   │   │   │   │   ├── 📁 Contracts/
+│   │   │   │   │   │   ├── 📄 Google2FA.php
+│   │   │   │   │   │   ├── 📄 IncompatibleWithGoogleAuthenticator.php
+│   │   │   │   │   │   ├── 📄 InvalidAlgorithm.php
+│   │   │   │   │   │   ├── 📄 InvalidCharacters.php
+│   │   │   │   │   │   └── 📄 SecretKeyTooShort.php
+│   │   │   │   │   ├── 📄 Google2FAException.php
+│   │   │   │   │   ├── 📄 IncompatibleWithGoogleAuthenticatorException.php
+│   │   │   │   │   ├── 📄 InvalidAlgorithmException.php
+│   │   │   │   │   ├── 📄 InvalidCharactersException.php
+│   │   │   │   │   └── 📄 SecretKeyTooShortException.php
+│   │   │   │   ├── 📄 Google2FA.php
+│   │   │   │   └── 📁 Support/
+│   │   │   │       ├── 📄 Base32.php
+│   │   │   │       ├── 📄 Constants.php
+│   │   │   │       └── 📄 QRCode.php
+│   │   │   └── 📄 SUPPORT.md
+│   │   └── 📁 google2fa-qrcode/
+│   │       ├── 📄 composer.json
+│   │       ├── 📄 LICENSE.md
+│   │       ├── 📄 phpstan.neon.dist
+│   │       ├── 📄 README.md
+│   │       └── 📁 src/
+│   │           ├── 📁 Exceptions/
+│   │           │   └── 📄 MissingQRCodeServiceException.php
+│   │           ├── 📄 Google2FA.php
+│   │           └── 📁 QRCode/
+│   │               ├── 📄 Bacon.php
+│   │               ├── 📄 Chillerlan.php
+│   │               └── 📄 QRCodeServiceContract.php
 │   ├── 📁 psr/
 │   │   ├── 📁 clock/
 │   │   │   ├── 📄 CHANGELOG.md
@@ -8326,6 +19016,320 @@
 │   │           └── 📁 Validator/
 │   │               ├── 📄 GenericValidator.php
 │   │               └── 📄 ValidatorInterface.php
+│   ├── 📁 ryangjchandler/
+│   │   └── 📁 blade-capture-directive/
+│   │       ├── 📄 CHANGELOG.md
+│   │       ├── 📄 composer.json
+│   │       ├── 📄 LICENSE.md
+│   │       ├── 📄 README.md
+│   │       └── 📁 src/
+│   │           ├── 📄 BladeCaptureDirective.php
+│   │           └── 📄 BladeCaptureDirectiveServiceProvider.php
+│   ├── 📁 scrivo/
+│   │   └── 📁 highlight.php/
+│   │       ├── 📄 .php-cs-fixer.dist.php
+│   │       ├── 📄 AUTHORS.txt
+│   │       ├── 📄 composer.json
+│   │       ├── 📄 CONTRIBUTING.md
+│   │       ├── 📁 Highlight/
+│   │       │   ├── 📄 Autoloader.php
+│   │       │   ├── 📄 Highlighter.php
+│   │       │   ├── 📄 HighlightResult.php
+│   │       │   ├── 📄 JsonRef.php
+│   │       │   ├── 📄 Language.php
+│   │       │   ├── 📁 languages/
+│   │       │   │   ├── 📄 1c.json
+│   │       │   │   ├── 📄 abnf.json
+│   │       │   │   ├── 📄 accesslog.json
+│   │       │   │   ├── 📄 actionscript.json
+│   │       │   │   ├── 📄 ada.json
+│   │       │   │   ├── 📄 angelscript.json
+│   │       │   │   ├── 📄 apache.json
+│   │       │   │   ├── 📄 applescript.json
+│   │       │   │   ├── 📄 arcade.json
+│   │       │   │   ├── 📄 arduino.json
+│   │       │   │   ├── 📄 armasm.json
+│   │       │   │   ├── 📄 asciidoc.json
+│   │       │   │   ├── 📄 aspectj.json
+│   │       │   │   ├── 📄 autohotkey.json
+│   │       │   │   ├── 📄 autoit.json
+│   │       │   │   ├── 📄 avrasm.json
+│   │       │   │   ├── 📄 awk.json
+│   │       │   │   ├── 📄 axapta.json
+│   │       │   │   ├── 📄 bash.json
+│   │       │   │   ├── 📄 basic.json
+│   │       │   │   ├── 📄 bnf.json
+│   │       │   │   ├── 📄 brainfuck.json
+│   │       │   │   ├── 📄 cal.json
+│   │       │   │   ├── 📄 capnproto.json
+│   │       │   │   ├── 📄 ceylon.json
+│   │       │   │   ├── 📄 clean.json
+│   │       │   │   ├── 📄 clojure-repl.json
+│   │       │   │   ├── 📄 clojure.json
+│   │       │   │   ├── 📄 cmake.json
+│   │       │   │   ├── 📄 coffeescript.json
+│   │       │   │   ├── 📄 coq.json
+│   │       │   │   ├── 📄 cos.json
+│   │       │   │   ├── 📄 cpp.json
+│   │       │   │   ├── 📄 crmsh.json
+│   │       │   │   ├── 📄 crystal.json
+│   │       │   │   ├── 📄 cs.json
+│   │       │   │   ├── 📄 csp.json
+│   │       │   │   ├── 📄 css.json
+│   │       │   │   ├── 📄 d.json
+│   │       │   │   ├── 📄 dart.json
+│   │       │   │   ├── 📄 delphi.json
+│   │       │   │   ├── 📄 diff.json
+│   │       │   │   ├── 📄 django.json
+│   │       │   │   ├── 📄 dns.json
+│   │       │   │   ├── 📄 dockerfile.json
+│   │       │   │   ├── 📄 dos.json
+│   │       │   │   ├── 📄 dsconfig.json
+│   │       │   │   ├── 📄 dts.json
+│   │       │   │   ├── 📄 dust.json
+│   │       │   │   ├── 📄 ebnf.json
+│   │       │   │   ├── 📄 elixir.json
+│   │       │   │   ├── 📄 elm.json
+│   │       │   │   ├── 📄 erb.json
+│   │       │   │   ├── 📄 erlang-repl.json
+│   │       │   │   ├── 📄 erlang.json
+│   │       │   │   ├── 📄 excel.json
+│   │       │   │   ├── 📄 fix.json
+│   │       │   │   ├── 📄 flix.json
+│   │       │   │   ├── 📄 fortran.json
+│   │       │   │   ├── 📄 fsharp.json
+│   │       │   │   ├── 📄 gams.json
+│   │       │   │   ├── 📄 gauss.json
+│   │       │   │   ├── 📄 gcode.json
+│   │       │   │   ├── 📄 gherkin.json
+│   │       │   │   ├── 📄 glsl.json
+│   │       │   │   ├── 📄 gml.json
+│   │       │   │   ├── 📄 go.json
+│   │       │   │   ├── 📄 golo.json
+│   │       │   │   ├── 📄 gradle.json
+│   │       │   │   ├── 📄 groovy.json
+│   │       │   │   ├── 📄 haml.json
+│   │       │   │   ├── 📄 handlebars.json
+│   │       │   │   ├── 📄 haskell.json
+│   │       │   │   ├── 📄 haxe.json
+│   │       │   │   ├── 📄 hsp.json
+│   │       │   │   ├── 📄 htmlbars.json
+│   │       │   │   ├── 📄 http.json
+│   │       │   │   ├── 📄 hy.json
+│   │       │   │   ├── 📄 inform7.json
+│   │       │   │   ├── 📄 ini.json
+│   │       │   │   ├── 📄 irpf90.json
+│   │       │   │   ├── 📄 isbl.json
+│   │       │   │   ├── 📄 java.json
+│   │       │   │   ├── 📄 javascript.json
+│   │       │   │   ├── 📄 jboss-cli.json
+│   │       │   │   ├── 📄 json.json
+│   │       │   │   ├── 📄 julia-repl.json
+│   │       │   │   ├── 📄 julia.json
+│   │       │   │   ├── 📄 kotlin.json
+│   │       │   │   ├── 📄 lasso.json
+│   │       │   │   ├── 📄 ldif.json
+│   │       │   │   ├── 📄 leaf.json
+│   │       │   │   ├── 📄 less.json
+│   │       │   │   ├── 📄 lisp.json
+│   │       │   │   ├── 📄 livecodeserver.json
+│   │       │   │   ├── 📄 livescript.json
+│   │       │   │   ├── 📄 llvm.json
+│   │       │   │   ├── 📄 lsl.json
+│   │       │   │   ├── 📄 lua.json
+│   │       │   │   ├── 📄 makefile.json
+│   │       │   │   ├── 📄 markdown.json
+│   │       │   │   ├── 📄 mathematica.json
+│   │       │   │   ├── 📄 matlab.json
+│   │       │   │   ├── 📄 maxima.json
+│   │       │   │   ├── 📄 mel.json
+│   │       │   │   ├── 📄 mercury.json
+│   │       │   │   ├── 📄 mipsasm.json
+│   │       │   │   ├── 📄 mizar.json
+│   │       │   │   ├── 📄 mojolicious.json
+│   │       │   │   ├── 📄 monkey.json
+│   │       │   │   ├── 📄 moonscript.json
+│   │       │   │   ├── 📄 n1ql.json
+│   │       │   │   ├── 📄 nginx.json
+│   │       │   │   ├── 📄 nimrod.json
+│   │       │   │   ├── 📄 nix.json
+│   │       │   │   ├── 📄 nsis.json
+│   │       │   │   ├── 📄 objectivec.json
+│   │       │   │   ├── 📄 ocaml.json
+│   │       │   │   ├── 📄 openscad.json
+│   │       │   │   ├── 📄 oxygene.json
+│   │       │   │   ├── 📄 parser3.json
+│   │       │   │   ├── 📄 perl.json
+│   │       │   │   ├── 📄 pf.json
+│   │       │   │   ├── 📄 pgsql.json
+│   │       │   │   ├── 📄 php.json
+│   │       │   │   ├── 📄 plaintext.json
+│   │       │   │   ├── 📄 pony.json
+│   │       │   │   ├── 📄 powershell.json
+│   │       │   │   ├── 📄 processing.json
+│   │       │   │   ├── 📄 profile.json
+│   │       │   │   ├── 📄 prolog.json
+│   │       │   │   ├── 📄 properties.json
+│   │       │   │   ├── 📄 protobuf.json
+│   │       │   │   ├── 📄 puppet.json
+│   │       │   │   ├── 📄 purebasic.json
+│   │       │   │   ├── 📄 python.json
+│   │       │   │   ├── 📄 q.json
+│   │       │   │   ├── 📄 qml.json
+│   │       │   │   ├── 📄 r.json
+│   │       │   │   ├── 📄 reasonml.json
+│   │       │   │   ├── 📄 rib.json
+│   │       │   │   ├── 📄 roboconf.json
+│   │       │   │   ├── 📄 routeros.json
+│   │       │   │   ├── 📄 rsl.json
+│   │       │   │   ├── 📄 ruby.json
+│   │       │   │   ├── 📄 ruleslanguage.json
+│   │       │   │   ├── 📄 rust.json
+│   │       │   │   ├── 📄 sas.json
+│   │       │   │   ├── 📄 scala.json
+│   │       │   │   ├── 📄 scheme.json
+│   │       │   │   ├── 📄 scilab.json
+│   │       │   │   ├── 📄 scss.json
+│   │       │   │   ├── 📄 shell.json
+│   │       │   │   ├── 📄 smali.json
+│   │       │   │   ├── 📄 smalltalk.json
+│   │       │   │   ├── 📄 sml.json
+│   │       │   │   ├── 📄 sqf.json
+│   │       │   │   ├── 📄 sql.json
+│   │       │   │   ├── 📄 stan.json
+│   │       │   │   ├── 📄 stata.json
+│   │       │   │   ├── 📄 step21.json
+│   │       │   │   ├── 📄 stylus.json
+│   │       │   │   ├── 📄 subunit.json
+│   │       │   │   ├── 📄 swift.json
+│   │       │   │   ├── 📄 taggerscript.json
+│   │       │   │   ├── 📄 tap.json
+│   │       │   │   ├── 📄 tcl.json
+│   │       │   │   ├── 📄 tex.json
+│   │       │   │   ├── 📄 thrift.json
+│   │       │   │   ├── 📄 tp.json
+│   │       │   │   ├── 📄 twig.json
+│   │       │   │   ├── 📄 typescript.json
+│   │       │   │   ├── 📄 vala.json
+│   │       │   │   ├── 📄 vbnet.json
+│   │       │   │   ├── 📄 vbscript-html.json
+│   │       │   │   ├── 📄 vbscript.json
+│   │       │   │   ├── 📄 verilog.json
+│   │       │   │   ├── 📄 vhdl.json
+│   │       │   │   ├── 📄 vim.json
+│   │       │   │   ├── 📄 x86asm.json
+│   │       │   │   ├── 📄 xl.json
+│   │       │   │   ├── 📄 xml.json
+│   │       │   │   ├── 📄 xquery.json
+│   │       │   │   ├── 📄 yaml.json
+│   │       │   │   └── 📄 zephir.json
+│   │       │   ├── 📄 Mode.php
+│   │       │   ├── 📄 ModeDeprecations.php
+│   │       │   ├── 📄 RegEx.php
+│   │       │   ├── 📄 RegExMatch.php
+│   │       │   ├── 📄 RegExUtils.php
+│   │       │   └── 📄 Terminators.php
+│   │       ├── 📁 HighlightUtilities/
+│   │       │   ├── 📄 functions.php
+│   │       │   ├── 📄 _internals.php
+│   │       │   └── 📄 _themeColors.php
+│   │       ├── 📄 LICENSE.md
+│   │       ├── 📄 README.md
+│   │       └── 📁 styles/
+│   │           ├── 📄 a11y-dark.css
+│   │           ├── 📄 a11y-light.css
+│   │           ├── 📄 agate.css
+│   │           ├── 📄 an-old-hope.css
+│   │           ├── 📄 androidstudio.css
+│   │           ├── 📄 arduino-light.css
+│   │           ├── 📄 arta.css
+│   │           ├── 📄 ascetic.css
+│   │           ├── 📄 atelier-cave-dark.css
+│   │           ├── 📄 atelier-cave-light.css
+│   │           ├── 📄 atelier-dune-dark.css
+│   │           ├── 📄 atelier-dune-light.css
+│   │           ├── 📄 atelier-estuary-dark.css
+│   │           ├── 📄 atelier-estuary-light.css
+│   │           ├── 📄 atelier-forest-dark.css
+│   │           ├── 📄 atelier-forest-light.css
+│   │           ├── 📄 atelier-heath-dark.css
+│   │           ├── 📄 atelier-heath-light.css
+│   │           ├── 📄 atelier-lakeside-dark.css
+│   │           ├── 📄 atelier-lakeside-light.css
+│   │           ├── 📄 atelier-plateau-dark.css
+│   │           ├── 📄 atelier-plateau-light.css
+│   │           ├── 📄 atelier-savanna-dark.css
+│   │           ├── 📄 atelier-savanna-light.css
+│   │           ├── 📄 atelier-seaside-dark.css
+│   │           ├── 📄 atelier-seaside-light.css
+│   │           ├── 📄 atelier-sulphurpool-dark.css
+│   │           ├── 📄 atelier-sulphurpool-light.css
+│   │           ├── 📄 atom-one-dark-reasonable.css
+│   │           ├── 📄 atom-one-dark.css
+│   │           ├── 📄 atom-one-light.css
+│   │           ├── 📄 brown-paper.css
+│   │           ├── 📄 brown-papersq.png
+│   │           ├── 📄 codepen-embed.css
+│   │           ├── 📄 color-brewer.css
+│   │           ├── 📄 darcula.css
+│   │           ├── 📄 dark.css
+│   │           ├── 📄 darkula.css
+│   │           ├── 📄 default.css
+│   │           ├── 📄 docco.css
+│   │           ├── 📄 dracula.css
+│   │           ├── 📄 far.css
+│   │           ├── 📄 foundation.css
+│   │           ├── 📄 github-gist.css
+│   │           ├── 📄 github.css
+│   │           ├── 📄 gml.css
+│   │           ├── 📄 googlecode.css
+│   │           ├── 📄 gradient-dark.css
+│   │           ├── 📄 grayscale.css
+│   │           ├── 📄 gruvbox-dark.css
+│   │           ├── 📄 gruvbox-light.css
+│   │           ├── 📄 hopscotch.css
+│   │           ├── 📄 hybrid.css
+│   │           ├── 📄 idea.css
+│   │           ├── 📄 ir-black.css
+│   │           ├── 📄 isbl-editor-dark.css
+│   │           ├── 📄 isbl-editor-light.css
+│   │           ├── 📄 kimbie.dark.css
+│   │           ├── 📄 kimbie.light.css
+│   │           ├── 📄 lightfair.css
+│   │           ├── 📄 magula.css
+│   │           ├── 📄 mono-blue.css
+│   │           ├── 📄 monokai-sublime.css
+│   │           ├── 📄 monokai.css
+│   │           ├── 📄 night-owl.css
+│   │           ├── 📄 nord.css
+│   │           ├── 📄 obsidian.css
+│   │           ├── 📄 ocean.css
+│   │           ├── 📄 paraiso-dark.css
+│   │           ├── 📄 paraiso-light.css
+│   │           ├── 📄 pojoaque.css
+│   │           ├── 📄 pojoaque.jpg
+│   │           ├── 📄 purebasic.css
+│   │           ├── 📄 qtcreator_dark.css
+│   │           ├── 📄 qtcreator_light.css
+│   │           ├── 📄 railscasts.css
+│   │           ├── 📄 rainbow.css
+│   │           ├── 📄 routeros.css
+│   │           ├── 📄 school-book.css
+│   │           ├── 📄 school-book.png
+│   │           ├── 📄 shades-of-purple.css
+│   │           ├── 📄 solarized-dark.css
+│   │           ├── 📄 solarized-light.css
+│   │           ├── 📄 sunburst.css
+│   │           ├── 📄 tomorrow-night-blue.css
+│   │           ├── 📄 tomorrow-night-bright.css
+│   │           ├── 📄 tomorrow-night-eighties.css
+│   │           ├── 📄 tomorrow-night.css
+│   │           ├── 📄 tomorrow.css
+│   │           ├── 📄 vs.css
+│   │           ├── 📄 vs2015.css
+│   │           ├── 📄 xcode.css
+│   │           ├── 📄 xt256.css
+│   │           └── 📄 zenburn.css
 │   ├── 📁 sebastian/
 │   │   ├── 📁 cli-parser/
 │   │   │   ├── 📄 ChangeLog.md
@@ -8517,6 +19521,150 @@
 │   │       ├── 📄 SECURITY.md
 │   │       └── 📁 src/
 │   │           └── 📄 Version.php
+│   ├── 📁 spatie/
+│   │   ├── 📁 invade/
+│   │   │   ├── 📄 CHANGELOG.md
+│   │   │   ├── 📄 composer.json
+│   │   │   ├── 📄 LICENSE.md
+│   │   │   ├── 📄 phpstan-extension.neon
+│   │   │   ├── 📄 README.md
+│   │   │   └── 📁 src/
+│   │   │       ├── 📄 functions.php
+│   │   │       ├── 📄 Invader.php
+│   │   │       ├── 📁 PHPStan/
+│   │   │       │   ├── 📄 InvadedClass.php
+│   │   │       │   ├── 📄 InvadedMethodReflection.php
+│   │   │       │   ├── 📄 InvadedPropertyReflection.php
+│   │   │       │   ├── 📄 InvadeMethodsReflectionExtension.php
+│   │   │       │   └── 📄 InvadePropertiesReflectionExtension.php
+│   │   │       └── 📄 StaticInvader.php
+│   │   ├── 📁 laravel-package-tools/
+│   │   │   ├── 📄 composer.json
+│   │   │   ├── 📄 LICENSE.md
+│   │   │   ├── 📄 README.md
+│   │   │   └── 📁 src/
+│   │   │       ├── 📁 Commands/
+│   │   │       │   ├── 📁 Concerns/
+│   │   │       │   │   ├── 📄 AskToRunMigrations.php
+│   │   │       │   │   ├── 📄 AskToStarRepoOnGitHub.php
+│   │   │       │   │   ├── 📄 PublishesResources.php
+│   │   │       │   │   ├── 📄 SupportsServiceProviderInApp.php
+│   │   │       │   │   └── 📄 SupportsStartWithEndWith.php
+│   │   │       │   └── 📄 InstallCommand.php
+│   │   │       ├── 📁 Concerns/
+│   │   │       │   ├── 📁 Package/
+│   │   │       │   │   ├── 📄 HasAssets.php
+│   │   │       │   │   ├── 📄 HasBladeComponents.php
+│   │   │       │   │   ├── 📄 HasCommands.php
+│   │   │       │   │   ├── 📄 HasConfigs.php
+│   │   │       │   │   ├── 📄 HasInertia.php
+│   │   │       │   │   ├── 📄 HasInstallCommand.php
+│   │   │       │   │   ├── 📄 HasMigrations.php
+│   │   │       │   │   ├── 📄 HasRoutes.php
+│   │   │       │   │   ├── 📄 HasServiceProviders.php
+│   │   │       │   │   ├── 📄 HasTranslations.php
+│   │   │       │   │   ├── 📄 HasViewComposers.php
+│   │   │       │   │   ├── 📄 HasViews.php
+│   │   │       │   │   └── 📄 HasViewSharedData.php
+│   │   │       │   └── 📁 PackageServiceProvider/
+│   │   │       │       ├── 📄 ProcessAssets.php
+│   │   │       │       ├── 📄 ProcessBladeComponents.php
+│   │   │       │       ├── 📄 ProcessCommands.php
+│   │   │       │       ├── 📄 ProcessConfigs.php
+│   │   │       │       ├── 📄 ProcessInertia.php
+│   │   │       │       ├── 📄 ProcessMigrations.php
+│   │   │       │       ├── 📄 ProcessRoutes.php
+│   │   │       │       ├── 📄 ProcessServiceProviders.php
+│   │   │       │       ├── 📄 ProcessTranslations.php
+│   │   │       │       ├── 📄 ProcessViewComposers.php
+│   │   │       │       ├── 📄 ProcessViews.php
+│   │   │       │       └── 📄 ProcessViewSharedData.php
+│   │   │       ├── 📁 Exceptions/
+│   │   │       │   └── 📄 InvalidPackage.php
+│   │   │       ├── 📄 Package.php
+│   │   │       └── 📄 PackageServiceProvider.php
+│   │   ├── 📁 laravel-permission/
+│   │   │   ├── 📄 composer.json
+│   │   │   ├── 📁 config/
+│   │   │   │   └── 📄 permission.php
+│   │   │   ├── 📁 database/
+│   │   │   │   └── 📁 migrations/
+│   │   │   │       ├── 📄 add_teams_fields.php.stub
+│   │   │   │       └── 📄 create_permission_tables.php.stub
+│   │   │   ├── 📄 ide.json
+│   │   │   ├── 📄 LICENSE.md
+│   │   │   ├── 📄 README.md
+│   │   │   ├── 📁 resources/
+│   │   │   │   └── 📁 boost/
+│   │   │   │       └── 📁 skills/
+│   │   │   │           └── 📁 laravel-permission-development/
+│   │   │   │               └── 📄 SKILL.md
+│   │   │   └── 📁 src/
+│   │   │       ├── 📁 Commands/
+│   │   │       │   ├── 📄 AssignRoleCommand.php
+│   │   │       │   ├── 📄 CacheResetCommand.php
+│   │   │       │   ├── 📄 CreatePermissionCommand.php
+│   │   │       │   ├── 📄 CreateRoleCommand.php
+│   │   │       │   ├── 📄 ShowCommand.php
+│   │   │       │   └── 📄 UpgradeForTeamsCommand.php
+│   │   │       ├── 📁 Contracts/
+│   │   │       │   ├── 📄 Permission.php
+│   │   │       │   ├── 📄 PermissionsTeamResolver.php
+│   │   │       │   ├── 📄 Role.php
+│   │   │       │   └── 📄 Wildcard.php
+│   │   │       ├── 📄 DefaultTeamResolver.php
+│   │   │       ├── 📁 Events/
+│   │   │       │   ├── 📄 PermissionAttachedEvent.php
+│   │   │       │   ├── 📄 PermissionDetachedEvent.php
+│   │   │       │   ├── 📄 RoleAttachedEvent.php
+│   │   │       │   └── 📄 RoleDetachedEvent.php
+│   │   │       ├── 📁 Exceptions/
+│   │   │       │   ├── 📄 GuardDoesNotMatch.php
+│   │   │       │   ├── 📄 PermissionAlreadyExists.php
+│   │   │       │   ├── 📄 PermissionDoesNotExist.php
+│   │   │       │   ├── 📄 RoleAlreadyExists.php
+│   │   │       │   ├── 📄 RoleDoesNotExist.php
+│   │   │       │   ├── 📄 TeamModelNotConfigured.php
+│   │   │       │   ├── 📄 TeamsNotEnabled.php
+│   │   │       │   ├── 📄 UnauthorizedException.php
+│   │   │       │   ├── 📄 WildcardPermissionInvalidArgument.php
+│   │   │       │   ├── 📄 WildcardPermissionNotImplementsContract.php
+│   │   │       │   └── 📄 WildcardPermissionNotProperlyFormatted.php
+│   │   │       ├── 📄 Guard.php
+│   │   │       ├── 📄 helpers.php
+│   │   │       ├── 📁 Middleware/
+│   │   │       │   ├── 📄 PermissionMiddleware.php
+│   │   │       │   ├── 📄 RoleMiddleware.php
+│   │   │       │   └── 📄 RoleOrPermissionMiddleware.php
+│   │   │       ├── 📁 Models/
+│   │   │       │   ├── 📄 Permission.php
+│   │   │       │   └── 📄 Role.php
+│   │   │       ├── 📄 PermissionRegistrar.php
+│   │   │       ├── 📄 PermissionServiceProvider.php
+│   │   │       ├── 📁 Support/
+│   │   │       │   └── 📄 Config.php
+│   │   │       ├── 📁 Traits/
+│   │   │       │   ├── 📄 HasAssignedModels.php
+│   │   │       │   ├── 📄 HasPermissions.php
+│   │   │       │   ├── 📄 HasRoles.php
+│   │   │       │   └── 📄 RefreshesPermissionCache.php
+│   │   │       └── 📄 WildcardPermission.php
+│   │   └── 📁 shiki-php/
+│   │       ├── 📄 .php_cs.dist.php
+│   │       ├── 📁 bin/
+│   │       │   ├── 📄 renderer.js
+│   │       │   └── 📄 shiki.js
+│   │       ├── 📄 CHANGELOG.md
+│   │       ├── 📄 composer.json
+│   │       ├── 📁 languages/
+│   │       │   ├── 📄 antlers.tmLanguage.json
+│   │       │   └── 📄 blade.tmLanguage.json
+│   │       ├── 📄 LICENSE.md
+│   │       ├── 📄 package-lock.json
+│   │       ├── 📄 package.json
+│   │       ├── 📄 README.md
+│   │       └── 📁 src/
+│   │           └── 📄 Shiki.php
 │   ├── 📁 staabm/
 │   │   └── 📁 side-effects-detector/
 │   │       ├── 📄 composer.json
@@ -8903,6 +20051,38 @@
 │   │   │   ├── 📄 LICENSE
 │   │   │   ├── 📄 README.md
 │   │   │   └── 📄 SplFileInfo.php
+│   │   ├── 📁 html-sanitizer/
+│   │   │   ├── 📄 CHANGELOG.md
+│   │   │   ├── 📄 composer.json
+│   │   │   ├── 📄 HtmlSanitizer.php
+│   │   │   ├── 📄 HtmlSanitizerAction.php
+│   │   │   ├── 📄 HtmlSanitizerConfig.php
+│   │   │   ├── 📄 HtmlSanitizerInterface.php
+│   │   │   ├── 📄 LICENSE
+│   │   │   ├── 📁 Parser/
+│   │   │   │   ├── 📄 MastermindsParser.php
+│   │   │   │   ├── 📄 NativeParser.php
+│   │   │   │   └── 📄 ParserInterface.php
+│   │   │   ├── 📄 README.md
+│   │   │   ├── 📁 Reference/
+│   │   │   │   └── 📄 W3CReference.php
+│   │   │   ├── 📁 TextSanitizer/
+│   │   │   │   ├── 📄 StringSanitizer.php
+│   │   │   │   └── 📄 UrlSanitizer.php
+│   │   │   └── 📁 Visitor/
+│   │   │       ├── 📁 AttributeSanitizer/
+│   │   │       │   ├── 📄 AttributeSanitizerInterface.php
+│   │   │       │   ├── 📄 MetaRefreshAttributeSanitizer.php
+│   │   │       │   └── 📄 UrlAttributeSanitizer.php
+│   │   │       ├── 📄 DomVisitor.php
+│   │   │       ├── 📁 Model/
+│   │   │       │   └── 📄 Cursor.php
+│   │   │       └── 📁 Node/
+│   │   │           ├── 📄 BlockedNode.php
+│   │   │           ├── 📄 DocumentNode.php
+│   │   │           ├── 📄 Node.php
+│   │   │           ├── 📄 NodeInterface.php
+│   │   │           └── 📄 TextNode.php
 │   │   ├── 📁 http-foundation/
 │   │   │   ├── 📄 AcceptHeader.php
 │   │   │   ├── 📄 AcceptHeaderItem.php
@@ -10069,6 +21249,73 @@
 │   │           │       ├── 📄 Processor.php
 │   │           │       └── 📄 Rule.php
 │   │           └── 📄 CssToInlineStyles.php
+│   ├── 📁 ueberdosis/
+│   │   └── 📁 tiptap-php/
+│   │       ├── 📄 .php_cs.dist.php
+│   │       ├── 📁 .vscode/
+│   │       │   └── 📄 launch.json
+│   │       ├── 📄 composer.json
+│   │       ├── 📄 LICENSE.md
+│   │       ├── 📄 package-lock.json
+│   │       ├── 📄 package.json
+│   │       ├── 📄 psalm.xml.dist
+│   │       ├── 📄 README.md
+│   │       └── 📁 src/
+│   │           ├── 📁 Core/
+│   │           │   ├── 📄 DOMParser.php
+│   │           │   ├── 📄 DOMSerializer.php
+│   │           │   ├── 📄 Extension.php
+│   │           │   ├── 📄 JSONSerializer.php
+│   │           │   ├── 📄 Mark.php
+│   │           │   ├── 📄 Node.php
+│   │           │   ├── 📄 Schema.php
+│   │           │   └── 📄 TextSerializer.php
+│   │           ├── 📄 Editor.php
+│   │           ├── 📁 Extensions/
+│   │           │   ├── 📄 Color.php
+│   │           │   ├── 📄 FontFamily.php
+│   │           │   ├── 📄 StarterKit.php
+│   │           │   └── 📄 TextAlign.php
+│   │           ├── 📁 Marks/
+│   │           │   ├── 📄 Bold.php
+│   │           │   ├── 📄 Code.php
+│   │           │   ├── 📄 Highlight.php
+│   │           │   ├── 📄 Italic.php
+│   │           │   ├── 📄 Link.php
+│   │           │   ├── 📄 Strike.php
+│   │           │   ├── 📄 Subscript.php
+│   │           │   ├── 📄 Superscript.php
+│   │           │   ├── 📄 TextStyle.php
+│   │           │   └── 📄 Underline.php
+│   │           ├── 📁 Nodes/
+│   │           │   ├── 📄 Blockquote.php
+│   │           │   ├── 📄 BulletList.php
+│   │           │   ├── 📄 CodeBlock.php
+│   │           │   ├── 📄 CodeBlockHighlight.php
+│   │           │   ├── 📄 CodeBlockShiki.php
+│   │           │   ├── 📄 Details.php
+│   │           │   ├── 📄 DetailsContent.php
+│   │           │   ├── 📄 DetailsSummary.php
+│   │           │   ├── 📄 Document.php
+│   │           │   ├── 📄 HardBreak.php
+│   │           │   ├── 📄 Heading.php
+│   │           │   ├── 📄 HorizontalRule.php
+│   │           │   ├── 📄 Image.php
+│   │           │   ├── 📄 ListItem.php
+│   │           │   ├── 📄 Mention.php
+│   │           │   ├── 📄 OrderedList.php
+│   │           │   ├── 📄 Paragraph.php
+│   │           │   ├── 📄 Table.php
+│   │           │   ├── 📄 TableCell.php
+│   │           │   ├── 📄 TableHeader.php
+│   │           │   ├── 📄 TableRow.php
+│   │           │   ├── 📄 TaskItem.php
+│   │           │   ├── 📄 TaskList.php
+│   │           │   └── 📄 Text.php
+│   │           └── 📁 Utils/
+│   │               ├── 📄 HTML.php
+│   │               ├── 📄 InlineStyle.php
+│   │               └── 📄 Minify.php
 │   ├── 📁 vlucas/
 │   │   └── 📁 phpdotenv/
 │   │       ├── 📄 composer.json
