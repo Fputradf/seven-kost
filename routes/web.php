@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Owner\KostController as OwnerKostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\WilayahController;
@@ -14,6 +15,16 @@ Route::get('/cari', [SearchController::class, 'index'])->name('search');
 
 // API Data Wilayah Dinamis
 Route::get('/api/wilayah/provinces/{province}/regencies', [WilayahController::class, 'getRegenciesByProvince'])->name('api.wilayah.regencies');
+
+// Rute Pemilik Kos (Memerlukan Login)
+Route::middleware('auth')->group(function () {
+    Route::get('/iklan/kelola', [OwnerKostController::class, 'index'])->name('owner.kosts.index');
+    Route::get('/iklan/buat', [OwnerKostController::class, 'create'])->name('owner.kosts.create');
+    Route::post('/iklan', [OwnerKostController::class, 'store'])->name('owner.kosts.store');
+    Route::get('/iklan/{kost}/edit', [OwnerKostController::class, 'edit'])->name('owner.kosts.edit');
+    Route::put('/iklan/{kost}', [OwnerKostController::class, 'update'])->name('owner.kosts.update');
+    Route::delete('/iklan/{kost}', [OwnerKostController::class, 'destroy'])->name('owner.kosts.destroy');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');

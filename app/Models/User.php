@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Permission\Traits\HasRoles;
 
 #[Fillable(['name', 'email', 'phone', 'avatar', 'password'])]
@@ -19,6 +20,14 @@ class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, HasRoles;
+
+    /**
+     * Kos yang dimiliki oleh user (pemilik).
+     */
+    public function kosts(): HasMany
+    {
+        return $this->hasMany(Kost::class, 'user_id');
+    }
 
     /**
      * Tentukan akses ke Filament Admin Panel.

@@ -24,6 +24,8 @@
 │   │   │   │   └── 📄 VerifyEmailController.php
 │   │   │   ├── 📄 Controller.php
 │   │   │   ├── 📄 HomeController.php
+│   │   │   ├── 📁 Owner/
+│   │   │   │   └── 📄 KostController.php
 │   │   │   ├── 📄 ProfileController.php
 │   │   │   ├── 📄 SearchController.php
 │   │   │   └── 📄 WilayahController.php
@@ -32,8 +34,12 @@
 │   │       │   └── 📄 LoginRequest.php
 │   │       └── 📄 ProfileUpdateRequest.php
 │   ├── 📁 Models/
+│   │   ├── 📄 Facility.php
+│   │   ├── 📄 Kost.php
+│   │   ├── 📄 KostImage.php
 │   │   ├── 📄 Province.php
 │   │   ├── 📄 Regency.php
+│   │   ├── 📄 Room.php
 │   │   └── 📄 User.php
 │   ├── 📁 Providers/
 │   │   ├── 📄 AppServiceProvider.php
@@ -82,9 +88,12 @@
 │   │   ├── 📄 0001_01_01_000002_create_jobs_table.php
 │   │   ├── 📄 2026_11_06_101625_create_permission_tables.php
 │   │   ├── 📄 2026_11_06_105000_add_phone_and_avatar_to_users_table.php
-│   │   └── 📄 2026_11_06_110000_create_provinces_and_regencies_tables.php
+│   │   ├── 📄 2026_11_06_110000_create_provinces_and_regencies_tables.php
+│   │   └── 📄 2026_11_06_111500_create_kosts_and_related_tables.php
 │   └── 📁 seeders/
 │       ├── 📄 DatabaseSeeder.php
+│       ├── 📄 FacilitySeeder.php
+│       ├── 📄 KostSeeder.php
 │       ├── 📄 RolePermissionSeeder.php
 │       └── 📄 WilayahSeeder.php
 ├── 📁 Desain Aplikasi Seven Kos/
@@ -126,8 +135,8 @@
 │   ├── 📄 .htaccess
 │   ├── 📁 build/
 │   │   ├── 📁 assets/
-│   │   │   ├── 📄 app-Dr67-uCa.js
-│   │   │   └── 📄 app-DS1hOcOK.css
+│   │   │   ├── 📄 app-Cgti4FN1.css
+│   │   │   └── 📄 app-Dr67-uCa.js
 │   │   └── 📄 manifest.json
 │   ├── 📁 css/
 │   │   └── 📁 filament/
@@ -244,6 +253,11 @@
 │       │   ├── 📄 guest.blade.php
 │       │   ├── 📄 navigation.blade.php
 │       │   └── 📄 seven.blade.php
+│       ├── 📁 owner/
+│       │   └── 📁 kosts/
+│       │       ├── 📄 create.blade.php
+│       │       ├── 📄 edit.blade.php
+│       │       └── 📄 index.blade.php
 │       ├── 📁 profile/
 │       │   ├── 📄 edit.blade.php
 │       │   └── 📁 partials/
@@ -279,9 +293,18 @@
 │   │       ├── 📄 .gitignore
 │   │       ├── 📄 0b51b9c94d7dc367e1955c17a1c67fc1.php
 │   │       ├── 📄 21d1e72ad79e89d7ca1c7c5f0c3e06e5.php
+│   │       ├── 📄 236072e513ac5947d40185bda632a33b.php
 │   │       ├── 📄 53fe4c0c657ff4622708f18f3bd438a1.php
+│   │       ├── 📄 55c1ecbcac3a31fd997d25602d945fbd.php
 │   │       ├── 📄 61e26aed2b463b1f2684633871801f0b.php
 │   │       ├── 📄 68bd94e7fa4f514ea9fcf1b9721d97f3.php
+│   │       ├── 📄 8452e5beff424fa5a6b18e3e4a796b43.php
+│   │       ├── 📄 84fd10794213dff83a609ff042e43844.php
+│   │       ├── 📄 874fbc92070c0e295b3ffe7dffc8b899.php
+│   │       ├── 📄 9a344bdb66808e71f5f2832552ea066f.php
+│   │       ├── 📄 9d3ab3a73f095965e6dd09e352bb4e0b.php
+│   │       ├── 📄 d45a3ed121c1dd7770205830287f9336.php
+│   │       ├── 📄 d5cfc8f84c45255b3b888918b76ce252.php
 │   │       ├── 📄 e947292da1ff13b0375fcd9dd91cc244.php
 │   │       ├── 📄 eea2247c5960730fd4c921f669c14a6f.php
 │   │       ├── 📄 f13f0f9bdae90ae8597d05b0f1adafc8.php
