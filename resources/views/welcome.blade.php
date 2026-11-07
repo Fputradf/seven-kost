@@ -556,14 +556,14 @@
             </div>
 
             {{-- Card 2: Layanan Mitra (Laundry & Kebersihan Available, Katering Coming Soon) --}}
-            <div id="layanan" class="group/service relative overflow-hidden rounded-2xl bg-gradient-to-br from-indigo-50/80 via-sky-50/60 to-white p-5 sm:p-6 border border-indigo-200/70 shadow-sm hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between">
+            <div id="layanan" class="group/service relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-100/80 via-sky-50/60 to-white p-5 sm:p-6 border border-blue-200/70 shadow-sm hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between">
                 {{-- Decorative Subtle Background Glow --}}
-                <div class="absolute -right-8 -bottom-8 w-40 h-40 bg-emerald-300/15 rounded-full blur-2xl pointer-events-none group-hover/service:scale-110 transition-transform duration-500"></div>
+                <div class="absolute -right-8 -bottom-8 w-40 h-40 bg-blue-300/20 rounded-full blur-2xl pointer-events-none group-hover/service:scale-110 transition-transform duration-500"></div>
 
                 <div class="space-y-3 relative z-10">
                     <div class="flex items-center justify-between gap-2">
-                        <div class="flex items-center gap-2 text-indigo-900 font-black text-lg sm:text-xl">
-                            <svg class="w-5 h-5 text-indigo-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="flex items-center gap-2 text-blue-800 font-black text-lg sm:text-xl">
+                            <svg class="w-5 h-5 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                             </svg>
                             <span>Layanan Mitra</span>
@@ -587,7 +587,7 @@
                             </div>
                             <span class="text-xs font-black text-slate-800 leading-tight">Laundry</span>
                             <span class="mt-1 inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[9px] font-black uppercase tracking-wide">
-                                <span class="w-1 h-1 rounded-full bg-emerald-500 animate-pulse"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                                 Available
                             </span>
                         </a>
@@ -599,7 +599,7 @@
                             </div>
                             <span class="text-xs font-black text-slate-800 leading-tight">Kebersihan</span>
                             <span class="mt-1 inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[9px] font-black uppercase tracking-wide">
-                                <span class="w-1 h-1 rounded-full bg-emerald-500 animate-pulse"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                                 Available
                             </span>
                         </a>
@@ -617,7 +617,13 @@
                     </div>
 
                     <div class="pt-1 flex items-center justify-between">
-                        <a href="#layanan" class="group/btn inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-md shadow-indigo-500/20 transition-all transform hover:scale-105 active:scale-95">
+                        <a href="#layanan" class="group/btn inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md shadow-blue-500/20 transition-all transform hover:scale-105 active:scale-95">
+                            <span>Pesan Layanan</span>
+                            <svg class="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
                             <span>Pesan Layanan</span>
                             <svg class="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </a>
