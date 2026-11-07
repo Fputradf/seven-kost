@@ -147,73 +147,107 @@
         </div>
     </section>
 
-    {{-- 2. 3 BANNER IKLAN ULTRA HD (DIPASANG OLEH PEMILIK / ADMIN - TANPA OVERLAY TEKS) --}}
+    {{-- 2. BANNER IKLAN WIDE 1200x400 (DIPASANG OLEH PEMILIK / ADMIN - SATU PERSATU SLIDER TANPA OVERLAY TEKS) --}}
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 sm:-mt-8 relative z-20">
-        <div class="relative">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                @if(isset($banners) && $banners->count() > 0)
-                    @foreach($banners as $banner)
-                        <a href="{{ $banner->target_url ?: url('/paket-iklan') }}" class="group relative overflow-hidden rounded-2xl shadow-lg border border-slate-200/50 block aspect-[16/9] bg-slate-100 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+        @php
+            $bannerItems = [];
+            if (isset($banners) && $banners->count() > 0) {
+                foreach ($banners as $b) {
+                    $bannerItems[] = [
+                        'img' => asset('storage/' . $b->image_path),
+                        'link' => $b->target_url ?: url('/paket-iklan'),
+                        'alt' => $b->title ?: 'Banner Iklan SevenKost HD',
+                    ];
+                }
+            }
+            $fallbacks = [
+                ['img' => asset('images/frontend/banner-jakarta-wide.jpg'), 'link' => url('/cari?q=Jakarta&kota=3171'), 'alt' => 'Banner Iklan Kos Jakarta SevenKost'],
+                ['img' => asset('images/frontend/banner-bandung-wide.jpg'), 'link' => url('/cari?q=Bandung&kota=3273'), 'alt' => 'Banner Iklan Kos Bandung SevenKost'],
+                ['img' => asset('images/frontend/banner-yogyakarta-wide.jpg'), 'link' => url('/cari?q=Yogyakarta&kota=3471'), 'alt' => 'Banner Iklan Kos Yogyakarta SevenKost'],
+            ];
+            while (count($bannerItems) < 3) {
+                $bannerItems[] = $fallbacks[count($bannerItems) % count($fallbacks)];
+            }
+        @endphp
+
+        <div 
+            x-data="{
+                active: 0,
+                total: {{ count($bannerItems) }},
+                timer: null,
+                start() {
+                    this.timer = setInterval(() => { this.next(); }, 5000);
+                },
+                stop() {
+                    if (this.timer) clearInterval(this.timer);
+                },
+                next() {
+                    this.active = (this.active + 1) % this.total;
+                },
+                prev() {
+                    this.active = (this.active - 1 + this.total) % this.total;
+                }
+            }"
+            x-init="start()"
+            @mouseenter="stop()"
+            @mouseleave="start()"
+            class="relative group rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl border border-slate-200/70 bg-slate-900"
+        >
+            {{-- Carousel Track: aspect-[12/4] is 1200x400 ratio --}}
+            <div class="relative w-full aspect-[16/7] sm:aspect-[12/4] overflow-hidden bg-slate-900">
+                @foreach($bannerItems as $index => $item)
+                    <div 
+                        x-show="active === {{ $index }}"
+                        x-transition:enter="transition ease-out duration-500"
+                        x-transition:enter-start="opacity-0 scale-98"
+                        x-transition:enter-end="opacity-100 scale-100"
+                        x-transition:leave="transition ease-in duration-300"
+                        x-transition:leave-start="opacity-100 scale-100"
+                        x-transition:leave-end="opacity-0 scale-98"
+                        class="absolute inset-0 w-full h-full"
+                        style="{{ $index === 0 ? '' : 'display: none;' }}"
+                    >
+                        <a href="{{ $item['link'] }}" class="block w-full h-full relative group/item">
                             <img 
-                                src="{{ asset('storage/' . $banner->image_path) }}" 
-                                alt="{{ $banner->title ?: 'Banner Iklan SevenKost' }}" 
-                                class="w-full h-full object-cover group-hover:scale-106 transition duration-500"
+                                src="{{ $item['img'] }}" 
+                                alt="{{ $item['alt'] }}" 
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover/item:scale-102"
+                                loading="{{ $index === 0 ? 'eager' : 'lazy' }}"
                             >
                         </a>
-                    @endforeach
-                    {{-- Lengkapi slot hingga 3 banner jika banner dari DB kurang dari 3 --}}
-                    @for($i = $banners->count(); $i < 3; $i++)
-                        @php
-                            $defaultBanners = [
-                                ['img' => asset('images/frontend/banner-jakarta-hd.jpg'), 'link' => url('/cari?q=Jakarta&kota=3171')],
-                                ['img' => asset('images/frontend/banner-bandung-hd.jpg'), 'link' => url('/cari?q=Bandung&kota=3273')],
-                                ['img' => asset('images/frontend/banner-yogyakarta-hd.jpg'), 'link' => url('/cari?q=Yogyakarta&kota=3471')],
-                            ];
-                            $curr = $defaultBanners[$i] ?? $defaultBanners[0];
-                        @endphp
-                        <a href="{{ $curr['link'] }}" class="group relative overflow-hidden rounded-2xl shadow-lg border border-slate-200/50 block aspect-[16/9] bg-slate-100 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
-                            <img 
-                                src="{{ $curr['img'] }}" 
-                                alt="Banner Iklan SevenKost HD" 
-                                class="w-full h-full object-cover group-hover:scale-106 transition duration-500"
-                            >
-                        </a>
-                    @endfor
-                @else
-                    {{-- 3 Default Banner Iklan Ultra HD murni tanpa overlay teks --}}
-                    <a href="{{ url('/cari?q=Jakarta&kota=3171') }}" class="group relative overflow-hidden rounded-2xl shadow-lg border border-slate-200/50 block aspect-[16/9] bg-slate-100 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
-                        <img 
-                            src="{{ asset('images/frontend/banner-jakarta-hd.jpg') }}" 
-                            alt="Banner Iklan Kos Jakarta HD" 
-                            class="w-full h-full object-cover group-hover:scale-106 transition duration-500"
-                        >
-                    </a>
-
-                    <a href="{{ url('/cari?q=Bandung&kota=3273') }}" class="group relative overflow-hidden rounded-2xl shadow-lg border border-slate-200/50 block aspect-[16/9] bg-slate-100 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
-                        <img 
-                            src="{{ asset('images/frontend/banner-bandung-hd.jpg') }}" 
-                            alt="Banner Iklan Kos Bandung HD" 
-                            class="w-full h-full object-cover group-hover:scale-106 transition duration-500"
-                        >
-                    </a>
-
-                    <a href="{{ url('/cari?q=Yogyakarta&kota=3471') }}" class="group relative overflow-hidden rounded-2xl shadow-lg border border-slate-200/50 block aspect-[16/9] bg-slate-100 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
-                        <img 
-                            src="{{ asset('images/frontend/banner-yogyakarta-hd.jpg') }}" 
-                            alt="Banner Iklan Kos Yogyakarta HD" 
-                            class="w-full h-full object-cover group-hover:scale-106 transition duration-500"
-                        >
-                    </a>
-                @endif
+                    </div>
+                @endforeach
             </div>
 
-            {{-- Pagination Dots Underneath --}}
-            <div class="flex items-center justify-center gap-2 mt-5">
-                <span class="w-7 h-2 rounded-full bg-blue-600 transition-all"></span>
-                <span class="w-2 h-2 rounded-full bg-slate-300"></span>
-                <span class="w-2 h-2 rounded-full bg-slate-300"></span>
-                <span class="w-2 h-2 rounded-full bg-slate-300"></span>
-                <span class="w-2 h-2 rounded-full bg-slate-300"></span>
+            {{-- Navigation Arrows (Smooth visibility on group hover) --}}
+            <button 
+                type="button" 
+                @click.prevent="prev()" 
+                aria-label="Banner Sebelumnya" 
+                class="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/85 hover:bg-white text-slate-800 shadow-lg backdrop-blur-md flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 hover:scale-110 active:scale-95 focus:opacity-100"
+            >
+                <svg class="w-5 h-5 -ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+            <button 
+                type="button" 
+                @click.prevent="next()" 
+                aria-label="Banner Selanjutnya" 
+                class="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/85 hover:bg-white text-slate-800 shadow-lg backdrop-blur-md flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 hover:scale-110 active:scale-95 focus:opacity-100"
+            >
+                <svg class="w-5 h-5 -mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+            </button>
+
+            {{-- Indicator Dots (Pills) with Glassmorphism --}}
+            <div class="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20">
+                @foreach($bannerItems as $index => $item)
+                    <button 
+                        type="button"
+                        @click.prevent="active = {{ $index }}" 
+                        :class="active === {{ $index }} ? 'w-7 bg-white' : 'w-2 bg-white/50 hover:bg-white/80'" 
+                        class="h-2 rounded-full transition-all duration-300"
+                        aria-label="Slide {{ $index + 1 }}"
+                    ></button>
+                @endforeach
             </div>
         </div>
     </section>
@@ -551,9 +585,17 @@
             <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none"></div>
 
             <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
-                {{-- Left Character Illustration with Interactive Hover Scale --}}
-                <div class="hidden sm:block flex-shrink-0 w-32 md:w-40 transform group-hover:scale-105 group-hover:-rotate-2 transition-transform duration-500">
-                    <img src="{{ asset('images/frontend/cta-person.png') }}" alt="Mitra Pemilik Kos" class="w-full object-contain drop-shadow-xl filter drop-shadow">
+                {{-- Left: Mitra Host Real Photo with Verified Badge --}}
+                <div class="relative hidden sm:block flex-shrink-0 group/host">
+                    <div class="w-32 h-32 md:w-36 md:h-36 rounded-2xl overflow-hidden ring-4 ring-white/30 shadow-2xl relative transform group-hover/host:scale-105 group-hover/host:-rotate-1 transition-transform duration-500">
+                        <img src="{{ asset('images/frontend/cta-host-male.jpg') }}" alt="Mitra Pemilik Kos Terpercaya" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-blue-950/50 via-transparent to-transparent"></div>
+                    </div>
+                    {{-- Floating Host Verified Badge --}}
+                    <div class="absolute -bottom-3 -right-2 bg-white text-blue-800 text-[11px] font-extrabold px-3 py-1 rounded-full shadow-lg border border-blue-100 flex items-center gap-1.5 animate-bounce">
+                        <svg class="w-3.5 h-3.5 text-blue-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                        <span>Mitra Terverifikasi</span>
+                    </div>
                 </div>
 
                 {{-- Center Text Content & Perks --}}
@@ -585,7 +627,7 @@
                     </div>
                 </div>
 
-                {{-- Right Interactive CTA Button & 3D House --}}
+                {{-- Right Interactive CTA Button & HD House Keys Photo --}}
                 <div class="flex items-center gap-5 flex-shrink-0">
                     <a href="{{ url('/paket-iklan') }}" class="group/btn relative overflow-hidden rounded-full bg-white text-blue-700 font-extrabold px-8 py-3.5 text-sm sm:text-base shadow-xl hover:shadow-2xl hover:bg-blue-50 transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-2.5">
                         {{-- Button Shine Sweep --}}
@@ -597,8 +639,12 @@
                         </svg>
                     </a>
 
-                    <div class="hidden lg:block w-22 flex-shrink-0 transform group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
-                        <img src="{{ asset('images/frontend/cta-house.png') }}" alt="Rumah Kos 3D" class="w-full object-contain drop-shadow-2xl">
+                    <div class="hidden lg:block relative flex-shrink-0 w-32 h-32 md:w-36 md:h-36 rounded-2xl overflow-hidden ring-4 ring-white/30 shadow-2xl transform group-hover:scale-105 group-hover:rotate-2 transition-transform duration-500">
+                        <img src="{{ asset('images/frontend/cta-house-keys.jpg') }}" alt="Kunci Rumah Kos SevenKost" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-2 left-2 right-2 text-center text-[10px] font-bold text-white bg-black/50 backdrop-blur-xs py-0.5 px-1.5 rounded-md">
+                            Unit Cepat Terisi
+                        </div>
                     </div>
                 </div>
             </div>

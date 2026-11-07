@@ -15,6 +15,10 @@ class FrontendHomeTest extends TestCase
 
         $response->assertStatus(200);
 
+        // Browser Tab Favicon
+        $response->assertSee('favicon.png');
+        $response->assertSee('favicon.ico');
+
         // Header / Logo
         $response->assertSee('logo-seven-kost.png');
         $response->assertSee('Cari kos di sini...');
@@ -37,10 +41,10 @@ class FrontendHomeTest extends TestCase
         $response->assertSee('Tipe Kos');
         $response->assertSee('Rentang Harga');
 
-        // 3 Ad Banner slots in Ultra HD (pure images, no text overlay)
-        $response->assertSee('banner-jakarta-hd.jpg');
-        $response->assertSee('banner-bandung-hd.jpg');
-        $response->assertSee('banner-yogyakarta-hd.jpg');
+        // Ad Banners displayed one-by-one wide format 1200x400 (aspect-[12/4])
+        $response->assertSee('banner-jakarta-wide.jpg');
+        $response->assertSee('banner-bandung-wide.jpg');
+        $response->assertSee('banner-yogyakarta-wide.jpg');
 
         // Featured Kos
         $response->assertSee('Kos Unggulan');
@@ -60,10 +64,12 @@ class FrontendHomeTest extends TestCase
         $response->assertSee('Layanan Mitra');
         $response->assertSee('Coming Soon');
 
-        // Interactive Animated CTA Banner
+        // Interactive Animated CTA Banner with HD Photos
         $response->assertSee('Pasang Iklan Kosmu');
         $response->assertSee('Sekarang!');
         $response->assertSee('Listing Langsung Tayang');
+        $response->assertSee('cta-host-male.jpg');
+        $response->assertSee('cta-house-keys.jpg');
 
         // Bright Modern Footer (Clean light style, no dark navy)
         $response->assertSee('Cari Kos Jadi Lebih Mudah');

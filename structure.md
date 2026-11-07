@@ -176,9 +176,37 @@
 │       ├── 📄 RolePermissionSeeder.php
 │       └── 📄 WilayahSeeder.php
 ├── 📁 Desain Aplikasi Seven Kos/
+│   ├── 📄 Alur Login Platform Kos Nasional.png
 │   ├── 📄 Beranda Kos Nusantara Modern Mobile Responsif.png
+│   ├── 📄 Beranda Marketplace Kos Nasional.png
 │   ├── 📄 Beranda SevenKost Modern Bergradasi Biru.png
-│   └── 📄 Logo Rumah Angka Tujuh Berkilau.png
+│   ├── 📄 Dasbor Admin KosKu.id Kelola Mitra dan Kos.png
+│   ├── 📄 Dasbor Admin KosKu.id Terpadu berbagai fitur.png
+│   ├── 📄 Dasbor Admin KosKu.id Terpadu.png
+│   ├── 📄 Dasbor Formulir Iklan Kos Nasional.png
+│   ├── 📄 Dasbor Keuangan Platform Kos Nasional.png
+│   ├── 📄 Dasbor Kos Nasional Modern.png
+│   ├── 📄 Dasbor Moderasi KosKu.id.png
+│   ├── 📄 Dasbor Paket Iklan KosKu.id.png
+│   ├── 📄 Dasbor Pemesanan Layanan KosNusantara.png
+│   ├── 📄 Dasbor Penagihan Platform Kos Nasional.png
+│   ├── 📄 Dasbor Pengaturan Kuasa Admin KosKu.id.png
+│   ├── 📄 Dasbor Pengelolaan Kamar Kos.png
+│   ├── 📄 Dasbor Penghuni Kos Modern.png
+│   ├── 📄 Dashboard Keuangan Kos Modern.png
+│   ├── 📄 Dashboard Layanan KosNusantara Modern.png
+│   ├── 📄 Dashboard Pembayaran Kos Nusantara.png
+│   ├── 📄 Dashboard Pengajuan Sewa Kos Nasional.png
+│   ├── 📄 Dashboard Ulasan KosNusantara.png
+│   ├── 📄 Form Marketplace KosNusantara 二四六.png
+│   ├── 📄 Landing Page Kos Dekat UGMneqarpoq.png
+│   ├── 📄 Listing Kasur Premium KosNusantara.png
+│   ├── 📄 Logo Rumah Angka Tujuh Berkilau.png
+│   ├── 📄 Marketplace Kos Nusantara Modern.png
+│   ├── 📄 Pengaturan Profil KosNusantara.png
+│   ├── 📄 Platform Kos Nasional_ Cari Kos di Jakarta.png
+│   ├── 📄 Profil KosNusantara Fajar Putra.png
+│   └── 📄 Tampilan Detail Kos Melati Residence.png
 ├── 📄 ERD.md
 ├── 📄 Jadwal_dan_Tools_Seven_Kost.md
 ├── 📄 Logo Rumah Angka Tujuh Berkilau.png
@@ -198,6 +226,7 @@
 │   │       └── 📁 filament/
 │   │           └── 📄 app.css
 │   ├── 📄 favicon.ico
+│   ├── 📄 favicon.png
 │   ├── 📁 fonts/
 │   │   └── 📁 filament/
 │   │       └── 📁 filament/
@@ -216,14 +245,20 @@
 │   ├── 📁 images/
 │   │   ├── 📁 frontend/
 │   │   │   ├── 📄 banner-bandung-hd.jpg
+│   │   │   ├── 📄 banner-bandung-wide.jpg
 │   │   │   ├── 📄 banner-jakarta-hd.jpg
+│   │   │   ├── 📄 banner-jakarta-wide.jpg
 │   │   │   ├── 📄 banner-studio-hd.jpg
 │   │   │   ├── 📄 banner-yogyakarta-hd.jpg
+│   │   │   ├── 📄 banner-yogyakarta-wide.jpg
 │   │   │   ├── 📄 city-bandung.png
 │   │   │   ├── 📄 city-depok.png
 │   │   │   ├── 📄 city-jakarta.png
 │   │   │   ├── 📄 city-surabaya.png
 │   │   │   ├── 📄 city-yogyakarta.png
+│   │   │   ├── 📄 cta-host-female.jpg
+│   │   │   ├── 📄 cta-host-male.jpg
+│   │   │   ├── 📄 cta-house-keys.jpg
 │   │   │   ├── 📄 cta-house.png
 │   │   │   ├── 📄 cta-person.png
 │   │   │   ├── 📄 footer-logo-crop.png
@@ -400,6 +435,7 @@
 │   │       ├── 📄 0b51b9c94d7dc367e1955c17a1c67fc1.php
 │   │       ├── 📄 0c113b5c45d1fa62135004ebec938c33.php
 │   │       ├── 📄 1288003ed32b0676e6ccb14eb5942b70.php
+│   │       ├── 📄 139f55eeb4805572ebcdbda37fb1779c.php
 │   │       ├── 📄 1807d3741cafbb28190875a2bc68cd8a.php
 │   │       ├── 📄 21ce1a07eb531ce18af400f0e82b442f.php
 │   │       ├── 📄 21d1e72ad79e89d7ca1c7c5f0c3e06e5.php
