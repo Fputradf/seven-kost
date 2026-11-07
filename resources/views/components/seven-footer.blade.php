@@ -13,6 +13,9 @@
                 <p class="text-xs text-slate-500 leading-relaxed max-w-xs pt-1">
                     Platform pencarian dan sewa kos nomor 1 di Indonesia dengan verifikasi resmi dan jangkauan 34 provinsi.
                 </p>
+                <p class="text-xs text-slate-400 font-medium pt-3">
+                    © {{ date('Y') }} SevenKost. All rights reserved.
+                </p>
             </div>
 
             {{-- Col 2: Navigasi (2 cols) --}}
@@ -78,11 +81,6 @@
                     </button>
                 </form>
             </div>
-        </div>
-
-        {{-- Copyright inside Footer (Clean & Seamless) --}}
-        <div class="border-t border-slate-200/80 pt-6 text-center sm:text-left text-xs text-slate-500">
-            <p>© {{ date('Y') }} SevenKost. All rights reserved.</p>
         </div>
     </div>
 </footer>

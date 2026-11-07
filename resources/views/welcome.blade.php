@@ -147,8 +147,8 @@
         </div>
     </section>
 
-    {{-- 2. BANNER IKLAN WIDE LEBIH KOMPAK (DIPASANG OLEH PEMILIK / ADMIN - SATU PERSATU SLIDER TANPA OVERLAY TEKS) --}}
-    <section class="max-w-5xl mx-auto px-4 sm:px-6 -mt-6 sm:-mt-8 relative z-20">
+    {{-- 2. BANNER IKLAN WIDE 1200x400 (DIPASANG OLEH PEMILIK / ADMIN - SATU PERSATU SLIDER PANJANG KESAMPING TANPA OVERLAY TEKS) --}}
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 sm:-mt-8 relative z-20">
         @php
             $bannerItems = [];
             if (isset($banners) && $banners->count() > 0) {
@@ -191,10 +191,10 @@
             x-init="start()"
             @mouseenter="stop()"
             @mouseleave="start()"
-            class="relative group rounded-2xl overflow-hidden shadow-lg border border-slate-200/80 bg-slate-900"
+            class="relative group rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl border border-slate-200/70 bg-slate-900"
         >
-            {{-- Carousel Track: Lebih ramping, proporsional dan tidak mendominasi layar --}}
-            <div class="relative w-full h-36 sm:h-48 md:h-56 lg:h-60 overflow-hidden bg-slate-900">
+            {{-- Carousel Track: 1200x400 Aspect Ratio (Panjang Kesamping) --}}
+            <div class="relative w-full aspect-[16/7] sm:aspect-[12/4] overflow-hidden bg-slate-900">
                 @foreach($bannerItems as $index => $item)
                     <div 
                         x-show="active === {{ $index }}"
@@ -224,30 +224,33 @@
                 type="button" 
                 @click.prevent="prev()" 
                 aria-label="Banner Sebelumnya" 
-                class="absolute left-2.5 sm:left-4 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/85 hover:bg-white text-slate-800 shadow-md backdrop-blur-md flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 hover:scale-105 active:scale-95 focus:opacity-100"
+                class="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/85 hover:bg-white text-slate-800 shadow-lg backdrop-blur-md flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 hover:scale-110 active:scale-95 focus:opacity-100"
             >
-                <svg class="w-4 h-4 -ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+                <svg class="w-5 h-5 -ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
             </button>
             <button 
                 type="button" 
                 @click.prevent="next()" 
                 aria-label="Banner Selanjutnya" 
-                class="absolute right-2.5 sm:right-4 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/85 hover:bg-white text-slate-800 shadow-md backdrop-blur-md flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 hover:scale-105 active:scale-95 focus:opacity-100"
+                class="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/85 hover:bg-white text-slate-800 shadow-lg backdrop-blur-md flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 hover:scale-110 active:scale-95 focus:opacity-100"
             >
-                <svg class="w-4 h-4 -mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                <svg class="w-5 h-5 -mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
             </button>
 
             {{-- Indicator Dots (Pills) with Glassmorphism --}}
-            <div class="absolute bottom-2.5 sm:bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/20">
+            <div class="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20">
                 @foreach($bannerItems as $index => $item)
                     <button 
                         type="button"
                         @click.prevent="active = {{ $index }}" 
-                        :class="active === {{ $index }} ? 'w-5 bg-white' : 'w-1.5 bg-white/50 hover:bg-white/80'" 
-                        class="h-1.5 rounded-full transition-all duration-300"
+                        :class="active === {{ $index }} ? 'w-7 bg-white' : 'w-2 bg-white/50 hover:bg-white/80'" 
+                        class="h-2 rounded-full transition-all duration-300"
                         aria-label="Slide {{ $index + 1 }}"
                     ></button>
                 @endforeach
+            </div>
+        </div>
+    </section>
             </div>
         </div>
     </section>
