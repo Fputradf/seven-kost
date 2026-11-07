@@ -193,8 +193,8 @@
             @mouseleave="start()"
             class="relative group rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl border border-slate-200/70 bg-slate-900"
         >
-            {{-- Carousel Track: 1200x400 Aspect Ratio (Panjang Kesamping) --}}
-            <div class="relative w-full aspect-[16/7] sm:aspect-[12/4] overflow-hidden bg-slate-900">
+            {{-- Carousel Track: Tetap Panjang Kesamping (max-w-7xl) tapi Lebih Ramping Vertikal (Top & Bottom Berkurang) --}}
+            <div class="relative w-full h-36 sm:h-48 md:h-56 lg:h-64 overflow-hidden bg-slate-900">
                 @foreach($bannerItems as $index => $item)
                     <div 
                         x-show="active === {{ $index }}"
