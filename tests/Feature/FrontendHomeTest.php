@@ -59,9 +59,14 @@ class FrontendHomeTest extends TestCase
         $response->assertSee('Surabaya');
         $response->assertSee('Depok');
 
-        // Banners (Marketplace & Layanan Mitra)
+        // Two Interactive Cards (Marketplace & Layanan Mitra)
         $response->assertSee('Marketplace Barang Kos');
+        $response->assertSee('marketplace-hd.jpg');
         $response->assertSee('Layanan Mitra');
+        $response->assertSee('service-laundry.jpg');
+        $response->assertSee('service-cleaning.jpg');
+        $response->assertSee('service-catering.jpg');
+        $response->assertSee('Available');
         $response->assertSee('Coming Soon');
 
         // Interactive Animated CTA Banner with HD Photos

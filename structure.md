@@ -219,7 +219,7 @@
 │   ├── 📄 .htaccess
 │   ├── 📁 build/
 │   │   ├── 📁 assets/
-│   │   │   ├── 📄 app-BILLWGAH.css
+│   │   │   ├── 📄 app-C_hFmIdv.css
 │   │   │   └── 📄 app-Dr67-uCa.js
 │   │   └── 📄 manifest.json
 │   ├── 📁 css/
@@ -277,10 +277,14 @@
 │   │   │   ├── 📄 kost-3.png
 │   │   │   ├── 📄 kost-4.png
 │   │   │   ├── 📄 logo-full-bounds.png
+│   │   │   ├── 📄 marketplace-hd.jpg
 │   │   │   ├── 📄 marketplace-items.png
 │   │   │   ├── 📄 promo-bandung.png
 │   │   │   ├── 📄 promo-jakarta.png
-│   │   │   └── 📄 promo-yogyakarta.png
+│   │   │   ├── 📄 promo-yogyakarta.png
+│   │   │   ├── 📄 service-catering.jpg
+│   │   │   ├── 📄 service-cleaning.jpg
+│   │   │   └── 📄 service-laundry.jpg
 │   │   ├── 📄 logo-exact-mockup.png
 │   │   ├── 📄 logo-pngtree-raw.png
 │   │   ├── 📄 logo-seven-kost.png

@@ -502,78 +502,131 @@
         </div>
     </section>
 
-    {{-- 5. TWO BANNERS (MARKETPLACE & LAYANAN MITRA) --}}
+    {{-- 5. TWO INTERACTIVE CARDS (MARKETPLACE BARANG KOS & LAYANAN MITRA) --}}
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {{-- Banner 1: Marketplace Barang Kos --}}
-            <div id="marketplace" class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-100/90 via-sky-50 to-white p-6 sm:p-8 border border-blue-200/60 shadow-sm flex flex-col justify-between">
-                <div class="space-y-2 max-w-xs relative z-10">
-                    <div class="flex items-center gap-2 text-blue-700 font-extrabold text-lg">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {{-- Card 1: Marketplace Barang Kos --}}
+            <div id="marketplace" class="group/market relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-100/90 via-sky-50/70 to-white p-6 sm:p-8 border border-blue-200/70 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 flex flex-col justify-between">
+                {{-- Decorative Glowing Background Blob --}}
+                <div class="absolute -right-10 -bottom-10 w-52 h-52 bg-blue-300/20 rounded-full blur-2xl pointer-events-none group-hover/market:scale-125 transition-transform duration-700"></div>
+
+                <div class="space-y-3 max-w-sm relative z-10">
+                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-600/10 text-blue-700 text-[11px] font-extrabold uppercase tracking-wider">
+                        <span>🛍️ Kebutuhan Kamar Kos</span>
+                    </div>
+
+                    <div class="flex items-center gap-2.5 text-blue-800 font-black text-xl sm:text-2xl">
+                        <svg class="w-6 h-6 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
                         </svg>
                         <span>Marketplace Barang Kos</span>
                     </div>
+
                     <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                        Lengkapi kebutuhan kosmu dengan berbagai barang berkualitas.
+                        Lengkapi kamar kosmu dengan kasur, meja belajar, rak, hingga elektronik hemat & berkualitas tanpa ribet.
                     </p>
+
+                    <div class="pt-2 flex items-center gap-3 text-xs font-semibold text-slate-600">
+                        <span class="inline-flex items-center gap-1">
+                            <svg class="w-3.5 h-3.5 text-blue-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                            Antar Sampai Kamar
+                        </span>
+                        <span class="inline-flex items-center gap-1">
+                            <svg class="w-3.5 h-3.5 text-blue-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                            Harga Mahasiswa
+                        </span>
+                    </div>
+
                     <div class="pt-3">
-                        <a href="{{ url('/cari?kategori=marketplace') }}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md shadow-blue-500/20 transition">
+                        <a href="{{ url('/cari?kategori=marketplace') }}" class="group/btn inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-bold shadow-md shadow-blue-500/25 transition-all transform hover:scale-105 active:scale-95">
                             <span>Belanja Sekarang</span>
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                            <svg class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </a>
                     </div>
                 </div>
 
-                <div class="mt-4 sm:mt-0 sm:absolute sm:right-4 sm:bottom-4 w-48 sm:w-56 pointer-events-none">
-                    <img src="{{ asset('images/frontend/marketplace-items.png') }}" alt="Marketplace Barang Kos" class="w-full object-contain">
+                {{-- HD Real Photo Visual with Interactive Floating Frame --}}
+                <div class="mt-5 sm:mt-0 sm:absolute sm:right-6 sm:bottom-6 sm:top-6 flex items-center justify-center">
+                    <div class="w-full sm:w-48 lg:w-56 h-40 sm:h-full max-h-52 rounded-2xl overflow-hidden shadow-xl border border-white ring-2 ring-blue-200/60 group-hover/market:scale-105 group-hover/market:rotate-1 transition-transform duration-500 relative">
+                        <img src="{{ asset('images/frontend/marketplace-hd.jpg') }}" alt="Marketplace Barang Kos SevenKost" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-blue-950/40 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-2 left-2 right-2 text-center text-[10px] font-bold text-white bg-black/50 backdrop-blur-xs py-1 px-2 rounded-lg">
+                            ✨ Pilihan Hemat & Praktis
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            {{-- Banner 2: Layanan Mitra (Laundry, Kebersihan, Katering) --}}
-            <div id="layanan" class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-100/90 via-sky-50 to-white p-6 sm:p-8 border border-blue-200/60 shadow-sm flex flex-col justify-between">
-                {{-- Coming Soon Badge --}}
-                <div class="absolute top-4 right-4 inline-flex items-center gap-1 px-3 py-1 rounded-full bg-gradient-to-r from-blue-600 to-sky-500 text-white text-[11px] font-bold shadow-sm">
-                    Coming Soon
-                </div>
+            {{-- Card 2: Layanan Mitra (Laundry & Kebersihan Available, Katering Coming Soon) --}}
+            <div id="layanan" class="group/service relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-50/90 via-sky-50/60 to-white p-6 sm:p-8 border border-indigo-200/70 shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 flex flex-col justify-between">
+                {{-- Decorative Glowing Background Blob --}}
+                <div class="absolute -right-10 -bottom-10 w-52 h-52 bg-emerald-300/15 rounded-full blur-2xl pointer-events-none group-hover/service:scale-125 transition-transform duration-700"></div>
 
-                <div class="space-y-2 max-w-xs relative z-10">
-                    <div class="flex items-center gap-2 text-blue-700 font-extrabold text-lg">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="space-y-3 relative z-10">
+                    <div class="flex items-center justify-between gap-2">
+                        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-600/10 text-indigo-700 text-[11px] font-extrabold uppercase tracking-wider">
+                            <span>⚡ Solusi Hidup Kos</span>
+                        </div>
+                        <div class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-bold shadow-2xs">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                            <span>2 Layanan Tersedia</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2.5 text-indigo-900 font-black text-xl sm:text-2xl">
+                        <svg class="w-6 h-6 text-indigo-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                         </svg>
                         <span>Layanan Mitra</span>
                     </div>
-                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                        Layanan pendukung untuk kos lebih nyaman dan terkelola baik.
-                    </p>
-                    <div class="pt-3">
-                        <a href="#layanan" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md shadow-blue-500/20 transition">
-                            <span>Lihat Layanan</span>
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                        </a>
-                    </div>
-                </div>
 
-                {{-- Service Circles: Laundry, Kebersihan, Katering --}}
-                <div class="mt-6 sm:mt-0 sm:absolute sm:right-6 sm:bottom-6 flex items-center gap-3">
-                    <div class="text-center">
-                        <div class="w-12 h-12 rounded-full bg-white shadow-md border border-slate-100 flex items-center justify-center text-xl mb-1">
-                            🧺
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-sm">
+                        Layanan harian cuci pakaian & kebersihan kamar langsung ke kosmu agar hidup makin praktis.
+                    </p>
+
+                    {{-- 3 Interactive Service Sub-Cards (Laundry, Kebersihan, Katering) --}}
+                    <div class="pt-2 grid grid-cols-3 gap-3">
+                        {{-- 1. Laundry (Available) --}}
+                        <a href="{{ url('/layanan#laundry') }}" class="group/srv bg-white/90 hover:bg-white backdrop-blur-md rounded-2xl p-2.5 border border-emerald-200/80 shadow-xs hover:shadow-lg hover:-translate-y-1 hover:border-emerald-400 transition-all duration-300 text-center flex flex-col items-center">
+                            <div class="w-12 h-12 rounded-xl overflow-hidden mb-2 relative ring-2 ring-emerald-400/50 shadow-2xs">
+                                <img src="{{ asset('images/frontend/service-laundry.jpg') }}" alt="Layanan Laundry Kos" class="w-full h-full object-cover group-hover/srv:scale-110 transition duration-300">
+                            </div>
+                            <span class="text-xs font-black text-slate-800 leading-tight">Laundry</span>
+                            <span class="mt-1.5 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-black uppercase tracking-wide">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                Available
+                            </span>
+                        </a>
+
+                        {{-- 2. Kebersihan (Available) --}}
+                        <a href="{{ url('/layanan#kebersihan') }}" class="group/srv bg-white/90 hover:bg-white backdrop-blur-md rounded-2xl p-2.5 border border-emerald-200/80 shadow-xs hover:shadow-lg hover:-translate-y-1 hover:border-emerald-400 transition-all duration-300 text-center flex flex-col items-center">
+                            <div class="w-12 h-12 rounded-xl overflow-hidden mb-2 relative ring-2 ring-emerald-400/50 shadow-2xs">
+                                <img src="{{ asset('images/frontend/service-cleaning.jpg') }}" alt="Layanan Kebersihan Kos" class="w-full h-full object-cover group-hover/srv:scale-110 transition duration-300">
+                            </div>
+                            <span class="text-xs font-black text-slate-800 leading-tight">Kebersihan</span>
+                            <span class="mt-1.5 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-black uppercase tracking-wide">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                Available
+                            </span>
+                        </a>
+
+                        {{-- 3. Katering (Coming Soon) --}}
+                        <div class="bg-white/70 backdrop-blur-md rounded-2xl p-2.5 border border-slate-200/80 shadow-2xs text-center flex flex-col items-center opacity-85">
+                            <div class="w-12 h-12 rounded-xl overflow-hidden mb-2 relative ring-1 ring-amber-300/80 filter grayscale-30">
+                                <img src="{{ asset('images/frontend/service-catering.jpg') }}" alt="Layanan Katering Kos" class="w-full h-full object-cover">
+                            </div>
+                            <span class="text-xs font-bold text-slate-700 leading-tight">Katering</span>
+                            <span class="mt-1.5 inline-flex items-center px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200 text-[10px] font-extrabold uppercase tracking-wide">
+                                Coming Soon
+                            </span>
                         </div>
-                        <span class="text-[10px] font-bold text-slate-700">Laundry</span>
                     </div>
-                    <div class="text-center">
-                        <div class="w-12 h-12 rounded-full bg-white shadow-md border border-slate-100 flex items-center justify-center text-xl mb-1">
-                            🧹
-                        </div>
-                        <span class="text-[10px] font-bold text-slate-700">Kebersihan</span>
-                    </div>
-                    <div class="text-center">
-                        <div class="w-12 h-12 rounded-full bg-white shadow-md border border-slate-100 flex items-center justify-center text-xl mb-1">
-                            🍱
-                        </div>
-                        <span class="text-[10px] font-bold text-slate-700">Katering</span>
+
+                    <div class="pt-2">
+                        <a href="#layanan" class="group/btn inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-sm font-bold shadow-md shadow-indigo-500/25 transition-all transform hover:scale-105 active:scale-95">
+                            <span>Pesan Layanan Sekarang</span>
+                            <svg class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        </a>
                     </div>
                 </div>
             </div>
