@@ -34,7 +34,7 @@ class FrontendHomeTest extends TestCase
         $response->assertSee('Lebih Mudah');
         $response->assertSee('Temukan kos terbaik di lokasi strategis');
         $response->assertSee('hero-building-hd.jpg');
-        $response->assertSee('Listing Pilihan Nasional');
+        $response->assertSee('34 Provinsi');
 
         // Search floating bar
         $response->assertSee('Lokasi / Kampus');
@@ -50,6 +50,8 @@ class FrontendHomeTest extends TestCase
         $response->assertSee('Kos Unggulan');
         $response->assertSee('Pilihan terbaik untuk hunian nyamanmu');
         $response->assertSee('Terverifikasi');
+        $response->assertSee('kost-1-hd.jpg');
+        $response->assertSee('Simpan Kost');
 
         // Jelajahi per kota & kampus
         $response->assertSee('Jelajahi per Kota');

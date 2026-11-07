@@ -38,16 +38,12 @@
                     <div class="relative mx-auto rounded-3xl overflow-hidden shadow-2xl border-4 border-white/20 group cursor-pointer transition-all duration-500 hover:shadow-blue-500/30">
                         <img 
                             src="{{ asset('images/frontend/hero-building-hd.jpg') }}" 
-                            alt="SevenKost Listing Pilihan Nasional HD" 
+                            alt="SevenKost Hunian Strategis HD" 
                             class="w-full h-84 object-cover group-hover:scale-108 transition-transform duration-700 ease-out"
                         >
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent"></div>
-                        <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs text-white">
-                            <span class="bg-blue-600/90 backdrop-blur-md px-3.5 py-1.5 rounded-full font-bold shadow-md flex items-center gap-2">
-                                <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                                Listing Pilihan Nasional
-                            </span>
-                            <span class="bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full font-semibold">
+                        <div class="absolute bottom-4 right-4 text-xs text-white">
+                            <span class="bg-black/60 backdrop-blur-md px-3.5 py-1.5 rounded-full font-semibold">
                                 34 Provinsi
                             </span>
                         </div>
@@ -264,9 +260,6 @@
         <div class="flex items-center justify-between mb-8">
             <div>
                 <div class="flex items-center gap-2">
-                    <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                    </svg>
                     <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Kos Unggulan</h2>
                 </div>
                 <p class="text-slate-500 text-sm mt-0.5">Pilihan terbaik untuk hunian nyamanmu</p>
@@ -288,7 +281,7 @@
                     'price' => 'Rp 1.200.000',
                     'rating' => '4.8',
                     'reviews' => '120',
-                    'image' => asset('images/frontend/kost-1.png'),
+                    'image' => asset('images/frontend/kost-1-hd.jpg'),
                 ],
                 [
                     'title' => 'Kost Putra Mandiri Jaya',
@@ -297,7 +290,7 @@
                     'price' => 'Rp 850.000',
                     'rating' => '4.7',
                     'reviews' => '98',
-                    'image' => asset('images/frontend/kost-2.png'),
+                    'image' => asset('images/frontend/kost-2-hd.jpg'),
                 ],
                 [
                     'title' => 'Kost Campur Harmoni',
@@ -306,7 +299,7 @@
                     'price' => 'Rp 900.000',
                     'rating' => '4.8',
                     'reviews' => '75',
-                    'image' => asset('images/frontend/kost-3.png'),
+                    'image' => asset('images/frontend/kost-3-hd.jpg'),
                 ],
                 [
                     'title' => 'Kost Putri Srikandi',
@@ -315,7 +308,7 @@
                     'price' => 'Rp 750.000',
                     'rating' => '4.7',
                     'reviews' => '64',
-                    'image' => asset('images/frontend/kost-4.png'),
+                    'image' => asset('images/frontend/kost-4-hd.jpg'),
                 ],
             ];
         @endphp
@@ -323,7 +316,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             @forelse($featuredKosts as $index => $kost)
                 @php
-                    $displayImg = $kost['image'] ?: ($defaultFeatured[$index % 4]['image'] ?? asset('images/frontend/kost-1.png'));
+                    $displayImg = $kost['image'] ?: ($defaultFeatured[$index % 4]['image'] ?? asset('images/frontend/kost-1-hd.jpg'));
                     $displayTitle = $kost['title'];
                     $displayLoc = ($kost['city'] ?? 'Kota') . ($kost['province'] ? ', ' . $kost['province'] : '');
                     $displayPrice = 'Rp ' . number_format($kost['price'], 0, ',', '.');
@@ -346,10 +339,10 @@
                             <span>Terverifikasi</span>
                         </div>
 
-                        {{-- Wishlist Button --}}
-                        <button type="button" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/80 hover:bg-white text-slate-700 hover:text-red-500 flex items-center justify-center shadow-md transition">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                        {{-- Tombol Simpan Kost (Bookmark) --}}
+                        <button type="button" aria-label="Simpan Kost" title="Simpan Kost" class="group/save absolute top-3 right-3 w-8 h-8 rounded-full bg-white/85 hover:bg-white backdrop-blur-xs text-slate-600 hover:text-blue-600 flex items-center justify-center shadow-md transition-all active:scale-95">
+                            <svg class="w-4 h-4 group-hover/save:scale-110 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
                             </svg>
                         </button>
                     </div>
@@ -392,8 +385,11 @@
                                 <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
                                 <span>Terverifikasi</span>
                             </div>
-                            <button type="button" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/80 hover:bg-white text-slate-700 flex items-center justify-center shadow-md">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                            {{-- Tombol Simpan Kost (Bookmark) --}}
+                            <button type="button" aria-label="Simpan Kost" title="Simpan Kost" class="group/save absolute top-3 right-3 w-8 h-8 rounded-full bg-white/85 hover:bg-white backdrop-blur-xs text-slate-600 hover:text-blue-600 flex items-center justify-center shadow-md transition-all active:scale-95">
+                                <svg class="w-4 h-4 group-hover/save:scale-110 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                                </svg>
                             </button>
                         </div>
                         <div class="p-4 flex-1 flex flex-col justify-between space-y-3">
@@ -578,28 +574,28 @@
                         Layanan harian cuci pakaian & kebersihan kamar langsung ke kosmu agar hidup makin praktis.
                     </p>
 
-                    {{-- 3 Interactive Service Sub-Cards (Translucent / Glass Style) --}}
+                    {{-- 3 Service Sub-Cards (Tetap Transparan & Tanpa Animasi Interaktif Putih) --}}
                     <div class="pt-1 grid grid-cols-3 gap-2.5">
                         {{-- 1. Laundry (Available) --}}
-                        <a href="{{ url('/layanan#laundry') }}" class="group/srv bg-white/40 hover:bg-white/70 backdrop-blur-md rounded-xl p-2 border border-white/60 hover:border-blue-400 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 text-center flex flex-col items-center">
+                        <a href="{{ url('/layanan#laundry') }}" class="bg-white/30 backdrop-blur-md rounded-xl p-2 border border-white/50 shadow-2xs text-center flex flex-col items-center transition-opacity hover:opacity-90">
                             <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-lg overflow-hidden mb-1.5 relative ring-1 ring-emerald-400/50 shadow-2xs">
-                                <img src="{{ asset('images/frontend/service-laundry.jpg') }}" alt="Layanan Laundry Kos" class="w-full h-full object-cover group-hover/srv:scale-110 transition duration-300">
+                                <img src="{{ asset('images/frontend/service-laundry.jpg') }}" alt="Layanan Laundry Kos" class="w-full h-full object-cover">
                             </div>
                             <span class="text-xs font-black text-slate-800 leading-tight">Laundry</span>
                             <span class="mt-1 inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-800 border border-emerald-500/20 text-[9px] font-black uppercase tracking-wide">
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                                 Available
                             </span>
                         </a>
 
                         {{-- 2. Kebersihan (Available) --}}
-                        <a href="{{ url('/layanan#kebersihan') }}" class="group/srv bg-white/40 hover:bg-white/70 backdrop-blur-md rounded-xl p-2 border border-white/60 hover:border-blue-400 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 text-center flex flex-col items-center">
+                        <a href="{{ url('/layanan#kebersihan') }}" class="bg-white/30 backdrop-blur-md rounded-xl p-2 border border-white/50 shadow-2xs text-center flex flex-col items-center transition-opacity hover:opacity-90">
                             <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-lg overflow-hidden mb-1.5 relative ring-1 ring-emerald-400/50 shadow-2xs">
-                                <img src="{{ asset('images/frontend/service-cleaning.jpg') }}" alt="Layanan Kebersihan Kos" class="w-full h-full object-cover group-hover/srv:scale-110 transition duration-300">
+                                <img src="{{ asset('images/frontend/service-cleaning.jpg') }}" alt="Layanan Kebersihan Kos" class="w-full h-full object-cover">
                             </div>
                             <span class="text-xs font-black text-slate-800 leading-tight">Kebersihan</span>
                             <span class="mt-1 inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-800 border border-emerald-500/20 text-[9px] font-black uppercase tracking-wide">
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                                 Available
                             </span>
                         </a>
@@ -617,14 +613,9 @@
                     </div>
 
                     <div class="pt-1 flex items-center justify-between">
-                        <a href="#layanan" class="group/btn inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md shadow-blue-500/20 transition-all transform hover:scale-105 active:scale-95">
+                        <a href="#layanan" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md shadow-blue-500/20 transition-all">
                             <span>Pesan Layanan</span>
-                            <svg class="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                        </a>
-                    </div>
-                </div>
-                            <span>Pesan Layanan</span>
-                            <svg class="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </a>
                     </div>
                 </div>
