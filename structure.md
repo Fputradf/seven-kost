@@ -8,6 +8,7 @@
 ├── 📄 .gitattributes
 ├── 📄 .gitignore
 ├── 📄 .npmrc
+├── 📄 .phpunit.result.cache
 ├── 📄 AGENTS.md
 ├── 📁 app/
 │   ├── 📁 Filament/
@@ -177,6 +178,7 @@
 ├── 📁 Desain Aplikasi Seven Kos/
 │   ├── 📄 Alur Login Platform Kos Nasional.png
 │   ├── 📄 Beranda Marketplace Kos Nasional.png
+│   ├── 📄 Beranda SevenKost Modern Bergradasi Biru.png
 │   ├── 📄 Dasbor Admin KosKu.id Kelola Mitra dan Kos.png
 │   ├── 📄 Dasbor Admin KosKu.id Terpadu berbagai fitur.png
 │   ├── 📄 Dasbor Admin KosKu.id Terpadu.png
@@ -205,6 +207,7 @@
 │   └── 📄 Tampilan Detail Kos Melati Residence.png
 ├── 📄 ERD.md
 ├── 📄 Jadwal_dan_Tools_Seven_Kost.md
+├── 📄 Logo Rumah Angka Tujuh Berkilau.png
 ├── 📄 package-lock.json
 ├── 📄 package.json
 ├── 📄 phpunit.xml
@@ -213,8 +216,8 @@
 │   ├── 📄 .htaccess
 │   ├── 📁 build/
 │   │   ├── 📁 assets/
-│   │   │   ├── 📄 app-BPCYez8K.css
-│   │   │   └── 📄 app-Dr67-uCa.js
+│   │   │   ├── 📄 app-Dr67-uCa.js
+│   │   │   └── 📄 app-Dw1yGuHx.css
 │   │   └── 📄 manifest.json
 │   ├── 📁 css/
 │   │   └── 📁 filament/
@@ -236,6 +239,25 @@
 │   ├── 📁 geo/
 │   │   └── 📁 provinsi/
 │   │       └── 📄 README.md
+│   ├── 📁 images/
+│   │   ├── 📁 frontend/
+│   │   │   ├── 📄 city-bandung.png
+│   │   │   ├── 📄 city-depok.png
+│   │   │   ├── 📄 city-jakarta.png
+│   │   │   ├── 📄 city-surabaya.png
+│   │   │   ├── 📄 city-yogyakarta.png
+│   │   │   ├── 📄 cta-house.png
+│   │   │   ├── 📄 cta-person.png
+│   │   │   ├── 📄 hero-building.png
+│   │   │   ├── 📄 kost-1.png
+│   │   │   ├── 📄 kost-2.png
+│   │   │   ├── 📄 kost-3.png
+│   │   │   ├── 📄 kost-4.png
+│   │   │   ├── 📄 marketplace-items.png
+│   │   │   ├── 📄 promo-bandung.png
+│   │   │   ├── 📄 promo-jakarta.png
+│   │   │   └── 📄 promo-yogyakarta.png
+│   │   └── 📄 logo-seven-kost.png
 │   ├── 📄 index.php
 │   ├── 📁 js/
 │   │   └── 📁 filament/
@@ -383,31 +405,82 @@
 │   │   │   └── 📄 .gitignore
 │   │   └── 📁 views/
 │   │       ├── 📄 .gitignore
-│   │       ├── 📄 0aa06a57fd4fdfad4d66a172c32a0a5f.php
+│   │       ├── 📄 06453edcfd39f4f50da614ba51c334d6.php
+│   │       ├── 📄 06525a6a093ac6cf6e23a13d606695cf.php
 │   │       ├── 📄 0b51b9c94d7dc367e1955c17a1c67fc1.php
-│   │       ├── 📄 1288003ed32b0676e6ccb14eb5942b70.php
-│   │       ├── 📄 139f55eeb4805572ebcdbda37fb1779c.php
-│   │       ├── 📄 21d1e72ad79e89d7ca1c7c5f0c3e06e5.php
-│   │       ├── 📄 236072e513ac5947d40185bda632a33b.php
-│   │       ├── 📄 2de56e5e85dbfdf6300acb3f8eecd464.php
+│   │       ├── 📄 0c113b5c45d1fa62135004ebec938c33.php
+│   │       ├── 📄 1807d3741cafbb28190875a2bc68cd8a.php
+│   │       ├── 📄 21ce1a07eb531ce18af400f0e82b442f.php
+│   │       ├── 📄 222f9f7b50f61affbc6fd95cbef8cba5.php
+│   │       ├── 📄 2b4525a05eac0b808486def8581bc872.php
+│   │       ├── 📄 2b46671.tmp
+│   │       ├── 📄 2d92d3751b0350164cfc9cd4199c93a9.php
+│   │       ├── 📄 306c1b7844ed35df52d05c6fa377b411.php
+│   │       ├── 📄 3250b76407007457f397559cf1fba22b.php
+│   │       ├── 📄 3663a565db9f674cb2a8d33176098870.php
+│   │       ├── 📄 36a67b7aae46cb5f2a60857996f4483f.php
+│   │       ├── 📄 486de72dbd4b945f20c3910b1ee5c1a1.php
+│   │       ├── 📄 4d155c1c02b7d655be2898fc0881cfaf.php
+│   │       ├── 📄 50c54807ccdfa7d10abc2523a7c2041a.php
 │   │       ├── 📄 53fe4c0c657ff4622708f18f3bd438a1.php
 │   │       ├── 📄 55c1ecbcac3a31fd997d25602d945fbd.php
+│   │       ├── 📄 58e63bbaf7158fa397bc4cdf4ce1a0f0.php
+│   │       ├── 📄 5df34508c3b81b2704b6439892e3b444.php
+│   │       ├── 📄 5e0ebabc54928ab25cdd47f972c96e42.php
 │   │       ├── 📄 61e26aed2b463b1f2684633871801f0b.php
+│   │       ├── 📄 61e7d4e6e1a02c31c29c846b8cf94b5a.php
+│   │       ├── 📄 62db2057226c2d111a77e867c595ee8f.php
+│   │       ├── 📄 656d743aed3752b0fb108ec3425010f0.php
+│   │       ├── 📄 66bcf106e03c2aabc3cf40e191891450.php
 │   │       ├── 📄 68bd94e7fa4f514ea9fcf1b9721d97f3.php
+│   │       ├── 📄 6c00b85a2d558fbfe61c4c20af3b2449.php
+│   │       ├── 📄 6e24a24b1cb63264d4c2fcb113a08126.php
+│   │       ├── 📄 6f812d570b33db8d46c9ce443b23154f.php
+│   │       ├── 📄 78029afd8380e277140a5196c33b6a22.php
+│   │       ├── 📄 80ee7f4f789bc5d65dd80de372b327b9.php
+│   │       ├── 📄 82cb0751e0f9a883cbf4387c1e28643a.php
 │   │       ├── 📄 8452e5beff424fa5a6b18e3e4a796b43.php
+│   │       ├── 📄 84d80e328a56ccfae00b47772cb9af8d.php
 │   │       ├── 📄 84fd10794213dff83a609ff042e43844.php
 │   │       ├── 📄 874fbc92070c0e295b3ffe7dffc8b899.php
+│   │       ├── 📄 877eae2646cde6bfd897c022dcc12502.php
+│   │       ├── 📄 9573ffb70b0f586470714eb4227e17c8.php
+│   │       ├── 📄 9644caa35071308b97dd7f89d52e34c2.php
+│   │       ├── 📄 988220688adde84be38ebf4aa14c0fd1.php
+│   │       ├── 📄 99d7fafb1e763e7e7df27922cdfc500b.php
 │   │       ├── 📄 9a344bdb66808e71f5f2832552ea066f.php
 │   │       ├── 📄 9d3ab3a73f095965e6dd09e352bb4e0b.php
+│   │       ├── 📄 a3292333ed6b82b06f216cfb4c068187.php
+│   │       ├── 📄 ab9fd7a489ff338aba69c4dfaa2ecb5f.php
+│   │       ├── 📄 af99aa6b333cd5341c59d6eedee202f6.php
+│   │       ├── 📄 b68e6a31ee76443f03c7fdc54fef1278.php
+│   │       ├── 📄 b7c4a40ea7608f4cb2d25ba42921e6ec.php
+│   │       ├── 📄 ba6ddb7d9c0c3ae83408c3cdbc9ac356.php
+│   │       ├── 📄 ba9748c3c8f2c139eb64a3f732e0124f.php
+│   │       ├── 📄 c5fa10e208837514e1a36a0fdbdaefb0.php
+│   │       ├── 📄 c921e6d779d7d3e3dbdb2a09b2a298c1.php
+│   │       ├── 📄 c96567d61d612823c09f1fb54e352fac.php
+│   │       ├── 📄 c974825975ab40adc2d9584fbe61f692.php
+│   │       ├── 📄 ca70e4b6a82317648a52f8629800a119.php
+│   │       ├── 📄 d1a7887c90a319470cfbf13eb666f346.php
+│   │       ├── 📄 d234e85c38fe2850cb0b1cf457e6fc8c.php
 │   │       ├── 📄 d45a3ed121c1dd7770205830287f9336.php
+│   │       ├── 📄 d51192fc9cf0016eee18ef3dd2e126af.php
+│   │       ├── 📄 d525209119bc62f5d80d13fe2bd482bd.php
 │   │       ├── 📄 d5cfc8f84c45255b3b888918b76ce252.php
-│   │       ├── 📄 d9fc96f0667c74fa2a362f962932da39.php
+│   │       ├── 📄 d842e2867dc7c868640b7324649b705f.php
+│   │       ├── 📄 dee2446b7a6e97462da9f6ae447d8d5c.php
 │   │       ├── 📄 e947292da1ff13b0375fcd9dd91cc244.php
+│   │       ├── 📄 eaac4a9ef0769d66c54ba768b2dbe495.php
+│   │       ├── 📄 ed193cae1b30170d712ec1bd55dcfb10.php
+│   │       ├── 📄 ee6bc2f249879b0f7166ff8554d0ba4e.php
 │   │       ├── 📄 eea2247c5960730fd4c921f669c14a6f.php
 │   │       ├── 📄 f13f0f9bdae90ae8597d05b0f1adafc8.php
+│   │       ├── 📄 f5683d1403b9a018eb9244b3774579dc.php
 │   │       ├── 📄 f7ae3b6788dec2445ff93b0168ca22cd.php
-│   │       ├── 📄 fe4d7d32b38a3f08ee6c4b0fbe719c47.php
-│   │       └── 📄 feb27d2c641e14f3b023ff538c7251fe.php
+│   │       ├── 📄 faddb8c13d503aa66f7d3c7a3bb049fe.php
+│   │       ├── 📄 fc936bc3bc9adc0efa3af6e09a7aad70.php
+│   │       └── 📄 ffe847a00699cd7a895b145a84e2ee4c.php
 │   └── 📁 logs/
 │       ├── 📄 .gitignore
 │       └── 📄 laravel.log
@@ -423,6 +496,7 @@
 │   │   │   ├── 📄 PasswordUpdateTest.php
 │   │   │   └── 📄 RegistrationTest.php
 │   │   ├── 📄 ExampleTest.php
+│   │   ├── 📄 FrontendHomeTest.php
 │   │   └── 📄 ProfileTest.php
 │   ├── 📄 TestCase.php
 │   └── 📁 Unit/
@@ -463,7 +537,9 @@
 │   │   ├── 📄 psysh
 │   │   ├── 📄 psysh.bat
 │   │   ├── 📄 var-dump-server
-│   │   └── 📄 var-dump-server.bat
+│   │   ├── 📄 var-dump-server.bat
+│   │   ├── 📄 yaml-lint
+│   │   └── 📄 yaml-lint.bat
 │   ├── 📁 blade-ui-kit/
 │   │   ├── 📁 blade-heroicons/
 │   │   │   ├── 📄 composer.json
@@ -1975,7 +2051,26 @@
 │   │   │       ├── 📄 Regex.php
 │   │   │       ├── 📄 ReplaceResult.php
 │   │   │       └── 📄 UnexpectedNullMatchException.php
-│   │   └── 📄 platform_check.php
+│   │   ├── 📄 platform_check.php
+│   │   └── 📁 semver/
+│   │       ├── 📄 CHANGELOG.md
+│   │       ├── 📄 composer.json
+│   │       ├── 📄 LICENSE
+│   │       ├── 📄 README.md
+│   │       └── 📁 src/
+│   │           ├── 📄 Comparator.php
+│   │           ├── 📄 CompilingMatcher.php
+│   │           ├── 📁 Constraint/
+│   │           │   ├── 📄 Bound.php
+│   │           │   ├── 📄 Constraint.php
+│   │           │   ├── 📄 ConstraintInterface.php
+│   │           │   ├── 📄 MatchAllConstraint.php
+│   │           │   ├── 📄 MatchNoneConstraint.php
+│   │           │   └── 📄 MultiConstraint.php
+│   │           ├── 📄 Interval.php
+│   │           ├── 📄 Intervals.php
+│   │           ├── 📄 Semver.php
+│   │           └── 📄 VersionParser.php
 │   ├── 📁 danharrin/
 │   │   ├── 📁 date-format-converter/
 │   │   │   ├── 📄 .gitattributes
@@ -10487,6 +10582,22 @@
 │   │                   ├── 📄 Misc.php
 │   │                   ├── 📄 SystemFacade.php
 │   │                   └── 📄 TemplateHelper.php
+│   ├── 📁 firebase/
+│   │   └── 📁 php-jwt/
+│   │       ├── 📄 CHANGELOG.md
+│   │       ├── 📄 composer.json
+│   │       ├── 📄 LICENSE
+│   │       ├── 📄 README.md
+│   │       ├── 📁 src/
+│   │       │   ├── 📄 BeforeValidException.php
+│   │       │   ├── 📄 CachedKeySet.php
+│   │       │   ├── 📄 ExpiredException.php
+│   │       │   ├── 📄 JWK.php
+│   │       │   ├── 📄 JWT.php
+│   │       │   ├── 📄 JWTExceptionWithPayloadInterface.php
+│   │       │   ├── 📄 Key.php
+│   │       │   └── 📄 SignatureInvalidException.php
+│   │       └── 📄 VERSION
 │   ├── 📁 fruitcake/
 │   │   └── 📁 php-cors/
 │   │       ├── 📄 composer.json
@@ -10841,6 +10952,320 @@
 │   │   │       ├── 📄 AgentResult.php
 │   │   │       ├── 📄 functions.php
 │   │   │       └── 📄 KnownAgent.php
+│   │   ├── 📁 boost/
+│   │   │   ├── 📁 .ai/
+│   │   │   │   ├── 📁 boost/
+│   │   │   │   │   ├── 📄 core.blade.php
+│   │   │   │   │   └── 📁 skill/
+│   │   │   │   │       └── 📁 infer-conventions/
+│   │   │   │   │           ├── 📁 references/
+│   │   │   │   │           │   └── 📄 checklist.blade.php
+│   │   │   │   │           └── 📄 SKILL.blade.php
+│   │   │   │   ├── 📁 deployments/
+│   │   │   │   │   ├── 📄 core.blade.php
+│   │   │   │   │   └── 📁 skill/
+│   │   │   │   │       └── 📁 deploying-to-cloud/
+│   │   │   │   │           ├── 📁 reference/
+│   │   │   │   │           │   └── 📄 checklists.md
+│   │   │   │   │           └── 📄 SKILL.md
+│   │   │   │   ├── 📄 enforce-tests.blade.php
+│   │   │   │   ├── 📁 fluxui-free/
+│   │   │   │   │   └── 📁 skill/
+│   │   │   │   │       └── 📁 fluxui-development/
+│   │   │   │   │           └── 📄 SKILL.blade.php
+│   │   │   │   ├── 📁 fluxui-pro/
+│   │   │   │   │   └── 📁 skill/
+│   │   │   │   │       └── 📁 fluxui-development/
+│   │   │   │   │           └── 📄 SKILL.blade.php
+│   │   │   │   ├── 📁 folio/
+│   │   │   │   │   └── 📁 skill/
+│   │   │   │   │       └── 📁 folio-routing/
+│   │   │   │   │           └── 📄 SKILL.blade.php
+│   │   │   │   ├── 📄 foundation.blade.php
+│   │   │   │   ├── 📁 herd/
+│   │   │   │   │   └── 📄 core.blade.php
+│   │   │   │   ├── 📁 inertia-laravel/
+│   │   │   │   │   └── 📄 core.blade.php
+│   │   │   │   ├── 📁 inertia-react/
+│   │   │   │   │   ├── 📁 1/
+│   │   │   │   │   │   └── 📁 skill/
+│   │   │   │   │   │       └── 📁 inertia-react-development/
+│   │   │   │   │   │           └── 📄 SKILL.blade.php
+│   │   │   │   │   ├── 📁 2/
+│   │   │   │   │   │   └── 📁 skill/
+│   │   │   │   │   │       └── 📁 inertia-react-development/
+│   │   │   │   │   │           └── 📄 SKILL.blade.php
+│   │   │   │   │   └── 📄 core.blade.php
+│   │   │   │   ├── 📁 inertia-svelte/
+│   │   │   │   │   ├── 📁 1/
+│   │   │   │   │   │   └── 📁 skill/
+│   │   │   │   │   │       └── 📁 inertia-svelte-development/
+│   │   │   │   │   │           └── 📄 SKILL.blade.php
+│   │   │   │   │   ├── 📁 2/
+│   │   │   │   │   │   └── 📁 skill/
+│   │   │   │   │   │       └── 📁 inertia-svelte-development/
+│   │   │   │   │   │           └── 📄 SKILL.blade.php
+│   │   │   │   │   └── 📄 core.blade.php
+│   │   │   │   ├── 📁 inertia-vue/
+│   │   │   │   │   ├── 📁 1/
+│   │   │   │   │   │   └── 📁 skill/
+│   │   │   │   │   │       └── 📁 inertia-vue-development/
+│   │   │   │   │   │           └── 📄 SKILL.blade.php
+│   │   │   │   │   ├── 📁 2/
+│   │   │   │   │   │   └── 📁 skill/
+│   │   │   │   │   │       └── 📁 inertia-vue-development/
+│   │   │   │   │   │           └── 📄 SKILL.blade.php
+│   │   │   │   │   └── 📄 core.blade.php
+│   │   │   │   ├── 📁 laravel/
+│   │   │   │   │   ├── 📁 11/
+│   │   │   │   │   │   └── 📄 core.blade.php
+│   │   │   │   │   ├── 📁 12/
+│   │   │   │   │   │   └── 📄 core.blade.php
+│   │   │   │   │   ├── 📄 core.blade.php
+│   │   │   │   │   └── 📁 skill/
+│   │   │   │   │       ├── 📁 laravel-best-practices/
+│   │   │   │   │       │   ├── 📁 rules/
+│   │   │   │   │       │   │   ├── 📄 advanced-queries.md
+│   │   │   │   │       │   │   ├── 📄 architecture.md
+│   │   │   │   │       │   │   ├── 📄 blade-views.md
+│   │   │   │   │       │   │   ├── 📄 caching.md
+│   │   │   │   │       │   │   ├── 📄 collections.md
+│   │   │   │   │       │   │   ├── 📄 config.blade.php
+│   │   │   │   │       │   │   ├── 📄 db-performance.md
+│   │   │   │   │       │   │   ├── 📄 eloquent.md
+│   │   │   │   │       │   │   ├── 📄 error-handling.md
+│   │   │   │   │       │   │   ├── 📄 events-notifications.blade.php
+│   │   │   │   │       │   │   ├── 📄 http-client.md
+│   │   │   │   │       │   │   ├── 📄 mail.blade.php
+│   │   │   │   │       │   │   ├── 📄 migrations.blade.php
+│   │   │   │   │       │   │   ├── 📄 queue-jobs.md
+│   │   │   │   │       │   │   ├── 📄 routing.md
+│   │   │   │   │       │   │   ├── 📄 scheduling.blade.php
+│   │   │   │   │       │   │   ├── 📄 security.blade.php
+│   │   │   │   │       │   │   ├── 📄 style.md
+│   │   │   │   │       │   │   └── 📄 validation.md
+│   │   │   │   │       │   └── 📄 SKILL.md
+│   │   │   │   │       └── 📁 testing-best-practices/
+│   │   │   │   │           ├── 📁 rules/
+│   │   │   │   │           │   ├── 📄 assertions.blade.php
+│   │   │   │   │           │   ├── 📄 endpoint-tests.blade.php
+│   │   │   │   │           │   ├── 📄 finding-features.blade.php
+│   │   │   │   │           │   ├── 📄 isolation.blade.php
+│   │   │   │   │           │   ├── 📄 naming.blade.php
+│   │   │   │   │           │   ├── 📄 performance.blade.php
+│   │   │   │   │           │   ├── 📄 review.blade.php
+│   │   │   │   │           │   ├── 📄 security.blade.php
+│   │   │   │   │           │   └── 📄 test-data.blade.php
+│   │   │   │   │           └── 📄 SKILL.blade.php
+│   │   │   │   ├── 📁 livewire/
+│   │   │   │   │   ├── 📁 2/
+│   │   │   │   │   │   └── 📁 skill/
+│   │   │   │   │   │       └── 📁 livewire-development/
+│   │   │   │   │   │           └── 📄 SKILL.blade.php
+│   │   │   │   │   ├── 📁 3/
+│   │   │   │   │   │   └── 📁 skill/
+│   │   │   │   │   │       └── 📁 livewire-development/
+│   │   │   │   │   │           └── 📄 SKILL.blade.php
+│   │   │   │   │   ├── 📁 4/
+│   │   │   │   │   │   └── 📁 skill/
+│   │   │   │   │   │       └── 📁 livewire-development/
+│   │   │   │   │   │           ├── 📁 reference/
+│   │   │   │   │   │           │   └── 📄 javascript-hooks.md
+│   │   │   │   │   │           └── 📄 SKILL.blade.php
+│   │   │   │   │   └── 📄 core.blade.php
+│   │   │   │   ├── 📁 mcp/
+│   │   │   │   │   └── 📁 skill/
+│   │   │   │   │       └── 📁 mcp-development/
+│   │   │   │   │           └── 📄 SKILL.blade.php
+│   │   │   │   ├── 📁 pennant/
+│   │   │   │   │   └── 📁 skill/
+│   │   │   │   │       └── 📁 pennant-development/
+│   │   │   │   │           └── 📄 SKILL.md
+│   │   │   │   ├── 📁 pest/
+│   │   │   │   │   └── 📄 core.blade.php
+│   │   │   │   ├── 📁 php/
+│   │   │   │   │   ├── 📁 8.2/
+│   │   │   │   │   │   └── 📄 core.blade.php
+│   │   │   │   │   ├── 📁 8.3/
+│   │   │   │   │   │   └── 📄 core.blade.php
+│   │   │   │   │   ├── 📁 8.4/
+│   │   │   │   │   │   └── 📄 core.blade.php
+│   │   │   │   │   ├── 📁 8.5/
+│   │   │   │   │   │   └── 📄 core.blade.php
+│   │   │   │   │   └── 📄 core.blade.php
+│   │   │   │   ├── 📁 phpunit/
+│   │   │   │   │   └── 📄 core.blade.php
+│   │   │   │   ├── 📁 pint/
+│   │   │   │   │   └── 📄 core.blade.php
+│   │   │   │   ├── 📁 sail/
+│   │   │   │   │   └── 📄 core.blade.php
+│   │   │   │   ├── 📁 tailwindcss/
+│   │   │   │   │   ├── 📁 3/
+│   │   │   │   │   │   └── 📁 skill/
+│   │   │   │   │   │       └── 📁 tailwindcss-development/
+│   │   │   │   │   │           └── 📄 SKILL.md
+│   │   │   │   │   └── 📁 4/
+│   │   │   │   │       └── 📁 skill/
+│   │   │   │   │           └── 📁 tailwindcss-development/
+│   │   │   │   │               └── 📄 SKILL.md
+│   │   │   │   ├── 📁 volt/
+│   │   │   │   │   ├── 📄 core.blade.php
+│   │   │   │   │   └── 📁 skill/
+│   │   │   │   │       └── 📁 volt-development/
+│   │   │   │   │           └── 📄 SKILL.blade.php
+│   │   │   │   └── 📁 wayfinder/
+│   │   │   │       ├── 📄 core.blade.php
+│   │   │   │       └── 📁 skill/
+│   │   │   │           └── 📁 wayfinder-development/
+│   │   │   │               └── 📄 SKILL.blade.php
+│   │   │   ├── 📄 composer.json
+│   │   │   ├── 📁 config/
+│   │   │   │   └── 📄 boost.php
+│   │   │   ├── 📄 LICENSE.md
+│   │   │   ├── 📄 README.md
+│   │   │   ├── 📁 resources/
+│   │   │   │   └── 📁 icons/
+│   │   │   │       └── 📄 boost.svg
+│   │   │   └── 📁 src/
+│   │   │       ├── 📄 Boost.php
+│   │   │       ├── 📄 BoostManager.php
+│   │   │       ├── 📄 BoostServiceProvider.php
+│   │   │       ├── 📁 Concerns/
+│   │   │       │   ├── 📄 DisplayHelper.php
+│   │   │       │   ├── 📄 MakesHttpRequests.php
+│   │   │       │   ├── 📄 ReadsLogs.php
+│   │   │       │   ├── 📄 RendersBladeGuidelines.php
+│   │   │       │   └── 📄 ReportsSkillParseFailures.php
+│   │   │       ├── 📁 Console/
+│   │   │       │   ├── 📄 AddSkillCommand.php
+│   │   │       │   ├── 📁 Enums/
+│   │   │       │   │   └── 📄 Theme.php
+│   │   │       │   ├── 📄 ExecuteToolCommand.php
+│   │   │       │   ├── 📄 InstallCommand.php
+│   │   │       │   ├── 📄 ListSkillCommand.php
+│   │   │       │   ├── 📄 RulesIndexCommand.php
+│   │   │       │   ├── 📄 StartCommand.php
+│   │   │       │   └── 📄 UpdateCommand.php
+│   │   │       ├── 📁 Contracts/
+│   │   │       │   ├── 📄 SupportsGuidelines.php
+│   │   │       │   ├── 📄 SupportsMcp.php
+│   │   │       │   └── 📄 SupportsSkills.php
+│   │   │       ├── 📁 Install/
+│   │   │       │   ├── 📁 Agents/
+│   │   │       │   │   ├── 📄 Agent.php
+│   │   │       │   │   ├── 📄 Amp.php
+│   │   │       │   │   ├── 📄 Antigravity.php
+│   │   │       │   │   ├── 📄 ClaudeCode.php
+│   │   │       │   │   ├── 📄 Codex.php
+│   │   │       │   │   ├── 📄 Copilot.php
+│   │   │       │   │   ├── 📄 Cursor.php
+│   │   │       │   │   ├── 📄 Factory.php
+│   │   │       │   │   ├── 📄 GrokBuild.php
+│   │   │       │   │   ├── 📄 Junie.php
+│   │   │       │   │   ├── 📄 Kiro.php
+│   │   │       │   │   ├── 📄 OpenCode.php
+│   │   │       │   │   ├── 📄 Pi.php
+│   │   │       │   │   └── 📄 Zed.php
+│   │   │       │   ├── 📄 AgentsDetector.php
+│   │   │       │   ├── 📁 Assists/
+│   │   │       │   │   └── 📄 Inertia.php
+│   │   │       │   ├── 📁 Concerns/
+│   │   │       │   │   └── 📄 DiscoverPackagePaths.php
+│   │   │       │   ├── 📁 Contracts/
+│   │   │       │   │   └── 📄 DetectionStrategy.php
+│   │   │       │   ├── 📁 Detection/
+│   │   │       │   │   ├── 📄 CommandDetectionStrategy.php
+│   │   │       │   │   ├── 📄 CompositeDetectionStrategy.php
+│   │   │       │   │   ├── 📄 DetectionStrategyFactory.php
+│   │   │       │   │   ├── 📄 DirectoryDetectionStrategy.php
+│   │   │       │   │   └── 📄 FileDetectionStrategy.php
+│   │   │       │   ├── 📁 Enums/
+│   │   │       │   │   ├── 📄 McpInstallationStrategy.php
+│   │   │       │   │   └── 📄 Platform.php
+│   │   │       │   ├── 📄 GuidelineAssist.php
+│   │   │       │   ├── 📄 GuidelineComposer.php
+│   │   │       │   ├── 📄 GuidelineConfig.php
+│   │   │       │   ├── 📄 GuidelineWriter.php
+│   │   │       │   ├── 📄 Herd.php
+│   │   │       │   ├── 📄 MarkdownFormatter.php
+│   │   │       │   ├── 📁 Mcp/
+│   │   │       │   │   ├── 📄 FileWriter.php
+│   │   │       │   │   └── 📄 TomlFileWriter.php
+│   │   │       │   ├── 📄 McpWriter.php
+│   │   │       │   ├── 📄 Nightwatch.php
+│   │   │       │   ├── 📄 RuleComposer.php
+│   │   │       │   ├── 📄 Sail.php
+│   │   │       │   ├── 📄 Skill.php
+│   │   │       │   ├── 📄 SkillComposer.php
+│   │   │       │   ├── 📄 SkillWriter.php
+│   │   │       │   └── 📄 ThirdPartyPackage.php
+│   │   │       ├── 📁 Mcp/
+│   │   │       │   ├── 📄 Boost.php
+│   │   │       │   ├── 📁 Methods/
+│   │   │       │   │   └── 📄 CallToolWithExecutor.php
+│   │   │       │   ├── 📁 Prompts/
+│   │   │       │   │   ├── 📄 .gitkeep
+│   │   │       │   │   ├── 📁 LaravelCodeSimplifier/
+│   │   │       │   │   │   ├── 📄 laravel-code-simplifier.blade.php
+│   │   │       │   │   │   └── 📄 LaravelCodeSimplifier.php
+│   │   │       │   │   ├── 📁 UpgradeAiSdkv1/
+│   │   │       │   │   │   ├── 📄 upgrade-ai-sdk-v1.blade.php
+│   │   │       │   │   │   └── 📄 UpgradeAiSdkV1.php
+│   │   │       │   │   ├── 📁 UpgradeInertiav3/
+│   │   │       │   │   │   ├── 📄 upgrade-inertia-v3.blade.php
+│   │   │       │   │   │   └── 📄 UpgradeInertiaV3.php
+│   │   │       │   │   ├── 📁 UpgradeLaravelv13/
+│   │   │       │   │   │   ├── 📄 upgrade-laravel-v13.blade.php
+│   │   │       │   │   │   └── 📄 UpgradeLaravelV13.php
+│   │   │       │   │   └── 📁 UpgradeLivewirev4/
+│   │   │       │   │       ├── 📄 upgrade-livewire-v4.blade.php
+│   │   │       │   │       └── 📄 UpgradeLivewireV4.php
+│   │   │       │   ├── 📁 Resources/
+│   │   │       │   │   └── 📄 ApplicationInfo.php
+│   │   │       │   ├── 📄 ToolExecutor.php
+│   │   │       │   ├── 📄 ToolRegistry.php
+│   │   │       │   └── 📁 Tools/
+│   │   │       │       ├── 📄 BrowserLogs.php
+│   │   │       │       ├── 📄 DatabaseConnections.php
+│   │   │       │       ├── 📄 DatabaseQuery.php
+│   │   │       │       ├── 📁 DatabaseSchema/
+│   │   │       │       │   ├── 📄 DatabaseSchemaDriver.php
+│   │   │       │       │   ├── 📄 MySQLSchemaDriver.php
+│   │   │       │       │   ├── 📄 NullSchemaDriver.php
+│   │   │       │       │   ├── 📄 PostgreSQLSchemaDriver.php
+│   │   │       │       │   ├── 📄 SchemaDriverFactory.php
+│   │   │       │       │   └── 📄 SQLiteSchemaDriver.php
+│   │   │       │       ├── 📄 DatabaseSchema.php
+│   │   │       │       ├── 📄 GetAbsoluteUrl.php
+│   │   │       │       ├── 📄 LastError.php
+│   │   │       │       ├── 📄 ReadLogEntries.php
+│   │   │       │       ├── 📄 RecordRule.php
+│   │   │       │       ├── 📄 SearchDocs.php
+│   │   │       │       └── 📄 Tinker.php
+│   │   │       ├── 📁 Middleware/
+│   │   │       │   └── 📄 InjectBoost.php
+│   │   │       ├── 📁 Rules/
+│   │   │       │   ├── 📄 RuleFrontmatter.php
+│   │   │       │   └── 📄 RuleRepository.php
+│   │   │       ├── 📁 Services/
+│   │   │       │   └── 📄 BrowserLogger.php
+│   │   │       ├── 📁 Skills/
+│   │   │       │   └── 📁 Remote/
+│   │   │       │       ├── 📄 AuditResult.php
+│   │   │       │       ├── 📄 GitHubRepository.php
+│   │   │       │       ├── 📄 GitHubSkillProvider.php
+│   │   │       │       ├── 📄 RemoteSkill.php
+│   │   │       │       ├── 📄 Risk.php
+│   │   │       │       └── 📄 SkillAuditor.php
+│   │   │       └── 📁 Support/
+│   │   │           ├── 📄 CommandNormalizer.php
+│   │   │           ├── 📄 Composer.php
+│   │   │           ├── 📄 Config.php
+│   │   │           ├── 📄 Fences.php
+│   │   │           ├── 📄 Npm.php
+│   │   │           ├── 📄 PackageRegistry.php
+│   │   │           ├── 📄 RenderFailures.php
+│   │   │           └── 📄 SkillParseFailures.php
 │   │   ├── 📁 breeze/
 │   │   │   ├── 📄 composer.json
 │   │   │   ├── 📄 LICENSE.md
@@ -13492,6 +13917,259 @@
 │   │   │               ├── 📄 ViewFinderInterface.php
 │   │   │               ├── 📄 ViewName.php
 │   │   │               └── 📄 ViewServiceProvider.php
+│   │   ├── 📁 mcp/
+│   │   │   ├── 📁 .agents/
+│   │   │   │   ├── 📄 resume
+│   │   │   │   └── 📄 setup
+│   │   │   ├── 📄 composer.json
+│   │   │   ├── 📁 config/
+│   │   │   │   └── 📄 mcp.php
+│   │   │   ├── 📄 LICENSE.md
+│   │   │   ├── 📄 README.md
+│   │   │   ├── 📁 resources/
+│   │   │   │   ├── 📁 boost/
+│   │   │   │   │   └── 📁 skills/
+│   │   │   │   │       └── 📁 mcp-development/
+│   │   │   │   │           ├── 📁 references/
+│   │   │   │   │           │   └── 📄 app.md
+│   │   │   │   │           └── 📄 SKILL.blade.php
+│   │   │   │   ├── 📁 js/
+│   │   │   │   │   ├── 📄 mcp-sdk.js
+│   │   │   │   │   └── 📄 mcp-sdk.min.js
+│   │   │   │   └── 📁 views/
+│   │   │   │       └── 📁 mcp/
+│   │   │   │           ├── 📄 authorize.blade.php
+│   │   │   │           └── 📁 components/
+│   │   │   │               └── 📄 app.blade.php
+│   │   │   ├── 📁 routes/
+│   │   │   │   └── 📄 ai.php
+│   │   │   ├── 📁 src/
+│   │   │   │   ├── 📁 Client/
+│   │   │   │   │   ├── 📄 ClientManager.php
+│   │   │   │   │   ├── 📁 Contracts/
+│   │   │   │   │   │   ├── 📄 Method.php
+│   │   │   │   │   │   ├── 📄 MirrorsParameters.php
+│   │   │   │   │   │   ├── 📄 Transport.php
+│   │   │   │   │   │   └── 📄 UsesProtocol.php
+│   │   │   │   │   ├── 📁 Exceptions/
+│   │   │   │   │   │   ├── 📄 AuthorizationRequiredException.php
+│   │   │   │   │   │   ├── 📄 OAuthException.php
+│   │   │   │   │   │   ├── 📄 TimeoutException.php
+│   │   │   │   │   │   └── 📄 TransportException.php
+│   │   │   │   │   ├── 📁 Methods/
+│   │   │   │   │   │   ├── 📁 Concerns/
+│   │   │   │   │   │   │   └── 📄 PaginatesList.php
+│   │   │   │   │   │   ├── 📄 Discover.php
+│   │   │   │   │   │   ├── 📄 Initialize.php
+│   │   │   │   │   │   ├── 📄 Ping.php
+│   │   │   │   │   │   ├── 📁 Prompts/
+│   │   │   │   │   │   │   ├── 📄 GetPrompt.php
+│   │   │   │   │   │   │   └── 📄 ListPrompts.php
+│   │   │   │   │   │   ├── 📁 Resources/
+│   │   │   │   │   │   │   ├── 📄 ListResources.php
+│   │   │   │   │   │   │   └── 📄 ReadResource.php
+│   │   │   │   │   │   └── 📁 Tools/
+│   │   │   │   │   │       ├── 📄 CallTool.php
+│   │   │   │   │   │       └── 📄 ListTools.php
+│   │   │   │   │   ├── 📄 NegotiatedConnection.php
+│   │   │   │   │   ├── 📁 OAuth/
+│   │   │   │   │   │   ├── 📄 AuthServerDiscovery.php
+│   │   │   │   │   │   ├── 📄 AuthServerMetadata.php
+│   │   │   │   │   │   ├── 📄 ClientRegistration.php
+│   │   │   │   │   │   ├── 📁 Concerns/
+│   │   │   │   │   │   │   └── 📄 InteractsWithOAuthEndpoints.php
+│   │   │   │   │   │   ├── 📄 DiscoveryResult.php
+│   │   │   │   │   │   ├── 📄 DynamicClientRegistration.php
+│   │   │   │   │   │   ├── 📁 Enums/
+│   │   │   │   │   │   │   └── 📄 TokenEndpointAuthMethod.php
+│   │   │   │   │   │   ├── 📄 OAuthClient.php
+│   │   │   │   │   │   ├── 📄 OAuthConfig.php
+│   │   │   │   │   │   ├── 📄 OAuthRouteRegistrar.php
+│   │   │   │   │   │   ├── 📄 Pkce.php
+│   │   │   │   │   │   ├── 📄 TokenSet.php
+│   │   │   │   │   │   └── 📄 WwwAuthenticateChallenge.php
+│   │   │   │   │   ├── 📁 Primitives/
+│   │   │   │   │   │   ├── 📄 Prompt.php
+│   │   │   │   │   │   ├── 📄 Resource.php
+│   │   │   │   │   │   └── 📄 Tool.php
+│   │   │   │   │   ├── 📄 Protocol.php
+│   │   │   │   │   ├── 📄 ResponseCache.php
+│   │   │   │   │   ├── 📁 Schema/
+│   │   │   │   │   │   ├── 📄 DiscoverResult.php
+│   │   │   │   │   │   ├── 📄 InitializeResult.php
+│   │   │   │   │   │   ├── 📄 PromptResult.php
+│   │   │   │   │   │   ├── 📄 ResourceReadResult.php
+│   │   │   │   │   │   └── 📄 ToolResult.php
+│   │   │   │   │   └── 📁 Transport/
+│   │   │   │   │       ├── 📄 HttpTransport.php
+│   │   │   │   │       ├── 📄 StdioTransport.php
+│   │   │   │   │       └── 📄 TransportFactory.php
+│   │   │   │   ├── 📄 Client.php
+│   │   │   │   ├── 📁 Console/
+│   │   │   │   │   └── 📁 Commands/
+│   │   │   │   │       ├── 📄 InspectorCommand.php
+│   │   │   │   │       ├── 📄 MakeAppResourceCommand.php
+│   │   │   │   │       ├── 📄 MakePromptCommand.php
+│   │   │   │   │       ├── 📄 MakeResourceCommand.php
+│   │   │   │   │       ├── 📄 MakeServerCommand.php
+│   │   │   │   │       ├── 📄 MakeToolCommand.php
+│   │   │   │   │       └── 📄 StartCommand.php
+│   │   │   │   ├── 📁 Enums/
+│   │   │   │   │   ├── 📄 CacheScope.php
+│   │   │   │   │   ├── 📄 ErrorCode.php
+│   │   │   │   │   ├── 📄 Extension.php
+│   │   │   │   │   ├── 📄 IconTheme.php
+│   │   │   │   │   ├── 📄 MetaKey.php
+│   │   │   │   │   ├── 📄 ProtocolHandshake.php
+│   │   │   │   │   ├── 📄 ProtocolVersion.php
+│   │   │   │   │   ├── 📄 RequestHeader.php
+│   │   │   │   │   └── 📄 Role.php
+│   │   │   │   ├── 📁 Exceptions/
+│   │   │   │   │   ├── 📄 ClientException.php
+│   │   │   │   │   ├── 📄 JsonRpcException.php
+│   │   │   │   │   ├── 📄 MirroredParameterException.php
+│   │   │   │   │   ├── 📄 NotImplementedException.php
+│   │   │   │   │   └── 📄 SessionExpiredException.php
+│   │   │   │   ├── 📁 Facades/
+│   │   │   │   │   └── 📄 Mcp.php
+│   │   │   │   ├── 📄 Request.php
+│   │   │   │   ├── 📄 Response.php
+│   │   │   │   ├── 📄 ResponseFactory.php
+│   │   │   │   ├── 📁 Schema/
+│   │   │   │   │   ├── 📄 Icon.php
+│   │   │   │   │   └── 📄 Implementation.php
+│   │   │   │   ├── 📁 Server/
+│   │   │   │   │   ├── 📁 Annotations/
+│   │   │   │   │   │   ├── 📄 Annotation.php
+│   │   │   │   │   │   ├── 📄 Audience.php
+│   │   │   │   │   │   ├── 📄 LastModified.php
+│   │   │   │   │   │   └── 📄 Priority.php
+│   │   │   │   │   ├── 📄 AppResource.php
+│   │   │   │   │   ├── 📁 Attributes/
+│   │   │   │   │   │   ├── 📄 AppMeta.php
+│   │   │   │   │   │   ├── 📄 Cacheable.php
+│   │   │   │   │   │   ├── 📄 Description.php
+│   │   │   │   │   │   ├── 📄 Icon.php
+│   │   │   │   │   │   ├── 📄 Instructions.php
+│   │   │   │   │   │   ├── 📄 MimeType.php
+│   │   │   │   │   │   ├── 📄 Name.php
+│   │   │   │   │   │   ├── 📄 RendersApp.php
+│   │   │   │   │   │   ├── 📄 ServerAttribute.php
+│   │   │   │   │   │   ├── 📄 Title.php
+│   │   │   │   │   │   ├── 📄 Uri.php
+│   │   │   │   │   │   └── 📄 Version.php
+│   │   │   │   │   ├── 📁 Completions/
+│   │   │   │   │   │   ├── 📄 ArrayCompletionResponse.php
+│   │   │   │   │   │   ├── 📄 CompletionHelper.php
+│   │   │   │   │   │   ├── 📄 CompletionResponse.php
+│   │   │   │   │   │   ├── 📄 DirectCompletionResponse.php
+│   │   │   │   │   │   └── 📄 EnumCompletionResponse.php
+│   │   │   │   │   ├── 📁 Concerns/
+│   │   │   │   │   │   ├── 📄 HasAnnotations.php
+│   │   │   │   │   │   ├── 📄 HasIcons.php
+│   │   │   │   │   │   ├── 📄 HasMeta.php
+│   │   │   │   │   │   ├── 📄 HasStructuredContent.php
+│   │   │   │   │   │   └── 📄 ReadsAttributes.php
+│   │   │   │   │   ├── 📁 Content/
+│   │   │   │   │   │   ├── 📄 Audio.php
+│   │   │   │   │   │   ├── 📄 Blob.php
+│   │   │   │   │   │   ├── 📄 Image.php
+│   │   │   │   │   │   ├── 📄 Notification.php
+│   │   │   │   │   │   ├── 📄 ResourceLink.php
+│   │   │   │   │   │   ├── 📄 StructuredContentText.php
+│   │   │   │   │   │   └── 📄 Text.php
+│   │   │   │   │   ├── 📁 Contracts/
+│   │   │   │   │   │   ├── 📄 Annotation.php
+│   │   │   │   │   │   ├── 📄 Completable.php
+│   │   │   │   │   │   ├── 📄 Content.php
+│   │   │   │   │   │   ├── 📄 Errable.php
+│   │   │   │   │   │   ├── 📄 HasUriTemplate.php
+│   │   │   │   │   │   ├── 📄 Method.php
+│   │   │   │   │   │   └── 📄 Transport.php
+│   │   │   │   │   ├── 📁 Http/
+│   │   │   │   │   │   └── 📁 Controllers/
+│   │   │   │   │   │       └── 📄 OAuthRegisterController.php
+│   │   │   │   │   ├── 📄 McpServiceProvider.php
+│   │   │   │   │   ├── 📁 Methods/
+│   │   │   │   │   │   ├── 📄 CallTool.php
+│   │   │   │   │   │   ├── 📄 CompletionComplete.php
+│   │   │   │   │   │   ├── 📁 Concerns/
+│   │   │   │   │   │   │   ├── 📄 InteractsWithResponses.php
+│   │   │   │   │   │   │   ├── 📄 ResolvesPrompts.php
+│   │   │   │   │   │   │   └── 📄 ResolvesResources.php
+│   │   │   │   │   │   ├── 📄 Discover.php
+│   │   │   │   │   │   ├── 📄 GetPrompt.php
+│   │   │   │   │   │   ├── 📄 Initialize.php
+│   │   │   │   │   │   ├── 📄 Listen.php
+│   │   │   │   │   │   ├── 📄 ListPrompts.php
+│   │   │   │   │   │   ├── 📄 ListResources.php
+│   │   │   │   │   │   ├── 📄 ListResourceTemplates.php
+│   │   │   │   │   │   ├── 📄 ListTools.php
+│   │   │   │   │   │   ├── 📄 Ping.php
+│   │   │   │   │   │   └── 📄 ReadResource.php
+│   │   │   │   │   ├── 📁 Middleware/
+│   │   │   │   │   │   ├── 📄 AddAuthorizationFramingHeaders.php
+│   │   │   │   │   │   ├── 📄 AddWwwAuthenticateHeader.php
+│   │   │   │   │   │   ├── 📄 ReorderJsonAccept.php
+│   │   │   │   │   │   └── 📄 ValidateMcpHeaders.php
+│   │   │   │   │   ├── 📁 Pagination/
+│   │   │   │   │   │   └── 📄 CursorPaginator.php
+│   │   │   │   │   ├── 📄 Primitive.php
+│   │   │   │   │   ├── 📄 Prompt.php
+│   │   │   │   │   ├── 📁 Prompts/
+│   │   │   │   │   │   └── 📄 Argument.php
+│   │   │   │   │   ├── 📄 Registrar.php
+│   │   │   │   │   ├── 📄 Resource.php
+│   │   │   │   │   ├── 📄 ServerContext.php
+│   │   │   │   │   ├── 📁 Testing/
+│   │   │   │   │   │   ├── 📄 PendingTestResponse.php
+│   │   │   │   │   │   ├── 📄 TestListResponse.php
+│   │   │   │   │   │   └── 📄 TestResponse.php
+│   │   │   │   │   ├── 📄 Tool.php
+│   │   │   │   │   ├── 📄 ToolInvoker.php
+│   │   │   │   │   ├── 📁 Tools/
+│   │   │   │   │   │   ├── 📁 Annotations/
+│   │   │   │   │   │   │   ├── 📄 IsDestructive.php
+│   │   │   │   │   │   │   ├── 📄 IsIdempotent.php
+│   │   │   │   │   │   │   ├── 📄 IsOpenWorld.php
+│   │   │   │   │   │   │   ├── 📄 IsReadOnly.php
+│   │   │   │   │   │   │   └── 📄 ToolAnnotation.php
+│   │   │   │   │   │   ├── 📄 ExecuteTools.php
+│   │   │   │   │   │   ├── 📄 SearchTools.php
+│   │   │   │   │   │   └── 📄 ToolSearch.php
+│   │   │   │   │   ├── 📁 Transport/
+│   │   │   │   │   │   ├── 📄 FakeTransporter.php
+│   │   │   │   │   │   ├── 📄 HttpTransport.php
+│   │   │   │   │   │   └── 📄 StdioTransport.php
+│   │   │   │   │   └── 📁 Ui/
+│   │   │   │   │       ├── 📄 AppMeta.php
+│   │   │   │   │       ├── 📄 Csp.php
+│   │   │   │   │       ├── 📁 Enums/
+│   │   │   │   │       │   ├── 📄 Library.php
+│   │   │   │   │       │   ├── 📄 Permission.php
+│   │   │   │   │       │   └── 📄 Visibility.php
+│   │   │   │   │       └── 📄 Permissions.php
+│   │   │   │   ├── 📄 Server.php
+│   │   │   │   ├── 📁 Support/
+│   │   │   │   │   ├── 📄 MirroredParameter.php
+│   │   │   │   │   ├── 📄 MirroredParameters.php
+│   │   │   │   │   ├── 📄 MirroredParameterType.php
+│   │   │   │   │   ├── 📄 SchemaPath.php
+│   │   │   │   │   ├── 📄 UriTemplate.php
+│   │   │   │   │   └── 📄 ValidationMessages.php
+│   │   │   │   ├── 📁 Transport/
+│   │   │   │   │   ├── 📄 HeaderValue.php
+│   │   │   │   │   ├── 📄 JsonRpcNotification.php
+│   │   │   │   │   ├── 📄 JsonRpcRequest.php
+│   │   │   │   │   └── 📄 JsonRpcResponse.php
+│   │   │   │   └── 📄 WebClient.php
+│   │   │   └── 📁 stubs/
+│   │   │       ├── 📄 mcp-app-resource.stub
+│   │   │       ├── 📄 mcp-app-resource.view.stub
+│   │   │       ├── 📄 mcp-prompt.stub
+│   │   │       ├── 📄 mcp-resource.stub
+│   │   │       ├── 📄 mcp-server.stub
+│   │   │       └── 📄 mcp-tool.stub
 │   │   ├── 📁 pail/
 │   │   │   ├── 📄 composer.json
 │   │   │   ├── 📄 LICENSE.md
@@ -13669,6 +14347,70 @@
 │   │   │       │       ├── 📄 TextPromptRenderer.php
 │   │   │       │       └── 📄 TitleRenderer.php
 │   │   │       └── 📄 Title.php
+│   │   ├── 📁 roster/
+│   │   │   ├── 📄 composer.json
+│   │   │   ├── 📄 LICENSE.md
+│   │   │   ├── 📄 pint.json
+│   │   │   ├── 📄 README.md
+│   │   │   ├── 📄 rector.php
+│   │   │   └── 📁 src/
+│   │   │       ├── 📄 ApproachResult.php
+│   │   │       ├── 📁 Console/
+│   │   │       │   └── 📄 ScanCommand.php
+│   │   │       ├── 📁 Detectors/
+│   │   │       │   ├── 📄 AgentsDetector.php
+│   │   │       │   ├── 📄 ApproachDetector.php
+│   │   │       │   ├── 📁 Approaches/
+│   │   │       │   │   ├── 📄 AuthorizationStyle.php
+│   │   │       │   │   ├── 📄 AuthRetrievalStyle.php
+│   │   │       │   │   ├── 📄 CommandSignatureSyntax.php
+│   │   │       │   │   ├── 📄 Convention.php
+│   │   │       │   │   ├── 📄 EnumCasing.php
+│   │   │       │   │   ├── 📄 MassAssignment.php
+│   │   │       │   │   ├── 📄 ModelKeyStyle.php
+│   │   │       │   │   ├── 📄 NotificationSendStyle.php
+│   │   │       │   │   ├── 📄 ValidationStyle.php
+│   │   │       │   │   └── 📄 ValidationSyntax.php
+│   │   │       │   ├── 📄 BrowserTestFrameworkDetector.php
+│   │   │       │   ├── 📄 EditorsDetector.php
+│   │   │       │   ├── 📄 FrontendDetector.php
+│   │   │       │   ├── 📄 MarkerDetector.php
+│   │   │       │   └── 📄 StackDetector.php
+│   │   │       ├── 📁 Ecosystems/
+│   │   │       │   ├── 📄 Ecosystem.php
+│   │   │       │   └── 📄 JsEcosystem.php
+│   │   │       ├── 📁 Enums/
+│   │   │       │   ├── 📄 Agent.php
+│   │   │       │   ├── 📄 Approach.php
+│   │   │       │   ├── 📄 BrowserTestFramework.php
+│   │   │       │   ├── 📄 Editor.php
+│   │   │       │   ├── 📄 Frontend.php
+│   │   │       │   ├── 📄 JsPackageManager.php
+│   │   │       │   ├── 📄 PackageSource.php
+│   │   │       │   └── 📄 Stack.php
+│   │   │       ├── 📁 Facades/
+│   │   │       │   └── 📄 Project.php
+│   │   │       ├── 📄 Package.php
+│   │   │       ├── 📄 PackageCollection.php
+│   │   │       ├── 📄 ProjectManager.php
+│   │   │       ├── 📄 ProjectScan.php
+│   │   │       ├── 📄 RosterServiceProvider.php
+│   │   │       ├── 📁 Scanners/
+│   │   │       │   ├── 📄 BunPackageLock.php
+│   │   │       │   ├── 📄 ComposerLock.php
+│   │   │       │   ├── 📁 Concerns/
+│   │   │       │   │   └── 📄 ParsesManifests.php
+│   │   │       │   ├── 📄 JsLockfile.php
+│   │   │       │   ├── 📄 JsPackageScanner.php
+│   │   │       │   ├── 📄 NpmPackageLock.php
+│   │   │       │   ├── 📄 PackageJson.php
+│   │   │       │   ├── 📄 PackageScanner.php
+│   │   │       │   ├── 📄 PnpmPackageLock.php
+│   │   │       │   └── 📄 YarnPackageLock.php
+│   │   │       └── 📁 Support/
+│   │   │           ├── 📄 ApproachSet.php
+│   │   │           ├── 📄 EnumSet.php
+│   │   │           └── 📄 SourceFiles.php
 │   │   ├── 📁 serializable-closure/
 │   │   │   ├── 📄 composer.json
 │   │   │   ├── 📄 LICENSE.md
@@ -13692,6 +14434,55 @@
 │   │   │       │   ├── 📄 ReflectionClosure.php
 │   │   │       │   └── 📄 SelfReference.php
 │   │   │       └── 📄 UnsignedSerializableClosure.php
+│   │   ├── 📁 socialite/
+│   │   │   ├── 📄 composer.json
+│   │   │   ├── 📄 LICENSE.md
+│   │   │   ├── 📄 README.md
+│   │   │   ├── 📁 resources/
+│   │   │   │   └── 📁 boost/
+│   │   │   │       └── 📁 skills/
+│   │   │   │           └── 📁 socialite-development/
+│   │   │   │               └── 📄 SKILL.md
+│   │   │   └── 📁 src/
+│   │   │       ├── 📄 AbstractUser.php
+│   │   │       ├── 📁 Contracts/
+│   │   │       │   ├── 📄 Factory.php
+│   │   │       │   ├── 📄 Provider.php
+│   │   │       │   └── 📄 User.php
+│   │   │       ├── 📁 Exceptions/
+│   │   │       │   └── 📄 DriverMissingConfigurationException.php
+│   │   │       ├── 📁 Facades/
+│   │   │       │   └── 📄 Socialite.php
+│   │   │       ├── 📁 One/
+│   │   │       │   ├── 📄 AbstractProvider.php
+│   │   │       │   ├── 📄 MissingTemporaryCredentialsException.php
+│   │   │       │   ├── 📄 MissingVerifierException.php
+│   │   │       │   ├── 📄 TwitterProvider.php
+│   │   │       │   └── 📄 User.php
+│   │   │       ├── 📄 Socialite.php
+│   │   │       ├── 📄 SocialiteManager.php
+│   │   │       ├── 📄 SocialiteServiceProvider.php
+│   │   │       ├── 📁 Testing/
+│   │   │       │   ├── 📄 FakeProvider.php
+│   │   │       │   └── 📄 SocialiteFake.php
+│   │   │       └── 📁 Two/
+│   │   │           ├── 📄 AbstractProvider.php
+│   │   │           ├── 📄 BitbucketProvider.php
+│   │   │           ├── 📄 FacebookProvider.php
+│   │   │           ├── 📄 GithubProvider.php
+│   │   │           ├── 📄 GitlabProvider.php
+│   │   │           ├── 📄 GoogleProvider.php
+│   │   │           ├── 📄 InvalidStateException.php
+│   │   │           ├── 📄 LinkedInOpenIdProvider.php
+│   │   │           ├── 📄 LinkedInProvider.php
+│   │   │           ├── 📄 ProviderInterface.php
+│   │   │           ├── 📄 SlackOpenIdProvider.php
+│   │   │           ├── 📄 SlackProvider.php
+│   │   │           ├── 📄 Token.php
+│   │   │           ├── 📄 TwitchProvider.php
+│   │   │           ├── 📄 TwitterProvider.php
+│   │   │           ├── 📄 User.php
+│   │   │           └── 📄 XProvider.php
 │   │   └── 📁 tinker/
 │   │       ├── 📄 composer.json
 │   │       ├── 📁 config/
@@ -14304,6 +15095,38 @@
 │   │   │       ├── 📄 GeneratedExtensionToMimeTypeMap.php
 │   │   │       ├── 📄 MimeTypeDetector.php
 │   │   │       └── 📄 OverridingExtensionToMimeTypeMap.php
+│   │   ├── 📁 oauth1-client/
+│   │   │   ├── 📄 composer.json
+│   │   │   ├── 📄 LICENSE
+│   │   │   ├── 📄 README.md
+│   │   │   └── 📁 src/
+│   │   │       ├── 📁 Credentials/
+│   │   │       │   ├── 📄 ClientCredentials.php
+│   │   │       │   ├── 📄 ClientCredentialsInterface.php
+│   │   │       │   ├── 📄 Credentials.php
+│   │   │       │   ├── 📄 CredentialsException.php
+│   │   │       │   ├── 📄 CredentialsInterface.php
+│   │   │       │   ├── 📄 RsaClientCredentials.php
+│   │   │       │   ├── 📄 TemporaryCredentials.php
+│   │   │       │   └── 📄 TokenCredentials.php
+│   │   │       ├── 📁 Server/
+│   │   │       │   ├── 📄 Bitbucket.php
+│   │   │       │   ├── 📄 Magento.php
+│   │   │       │   ├── 📄 Server.php
+│   │   │       │   ├── 📄 Trello.php
+│   │   │       │   ├── 📄 Tumblr.php
+│   │   │       │   ├── 📄 Twitter.php
+│   │   │       │   ├── 📄 User.php
+│   │   │       │   ├── 📄 Uservoice.php
+│   │   │       │   ├── 📄 X.php
+│   │   │       │   └── 📄 Xing.php
+│   │   │       └── 📁 Signature/
+│   │   │           ├── 📄 EncodesUrl.php
+│   │   │           ├── 📄 HmacSha1Signature.php
+│   │   │           ├── 📄 PlainTextSignature.php
+│   │   │           ├── 📄 RsaSha1Signature.php
+│   │   │           ├── 📄 Signature.php
+│   │   │           └── 📄 SignatureInterface.php
 │   │   ├── 📁 uri/
 │   │   │   ├── 📄 BaseUri.php
 │   │   │   ├── 📄 Builder.php
@@ -17038,6 +17861,612 @@
 │   │               ├── 📄 None.php
 │   │               ├── 📄 Option.php
 │   │               └── 📄 Some.php
+│   ├── 📁 phpseclib/
+│   │   └── 📁 phpseclib/
+│   │       ├── 📄 AUTHORS
+│   │       ├── 📄 BACKERS.md
+│   │       ├── 📄 composer.json
+│   │       ├── 📄 LICENSE
+│   │       ├── 📁 phpseclib/
+│   │       │   ├── 📁 Common/
+│   │       │   │   ├── 📄 ConstantUtilityTrait.php
+│   │       │   │   └── 📁 Functions/
+│   │       │   │       ├── 📄 Arrays.php
+│   │       │   │       ├── 📄 Files.php
+│   │       │   │       └── 📄 Strings.php
+│   │       │   ├── 📁 Crypt/
+│   │       │   │   ├── 📄 AES.php
+│   │       │   │   ├── 📄 Blowfish.php
+│   │       │   │   ├── 📄 ChaCha20.php
+│   │       │   │   ├── 📁 Common/
+│   │       │   │   │   ├── 📄 AsymmetricKey.php
+│   │       │   │   │   ├── 📄 BlockCipher.php
+│   │       │   │   │   ├── 📁 Formats/
+│   │       │   │   │   │   ├── 📁 Keys/
+│   │       │   │   │   │   │   ├── 📄 JWK.php
+│   │       │   │   │   │   │   ├── 📄 OpenSSH.php
+│   │       │   │   │   │   │   ├── 📄 PKCS.php
+│   │       │   │   │   │   │   ├── 📄 PKCS1.php
+│   │       │   │   │   │   │   ├── 📄 PKCS8.php
+│   │       │   │   │   │   │   └── 📄 PuTTY.php
+│   │       │   │   │   │   └── 📁 Signature/
+│   │       │   │   │   │       └── 📄 Raw.php
+│   │       │   │   │   ├── 📄 PrivateKey.php
+│   │       │   │   │   ├── 📄 PublicKey.php
+│   │       │   │   │   ├── 📄 StreamCipher.php
+│   │       │   │   │   ├── 📄 SymmetricKey.php
+│   │       │   │   │   └── 📁 Traits/
+│   │       │   │   │       ├── 📄 ASN1AlgorithmIdentifier.php
+│   │       │   │   │       ├── 📄 Fingerprint.php
+│   │       │   │   │       ├── 📄 PasswordProtected.php
+│   │       │   │   │       └── 📄 PKCS12Helper.php
+│   │       │   │   ├── 📄 DES.php
+│   │       │   │   ├── 📁 DH/
+│   │       │   │   │   ├── 📁 Formats/
+│   │       │   │   │   │   └── 📁 Keys/
+│   │       │   │   │   │       ├── 📄 PKCS1.php
+│   │       │   │   │   │       └── 📄 PKCS8.php
+│   │       │   │   │   ├── 📄 Parameters.php
+│   │       │   │   │   ├── 📄 PrivateKey.php
+│   │       │   │   │   └── 📄 PublicKey.php
+│   │       │   │   ├── 📄 DH.php
+│   │       │   │   ├── 📁 DSA/
+│   │       │   │   │   ├── 📁 Formats/
+│   │       │   │   │   │   ├── 📁 Keys/
+│   │       │   │   │   │   │   ├── 📄 OpenSSH.php
+│   │       │   │   │   │   │   ├── 📄 PKCS1.php
+│   │       │   │   │   │   │   ├── 📄 PKCS8.php
+│   │       │   │   │   │   │   ├── 📄 PuTTY.php
+│   │       │   │   │   │   │   ├── 📄 Raw.php
+│   │       │   │   │   │   │   └── 📄 XML.php
+│   │       │   │   │   │   └── 📁 Signature/
+│   │       │   │   │   │       ├── 📄 ASN1.php
+│   │       │   │   │   │       ├── 📄 Raw.php
+│   │       │   │   │   │       └── 📄 SSH2.php
+│   │       │   │   │   ├── 📄 Parameters.php
+│   │       │   │   │   ├── 📄 PrivateKey.php
+│   │       │   │   │   └── 📄 PublicKey.php
+│   │       │   │   ├── 📄 DSA.php
+│   │       │   │   ├── 📁 EC/
+│   │       │   │   │   ├── 📁 BaseCurves/
+│   │       │   │   │   │   ├── 📄 Base.php
+│   │       │   │   │   │   ├── 📄 Binary.php
+│   │       │   │   │   │   ├── 📄 KoblitzPrime.php
+│   │       │   │   │   │   ├── 📄 Montgomery.php
+│   │       │   │   │   │   ├── 📄 Prime.php
+│   │       │   │   │   │   └── 📄 TwistedEdwards.php
+│   │       │   │   │   ├── 📁 Curves/
+│   │       │   │   │   │   ├── 📄 brainpoolP160r1.php
+│   │       │   │   │   │   ├── 📄 brainpoolP160t1.php
+│   │       │   │   │   │   ├── 📄 brainpoolP192r1.php
+│   │       │   │   │   │   ├── 📄 brainpoolP192t1.php
+│   │       │   │   │   │   ├── 📄 brainpoolP224r1.php
+│   │       │   │   │   │   ├── 📄 brainpoolP224t1.php
+│   │       │   │   │   │   ├── 📄 brainpoolP256r1.php
+│   │       │   │   │   │   ├── 📄 brainpoolP256t1.php
+│   │       │   │   │   │   ├── 📄 brainpoolP320r1.php
+│   │       │   │   │   │   ├── 📄 brainpoolP320t1.php
+│   │       │   │   │   │   ├── 📄 brainpoolP384r1.php
+│   │       │   │   │   │   ├── 📄 brainpoolP384t1.php
+│   │       │   │   │   │   ├── 📄 brainpoolP512r1.php
+│   │       │   │   │   │   ├── 📄 brainpoolP512t1.php
+│   │       │   │   │   │   ├── 📄 Curve25519.php
+│   │       │   │   │   │   ├── 📄 Curve448.php
+│   │       │   │   │   │   ├── 📄 Ed25519.php
+│   │       │   │   │   │   ├── 📄 Ed448.php
+│   │       │   │   │   │   ├── 📄 nistb233.php
+│   │       │   │   │   │   ├── 📄 nistb409.php
+│   │       │   │   │   │   ├── 📄 nistk163.php
+│   │       │   │   │   │   ├── 📄 nistk233.php
+│   │       │   │   │   │   ├── 📄 nistk283.php
+│   │       │   │   │   │   ├── 📄 nistk409.php
+│   │       │   │   │   │   ├── 📄 nistp192.php
+│   │       │   │   │   │   ├── 📄 nistp224.php
+│   │       │   │   │   │   ├── 📄 nistp256.php
+│   │       │   │   │   │   ├── 📄 nistp384.php
+│   │       │   │   │   │   ├── 📄 nistp521.php
+│   │       │   │   │   │   ├── 📄 nistt571.php
+│   │       │   │   │   │   ├── 📄 prime192v1.php
+│   │       │   │   │   │   ├── 📄 prime192v2.php
+│   │       │   │   │   │   ├── 📄 prime192v3.php
+│   │       │   │   │   │   ├── 📄 prime239v1.php
+│   │       │   │   │   │   ├── 📄 prime239v2.php
+│   │       │   │   │   │   ├── 📄 prime239v3.php
+│   │       │   │   │   │   ├── 📄 prime256v1.php
+│   │       │   │   │   │   ├── 📄 secp112r1.php
+│   │       │   │   │   │   ├── 📄 secp112r2.php
+│   │       │   │   │   │   ├── 📄 secp128r1.php
+│   │       │   │   │   │   ├── 📄 secp128r2.php
+│   │       │   │   │   │   ├── 📄 secp160k1.php
+│   │       │   │   │   │   ├── 📄 secp160r1.php
+│   │       │   │   │   │   ├── 📄 secp160r2.php
+│   │       │   │   │   │   ├── 📄 secp192k1.php
+│   │       │   │   │   │   ├── 📄 secp192r1.php
+│   │       │   │   │   │   ├── 📄 secp224k1.php
+│   │       │   │   │   │   ├── 📄 secp224r1.php
+│   │       │   │   │   │   ├── 📄 secp256k1.php
+│   │       │   │   │   │   ├── 📄 secp256r1.php
+│   │       │   │   │   │   ├── 📄 secp384r1.php
+│   │       │   │   │   │   ├── 📄 secp521r1.php
+│   │       │   │   │   │   ├── 📄 sect113r1.php
+│   │       │   │   │   │   ├── 📄 sect113r2.php
+│   │       │   │   │   │   ├── 📄 sect131r1.php
+│   │       │   │   │   │   ├── 📄 sect131r2.php
+│   │       │   │   │   │   ├── 📄 sect163k1.php
+│   │       │   │   │   │   ├── 📄 sect163r1.php
+│   │       │   │   │   │   ├── 📄 sect163r2.php
+│   │       │   │   │   │   ├── 📄 sect193r1.php
+│   │       │   │   │   │   ├── 📄 sect193r2.php
+│   │       │   │   │   │   ├── 📄 sect233k1.php
+│   │       │   │   │   │   ├── 📄 sect233r1.php
+│   │       │   │   │   │   ├── 📄 sect239k1.php
+│   │       │   │   │   │   ├── 📄 sect283k1.php
+│   │       │   │   │   │   ├── 📄 sect283r1.php
+│   │       │   │   │   │   ├── 📄 sect409k1.php
+│   │       │   │   │   │   ├── 📄 sect409r1.php
+│   │       │   │   │   │   ├── 📄 sect571k1.php
+│   │       │   │   │   │   └── 📄 sect571r1.php
+│   │       │   │   │   ├── 📁 Formats/
+│   │       │   │   │   │   ├── 📁 Keys/
+│   │       │   │   │   │   │   ├── 📄 Common.php
+│   │       │   │   │   │   │   ├── 📄 JWK.php
+│   │       │   │   │   │   │   ├── 📄 libsodium.php
+│   │       │   │   │   │   │   ├── 📄 MontgomeryPrivate.php
+│   │       │   │   │   │   │   ├── 📄 MontgomeryPublic.php
+│   │       │   │   │   │   │   ├── 📄 OpenSSH.php
+│   │       │   │   │   │   │   ├── 📄 PKCS1.php
+│   │       │   │   │   │   │   ├── 📄 PKCS8.php
+│   │       │   │   │   │   │   ├── 📄 PuTTY.php
+│   │       │   │   │   │   │   └── 📄 XML.php
+│   │       │   │   │   │   └── 📁 Signature/
+│   │       │   │   │   │       ├── 📄 ASN1.php
+│   │       │   │   │   │       ├── 📄 IEEE.php
+│   │       │   │   │   │       ├── 📄 Raw.php
+│   │       │   │   │   │       └── 📄 SSH2.php
+│   │       │   │   │   ├── 📄 Parameters.php
+│   │       │   │   │   ├── 📄 PrivateKey.php
+│   │       │   │   │   └── 📄 PublicKey.php
+│   │       │   │   ├── 📄 EC.php
+│   │       │   │   ├── 📄 Hash.php
+│   │       │   │   ├── 📄 PublicKeyLoader.php
+│   │       │   │   ├── 📄 RC2.php
+│   │       │   │   ├── 📄 RC4.php
+│   │       │   │   ├── 📄 Rijndael.php
+│   │       │   │   ├── 📁 RSA/
+│   │       │   │   │   ├── 📁 Formats/
+│   │       │   │   │   │   └── 📁 Keys/
+│   │       │   │   │   │       ├── 📄 JWK.php
+│   │       │   │   │   │       ├── 📄 MSBLOB.php
+│   │       │   │   │   │       ├── 📄 OpenSSH.php
+│   │       │   │   │   │       ├── 📄 PKCS1.php
+│   │       │   │   │   │       ├── 📄 PKCS8.php
+│   │       │   │   │   │       ├── 📄 PSS.php
+│   │       │   │   │   │       ├── 📄 PuTTY.php
+│   │       │   │   │   │       ├── 📄 Raw.php
+│   │       │   │   │   │       └── 📄 XML.php
+│   │       │   │   │   ├── 📄 PrivateKey.php
+│   │       │   │   │   └── 📄 PublicKey.php
+│   │       │   │   ├── 📄 RSA.php
+│   │       │   │   ├── 📄 Salsa20.php
+│   │       │   │   ├── 📄 TripleDES.php
+│   │       │   │   └── 📄 Twofish.php
+│   │       │   ├── 📁 Exception/
+│   │       │   │   ├── 📄 BadConfigurationException.php
+│   │       │   │   ├── 📄 BadDecryptionException.php
+│   │       │   │   ├── 📄 BadMethodCallException.php
+│   │       │   │   ├── 📄 BaseException.php
+│   │       │   │   ├── 📄 CharacterConversionException.php
+│   │       │   │   ├── 📄 ConnectionClosedException.php
+│   │       │   │   ├── 📄 EncodedDataUnavailableException.php
+│   │       │   │   ├── 📄 EOCException.php
+│   │       │   │   ├── 📄 ExcessivelyDeepDataException.php
+│   │       │   │   ├── 📄 FileSystemException.php
+│   │       │   │   ├── 📄 InvalidArgumentException.php
+│   │       │   │   ├── 📄 InvalidModeException.php
+│   │       │   │   ├── 📄 InvalidPacketLengthException.php
+│   │       │   │   ├── 📄 InvalidStateException.php
+│   │       │   │   ├── 📄 KeyConstraintException.php
+│   │       │   │   ├── 📄 LengthException.php
+│   │       │   │   ├── 📄 NoKeyLoadedException.php
+│   │       │   │   ├── 📄 NoSupportedAlgorithmsException.php
+│   │       │   │   ├── 📄 PasswordNeededException.php
+│   │       │   │   ├── 📄 ResourceLimitException.php
+│   │       │   │   ├── 📄 ServiceUnavailableException.php
+│   │       │   │   ├── 📄 SSHChannelExitSignalException.php
+│   │       │   │   ├── 📄 TimeoutException.php
+│   │       │   │   ├── 📄 UnexpectedSFTPPacketException.php
+│   │       │   │   ├── 📄 UnexpectedSSHMessageException.php
+│   │       │   │   ├── 📄 UnexpectedValueException.php
+│   │       │   │   ├── 📄 UnsupportedAlgorithmException.php
+│   │       │   │   ├── 📄 UnsupportedCurveException.php
+│   │       │   │   └── 📄 UnsupportedValueException.php
+│   │       │   ├── 📁 File/
+│   │       │   │   ├── 📄 ANSI.php
+│   │       │   │   ├── 📁 ASN1/
+│   │       │   │   │   ├── 📄 Constructed.php
+│   │       │   │   │   ├── 📄 Element.php
+│   │       │   │   │   ├── 📄 ExcessivelyDeepData.php
+│   │       │   │   │   ├── 📄 MalformedData.php
+│   │       │   │   │   ├── 📁 Maps/
+│   │       │   │   │   │   ├── 📄 AccessDescription.php
+│   │       │   │   │   │   ├── 📄 Accuracy.php
+│   │       │   │   │   │   ├── 📄 AdministrationDomainName.php
+│   │       │   │   │   │   ├── 📄 AlgorithmIdentifier.php
+│   │       │   │   │   │   ├── 📄 AnotherName.php
+│   │       │   │   │   │   ├── 📄 AttCertIssuer.php
+│   │       │   │   │   │   ├── 📄 AttCertValidityPeriod.php
+│   │       │   │   │   │   ├── 📄 AttCertVersion.php
+│   │       │   │   │   │   ├── 📄 AttCertVersionV1.php
+│   │       │   │   │   │   ├── 📄 Attribute.php
+│   │       │   │   │   │   ├── 📄 AttributeCertificateInfo.php
+│   │       │   │   │   │   ├── 📄 AttributeCertificateInfoV1.php
+│   │       │   │   │   │   ├── 📄 AttributeCertificateV1.php
+│   │       │   │   │   │   ├── 📄 AttributeCertificateV2.php
+│   │       │   │   │   │   ├── 📄 Attributes.php
+│   │       │   │   │   │   ├── 📄 AttributeType.php
+│   │       │   │   │   │   ├── 📄 AttributeTypeAndValue.php
+│   │       │   │   │   │   ├── 📄 AttributeValue.php
+│   │       │   │   │   │   ├── 📄 AuthAttributes.php
+│   │       │   │   │   │   ├── 📄 AuthenticatedSafe.php
+│   │       │   │   │   │   ├── 📄 AuthEnvelopedData.php
+│   │       │   │   │   │   ├── 📄 AuthorityInfoAccessSyntax.php
+│   │       │   │   │   │   ├── 📄 AuthorityKeyIdentifier.php
+│   │       │   │   │   │   ├── 📄 BaseDistance.php
+│   │       │   │   │   │   ├── 📄 BasicConstraints.php
+│   │       │   │   │   │   ├── 📄 BuiltInDomainDefinedAttribute.php
+│   │       │   │   │   │   ├── 📄 BuiltInDomainDefinedAttributes.php
+│   │       │   │   │   │   ├── 📄 BuiltInStandardAttributes.php
+│   │       │   │   │   │   ├── 📄 CertBag.php
+│   │       │   │   │   │   ├── 📄 Certificate.php
+│   │       │   │   │   │   ├── 📄 CertificateChoices.php
+│   │       │   │   │   │   ├── 📄 CertificateIssuer.php
+│   │       │   │   │   │   ├── 📄 CertificateList.php
+│   │       │   │   │   │   ├── 📄 CertificatePolicies.php
+│   │       │   │   │   │   ├── 📄 CertificateSerialNumber.php
+│   │       │   │   │   │   ├── 📄 CertificateSet.php
+│   │       │   │   │   │   ├── 📄 CertificationRequest.php
+│   │       │   │   │   │   ├── 📄 CertificationRequestInfo.php
+│   │       │   │   │   │   ├── 📄 CertPolicyId.php
+│   │       │   │   │   │   ├── 📄 Characteristic_two.php
+│   │       │   │   │   │   ├── 📄 CMSAlgorithmProtection.php
+│   │       │   │   │   │   ├── 📄 CMSEncryptedData.php
+│   │       │   │   │   │   ├── 📄 CMSVersion.php
+│   │       │   │   │   │   ├── 📄 CompressedData.php
+│   │       │   │   │   │   ├── 📄 CompressionAlgorithmIdentifier.php
+│   │       │   │   │   │   ├── 📄 CompressionAlgorithmIdentifiers.php
+│   │       │   │   │   │   ├── 📄 ContentEncryptionAlgorithmIdentifier.php
+│   │       │   │   │   │   ├── 📄 ContentInfo.php
+│   │       │   │   │   │   ├── 📄 ContentType.php
+│   │       │   │   │   │   ├── 📄 CountryName.php
+│   │       │   │   │   │   ├── 📄 CPSuri.php
+│   │       │   │   │   │   ├── 📄 CRLDistributionPoints.php
+│   │       │   │   │   │   ├── 📄 CRLNumber.php
+│   │       │   │   │   │   ├── 📄 CRLReason.php
+│   │       │   │   │   │   ├── 📄 Curve.php
+│   │       │   │   │   │   ├── 📄 DHParameter.php
+│   │       │   │   │   │   ├── 📄 Digest.php
+│   │       │   │   │   │   ├── 📄 DigestAlgorithmIdentifier.php
+│   │       │   │   │   │   ├── 📄 DigestAlgorithmIdentifiers.php
+│   │       │   │   │   │   ├── 📄 DigestedData.php
+│   │       │   │   │   │   ├── 📄 DigestInfo.php
+│   │       │   │   │   │   ├── 📄 DirectoryString.php
+│   │       │   │   │   │   ├── 📄 DisplayText.php
+│   │       │   │   │   │   ├── 📄 DistributionPoint.php
+│   │       │   │   │   │   ├── 📄 DistributionPointName.php
+│   │       │   │   │   │   ├── 📄 DSAParams.php
+│   │       │   │   │   │   ├── 📄 DSAPrivateKey.php
+│   │       │   │   │   │   ├── 📄 DSAPublicKey.php
+│   │       │   │   │   │   ├── 📄 DssSigValue.php
+│   │       │   │   │   │   ├── 📄 ECCCMSSharedInfo.php
+│   │       │   │   │   │   ├── 📄 EcdsaSigValue.php
+│   │       │   │   │   │   ├── 📄 ECParameters.php
+│   │       │   │   │   │   ├── 📄 ECPoint.php
+│   │       │   │   │   │   ├── 📄 ECPrivateKey.php
+│   │       │   │   │   │   ├── 📄 EDIPartyName.php
+│   │       │   │   │   │   ├── 📄 EncapsulatedContentInfo.php
+│   │       │   │   │   │   ├── 📄 EncryptedContent.php
+│   │       │   │   │   │   ├── 📄 EncryptedContentInfo.php
+│   │       │   │   │   │   ├── 📄 EncryptedData.php
+│   │       │   │   │   │   ├── 📄 EncryptedDataCMS.php
+│   │       │   │   │   │   ├── 📄 EncryptedKey.php
+│   │       │   │   │   │   ├── 📄 EncryptedPrivateKeyInfo.php
+│   │       │   │   │   │   ├── 📄 EnvelopedData.php
+│   │       │   │   │   │   ├── 📄 ESSCertID.php
+│   │       │   │   │   │   ├── 📄 ESSCertIDv2.php
+│   │       │   │   │   │   ├── 📄 ExtendedCertificate.php
+│   │       │   │   │   │   ├── 📄 ExtendedCertificateInfo.php
+│   │       │   │   │   │   ├── 📄 Extension.php
+│   │       │   │   │   │   ├── 📄 ExtensionAttribute.php
+│   │       │   │   │   │   ├── 📄 ExtensionAttributes.php
+│   │       │   │   │   │   ├── 📄 Extensions.php
+│   │       │   │   │   │   ├── 📄 ExtKeyUsageSyntax.php
+│   │       │   │   │   │   ├── 📄 FieldElement.php
+│   │       │   │   │   │   ├── 📄 FieldID.php
+│   │       │   │   │   │   ├── 📄 GeneralName.php
+│   │       │   │   │   │   ├── 📄 GeneralNames.php
+│   │       │   │   │   │   ├── 📄 GeneralSubtree.php
+│   │       │   │   │   │   ├── 📄 GeneralSubtrees.php
+│   │       │   │   │   │   ├── 📄 Hash.php
+│   │       │   │   │   │   ├── 📄 HashAlgAndValue.php
+│   │       │   │   │   │   ├── 📄 HashAlgorithm.php
+│   │       │   │   │   │   ├── 📄 Holder.php
+│   │       │   │   │   │   ├── 📄 HoldInstructionCode.php
+│   │       │   │   │   │   ├── 📄 InvalidityDate.php
+│   │       │   │   │   │   ├── 📄 Iso4217CurrencyCode.php
+│   │       │   │   │   │   ├── 📄 IssuerAltName.php
+│   │       │   │   │   │   ├── 📄 IssuerAndSerialNumber.php
+│   │       │   │   │   │   ├── 📄 IssuerSerial.php
+│   │       │   │   │   │   ├── 📄 IssuingDistributionPoint.php
+│   │       │   │   │   │   ├── 📄 KEKIdentifier.php
+│   │       │   │   │   │   ├── 📄 KEKRecipientInfo.php
+│   │       │   │   │   │   ├── 📄 KeyAgreeRecipientIdentifier.php
+│   │       │   │   │   │   ├── 📄 KeyAgreeRecipientInfo.php
+│   │       │   │   │   │   ├── 📄 KeyDerivationAlgorithmIdentifier.php
+│   │       │   │   │   │   ├── 📄 KeyEncryptionAlgorithmIdentifier.php
+│   │       │   │   │   │   ├── 📄 KeyIdentifier.php
+│   │       │   │   │   │   ├── 📄 KeyPurposeId.php
+│   │       │   │   │   │   ├── 📄 KeyTransRecipientInfo.php
+│   │       │   │   │   │   ├── 📄 KeyUsage.php
+│   │       │   │   │   │   ├── 📄 LogotypeAudio.php
+│   │       │   │   │   │   ├── 📄 LogotypeAudioInfo.php
+│   │       │   │   │   │   ├── 📄 LogotypeData.php
+│   │       │   │   │   │   ├── 📄 LogotypeDetails.php
+│   │       │   │   │   │   ├── 📄 LogotypeExtn.php
+│   │       │   │   │   │   ├── 📄 LogotypeImage.php
+│   │       │   │   │   │   ├── 📄 LogotypeImageInfo.php
+│   │       │   │   │   │   ├── 📄 LogotypeImageResolution.php
+│   │       │   │   │   │   ├── 📄 LogotypeImageType.php
+│   │       │   │   │   │   ├── 📄 LogotypeInfo.php
+│   │       │   │   │   │   ├── 📄 LogotypeReference.php
+│   │       │   │   │   │   ├── 📄 MacData.php
+│   │       │   │   │   │   ├── 📄 MaskGenAlgorithm.php
+│   │       │   │   │   │   ├── 📄 MessageAuthenticationCode.php
+│   │       │   │   │   │   ├── 📄 MessageAuthenticationCodeAlgorithm.php
+│   │       │   │   │   │   ├── 📄 MessageImprint.php
+│   │       │   │   │   │   ├── 📄 MonetaryValue.php
+│   │       │   │   │   │   ├── 📄 MQVuserKeyingMaterial.php
+│   │       │   │   │   │   ├── 📄 Name.php
+│   │       │   │   │   │   ├── 📄 NameConstraints.php
+│   │       │   │   │   │   ├── 📄 netscape_ca_policy_url.php
+│   │       │   │   │   │   ├── 📄 netscape_cert_type.php
+│   │       │   │   │   │   ├── 📄 netscape_comment.php
+│   │       │   │   │   │   ├── 📄 NetworkAddress.php
+│   │       │   │   │   │   ├── 📄 NoticeReference.php
+│   │       │   │   │   │   ├── 📄 NumericUserIdentifier.php
+│   │       │   │   │   │   ├── 📄 ObjectDigestInfo.php
+│   │       │   │   │   │   ├── 📄 OneAsymmetricKey.php
+│   │       │   │   │   │   ├── 📄 ORAddress.php
+│   │       │   │   │   │   ├── 📄 OrganizationalUnitNames.php
+│   │       │   │   │   │   ├── 📄 OrganizationName.php
+│   │       │   │   │   │   ├── 📄 OriginatorIdentifierOrKey.php
+│   │       │   │   │   │   ├── 📄 OriginatorInfo.php
+│   │       │   │   │   │   ├── 📄 OriginatorPublicKey.php
+│   │       │   │   │   │   ├── 📄 OtherCertificateFormat.php
+│   │       │   │   │   │   ├── 📄 OtherKeyAttribute.php
+│   │       │   │   │   │   ├── 📄 OtherLogotypeInfo.php
+│   │       │   │   │   │   ├── 📄 OtherPrimeInfo.php
+│   │       │   │   │   │   ├── 📄 OtherPrimeInfos.php
+│   │       │   │   │   │   ├── 📄 OtherRecipientInfo.php
+│   │       │   │   │   │   ├── 📄 OtherRevocationInfoFormat.php
+│   │       │   │   │   │   ├── 📄 PasswordRecipientInfo.php
+│   │       │   │   │   │   ├── 📄 PBEParameter.php
+│   │       │   │   │   │   ├── 📄 PBES2params.php
+│   │       │   │   │   │   ├── 📄 PBKDF2params.php
+│   │       │   │   │   │   ├── 📄 PBMAC1params.php
+│   │       │   │   │   │   ├── 📄 Pentanomial.php
+│   │       │   │   │   │   ├── 📄 PersonalName.php
+│   │       │   │   │   │   ├── 📄 PFX.php
+│   │       │   │   │   │   ├── 📄 PKCS8ShroudedKeyBag.php
+│   │       │   │   │   │   ├── 📄 PKCS9String.php
+│   │       │   │   │   │   ├── 📄 PolicyInformation.php
+│   │       │   │   │   │   ├── 📄 PolicyMappings.php
+│   │       │   │   │   │   ├── 📄 PolicyQualifierId.php
+│   │       │   │   │   │   ├── 📄 PolicyQualifierInfo.php
+│   │       │   │   │   │   ├── 📄 PostalAddress.php
+│   │       │   │   │   │   ├── 📄 Prime_p.php
+│   │       │   │   │   │   ├── 📄 PrivateDomainName.php
+│   │       │   │   │   │   ├── 📄 PrivateKey.php
+│   │       │   │   │   │   ├── 📄 PrivateKeyInfo.php
+│   │       │   │   │   │   ├── 📄 PrivateKeyUsagePeriod.php
+│   │       │   │   │   │   ├── 📄 PSourceAlgorithm.php
+│   │       │   │   │   │   ├── 📄 PublicKey.php
+│   │       │   │   │   │   ├── 📄 PublicKeyAndChallenge.php
+│   │       │   │   │   │   ├── 📄 PublicKeyInfo.php
+│   │       │   │   │   │   ├── 📄 QcEuLimitValue.php
+│   │       │   │   │   │   ├── 📄 QCStatement.php
+│   │       │   │   │   │   ├── 📄 QCStatements.php
+│   │       │   │   │   │   ├── 📄 RC2CBCParameter.php
+│   │       │   │   │   │   ├── 📄 RDNSequence.php
+│   │       │   │   │   │   ├── 📄 ReasonFlags.php
+│   │       │   │   │   │   ├── 📄 RecipientEncryptedKey.php
+│   │       │   │   │   │   ├── 📄 RecipientEncryptedKeys.php
+│   │       │   │   │   │   ├── 📄 RecipientIdentifier.php
+│   │       │   │   │   │   ├── 📄 RecipientInfo.php
+│   │       │   │   │   │   ├── 📄 RecipientInfos.php
+│   │       │   │   │   │   ├── 📄 RecipientKeyIdentifier.php
+│   │       │   │   │   │   ├── 📄 RelativeDistinguishedName.php
+│   │       │   │   │   │   ├── 📄 RevocationInfoChoice.php
+│   │       │   │   │   │   ├── 📄 RevocationInfoChoices.php
+│   │       │   │   │   │   ├── 📄 RevokedCertificate.php
+│   │       │   │   │   │   ├── 📄 RSAES_OAEP_params.php
+│   │       │   │   │   │   ├── 📄 RSAPrivateKey.php
+│   │       │   │   │   │   ├── 📄 RSAPublicKey.php
+│   │       │   │   │   │   ├── 📄 RSASSA_PSS_params.php
+│   │       │   │   │   │   ├── 📄 SafeBag.php
+│   │       │   │   │   │   ├── 📄 SafeContents.php
+│   │       │   │   │   │   ├── 📄 SecretBag.php
+│   │       │   │   │   │   ├── 📄 ShakeOutputLen.php
+│   │       │   │   │   │   ├── 📄 SignatureAlgorithmIdentifier.php
+│   │       │   │   │   │   ├── 📄 SignatureValue.php
+│   │       │   │   │   │   ├── 📄 SignedAttributes.php
+│   │       │   │   │   │   ├── 📄 SignedData.php
+│   │       │   │   │   │   ├── 📄 SignedPublicKeyAndChallenge.php
+│   │       │   │   │   │   ├── 📄 SignerIdentifier.php
+│   │       │   │   │   │   ├── 📄 SignerInfo.php
+│   │       │   │   │   │   ├── 📄 SignerInfos.php
+│   │       │   │   │   │   ├── 📄 SigningCertificate.php
+│   │       │   │   │   │   ├── 📄 SigningCertificateV2.php
+│   │       │   │   │   │   ├── 📄 SMIMECapabilities.php
+│   │       │   │   │   │   ├── 📄 SMIMECapability.php
+│   │       │   │   │   │   ├── 📄 SpecifiedECDomain.php
+│   │       │   │   │   │   ├── 📄 SubjectAltName.php
+│   │       │   │   │   │   ├── 📄 SubjectDirectoryAttributes.php
+│   │       │   │   │   │   ├── 📄 SubjectInfoAccessSyntax.php
+│   │       │   │   │   │   ├── 📄 SubjectKeyIdentifier.php
+│   │       │   │   │   │   ├── 📄 SubjectPublicKeyInfo.php
+│   │       │   │   │   │   ├── 📄 TBSCertificate.php
+│   │       │   │   │   │   ├── 📄 TBSCertList.php
+│   │       │   │   │   │   ├── 📄 TerminalIdentifier.php
+│   │       │   │   │   │   ├── 📄 Time.php
+│   │       │   │   │   │   ├── 📄 TimeStampToken.php
+│   │       │   │   │   │   ├── 📄 Trinomial.php
+│   │       │   │   │   │   ├── 📄 TSAPolicyId.php
+│   │       │   │   │   │   ├── 📄 TSTInfo.php
+│   │       │   │   │   │   ├── 📄 UnauthAttributes.php
+│   │       │   │   │   │   ├── 📄 UniqueIdentifier.php
+│   │       │   │   │   │   ├── 📄 UnprotectedAttributes.php
+│   │       │   │   │   │   ├── 📄 UnsignedAttributes.php
+│   │       │   │   │   │   ├── 📄 UserKeyingMaterial.php
+│   │       │   │   │   │   ├── 📄 UserNotice.php
+│   │       │   │   │   │   ├── 📄 V2Form.php
+│   │       │   │   │   │   └── 📄 Validity.php
+│   │       │   │   │   ├── 📁 OIDs/
+│   │       │   │   │   │   ├── 📄 CMS.php
+│   │       │   │   │   │   ├── 📄 Curves.php
+│   │       │   │   │   │   ├── 📄 EC.php
+│   │       │   │   │   │   ├── 📄 Hashes.php
+│   │       │   │   │   │   ├── 📄 PFX.php
+│   │       │   │   │   │   ├── 📄 PKCS8.php
+│   │       │   │   │   │   └── 📄 X509.php
+│   │       │   │   │   └── 📁 Types/
+│   │       │   │   │       ├── 📄 BaseString.php
+│   │       │   │   │       ├── 📄 BaseType.php
+│   │       │   │   │       ├── 📄 BitString.php
+│   │       │   │   │       ├── 📄 BMPString.php
+│   │       │   │   │       ├── 📄 Boolean.php
+│   │       │   │   │       ├── 📄 Choice.php
+│   │       │   │   │       ├── 📄 Common.php
+│   │       │   │   │       ├── 📄 ExplicitNull.php
+│   │       │   │   │       ├── 📄 GeneralizedTime.php
+│   │       │   │   │       ├── 📄 GeneralString.php
+│   │       │   │   │       ├── 📄 GraphicString.php
+│   │       │   │   │       ├── 📄 IA5String.php
+│   │       │   │   │       ├── 📄 Integer.php
+│   │       │   │   │       ├── 📄 NumericString.php
+│   │       │   │   │       ├── 📄 OctetString.php
+│   │       │   │   │       ├── 📄 OID.php
+│   │       │   │   │       ├── 📄 PrintableString.php
+│   │       │   │   │       ├── 📄 TeletexString.php
+│   │       │   │   │       ├── 📄 UniversalString.php
+│   │       │   │   │       ├── 📄 UTCTime.php
+│   │       │   │   │       ├── 📄 UTF8String.php
+│   │       │   │   │       ├── 📄 VideotexString.php
+│   │       │   │   │       └── 📄 VisibleString.php
+│   │       │   │   ├── 📄 ASN1.php
+│   │       │   │   ├── 📁 CMS/
+│   │       │   │   │   ├── 📄 CompressedData.php
+│   │       │   │   │   ├── 📄 DigestedData.php
+│   │       │   │   │   ├── 📄 EncryptedData.php
+│   │       │   │   │   ├── 📁 EnvelopedData/
+│   │       │   │   │   │   ├── 📄 DerivableKey.php
+│   │       │   │   │   │   ├── 📄 KEKRecipient.php
+│   │       │   │   │   │   ├── 📁 KeyAgreeRecipient/
+│   │       │   │   │   │   │   └── 📄 EncryptedKey.php
+│   │       │   │   │   │   ├── 📄 KeyAgreeRecipient.php
+│   │       │   │   │   │   ├── 📄 KeyTransRecipient.php
+│   │       │   │   │   │   ├── 📄 PasswordRecipient.php
+│   │       │   │   │   │   ├── 📄 Recipient.php
+│   │       │   │   │   │   └── 📄 SearchableKey.php
+│   │       │   │   │   ├── 📁 SignedData/
+│   │       │   │   │   │   └── 📄 Signer.php
+│   │       │   │   │   └── 📄 SignedData.php
+│   │       │   │   ├── 📄 CMS.php
+│   │       │   │   ├── 📁 Common/
+│   │       │   │   │   ├── 📄 Signable.php
+│   │       │   │   │   └── 📁 Traits/
+│   │       │   │   │       ├── 📄 ASN1Signature.php
+│   │       │   │   │       ├── 📄 DN.php
+│   │       │   │   │       ├── 📄 Extension.php
+│   │       │   │   │       └── 📄 KeyDerivation.php
+│   │       │   │   ├── 📄 CRL.php
+│   │       │   │   ├── 📄 CSR.php
+│   │       │   │   ├── 📄 PFX.php
+│   │       │   │   ├── 📄 SPKAC.php
+│   │       │   │   └── 📄 X509.php
+│   │       │   ├── 📁 Math/
+│   │       │   │   ├── 📁 BigInteger/
+│   │       │   │   │   └── 📁 Engines/
+│   │       │   │   │       ├── 📁 BCMath/
+│   │       │   │   │       │   ├── 📄 Base.php
+│   │       │   │   │       │   ├── 📄 BuiltIn.php
+│   │       │   │   │       │   ├── 📄 DefaultEngine.php
+│   │       │   │   │       │   ├── 📄 OpenSSL.php
+│   │       │   │   │       │   └── 📁 Reductions/
+│   │       │   │   │       │       ├── 📄 Barrett.php
+│   │       │   │   │       │       └── 📄 EvalBarrett.php
+│   │       │   │   │       ├── 📄 BCMath.php
+│   │       │   │   │       ├── 📄 BCMath64.php
+│   │       │   │   │       ├── 📄 Engine.php
+│   │       │   │   │       ├── 📁 GMP/
+│   │       │   │   │       │   └── 📄 DefaultEngine.php
+│   │       │   │   │       ├── 📄 GMP.php
+│   │       │   │   │       ├── 📄 OpenSSL.php
+│   │       │   │   │       ├── 📁 PHP/
+│   │       │   │   │       │   ├── 📄 Base.php
+│   │       │   │   │       │   ├── 📄 DefaultEngine.php
+│   │       │   │   │       │   ├── 📄 Montgomery.php
+│   │       │   │   │       │   ├── 📄 OpenSSL.php
+│   │       │   │   │       │   └── 📁 Reductions/
+│   │       │   │   │       │       ├── 📄 Barrett.php
+│   │       │   │   │       │       ├── 📄 Classic.php
+│   │       │   │   │       │       ├── 📄 EvalBarrett.php
+│   │       │   │   │       │       ├── 📄 Montgomery.php
+│   │       │   │   │       │       ├── 📄 MontgomeryMult.php
+│   │       │   │   │       │       └── 📄 PowerOfTwo.php
+│   │       │   │   │       ├── 📄 PHP.php
+│   │       │   │   │       ├── 📄 PHP32.php
+│   │       │   │   │       └── 📄 PHP64.php
+│   │       │   │   ├── 📄 BigInteger.php
+│   │       │   │   ├── 📁 BinaryField/
+│   │       │   │   │   └── 📄 Integer.php
+│   │       │   │   ├── 📄 BinaryField.php
+│   │       │   │   ├── 📁 Common/
+│   │       │   │   │   ├── 📁 FiniteField/
+│   │       │   │   │   │   └── 📄 Integer.php
+│   │       │   │   │   └── 📄 FiniteField.php
+│   │       │   │   ├── 📁 PrimeField/
+│   │       │   │   │   └── 📄 Integer.php
+│   │       │   │   └── 📄 PrimeField.php
+│   │       │   ├── 📁 Net/
+│   │       │   │   ├── 📄 SCP.php
+│   │       │   │   ├── 📁 SFTP/
+│   │       │   │   │   ├── 📄 Attribute.php
+│   │       │   │   │   ├── 📄 FileType.php
+│   │       │   │   │   ├── 📄 OpenFlag.php
+│   │       │   │   │   ├── 📄 OpenFlag5.php
+│   │       │   │   │   ├── 📄 PacketType.php
+│   │       │   │   │   ├── 📄 StatusCode.php
+│   │       │   │   │   └── 📄 Stream.php
+│   │       │   │   ├── 📄 SFTP.php
+│   │       │   │   ├── 📁 SSH2/
+│   │       │   │   │   ├── 📄 ChannelConnectionFailureReason.php
+│   │       │   │   │   ├── 📄 DisconnectReason.php
+│   │       │   │   │   ├── 📄 MessageType.php
+│   │       │   │   │   ├── 📄 MessageTypeExtra.php
+│   │       │   │   │   └── 📄 TerminalMode.php
+│   │       │   │   └── 📄 SSH2.php
+│   │       │   ├── 📄 openssl.cnf
+│   │       │   └── 📁 System/
+│   │       │       └── 📁 SSH/
+│   │       │           ├── 📁 Agent/
+│   │       │           │   └── 📄 Identity.php
+│   │       │           ├── 📄 Agent.php
+│   │       │           └── 📁 Common/
+│   │       │               └── 📁 Traits/
+│   │       │                   └── 📄 ReadBytes.php
+│   │       ├── 📄 README.md
+│   │       ├── 📄 SECURITY.md
+│   │       └── 📄 VERSIONING.md
 │   ├── 📁 phpunit/
 │   │   ├── 📁 php-code-coverage/
 │   │   │   ├── 📄 ChangeLog-12.5.md
@@ -21275,102 +22704,126 @@
 │   │   │   ├── 📄 UuidV6.php
 │   │   │   ├── 📄 UuidV7.php
 │   │   │   └── 📄 UuidV8.php
-│   │   └── 📁 var-dumper/
-│   │       ├── 📁 Caster/
-│   │       │   ├── 📄 AddressInfoCaster.php
-│   │       │   ├── 📄 AmqpCaster.php
-│   │       │   ├── 📄 ArgsStub.php
-│   │       │   ├── 📄 Caster.php
-│   │       │   ├── 📄 ClassStub.php
-│   │       │   ├── 📄 ConstStub.php
-│   │       │   ├── 📄 CurlCaster.php
-│   │       │   ├── 📄 CutArrayStub.php
-│   │       │   ├── 📄 CutStub.php
-│   │       │   ├── 📄 DateCaster.php
-│   │       │   ├── 📄 DoctrineCaster.php
-│   │       │   ├── 📄 DOMCaster.php
-│   │       │   ├── 📄 DsCaster.php
-│   │       │   ├── 📄 DsPairStub.php
-│   │       │   ├── 📄 EnumStub.php
-│   │       │   ├── 📄 ExceptionCaster.php
-│   │       │   ├── 📄 FFICaster.php
-│   │       │   ├── 📄 FiberCaster.php
-│   │       │   ├── 📄 FrameStub.php
-│   │       │   ├── 📄 GdCaster.php
-│   │       │   ├── 📄 GmpCaster.php
-│   │       │   ├── 📄 ImagineCaster.php
-│   │       │   ├── 📄 ImgStub.php
-│   │       │   ├── 📄 IntlCaster.php
-│   │       │   ├── 📄 LinkStub.php
-│   │       │   ├── 📄 MemcachedCaster.php
-│   │       │   ├── 📄 MysqliCaster.php
-│   │       │   ├── 📄 OpenSSLCaster.php
-│   │       │   ├── 📄 PdoCaster.php
-│   │       │   ├── 📄 PgSqlCaster.php
-│   │       │   ├── 📄 ProxyManagerCaster.php
-│   │       │   ├── 📄 RdKafkaCaster.php
-│   │       │   ├── 📄 RedisCaster.php
-│   │       │   ├── 📄 ReflectionCaster.php
-│   │       │   ├── 📄 ResourceCaster.php
-│   │       │   ├── 📄 ScalarStub.php
-│   │       │   ├── 📄 SocketCaster.php
-│   │       │   ├── 📄 SplCaster.php
-│   │       │   ├── 📄 SqliteCaster.php
-│   │       │   ├── 📄 StubCaster.php
-│   │       │   ├── 📄 SymfonyCaster.php
-│   │       │   ├── 📄 TraceStub.php
-│   │       │   ├── 📄 UninitializedStub.php
-│   │       │   ├── 📄 UuidCaster.php
-│   │       │   ├── 📄 VirtualStub.php
-│   │       │   ├── 📄 XmlReaderCaster.php
-│   │       │   └── 📄 XmlResourceCaster.php
+│   │   ├── 📁 var-dumper/
+│   │   │   ├── 📁 Caster/
+│   │   │   │   ├── 📄 AddressInfoCaster.php
+│   │   │   │   ├── 📄 AmqpCaster.php
+│   │   │   │   ├── 📄 ArgsStub.php
+│   │   │   │   ├── 📄 Caster.php
+│   │   │   │   ├── 📄 ClassStub.php
+│   │   │   │   ├── 📄 ConstStub.php
+│   │   │   │   ├── 📄 CurlCaster.php
+│   │   │   │   ├── 📄 CutArrayStub.php
+│   │   │   │   ├── 📄 CutStub.php
+│   │   │   │   ├── 📄 DateCaster.php
+│   │   │   │   ├── 📄 DoctrineCaster.php
+│   │   │   │   ├── 📄 DOMCaster.php
+│   │   │   │   ├── 📄 DsCaster.php
+│   │   │   │   ├── 📄 DsPairStub.php
+│   │   │   │   ├── 📄 EnumStub.php
+│   │   │   │   ├── 📄 ExceptionCaster.php
+│   │   │   │   ├── 📄 FFICaster.php
+│   │   │   │   ├── 📄 FiberCaster.php
+│   │   │   │   ├── 📄 FrameStub.php
+│   │   │   │   ├── 📄 GdCaster.php
+│   │   │   │   ├── 📄 GmpCaster.php
+│   │   │   │   ├── 📄 ImagineCaster.php
+│   │   │   │   ├── 📄 ImgStub.php
+│   │   │   │   ├── 📄 IntlCaster.php
+│   │   │   │   ├── 📄 LinkStub.php
+│   │   │   │   ├── 📄 MemcachedCaster.php
+│   │   │   │   ├── 📄 MysqliCaster.php
+│   │   │   │   ├── 📄 OpenSSLCaster.php
+│   │   │   │   ├── 📄 PdoCaster.php
+│   │   │   │   ├── 📄 PgSqlCaster.php
+│   │   │   │   ├── 📄 ProxyManagerCaster.php
+│   │   │   │   ├── 📄 RdKafkaCaster.php
+│   │   │   │   ├── 📄 RedisCaster.php
+│   │   │   │   ├── 📄 ReflectionCaster.php
+│   │   │   │   ├── 📄 ResourceCaster.php
+│   │   │   │   ├── 📄 ScalarStub.php
+│   │   │   │   ├── 📄 SocketCaster.php
+│   │   │   │   ├── 📄 SplCaster.php
+│   │   │   │   ├── 📄 SqliteCaster.php
+│   │   │   │   ├── 📄 StubCaster.php
+│   │   │   │   ├── 📄 SymfonyCaster.php
+│   │   │   │   ├── 📄 TraceStub.php
+│   │   │   │   ├── 📄 UninitializedStub.php
+│   │   │   │   ├── 📄 UuidCaster.php
+│   │   │   │   ├── 📄 VirtualStub.php
+│   │   │   │   ├── 📄 XmlReaderCaster.php
+│   │   │   │   └── 📄 XmlResourceCaster.php
+│   │   │   ├── 📄 CHANGELOG.md
+│   │   │   ├── 📁 Cloner/
+│   │   │   │   ├── 📄 AbstractCloner.php
+│   │   │   │   ├── 📄 ClonerInterface.php
+│   │   │   │   ├── 📄 Cursor.php
+│   │   │   │   ├── 📄 Data.php
+│   │   │   │   ├── 📄 DumperInterface.php
+│   │   │   │   ├── 📄 Stub.php
+│   │   │   │   └── 📄 VarCloner.php
+│   │   │   ├── 📁 Command/
+│   │   │   │   ├── 📁 Descriptor/
+│   │   │   │   │   ├── 📄 CliDescriptor.php
+│   │   │   │   │   ├── 📄 DumpDescriptorInterface.php
+│   │   │   │   │   └── 📄 HtmlDescriptor.php
+│   │   │   │   └── 📄 ServerDumpCommand.php
+│   │   │   ├── 📄 composer.json
+│   │   │   ├── 📁 Dumper/
+│   │   │   │   ├── 📄 AbstractDumper.php
+│   │   │   │   ├── 📄 CliDumper.php
+│   │   │   │   ├── 📁 ContextProvider/
+│   │   │   │   │   ├── 📄 CliContextProvider.php
+│   │   │   │   │   ├── 📄 ContextProviderInterface.php
+│   │   │   │   │   ├── 📄 RequestContextProvider.php
+│   │   │   │   │   └── 📄 SourceContextProvider.php
+│   │   │   │   ├── 📄 ContextualizedDumper.php
+│   │   │   │   ├── 📄 DataDumperInterface.php
+│   │   │   │   ├── 📄 HtmlDumper.php
+│   │   │   │   └── 📄 ServerDumper.php
+│   │   │   ├── 📁 Exception/
+│   │   │   │   └── 📄 ThrowingCasterException.php
+│   │   │   ├── 📄 LICENSE
+│   │   │   ├── 📄 README.md
+│   │   │   ├── 📁 Resources/
+│   │   │   │   ├── 📁 bin/
+│   │   │   │   │   └── 📄 var-dump-server
+│   │   │   │   ├── 📁 css/
+│   │   │   │   │   └── 📄 htmlDescriptor.css
+│   │   │   │   ├── 📁 functions/
+│   │   │   │   │   └── 📄 dump.php
+│   │   │   │   └── 📁 js/
+│   │   │   │       └── 📄 htmlDescriptor.js
+│   │   │   ├── 📁 Server/
+│   │   │   │   ├── 📄 Connection.php
+│   │   │   │   └── 📄 DumpServer.php
+│   │   │   ├── 📁 Test/
+│   │   │   │   └── 📄 VarDumperTestTrait.php
+│   │   │   └── 📄 VarDumper.php
+│   │   └── 📁 yaml/
 │   │       ├── 📄 CHANGELOG.md
-│   │       ├── 📁 Cloner/
-│   │       │   ├── 📄 AbstractCloner.php
-│   │       │   ├── 📄 ClonerInterface.php
-│   │       │   ├── 📄 Cursor.php
-│   │       │   ├── 📄 Data.php
-│   │       │   ├── 📄 DumperInterface.php
-│   │       │   ├── 📄 Stub.php
-│   │       │   └── 📄 VarCloner.php
 │   │       ├── 📁 Command/
-│   │       │   ├── 📁 Descriptor/
-│   │       │   │   ├── 📄 CliDescriptor.php
-│   │       │   │   ├── 📄 DumpDescriptorInterface.php
-│   │       │   │   └── 📄 HtmlDescriptor.php
-│   │       │   └── 📄 ServerDumpCommand.php
+│   │       │   └── 📄 LintCommand.php
 │   │       ├── 📄 composer.json
-│   │       ├── 📁 Dumper/
-│   │       │   ├── 📄 AbstractDumper.php
-│   │       │   ├── 📄 CliDumper.php
-│   │       │   ├── 📁 ContextProvider/
-│   │       │   │   ├── 📄 CliContextProvider.php
-│   │       │   │   ├── 📄 ContextProviderInterface.php
-│   │       │   │   ├── 📄 RequestContextProvider.php
-│   │       │   │   └── 📄 SourceContextProvider.php
-│   │       │   ├── 📄 ContextualizedDumper.php
-│   │       │   ├── 📄 DataDumperInterface.php
-│   │       │   ├── 📄 HtmlDumper.php
-│   │       │   └── 📄 ServerDumper.php
+│   │       ├── 📄 Dumper.php
+│   │       ├── 📄 Escaper.php
 │   │       ├── 📁 Exception/
-│   │       │   └── 📄 ThrowingCasterException.php
+│   │       │   ├── 📄 DumpException.php
+│   │       │   ├── 📄 ExceptionInterface.php
+│   │       │   ├── 📄 ParseException.php
+│   │       │   └── 📄 RuntimeException.php
+│   │       ├── 📄 Inline.php
 │   │       ├── 📄 LICENSE
+│   │       ├── 📄 Parser.php
+│   │       ├── 📄 ParserState.php
 │   │       ├── 📄 README.md
 │   │       ├── 📁 Resources/
-│   │       │   ├── 📁 bin/
-│   │       │   │   └── 📄 var-dump-server
-│   │       │   ├── 📁 css/
-│   │       │   │   └── 📄 htmlDescriptor.css
-│   │       │   ├── 📁 functions/
-│   │       │   │   └── 📄 dump.php
-│   │       │   └── 📁 js/
-│   │       │       └── 📄 htmlDescriptor.js
-│   │       ├── 📁 Server/
-│   │       │   ├── 📄 Connection.php
-│   │       │   └── 📄 DumpServer.php
-│   │       ├── 📁 Test/
-│   │       │   └── 📄 VarDumperTestTrait.php
-│   │       └── 📄 VarDumper.php
+│   │       │   └── 📁 bin/
+│   │       │       └── 📄 yaml-lint
+│   │       ├── 📁 Tag/
+│   │       │   └── 📄 TaggedValue.php
+│   │       ├── 📄 Unescaper.php
+│   │       └── 📄 Yaml.php
 │   ├── 📁 theseer/
 │   │   └── 📁 tokenizer/
 │   │       ├── 📄 .php-cs-fixer.dist.php
