@@ -176,35 +176,8 @@
 │       ├── 📄 RolePermissionSeeder.php
 │       └── 📄 WilayahSeeder.php
 ├── 📁 Desain Aplikasi Seven Kos/
-│   ├── 📄 Alur Login Platform Kos Nasional.png
-│   ├── 📄 Beranda Marketplace Kos Nasional.png
 │   ├── 📄 Beranda SevenKost Modern Bergradasi Biru.png
-│   ├── 📄 Dasbor Admin KosKu.id Kelola Mitra dan Kos.png
-│   ├── 📄 Dasbor Admin KosKu.id Terpadu berbagai fitur.png
-│   ├── 📄 Dasbor Admin KosKu.id Terpadu.png
-│   ├── 📄 Dasbor Formulir Iklan Kos Nasional.png
-│   ├── 📄 Dasbor Keuangan Platform Kos Nasional.png
-│   ├── 📄 Dasbor Kos Nasional Modern.png
-│   ├── 📄 Dasbor Moderasi KosKu.id.png
-│   ├── 📄 Dasbor Paket Iklan KosKu.id.png
-│   ├── 📄 Dasbor Pemesanan Layanan KosNusantara.png
-│   ├── 📄 Dasbor Penagihan Platform Kos Nasional.png
-│   ├── 📄 Dasbor Pengaturan Kuasa Admin KosKu.id.png
-│   ├── 📄 Dasbor Pengelolaan Kamar Kos.png
-│   ├── 📄 Dasbor Penghuni Kos Modern.png
-│   ├── 📄 Dashboard Keuangan Kos Modern.png
-│   ├── 📄 Dashboard Layanan KosNusantara Modern.png
-│   ├── 📄 Dashboard Pembayaran Kos Nusantara.png
-│   ├── 📄 Dashboard Pengajuan Sewa Kos Nasional.png
-│   ├── 📄 Dashboard Ulasan KosNusantara.png
-│   ├── 📄 Form Marketplace KosNusantara 二四六.png
-│   ├── 📄 Landing Page Kos Dekat UGMneqarpoq.png
-│   ├── 📄 Listing Kasur Premium KosNusantara.png
-│   ├── 📄 Marketplace Kos Nusantara Modern.png
-│   ├── 📄 Pengaturan Profil KosNusantara.png
-│   ├── 📄 Platform Kos Nasional_ Cari Kos di Jakarta.png
-│   ├── 📄 Profil KosNusantara Fajar Putra.png
-│   └── 📄 Tampilan Detail Kos Melati Residence.png
+│   └── 📄 Logo Rumah Angka Tujuh Berkilau.png
 ├── 📄 ERD.md
 ├── 📄 Jadwal_dan_Tools_Seven_Kost.md
 ├── 📄 Logo Rumah Angka Tujuh Berkilau.png
@@ -216,8 +189,8 @@
 │   ├── 📄 .htaccess
 │   ├── 📁 build/
 │   │   ├── 📁 assets/
-│   │   │   ├── 📄 app-Dr67-uCa.js
-│   │   │   └── 📄 app-Dw1yGuHx.css
+│   │   │   ├── 📄 app-BY3qwque.css
+│   │   │   └── 📄 app-Dr67-uCa.js
 │   │   └── 📄 manifest.json
 │   ├── 📁 css/
 │   │   └── 📁 filament/
@@ -248,16 +221,25 @@
 │   │   │   ├── 📄 city-yogyakarta.png
 │   │   │   ├── 📄 cta-house.png
 │   │   │   ├── 📄 cta-person.png
+│   │   │   ├── 📄 footer-logo-crop.png
+│   │   │   ├── 📄 footer-newsletter-crop.png
+│   │   │   ├── 📄 footer-social-crop.png
+│   │   │   ├── 📄 header-logo-crop.png
+│   │   │   ├── 📄 header-nav-crop.png
+│   │   │   ├── 📄 header-wide-crop.png
 │   │   │   ├── 📄 hero-building.png
 │   │   │   ├── 📄 kost-1.png
 │   │   │   ├── 📄 kost-2.png
 │   │   │   ├── 📄 kost-3.png
 │   │   │   ├── 📄 kost-4.png
+│   │   │   ├── 📄 logo-full-bounds.png
 │   │   │   ├── 📄 marketplace-items.png
 │   │   │   ├── 📄 promo-bandung.png
 │   │   │   ├── 📄 promo-jakarta.png
 │   │   │   └── 📄 promo-yogyakarta.png
-│   │   └── 📄 logo-seven-kost.png
+│   │   ├── 📄 logo-exact-mockup.png
+│   │   ├── 📄 logo-seven-kost.png
+│   │   └── 📄 logo-seven-kost.svg
 │   ├── 📄 index.php
 │   ├── 📁 js/
 │   │   └── 📁 filament/

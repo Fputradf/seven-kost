@@ -146,79 +146,64 @@
         </div>
     </section>
 
-    {{-- 2. PROMO CAROUSEL / HIGHLIGHT KOTA (Jakarta, Bandung, Yogyakarta) --}}
+    {{-- 2. 3 BANNER IKLAN (DIPASANG OLEH PEMILIK / ADMIN - TANPA OVERLAY TEKS) --}}
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 sm:-mt-8 relative z-20">
         <div class="relative">
-            {{-- Navigation Arrows (Decorative & Functional) --}}
             <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                {{-- Promo 1: Jakarta --}}
-                <div class="group relative overflow-hidden rounded-2xl shadow-lg border border-slate-200/50 block bg-slate-900 hover:shadow-xl transition-all duration-300">
-                    <img 
-                        src="{{ asset('images/frontend/promo-jakarta.png') }}" 
-                        alt="Kos Terbaik di Jakarta" 
-                        class="w-full h-44 object-cover group-hover:scale-105 transition duration-500"
-                    >
-                    <div class="absolute inset-0 bg-gradient-to-r from-blue-900/95 via-blue-900/70 to-transparent p-5 flex flex-col justify-between text-white">
-                        <div class="space-y-1">
-                            <h3 class="text-lg font-black leading-tight text-white group-hover:text-sky-300 transition-colors">
-                                Kos Terbaik <br> di Jakarta
-                            </h3>
-                            <p class="text-xs text-blue-100 font-medium">Mulai dari <span class="font-bold text-white">Rp 750rb/bulan</span></p>
-                        </div>
-                        <div>
-                            <a href="{{ url('/cari?q=Jakarta&kota=3171') }}" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition shadow-sm">
-                                <span>Lihat Sekarang</span>
-                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                @if(isset($banners) && $banners->count() > 0)
+                    @foreach($banners as $banner)
+                        <a href="{{ $banner->target_url ?: url('/paket-iklan') }}" class="group relative overflow-hidden rounded-2xl shadow-lg border border-slate-200/50 block aspect-[16/8] sm:aspect-[16/9] bg-slate-100 hover:shadow-xl transition-all duration-300">
+                            <img 
+                                src="{{ asset('storage/' . $banner->image_path) }}" 
+                                alt="{{ $banner->title ?: 'Banner Iklan SevenKost' }}" 
+                                class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                            >
+                        </a>
+                    @endforeach
+                    {{-- Lengkapi slot hingga 3 banner jika banner dari DB kurang dari 3 --}}
+                    @for($i = $banners->count(); $i < 3; $i++)
+                        @php
+                            $defaultBanners = [
+                                ['img' => asset('images/frontend/promo-jakarta.png'), 'link' => url('/cari?q=Jakarta&kota=3171')],
+                                ['img' => asset('images/frontend/promo-bandung.png'), 'link' => url('/cari?q=Bandung&kota=3273')],
+                                ['img' => asset('images/frontend/promo-yogyakarta.png'), 'link' => url('/cari?q=Yogyakarta&kota=3471')],
+                            ];
+                            $curr = $defaultBanners[$i] ?? $defaultBanners[0];
+                        @endphp
+                        <a href="{{ $curr['link'] }}" class="group relative overflow-hidden rounded-2xl shadow-lg border border-slate-200/50 block aspect-[16/8] sm:aspect-[16/9] bg-slate-100 hover:shadow-xl transition-all duration-300">
+                            <img 
+                                src="{{ $curr['img'] }}" 
+                                alt="Banner Iklan SevenKost" 
+                                class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                            >
+                        </a>
+                    @endfor
+                @else
+                    {{-- 3 Default Banner Iklan murni tanpa overlay teks --}}
+                    <a href="{{ url('/cari?q=Jakarta&kota=3171') }}" class="group relative overflow-hidden rounded-2xl shadow-lg border border-slate-200/50 block aspect-[16/8] sm:aspect-[16/9] bg-slate-100 hover:shadow-xl transition-all duration-300">
+                        <img 
+                            src="{{ asset('images/frontend/promo-jakarta.png') }}" 
+                            alt="Banner Iklan Kos Jakarta" 
+                            class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                        >
+                    </a>
 
-                {{-- Promo 2: Bandung --}}
-                <div class="group relative overflow-hidden rounded-2xl shadow-lg border border-slate-200/50 block bg-slate-900 hover:shadow-xl transition-all duration-300">
-                    <img 
-                        src="{{ asset('images/frontend/promo-bandung.png') }}" 
-                        alt="Kos Strategis di Bandung" 
-                        class="w-full h-44 object-cover group-hover:scale-105 transition duration-500"
-                    >
-                    <div class="absolute inset-0 bg-gradient-to-r from-sky-900/95 via-blue-900/70 to-transparent p-5 flex flex-col justify-between text-white">
-                        <div class="space-y-1">
-                            <h3 class="text-lg font-black leading-tight text-white group-hover:text-sky-300 transition-colors">
-                                Kos Strategis <br> di Bandung
-                            </h3>
-                            <p class="text-xs text-blue-100 font-medium">Mulai dari <span class="font-bold text-white">Rp 600rb/bulan</span></p>
-                        </div>
-                        <div>
-                            <a href="{{ url('/cari?q=Bandung&kota=3273') }}" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition shadow-sm">
-                                <span>Lihat Sekarang</span>
-                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                    <a href="{{ url('/cari?q=Bandung&kota=3273') }}" class="group relative overflow-hidden rounded-2xl shadow-lg border border-slate-200/50 block aspect-[16/8] sm:aspect-[16/9] bg-slate-100 hover:shadow-xl transition-all duration-300">
+                        <img 
+                            src="{{ asset('images/frontend/promo-bandung.png') }}" 
+                            alt="Banner Iklan Kos Bandung" 
+                            class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                        >
+                    </a>
 
-                {{-- Promo 3: Yogyakarta --}}
-                <div class="group relative overflow-hidden rounded-2xl shadow-lg border border-slate-200/50 block bg-slate-900 hover:shadow-xl transition-all duration-300">
-                    <img 
-                        src="{{ asset('images/frontend/promo-yogyakarta.png') }}" 
-                        alt="Kos Nyaman di Yogyakarta" 
-                        class="w-full h-44 object-cover group-hover:scale-105 transition duration-500"
-                    >
-                    <div class="absolute inset-0 bg-gradient-to-r from-blue-950/95 via-blue-900/70 to-transparent p-5 flex flex-col justify-between text-white">
-                        <div class="space-y-1">
-                            <h3 class="text-lg font-black leading-tight text-white group-hover:text-sky-300 transition-colors">
-                                Kos Nyaman <br> di Yogyakarta
-                            </h3>
-                            <p class="text-xs text-blue-100 font-medium">Mulai dari <span class="font-bold text-white">Rp 650rb/bulan</span></p>
-                        </div>
-                        <div>
-                            <a href="{{ url('/cari?q=Yogyakarta&kota=3471') }}" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition shadow-sm">
-                                <span>Lihat Sekarang</span>
-                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                    <a href="{{ url('/cari?q=Yogyakarta&kota=3471') }}" class="group relative overflow-hidden rounded-2xl shadow-lg border border-slate-200/50 block aspect-[16/8] sm:aspect-[16/9] bg-slate-100 hover:shadow-xl transition-all duration-300">
+                        <img 
+                            src="{{ asset('images/frontend/promo-yogyakarta.png') }}" 
+                            alt="Banner Iklan Kos Yogyakarta" 
+                            class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                        >
+                    </a>
+                @endif
             </div>
 
             {{-- Pagination Dots Underneath --}}

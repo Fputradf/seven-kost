@@ -26,7 +26,7 @@ class HomeController extends Controller
                 $q->whereNull('ends_at')->orWhere('ends_at', '>=', now());
             })
             ->latest()
-            ->take(2)
+            ->take(3)
             ->get();
 
         // Kota Populer untuk kartu shortcut
@@ -56,7 +56,7 @@ class HomeController extends Controller
                     'isFeatured' => (bool) $k->is_featured,
                     'availableRooms' => $k->rooms->sum('available_rooms'),
                     'facilities' => $k->facilities->pluck('name')->toArray(),
-                    'image' => $k->primaryImage ? asset('storage/' . $k->primaryImage->file_path) : null,
+                    'image' => $k->primaryImage ? asset('storage/'.$k->primaryImage->file_path) : null,
                 ];
             });
 

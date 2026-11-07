@@ -7,7 +7,7 @@ use Tests\TestCase;
 class FrontendHomeTest extends TestCase
 {
     /**
-     * Test that the homepage renders properly with all redesigned UI sections.
+     * Test that the homepage renders properly with redesigned UI, header, banners, and footer.
      */
     public function test_homepage_renders_seven_kost_redesigned_ui(): void
     {
@@ -35,13 +35,10 @@ class FrontendHomeTest extends TestCase
         $response->assertSee('Tipe Kos');
         $response->assertSee('Rentang Harga');
 
-        // Promo city cards
-        $response->assertSee('Kos Terbaik');
-        $response->assertSee('di Jakarta');
-        $response->assertSee('Kos Strategis');
-        $response->assertSee('di Bandung');
-        $response->assertSee('Kos Nyaman');
-        $response->assertSee('di Yogyakarta');
+        // 3 Ad Banner slots (pure images, no text overlay)
+        $response->assertSee('promo-jakarta.png');
+        $response->assertSee('promo-bandung.png');
+        $response->assertSee('promo-yogyakarta.png');
 
         // Featured Kos
         $response->assertSee('Kos Unggulan');
@@ -56,7 +53,7 @@ class FrontendHomeTest extends TestCase
         $response->assertSee('Surabaya');
         $response->assertSee('Depok');
 
-        // Banners
+        // Banners (Marketplace & Layanan Mitra)
         $response->assertSee('Marketplace Barang Kos');
         $response->assertSee('Layanan Mitra');
         $response->assertSee('Coming Soon');
@@ -65,11 +62,13 @@ class FrontendHomeTest extends TestCase
         $response->assertSee('Pasang Iklan Kosmu');
         $response->assertSee('Sekarang!');
 
-        // Footer
+        // Footer (Royal Navy Color #042159, Newsletter, Socials)
+        $response->assertSee('bg-[#042159]');
         $response->assertSee('Cari Kos Jadi Lebih Mudah');
         $response->assertSee('Navigasi');
         $response->assertSee('Informasi');
         $response->assertSee('Ikuti Kami');
         $response->assertSee('Berlangganan Newsletter');
+        $response->assertSee('Aman & Terpercaya', false);
     }
 }

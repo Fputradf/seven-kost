@@ -2,19 +2,19 @@
 
 <nav x-data="{ mobileMenuOpen: false, userDropdownOpen: false }" class="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/80 text-slate-800 shadow-xs">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-20 gap-4">
+        <div class="flex items-center justify-between h-20 lg:h-22 gap-4">
             {{-- Left: Logo & Search Bar --}}
             <div class="flex items-center gap-4 lg:gap-6 flex-shrink-0">
                 <a href="{{ url('/') }}" class="flex items-center gap-2 group focus:outline-none">
-                    <img src="{{ asset('images/logo-seven-kost.png') }}" alt="SevenKost Logo" class="h-10 w-10 object-contain group-hover:scale-105 transition-transform drop-shadow-sm">
+                    <img src="{{ asset('images/logo-seven-kost.png') }}" alt="SevenKost Logo" class="h-11 w-11 md:h-12 md:w-12 object-contain group-hover:scale-105 transition-transform drop-shadow-sm">
                 </a>
 
                 {{-- Quick Search Pill in Navbar --}}
                 <form action="{{ url('/cari') }}" method="GET" class="hidden sm:flex items-center">
                     <div class="relative flex items-center">
-                        <span class="absolute left-3.5 text-slate-400 pointer-events-none">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        <span class="absolute left-4 text-slate-500 pointer-events-none">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                             </svg>
                         </span>
                         <input 
@@ -22,42 +22,42 @@
                             name="q" 
                             value="{{ request('q') }}"
                             placeholder="Cari kos di sini..." 
-                            class="pl-10 pr-4 py-2 text-xs lg:text-sm bg-slate-100/90 hover:bg-slate-100 focus:bg-white text-slate-700 placeholder-slate-400 rounded-full border border-slate-200/70 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 w-44 md:w-56 lg:w-64 transition-all"
+                            class="pl-11 pr-5 py-2.5 text-sm lg:text-base font-medium bg-slate-100 hover:bg-slate-200/70 focus:bg-white text-slate-800 placeholder-slate-400 rounded-full border border-slate-200/80 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 w-48 md:w-60 lg:w-72 transition-all shadow-inner"
                         >
                     </div>
                 </form>
             </div>
 
-            {{-- Center: Desktop Nav Links (Icons + Labels) --}}
-            <div class="hidden md:flex items-center gap-6 lg:gap-8 text-sm font-medium text-slate-600">
+            {{-- Center: Desktop Nav Links (Prominent, Bold & Clear Typography) --}}
+            <div class="hidden md:flex items-center gap-6 lg:gap-10 text-base lg:text-[17px] font-bold text-slate-800">
                 {{-- Beranda --}}
-                <a href="{{ url('/') }}" class="flex items-center gap-2 transition-colors {{ request()->is('/') ? 'text-blue-600 font-semibold' : 'hover:text-blue-600' }}">
-                    <svg class="w-4 h-4 {{ request()->is('/') ? 'text-blue-600' : 'text-slate-500' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                <a href="{{ url('/') }}" class="flex items-center gap-2 transition-colors pb-1 {{ request()->is('/') ? 'text-blue-600 border-b-2 border-blue-600' : 'hover:text-blue-600' }}">
+                    <svg class="w-5 h-5 {{ request()->is('/') ? 'text-blue-600' : 'text-slate-700' }}" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
                     </svg>
                     <span>Beranda</span>
                 </a>
 
                 {{-- Layanan --}}
-                <a href="{{ url('/#layanan') }}" class="flex items-center gap-2 transition-colors hover:text-blue-600">
-                    <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+                <a href="{{ url('/#layanan') }}" class="flex items-center gap-2 transition-colors hover:text-blue-600 pb-1">
+                    <svg class="w-5 h-5 text-slate-700" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
                     </svg>
                     <span>Layanan</span>
                 </a>
 
                 {{-- Pasang Iklan --}}
-                <a href="{{ url('/paket-iklan') }}" class="flex items-center gap-2 transition-colors {{ request()->is('paket-iklan*') ? 'text-blue-600 font-semibold' : 'hover:text-blue-600' }}">
-                    <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/>
+                <a href="{{ url('/paket-iklan') }}" class="flex items-center gap-2 transition-colors pb-1 {{ request()->is('paket-iklan*') ? 'text-blue-600 border-b-2 border-blue-600' : 'hover:text-blue-600' }}">
+                    <svg class="w-5 h-5 text-slate-700" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M18 3a1 1 0 00-1.447-.894L8.763 6H5a3 3 0 000 6h.28l1.771 5.316A1 1 0 008 18h1a1 1 0 001-1v-4.39l6.553 3.276A1 1 0 0018 15V3z" clip-rule="evenodd"/>
                     </svg>
                     <span>Pasang Iklan</span>
                 </a>
 
                 {{-- Marketplace --}}
-                <a href="{{ url('/#marketplace') }}" class="flex items-center gap-2 transition-colors hover:text-blue-600">
-                    <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                <a href="{{ url('/#marketplace') }}" class="flex items-center gap-2 transition-colors hover:text-blue-600 pb-1">
+                    <svg class="w-5 h-5 text-slate-700" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"/>
                     </svg>
                     <span>Marketplace</span>
                 </a>
@@ -68,11 +68,11 @@
                 @auth
                     {{-- User Profile Menu --}}
                     <div class="relative" @click.outside="userDropdownOpen = false">
-                        <button @click="userDropdownOpen = !userDropdownOpen" type="button" class="flex items-center gap-2.5 rounded-full p-1 text-sm transition hover:bg-slate-100 focus:outline-none">
-                            <div class="h-9 w-9 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold text-xs ring-2 ring-blue-500/20 shadow-sm">
+                        <button @click="userDropdownOpen = !userDropdownOpen" type="button" class="flex items-center gap-2.5 rounded-full p-1.5 text-sm transition hover:bg-slate-100 focus:outline-none">
+                            <div class="h-10 w-10 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold text-sm ring-2 ring-blue-500/20 shadow-sm">
                                 {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                             </div>
-                            <span class="text-xs font-semibold text-slate-700 hidden lg:inline">{{ Auth::user()->name }}</span>
+                            <span class="text-sm font-bold text-slate-800 hidden lg:inline">{{ Auth::user()->name }}</span>
                             <svg class="h-4 w-4 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                             </svg>
@@ -121,13 +121,13 @@
                         </div>
                     </div>
                 @else
-                    {{-- Tombol Masuk (Outlined) --}}
-                    <a href="{{ route('login') }}" class="px-5 py-2 text-xs lg:text-sm font-semibold text-blue-600 border border-blue-600 rounded-lg hover:bg-blue-50 transition shadow-2xs">
+                    {{-- Tombol Masuk (Outlined Blue, Prominent Font) --}}
+                    <a href="{{ route('login') }}" class="px-6 py-2.5 text-sm lg:text-base font-bold text-blue-600 border-2 border-blue-600 rounded-xl hover:bg-blue-50 transition shadow-2xs">
                         Masuk
                     </a>
 
-                    {{-- Tombol Daftar (Solid Blue) --}}
-                    <a href="{{ route('register') }}" class="px-5 py-2 text-xs lg:text-sm font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition shadow-sm">
+                    {{-- Tombol Daftar (Solid Blue, Prominent Font) --}}
+                    <a href="{{ route('register') }}" class="px-6 py-2.5 text-sm lg:text-base font-bold text-white bg-blue-600 rounded-xl hover:bg-blue-700 transition shadow-md shadow-blue-500/20">
                         Daftar
                     </a>
                 @endauth
@@ -135,10 +135,10 @@
 
             {{-- Mobile Menu Button --}}
             <div class="flex md:hidden items-center">
-                <button @click="mobileMenuOpen = !mobileMenuOpen" type="button" class="p-2 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 focus:outline-none">
+                <button @click="mobileMenuOpen = !mobileMenuOpen" type="button" class="p-2 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-slate-100 focus:outline-none">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path x-show="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                        <path x-show="mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" style="display: none;"/>
+                        <path x-show="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"/>
+                        <path x-show="mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" style="display: none;"/>
                     </svg>
                 </button>
             </div>
@@ -160,24 +160,24 @@
                     name="q" 
                     value="{{ request('q') }}"
                     placeholder="Cari kos di sini..." 
-                    class="w-full pl-10 pr-4 py-2 text-xs bg-slate-100 rounded-full border border-slate-200"
+                    class="w-full pl-10 pr-4 py-2 text-sm bg-slate-100 rounded-full border border-slate-200"
                 >
             </div>
         </form>
 
-        <div class="space-y-1 text-sm font-medium pt-2">
-            <a href="{{ url('/') }}" class="block px-3 py-2 rounded-lg text-blue-600 font-semibold bg-blue-50">Beranda</a>
-            <a href="{{ url('/#layanan') }}" @click="mobileMenuOpen = false" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">Layanan</a>
-            <a href="{{ url('/paket-iklan') }}" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">Pasang Iklan</a>
-            <a href="{{ url('/#marketplace') }}" @click="mobileMenuOpen = false" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50">Marketplace</a>
+        <div class="space-y-1 text-base font-bold pt-2">
+            <a href="{{ url('/') }}" class="block px-3 py-2 rounded-lg text-blue-600 bg-blue-50">Beranda</a>
+            <a href="{{ url('/#layanan') }}" @click="mobileMenuOpen = false" class="block px-3 py-2 rounded-lg text-slate-800 hover:bg-slate-50">Layanan</a>
+            <a href="{{ url('/paket-iklan') }}" class="block px-3 py-2 rounded-lg text-slate-800 hover:bg-slate-50">Pasang Iklan</a>
+            <a href="{{ url('/#marketplace') }}" @click="mobileMenuOpen = false" class="block px-3 py-2 rounded-lg text-slate-800 hover:bg-slate-50">Marketplace</a>
         </div>
 
         <div class="pt-3 border-t border-slate-100 flex flex-col gap-2">
             @auth
-                <a href="{{ route('dashboard') }}" class="w-full text-center py-2 text-xs font-semibold text-blue-600 border border-blue-600 rounded-lg">Dashboard</a>
+                <a href="{{ route('dashboard') }}" class="w-full text-center py-2.5 text-sm font-bold text-blue-600 border-2 border-blue-600 rounded-xl">Dashboard</a>
             @else
-                <a href="{{ route('login') }}" class="w-full text-center py-2 text-xs font-semibold text-blue-600 border border-blue-600 rounded-lg">Masuk</a>
-                <a href="{{ route('register') }}" class="w-full text-center py-2 text-xs font-semibold text-white bg-blue-600 rounded-lg">Daftar</a>
+                <a href="{{ route('login') }}" class="w-full text-center py-2.5 text-sm font-bold text-blue-600 border-2 border-blue-600 rounded-xl">Masuk</a>
+                <a href="{{ route('register') }}" class="w-full text-center py-2.5 text-sm font-bold text-white bg-blue-600 rounded-xl">Daftar</a>
             @endauth
         </div>
     </div>
