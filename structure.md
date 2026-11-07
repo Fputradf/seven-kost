@@ -177,7 +177,9 @@
 │       └── 📄 WilayahSeeder.php
 ├── 📁 Desain Aplikasi Seven Kos/
 │   ├── 📄 Alur Login Platform Kos Nasional.png
+│   ├── 📄 Beranda Kos Nusantara Modern Mobile Responsif.png
 │   ├── 📄 Beranda Marketplace Kos Nasional.png
+│   ├── 📄 Beranda SevenKost Modern Bergradasi Biru.png
 │   ├── 📄 Dasbor Admin KosKu.id Kelola Mitra dan Kos.png
 │   ├── 📄 Dasbor Admin KosKu.id Terpadu berbagai fitur.png
 │   ├── 📄 Dasbor Admin KosKu.id Terpadu.png
@@ -199,13 +201,16 @@
 │   ├── 📄 Form Marketplace KosNusantara 二四六.png
 │   ├── 📄 Landing Page Kos Dekat UGMneqarpoq.png
 │   ├── 📄 Listing Kasur Premium KosNusantara.png
+│   ├── 📄 Logo Rumah Angka Tujuh Berkilau.png
 │   ├── 📄 Marketplace Kos Nusantara Modern.png
 │   ├── 📄 Pengaturan Profil KosNusantara.png
 │   ├── 📄 Platform Kos Nasional_ Cari Kos di Jakarta.png
 │   ├── 📄 Profil KosNusantara Fajar Putra.png
-│   └── 📄 Tampilan Detail Kos Melati Residence.png
+│   ├── 📄 Tampilan Detail Kos Melati Residence.png
+│   └── 📄 —Pngtree—building and construction logo_19678575.png
 ├── 📄 ERD.md
 ├── 📄 Jadwal_dan_Tools_Seven_Kost.md
+├── 📄 Logo Rumah Angka Tujuh Berkilau.png
 ├── 📄 package-lock.json
 ├── 📄 package.json
 ├── 📄 phpunit.xml
@@ -222,6 +227,7 @@
 │   │       └── 📁 filament/
 │   │           └── 📄 app.css
 │   ├── 📄 favicon.ico
+│   ├── 📄 favicon.png
 │   ├── 📁 fonts/
 │   │   └── 📁 filament/
 │   │       └── 📁 filament/
@@ -237,6 +243,57 @@
 │   ├── 📁 geo/
 │   │   └── 📁 provinsi/
 │   │       └── 📄 README.md
+│   ├── 📁 images/
+│   │   ├── 📁 frontend/
+│   │   │   ├── 📄 banner-bandung-hd.jpg
+│   │   │   ├── 📄 banner-bandung-wide.jpg
+│   │   │   ├── 📄 banner-jakarta-hd.jpg
+│   │   │   ├── 📄 banner-jakarta-wide.jpg
+│   │   │   ├── 📄 banner-studio-hd.jpg
+│   │   │   ├── 📄 banner-yogyakarta-hd.jpg
+│   │   │   ├── 📄 banner-yogyakarta-wide.jpg
+│   │   │   ├── 📄 city-bandung.png
+│   │   │   ├── 📄 city-depok.png
+│   │   │   ├── 📄 city-jakarta.png
+│   │   │   ├── 📄 city-surabaya.png
+│   │   │   ├── 📄 city-yogyakarta.png
+│   │   │   ├── 📄 cta-host-female.jpg
+│   │   │   ├── 📄 cta-host-male.jpg
+│   │   │   ├── 📄 cta-house-keys.jpg
+│   │   │   ├── 📄 cta-house.png
+│   │   │   ├── 📄 cta-kost-room.jpg
+│   │   │   ├── 📄 cta-person.png
+│   │   │   ├── 📄 footer-logo-crop.png
+│   │   │   ├── 📄 footer-newsletter-crop.png
+│   │   │   ├── 📄 footer-social-crop.png
+│   │   │   ├── 📄 header-logo-crop.png
+│   │   │   ├── 📄 header-nav-crop.png
+│   │   │   ├── 📄 header-wide-crop.png
+│   │   │   ├── 📄 hero-building-ap-1.jpg
+│   │   │   ├── 📄 hero-building-ap-2.jpg
+│   │   │   ├── 📄 hero-building-hd.jpg
+│   │   │   ├── 📄 hero-building.png
+│   │   │   ├── 📄 kost-1-hd.jpg
+│   │   │   ├── 📄 kost-1.png
+│   │   │   ├── 📄 kost-2-hd.jpg
+│   │   │   ├── 📄 kost-2.png
+│   │   │   ├── 📄 kost-3-hd.jpg
+│   │   │   ├── 📄 kost-3.png
+│   │   │   ├── 📄 kost-4-hd.jpg
+│   │   │   ├── 📄 kost-4.png
+│   │   │   ├── 📄 logo-full-bounds.png
+│   │   │   ├── 📄 marketplace-hd.jpg
+│   │   │   ├── 📄 marketplace-items.png
+│   │   │   ├── 📄 promo-bandung.png
+│   │   │   ├── 📄 promo-jakarta.png
+│   │   │   ├── 📄 promo-yogyakarta.png
+│   │   │   ├── 📄 service-catering.jpg
+│   │   │   ├── 📄 service-cleaning.jpg
+│   │   │   └── 📄 service-laundry.jpg
+│   │   ├── 📄 logo-exact-mockup.png
+│   │   ├── 📄 logo-pngtree-raw.png
+│   │   ├── 📄 logo-seven-kost.png
+│   │   └── 📄 logo-seven-kost.svg
 │   ├── 📄 index.php
 │   ├── 📁 js/
 │   │   └── 📁 filament/
@@ -479,6 +536,7 @@
 │   │   │   ├── 📄 PasswordUpdateTest.php
 │   │   │   └── 📄 RegistrationTest.php
 │   │   ├── 📄 ExampleTest.php
+│   │   ├── 📄 FrontendHomeTest.php
 │   │   └── 📄 ProfileTest.php
 │   ├── 📄 TestCase.php
 │   └── 📁 Unit/

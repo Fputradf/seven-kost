@@ -43,7 +43,7 @@
         <div class="mt-4 flex items-start gap-2">
             <input type="checkbox" id="terms" name="terms" required class="mt-1 rounded border-gray-300 text-blue-600 shadow-xs focus:ring-blue-500">
             <label for="terms" class="text-xs text-gray-600 leading-tight">
-                Saya menyetujui <a href="{{ route('terms.conditions') }}" target="_blank" class="text-blue-600 underline hover:text-blue-800">Ketentuan Layanan</a> serta pemrosesan data sesuai <a href="{{ route('privacy.policy') }}" target="_blank" class="text-blue-600 underline hover:text-blue-800">Kebijakan Privasi (UU PDP No. 27/2022)</a>.
+                Saya menyetujui <a href="{{ Route::has('terms.conditions') ? route('terms.conditions') : url('/syarat-ketentuan') }}" target="_blank" class="text-blue-600 underline hover:text-blue-800">Ketentuan Layanan</a> serta pemrosesan data sesuai <a href="{{ Route::has('privacy.policy') ? route('privacy.policy') : url('/kebijakan-privasi') }}" target="_blank" class="text-blue-600 underline hover:text-blue-800">Kebijakan Privasi (UU PDP No. 27/2022)</a>.
             </label>
         </div>
 
