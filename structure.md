@@ -176,6 +176,7 @@
 │       ├── 📄 RolePermissionSeeder.php
 │       └── 📄 WilayahSeeder.php
 ├── 📁 Desain Aplikasi Seven Kos/
+│   ├── 📄 Beranda Kos Nusantara Modern Mobile Responsif.png
 │   ├── 📄 Beranda SevenKost Modern Bergradasi Biru.png
 │   └── 📄 Logo Rumah Angka Tujuh Berkilau.png
 ├── 📄 ERD.md
@@ -189,7 +190,7 @@
 │   ├── 📄 .htaccess
 │   ├── 📁 build/
 │   │   ├── 📁 assets/
-│   │   │   ├── 📄 app-BY3qwque.css
+│   │   │   ├── 📄 app-BR6oDelw.css
 │   │   │   └── 📄 app-Dr67-uCa.js
 │   │   └── 📄 manifest.json
 │   ├── 📁 css/
@@ -214,6 +215,10 @@
 │   │       └── 📄 README.md
 │   ├── 📁 images/
 │   │   ├── 📁 frontend/
+│   │   │   ├── 📄 banner-bandung-hd.jpg
+│   │   │   ├── 📄 banner-jakarta-hd.jpg
+│   │   │   ├── 📄 banner-studio-hd.jpg
+│   │   │   ├── 📄 banner-yogyakarta-hd.jpg
 │   │   │   ├── 📄 city-bandung.png
 │   │   │   ├── 📄 city-depok.png
 │   │   │   ├── 📄 city-jakarta.png
@@ -227,6 +232,9 @@
 │   │   │   ├── 📄 header-logo-crop.png
 │   │   │   ├── 📄 header-nav-crop.png
 │   │   │   ├── 📄 header-wide-crop.png
+│   │   │   ├── 📄 hero-building-ap-1.jpg
+│   │   │   ├── 📄 hero-building-ap-2.jpg
+│   │   │   ├── 📄 hero-building-hd.jpg
 │   │   │   ├── 📄 hero-building.png
 │   │   │   ├── 📄 kost-1.png
 │   │   │   ├── 📄 kost-2.png
@@ -391,8 +399,10 @@
 │   │       ├── 📄 06525a6a093ac6cf6e23a13d606695cf.php
 │   │       ├── 📄 0b51b9c94d7dc367e1955c17a1c67fc1.php
 │   │       ├── 📄 0c113b5c45d1fa62135004ebec938c33.php
+│   │       ├── 📄 1288003ed32b0676e6ccb14eb5942b70.php
 │   │       ├── 📄 1807d3741cafbb28190875a2bc68cd8a.php
 │   │       ├── 📄 21ce1a07eb531ce18af400f0e82b442f.php
+│   │       ├── 📄 21d1e72ad79e89d7ca1c7c5f0c3e06e5.php
 │   │       ├── 📄 222f9f7b50f61affbc6fd95cbef8cba5.php
 │   │       ├── 📄 2b4525a05eac0b808486def8581bc872.php
 │   │       ├── 📄 2b46671.tmp
@@ -451,6 +461,7 @@
 │   │       ├── 📄 d525209119bc62f5d80d13fe2bd482bd.php
 │   │       ├── 📄 d5cfc8f84c45255b3b888918b76ce252.php
 │   │       ├── 📄 d842e2867dc7c868640b7324649b705f.php
+│   │       ├── 📄 d9fc96f0667c74fa2a362f962932da39.php
 │   │       ├── 📄 dee2446b7a6e97462da9f6ae447d8d5c.php
 │   │       ├── 📄 e947292da1ff13b0375fcd9dd91cc244.php
 │   │       ├── 📄 eaac4a9ef0769d66c54ba768b2dbe495.php

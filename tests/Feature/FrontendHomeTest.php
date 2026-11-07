@@ -7,7 +7,7 @@ use Tests\TestCase;
 class FrontendHomeTest extends TestCase
 {
     /**
-     * Test that the homepage renders properly with redesigned UI, header, banners, and footer.
+     * Test that the homepage renders properly with redesigned UI, header, HD banners, interactive CTA, and bright modern footer.
      */
     public function test_homepage_renders_seven_kost_redesigned_ui(): void
     {
@@ -23,22 +23,24 @@ class FrontendHomeTest extends TestCase
         $response->assertSee('Pasang Iklan');
         $response->assertSee('Marketplace');
 
-        // Hero Section
+        // Hero Section & HD Building
         $response->assertSee('Terpercaya');
         $response->assertSee('Aman');
         $response->assertSee('Cari Kos Jadi');
         $response->assertSee('Lebih Mudah');
         $response->assertSee('Temukan kos terbaik di lokasi strategis');
+        $response->assertSee('hero-building-hd.jpg');
+        $response->assertSee('Listing Pilihan Nasional');
 
         // Search floating bar
         $response->assertSee('Lokasi / Kampus');
         $response->assertSee('Tipe Kos');
         $response->assertSee('Rentang Harga');
 
-        // 3 Ad Banner slots (pure images, no text overlay)
-        $response->assertSee('promo-jakarta.png');
-        $response->assertSee('promo-bandung.png');
-        $response->assertSee('promo-yogyakarta.png');
+        // 3 Ad Banner slots in Ultra HD (pure images, no text overlay)
+        $response->assertSee('banner-jakarta-hd.jpg');
+        $response->assertSee('banner-bandung-hd.jpg');
+        $response->assertSee('banner-yogyakarta-hd.jpg');
 
         // Featured Kos
         $response->assertSee('Kos Unggulan');
@@ -58,12 +60,12 @@ class FrontendHomeTest extends TestCase
         $response->assertSee('Layanan Mitra');
         $response->assertSee('Coming Soon');
 
-        // CTA Banner
+        // Interactive Animated CTA Banner
         $response->assertSee('Pasang Iklan Kosmu');
         $response->assertSee('Sekarang!');
+        $response->assertSee('Listing Langsung Tayang');
 
-        // Footer (Royal Navy Color #042159, Newsletter, Socials)
-        $response->assertSee('bg-[#042159]');
+        // Bright Modern Footer (Clean light style, no dark navy)
         $response->assertSee('Cari Kos Jadi Lebih Mudah');
         $response->assertSee('Navigasi');
         $response->assertSee('Informasi');

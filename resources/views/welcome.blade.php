@@ -33,20 +33,21 @@
                     </p>
                 </div>
 
-                {{-- Hero Right: Modern Building Facade --}}
+                {{-- Hero Right: Modern Building Facade (HD Internet Image) --}}
                 <div class="lg:col-span-5 relative hidden lg:block">
-                    <div class="relative mx-auto rounded-3xl overflow-hidden shadow-2xl border-4 border-white/20 group">
+                    <div class="relative mx-auto rounded-3xl overflow-hidden shadow-2xl border-4 border-white/20 group cursor-pointer transition-all duration-500 hover:shadow-blue-500/30">
                         <img 
-                            src="{{ asset('images/frontend/hero-building.png') }}" 
-                            alt="SevenKost Building" 
-                            class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-700"
+                            src="{{ asset('images/frontend/hero-building-hd.jpg') }}" 
+                            alt="SevenKost Listing Pilihan Nasional HD" 
+                            class="w-full h-84 object-cover group-hover:scale-108 transition-transform duration-700 ease-out"
                         >
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent"></div>
                         <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between text-xs text-white">
-                            <span class="bg-blue-600/90 backdrop-blur-md px-3 py-1 rounded-full font-semibold">
+                            <span class="bg-blue-600/90 backdrop-blur-md px-3.5 py-1.5 rounded-full font-bold shadow-md flex items-center gap-2">
+                                <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
                                 Listing Pilihan Nasional
                             </span>
-                            <span class="bg-black/50 backdrop-blur-md px-2.5 py-1 rounded-full">
+                            <span class="bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full font-semibold">
                                 34 Provinsi
                             </span>
                         </div>
@@ -146,17 +147,17 @@
         </div>
     </section>
 
-    {{-- 2. 3 BANNER IKLAN (DIPASANG OLEH PEMILIK / ADMIN - TANPA OVERLAY TEKS) --}}
+    {{-- 2. 3 BANNER IKLAN ULTRA HD (DIPASANG OLEH PEMILIK / ADMIN - TANPA OVERLAY TEKS) --}}
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 sm:-mt-8 relative z-20">
         <div class="relative">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
                 @if(isset($banners) && $banners->count() > 0)
                     @foreach($banners as $banner)
-                        <a href="{{ $banner->target_url ?: url('/paket-iklan') }}" class="group relative overflow-hidden rounded-2xl shadow-lg border border-slate-200/50 block aspect-[16/8] sm:aspect-[16/9] bg-slate-100 hover:shadow-xl transition-all duration-300">
+                        <a href="{{ $banner->target_url ?: url('/paket-iklan') }}" class="group relative overflow-hidden rounded-2xl shadow-lg border border-slate-200/50 block aspect-[16/9] bg-slate-100 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
                             <img 
                                 src="{{ asset('storage/' . $banner->image_path) }}" 
                                 alt="{{ $banner->title ?: 'Banner Iklan SevenKost' }}" 
-                                class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                                class="w-full h-full object-cover group-hover:scale-106 transition duration-500"
                             >
                         </a>
                     @endforeach
@@ -164,43 +165,43 @@
                     @for($i = $banners->count(); $i < 3; $i++)
                         @php
                             $defaultBanners = [
-                                ['img' => asset('images/frontend/promo-jakarta.png'), 'link' => url('/cari?q=Jakarta&kota=3171')],
-                                ['img' => asset('images/frontend/promo-bandung.png'), 'link' => url('/cari?q=Bandung&kota=3273')],
-                                ['img' => asset('images/frontend/promo-yogyakarta.png'), 'link' => url('/cari?q=Yogyakarta&kota=3471')],
+                                ['img' => asset('images/frontend/banner-jakarta-hd.jpg'), 'link' => url('/cari?q=Jakarta&kota=3171')],
+                                ['img' => asset('images/frontend/banner-bandung-hd.jpg'), 'link' => url('/cari?q=Bandung&kota=3273')],
+                                ['img' => asset('images/frontend/banner-yogyakarta-hd.jpg'), 'link' => url('/cari?q=Yogyakarta&kota=3471')],
                             ];
                             $curr = $defaultBanners[$i] ?? $defaultBanners[0];
                         @endphp
-                        <a href="{{ $curr['link'] }}" class="group relative overflow-hidden rounded-2xl shadow-lg border border-slate-200/50 block aspect-[16/8] sm:aspect-[16/9] bg-slate-100 hover:shadow-xl transition-all duration-300">
+                        <a href="{{ $curr['link'] }}" class="group relative overflow-hidden rounded-2xl shadow-lg border border-slate-200/50 block aspect-[16/9] bg-slate-100 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
                             <img 
                                 src="{{ $curr['img'] }}" 
-                                alt="Banner Iklan SevenKost" 
-                                class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                                alt="Banner Iklan SevenKost HD" 
+                                class="w-full h-full object-cover group-hover:scale-106 transition duration-500"
                             >
                         </a>
                     @endfor
                 @else
-                    {{-- 3 Default Banner Iklan murni tanpa overlay teks --}}
-                    <a href="{{ url('/cari?q=Jakarta&kota=3171') }}" class="group relative overflow-hidden rounded-2xl shadow-lg border border-slate-200/50 block aspect-[16/8] sm:aspect-[16/9] bg-slate-100 hover:shadow-xl transition-all duration-300">
+                    {{-- 3 Default Banner Iklan Ultra HD murni tanpa overlay teks --}}
+                    <a href="{{ url('/cari?q=Jakarta&kota=3171') }}" class="group relative overflow-hidden rounded-2xl shadow-lg border border-slate-200/50 block aspect-[16/9] bg-slate-100 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
                         <img 
-                            src="{{ asset('images/frontend/promo-jakarta.png') }}" 
-                            alt="Banner Iklan Kos Jakarta" 
-                            class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                            src="{{ asset('images/frontend/banner-jakarta-hd.jpg') }}" 
+                            alt="Banner Iklan Kos Jakarta HD" 
+                            class="w-full h-full object-cover group-hover:scale-106 transition duration-500"
                         >
                     </a>
 
-                    <a href="{{ url('/cari?q=Bandung&kota=3273') }}" class="group relative overflow-hidden rounded-2xl shadow-lg border border-slate-200/50 block aspect-[16/8] sm:aspect-[16/9] bg-slate-100 hover:shadow-xl transition-all duration-300">
+                    <a href="{{ url('/cari?q=Bandung&kota=3273') }}" class="group relative overflow-hidden rounded-2xl shadow-lg border border-slate-200/50 block aspect-[16/9] bg-slate-100 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
                         <img 
-                            src="{{ asset('images/frontend/promo-bandung.png') }}" 
-                            alt="Banner Iklan Kos Bandung" 
-                            class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                            src="{{ asset('images/frontend/banner-bandung-hd.jpg') }}" 
+                            alt="Banner Iklan Kos Bandung HD" 
+                            class="w-full h-full object-cover group-hover:scale-106 transition duration-500"
                         >
                     </a>
 
-                    <a href="{{ url('/cari?q=Yogyakarta&kota=3471') }}" class="group relative overflow-hidden rounded-2xl shadow-lg border border-slate-200/50 block aspect-[16/8] sm:aspect-[16/9] bg-slate-100 hover:shadow-xl transition-all duration-300">
+                    <a href="{{ url('/cari?q=Yogyakarta&kota=3471') }}" class="group relative overflow-hidden rounded-2xl shadow-lg border border-slate-200/50 block aspect-[16/9] bg-slate-100 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
                         <img 
-                            src="{{ asset('images/frontend/promo-yogyakarta.png') }}" 
-                            alt="Banner Iklan Kos Yogyakarta" 
-                            class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                            src="{{ asset('images/frontend/banner-yogyakarta-hd.jpg') }}" 
+                            alt="Banner Iklan Kos Yogyakarta HD" 
+                            class="w-full h-full object-cover group-hover:scale-106 transition duration-500"
                         >
                     </a>
                 @endif
@@ -208,7 +209,7 @@
 
             {{-- Pagination Dots Underneath --}}
             <div class="flex items-center justify-center gap-2 mt-5">
-                <span class="w-6 h-2 rounded-full bg-blue-600 transition-all"></span>
+                <span class="w-7 h-2 rounded-full bg-blue-600 transition-all"></span>
                 <span class="w-2 h-2 rounded-full bg-slate-300"></span>
                 <span class="w-2 h-2 rounded-full bg-slate-300"></span>
                 <span class="w-2 h-2 rounded-full bg-slate-300"></span>
@@ -539,35 +540,66 @@
         </div>
     </section>
 
-    {{-- 6. CTA BANNER (PASANG IKLAN KOSMU SEKARANG!) --}}
+    {{-- 6. INTERACTIVE & ANIMATED CTA BANNER (PASANG IKLAN KOSMU SEKARANG!) --}}
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div class="rounded-3xl bg-gradient-to-r from-blue-800 via-blue-600 to-sky-500 text-white p-6 sm:p-10 relative overflow-hidden shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
-            {{-- Background Subtle Circles --}}
-            <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+        <div class="group relative rounded-3xl bg-gradient-to-r from-blue-700 via-indigo-600 to-sky-500 text-white p-7 sm:p-12 overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-blue-500/25 transition-all duration-500 transform hover:-translate-y-1">
+            {{-- Floating Animated Decorative Glow Blobs --}}
+            <div class="absolute -right-16 -bottom-16 w-80 h-80 bg-white/15 rounded-full blur-2xl animate-pulse pointer-events-none"></div>
+            <div class="absolute -top-12 left-1/3 w-64 h-64 bg-cyan-400/20 rounded-full blur-3xl pointer-events-none"></div>
 
-            {{-- Left Character Illustration --}}
-            <div class="hidden sm:block flex-shrink-0 w-28 md:w-36">
-                <img src="{{ asset('images/frontend/cta-person.png') }}" alt="Mitra Pemilik Kos" class="w-full object-contain drop-shadow-md">
-            </div>
+            {{-- Shimmer Sweep Overlay on Hover --}}
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none"></div>
 
-            {{-- Center Text --}}
-            <div class="space-y-2 text-center md:text-left flex-1">
-                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight">
-                    Pasang Iklan Kosmu <span class="text-cyan-300">Sekarang!</span>
-                </h2>
-                <p class="text-xs sm:text-sm text-blue-100 max-w-lg">
-                    Jangkau lebih banyak calon penyewa dengan mudah.
-                </p>
-            </div>
+            <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+                {{-- Left Character Illustration with Interactive Hover Scale --}}
+                <div class="hidden sm:block flex-shrink-0 w-32 md:w-40 transform group-hover:scale-105 group-hover:-rotate-2 transition-transform duration-500">
+                    <img src="{{ asset('images/frontend/cta-person.png') }}" alt="Mitra Pemilik Kos" class="w-full object-contain drop-shadow-xl filter drop-shadow">
+                </div>
 
-            {{-- Right CTA Button & Mini House --}}
-            <div class="flex items-center gap-4 flex-shrink-0">
-                <a href="{{ url('/paket-iklan') }}" class="px-7 py-3 rounded-full bg-white hover:bg-blue-50 text-blue-700 text-xs sm:text-sm font-extrabold shadow-lg transition transform hover:-translate-y-0.5 active:translate-y-0 flex items-center gap-2">
-                    <span>Pasang Iklan</span>
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                </a>
-                <div class="hidden lg:block w-20 flex-shrink-0">
-                    <img src="{{ asset('images/frontend/cta-house.png') }}" alt="Rumah Kos" class="w-full object-contain drop-shadow">
+                {{-- Center Text Content & Perks --}}
+                <div class="space-y-3 text-center md:text-left flex-1">
+                    {{-- Interactive Floating Tag --}}
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-xs font-extrabold text-cyan-200 tracking-wide uppercase shadow-sm">
+                        <span class="flex h-2 w-2 rounded-full bg-cyan-300 animate-ping"></span>
+                        <span>⚡ Khusus Pemilik & Pengelola Kos</span>
+                    </div>
+
+                    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight leading-tight">
+                        Pasang Iklan Kosmu <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 to-sky-300 animate-pulse">Sekarang!</span>
+                    </h2>
+
+                    <p class="text-xs sm:text-base text-blue-100 max-w-xl leading-relaxed">
+                        Jangkau ribuan calon penyewa mahasiswa & pekerja kantoran tanpa biaya perantara.
+                    </p>
+
+                    {{-- Highlight Perks --}}
+                    <div class="pt-1 flex flex-wrap items-center justify-center md:justify-start gap-2.5 text-xs font-semibold text-blue-100">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/10 backdrop-blur-xs border border-white/15">
+                            <svg class="w-3.5 h-3.5 text-emerald-300" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                            Listing Langsung Tayang
+                        </span>
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/10 backdrop-blur-xs border border-white/15">
+                            <svg class="w-3.5 h-3.5 text-emerald-300" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                            Verifikasi Cepat & Aman
+                        </span>
+                    </div>
+                </div>
+
+                {{-- Right Interactive CTA Button & 3D House --}}
+                <div class="flex items-center gap-5 flex-shrink-0">
+                    <a href="{{ url('/paket-iklan') }}" class="group/btn relative overflow-hidden rounded-full bg-white text-blue-700 font-extrabold px-8 py-3.5 text-sm sm:text-base shadow-xl hover:shadow-2xl hover:bg-blue-50 transition-all duration-300 transform hover:scale-105 active:scale-95 flex items-center gap-2.5">
+                        {{-- Button Shine Sweep --}}
+                        <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-blue-200/40 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700"></span>
+                        
+                        <span class="relative z-10">Pasang Iklan</span>
+                        <svg class="w-4 h-4 text-blue-700 relative z-10 group-hover/btn:translate-x-1.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                        </svg>
+                    </a>
+
+                    <div class="hidden lg:block w-22 flex-shrink-0 transform group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500">
+                        <img src="{{ asset('images/frontend/cta-house.png') }}" alt="Rumah Kos 3D" class="w-full object-contain drop-shadow-2xl">
+                    </div>
                 </div>
             </div>
         </div>
