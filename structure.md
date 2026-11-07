@@ -219,7 +219,7 @@
 │   ├── 📄 .htaccess
 │   ├── 📁 build/
 │   │   ├── 📁 assets/
-│   │   │   ├── 📄 app-DF1CsVS0.css
+│   │   │   ├── 📄 app-B8rsY0c0.css
 │   │   │   └── 📄 app-Dr67-uCa.js
 │   │   └── 📄 manifest.json
 │   ├── 📁 css/
@@ -261,6 +261,7 @@
 │   │   │   ├── 📄 cta-host-male.jpg
 │   │   │   ├── 📄 cta-house-keys.jpg
 │   │   │   ├── 📄 cta-house.png
+│   │   │   ├── 📄 cta-kost-room.jpg
 │   │   │   ├── 📄 cta-person.png
 │   │   │   ├── 📄 footer-logo-crop.png
 │   │   │   ├── 📄 footer-newsletter-crop.png

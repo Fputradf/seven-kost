@@ -555,8 +555,8 @@
                 </div>
             </div>
 
-            {{-- Card 2: Layanan Mitra (Laundry & Kebersihan Available, Katering Coming Soon) --}}
-            <div id="layanan" class="group/service relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-100/80 via-sky-50/60 to-white p-5 sm:p-6 border border-blue-200/70 shadow-sm hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between">
+            {{-- Card 2: Layanan Mitra (Translucent / Frosted Glass Style) --}}
+            <div id="layanan" class="group/service relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-100/70 via-sky-50/40 to-blue-50/20 backdrop-blur-md p-5 sm:p-6 border border-blue-200/70 shadow-sm hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between">
                 {{-- Decorative Subtle Background Glow --}}
                 <div class="absolute -right-8 -bottom-8 w-40 h-40 bg-blue-300/20 rounded-full blur-2xl pointer-events-none group-hover/service:scale-110 transition-transform duration-500"></div>
 
@@ -568,7 +568,7 @@
                             </svg>
                             <span>Layanan Mitra</span>
                         </div>
-                        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-bold shadow-2xs">
+                        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-800 border border-emerald-500/20 text-[10px] font-bold shadow-2xs backdrop-blur-xs">
                             <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
                             2 Layanan Tersedia
                         </span>
@@ -578,39 +578,39 @@
                         Layanan harian cuci pakaian & kebersihan kamar langsung ke kosmu agar hidup makin praktis.
                     </p>
 
-                    {{-- 3 Interactive Service Sub-Cards (Laundry, Kebersihan, Katering) --}}
+                    {{-- 3 Interactive Service Sub-Cards (Translucent / Glass Style) --}}
                     <div class="pt-1 grid grid-cols-3 gap-2.5">
                         {{-- 1. Laundry (Available) --}}
-                        <a href="{{ url('/layanan#laundry') }}" class="group/srv bg-white/95 hover:bg-white backdrop-blur-md rounded-xl p-2 border border-emerald-200/80 shadow-2xs hover:shadow-md hover:-translate-y-0.5 hover:border-emerald-400 transition-all duration-300 text-center flex flex-col items-center">
+                        <a href="{{ url('/layanan#laundry') }}" class="group/srv bg-white/40 hover:bg-white/70 backdrop-blur-md rounded-xl p-2 border border-white/60 hover:border-blue-400 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 text-center flex flex-col items-center">
                             <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-lg overflow-hidden mb-1.5 relative ring-1 ring-emerald-400/50 shadow-2xs">
                                 <img src="{{ asset('images/frontend/service-laundry.jpg') }}" alt="Layanan Laundry Kos" class="w-full h-full object-cover group-hover/srv:scale-110 transition duration-300">
                             </div>
                             <span class="text-xs font-black text-slate-800 leading-tight">Laundry</span>
-                            <span class="mt-1 inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[9px] font-black uppercase tracking-wide">
+                            <span class="mt-1 inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-800 border border-emerald-500/20 text-[9px] font-black uppercase tracking-wide">
                                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                                 Available
                             </span>
                         </a>
 
                         {{-- 2. Kebersihan (Available) --}}
-                        <a href="{{ url('/layanan#kebersihan') }}" class="group/srv bg-white/95 hover:bg-white backdrop-blur-md rounded-xl p-2 border border-emerald-200/80 shadow-2xs hover:shadow-md hover:-translate-y-0.5 hover:border-emerald-400 transition-all duration-300 text-center flex flex-col items-center">
+                        <a href="{{ url('/layanan#kebersihan') }}" class="group/srv bg-white/40 hover:bg-white/70 backdrop-blur-md rounded-xl p-2 border border-white/60 hover:border-blue-400 shadow-2xs hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 text-center flex flex-col items-center">
                             <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-lg overflow-hidden mb-1.5 relative ring-1 ring-emerald-400/50 shadow-2xs">
                                 <img src="{{ asset('images/frontend/service-cleaning.jpg') }}" alt="Layanan Kebersihan Kos" class="w-full h-full object-cover group-hover/srv:scale-110 transition duration-300">
                             </div>
                             <span class="text-xs font-black text-slate-800 leading-tight">Kebersihan</span>
-                            <span class="mt-1 inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[9px] font-black uppercase tracking-wide">
+                            <span class="mt-1 inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-800 border border-emerald-500/20 text-[9px] font-black uppercase tracking-wide">
                                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                                 Available
                             </span>
                         </a>
 
                         {{-- 3. Katering (Coming Soon) --}}
-                        <div class="bg-white/70 backdrop-blur-md rounded-xl p-2 border border-slate-200/80 shadow-2xs text-center flex flex-col items-center opacity-85">
+                        <div class="bg-white/20 backdrop-blur-md rounded-xl p-2 border border-white/40 shadow-2xs text-center flex flex-col items-center opacity-85">
                             <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-lg overflow-hidden mb-1.5 relative ring-1 ring-amber-300/80 filter grayscale-30">
                                 <img src="{{ asset('images/frontend/service-catering.jpg') }}" alt="Layanan Katering Kos" class="w-full h-full object-cover">
                             </div>
                             <span class="text-xs font-bold text-slate-700 leading-tight">Katering</span>
-                            <span class="mt-1 inline-flex items-center px-1.5 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200 text-[9px] font-bold uppercase tracking-wide">
+                            <span class="mt-1 inline-flex items-center px-1.5 py-0.5 rounded-full bg-amber-500/15 text-amber-800 border border-amber-500/20 text-[9px] font-bold uppercase tracking-wide">
                                 Coming Soon
                             </span>
                         </div>
@@ -623,7 +623,6 @@
                         </a>
                     </div>
                 </div>
-            </div>
                             <span>Pesan Layanan</span>
                             <svg class="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </a>
@@ -644,16 +643,16 @@
             <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none"></div>
 
             <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
-                {{-- Left: Mitra Host Real Photo with Verified Badge --}}
-                <div class="relative hidden sm:block flex-shrink-0 group/host">
-                    <div class="w-32 h-32 md:w-36 md:h-36 rounded-2xl overflow-hidden ring-4 ring-white/30 shadow-2xl relative transform group-hover/host:scale-105 group-hover/host:-rotate-1 transition-transform duration-500">
-                        <img src="{{ asset('images/frontend/cta-host-male.jpg') }}" alt="Mitra Pemilik Kos Terpercaya" class="w-full h-full object-cover">
+                {{-- Left: Modern Kos Room Photo with Verified Badge --}}
+                <div class="relative hidden sm:block flex-shrink-0 group/kost">
+                    <div class="w-32 h-32 md:w-36 md:h-36 rounded-2xl overflow-hidden ring-4 ring-white/30 shadow-2xl relative transform group-hover/kost:scale-105 group-hover/kost:-rotate-1 transition-transform duration-500">
+                        <img src="{{ asset('images/frontend/cta-kost-room.jpg') }}" alt="Kamar Kos Modern SevenKost" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-blue-950/50 via-transparent to-transparent"></div>
                     </div>
-                    {{-- Floating Host Verified Badge --}}
-                    <div class="absolute -bottom-3 -right-2 bg-white text-blue-800 text-[11px] font-extrabold px-3 py-1 rounded-full shadow-lg border border-blue-100 flex items-center gap-1.5 animate-bounce">
+                    {{-- Floating Listing Verified Badge --}}
+                    <div class="absolute -bottom-3 -right-2 bg-white/95 backdrop-blur-md text-blue-800 text-[11px] font-extrabold px-3 py-1 rounded-full shadow-lg border border-white/60 flex items-center gap-1.5">
                         <svg class="w-3.5 h-3.5 text-blue-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                        <span>Mitra Terverifikasi</span>
+                        <span>Kos Terverifikasi</span>
                     </div>
                 </div>
 

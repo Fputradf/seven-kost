@@ -71,11 +71,12 @@ class FrontendHomeTest extends TestCase
         $response->assertDontSee('Kebutuhan Kamar Kos');
         $response->assertDontSee('Solusi Hidup Kos');
 
-        // Interactive Animated CTA Banner with HD Photos
+        // Interactive Animated CTA Banner with HD Kos Photos
         $response->assertSee('Pasang Iklan Kosmu');
         $response->assertSee('Sekarang!');
         $response->assertSee('Listing Langsung Tayang');
-        $response->assertSee('cta-host-male.jpg');
+        $response->assertSee('cta-kost-room.jpg');
+        $response->assertDontSee('cta-host-male.jpg');
         $response->assertSee('cta-house-keys.jpg');
 
         // Bright Modern Footer (Clean light style, copyright inside footer, no Aman & Terpercaya)
