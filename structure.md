@@ -206,7 +206,8 @@
 │   ├── 📄 Pengaturan Profil KosNusantara.png
 │   ├── 📄 Platform Kos Nasional_ Cari Kos di Jakarta.png
 │   ├── 📄 Profil KosNusantara Fajar Putra.png
-│   └── 📄 Tampilan Detail Kos Melati Residence.png
+│   ├── 📄 Tampilan Detail Kos Melati Residence.png
+│   └── 📄 —Pngtree—building and construction logo_19678575.png
 ├── 📄 ERD.md
 ├── 📄 Jadwal_dan_Tools_Seven_Kost.md
 ├── 📄 Logo Rumah Angka Tujuh Berkilau.png
@@ -218,7 +219,7 @@
 │   ├── 📄 .htaccess
 │   ├── 📁 build/
 │   │   ├── 📁 assets/
-│   │   │   ├── 📄 app-BR6oDelw.css
+│   │   │   ├── 📄 app-BnvQIiTU.css
 │   │   │   └── 📄 app-Dr67-uCa.js
 │   │   └── 📄 manifest.json
 │   ├── 📁 css/
@@ -281,6 +282,7 @@
 │   │   │   ├── 📄 promo-jakarta.png
 │   │   │   └── 📄 promo-yogyakarta.png
 │   │   ├── 📄 logo-exact-mockup.png
+│   │   ├── 📄 logo-pngtree-raw.png
 │   │   ├── 📄 logo-seven-kost.png
 │   │   └── 📄 logo-seven-kost.svg
 │   ├── 📄 index.php

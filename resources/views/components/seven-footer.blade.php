@@ -1,6 +1,6 @@
-<footer {{ $attributes->merge(['class' => 'bg-white text-slate-700 pt-16 pb-0 border-t border-slate-200 shadow-xs mt-auto w-full']) }}>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10">
+<footer {{ $attributes->merge(['class' => 'bg-white text-slate-700 pt-16 pb-8 border-t border-slate-200 shadow-xs mt-auto w-full']) }}>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 pb-10">
             {{-- Col 1: Brand & Logo (3 cols) --}}
             <div class="lg:col-span-3 space-y-3">
                 <a href="{{ url('/') }}" class="inline-flex items-center gap-3">
@@ -79,18 +79,10 @@
                 </form>
             </div>
         </div>
-    </div>
 
-    {{-- Bottom Copyright Bar --}}
-    <div class="bg-slate-50 py-5 border-t border-slate-200/90">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+        {{-- Copyright inside Footer (Clean & Seamless) --}}
+        <div class="border-t border-slate-200/80 pt-6 text-center sm:text-left text-xs text-slate-500">
             <p>© {{ date('Y') }} SevenKost. All rights reserved.</p>
-            <div class="flex items-center gap-2 text-emerald-700 bg-emerald-50 border border-emerald-200/80 px-3 py-1 rounded-full font-bold shadow-2xs">
-                <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M10 1.944A11.954 11.954 0 012.166 5C2.056 5.649 2 6.319 2 7c0 5.225 3.34 9.67 8 11.317C14.66 16.67 18 12.225 18 7c0-.682-.057-1.35-.166-2.001A11.954 11.954 0 0110 1.944zM11 14a1 1 0 11-2 0 1 1 0 012 0zm0-7a1 1 0 10-2 0v3a1 1 0 102 0V7z" clip-rule="evenodd"/>
-                </svg>
-                <span>Aman & Terpercaya</span>
-            </div>
         </div>
     </div>
 </footer>

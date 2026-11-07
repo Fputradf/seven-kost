@@ -71,12 +71,13 @@ class FrontendHomeTest extends TestCase
         $response->assertSee('cta-host-male.jpg');
         $response->assertSee('cta-house-keys.jpg');
 
-        // Bright Modern Footer (Clean light style, no dark navy)
+        // Bright Modern Footer (Clean light style, copyright inside footer, no Aman & Terpercaya)
         $response->assertSee('Cari Kos Jadi Lebih Mudah');
         $response->assertSee('Navigasi');
         $response->assertSee('Informasi');
         $response->assertSee('Ikuti Kami');
         $response->assertSee('Berlangganan Newsletter');
-        $response->assertSee('Aman & Terpercaya', false);
+        $response->assertSee('SevenKost. All rights reserved.');
+        $response->assertDontSee('Aman & Terpercaya');
     }
 }
