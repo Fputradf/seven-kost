@@ -68,6 +68,8 @@ class FrontendHomeTest extends TestCase
         $response->assertSee('service-catering.jpg');
         $response->assertSee('Available');
         $response->assertSee('Coming Soon');
+        $response->assertDontSee('Kebutuhan Kamar Kos');
+        $response->assertDontSee('Solusi Hidup Kos');
 
         // Interactive Animated CTA Banner with HD Photos
         $response->assertSee('Pasang Iklan Kosmu');
