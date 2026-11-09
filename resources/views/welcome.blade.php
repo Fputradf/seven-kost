@@ -576,44 +576,33 @@
 
                     {{-- 3 Service Sub-Cards (Tetap Transparan & Tanpa Animasi Interaktif Putih) --}}
                     <div class="pt-1 grid grid-cols-3 gap-2.5">
-                        {{-- 1. Laundry (Available) --}}
-                        <a href="{{ url('/layanan#laundry') }}" class="bg-white/30 backdrop-blur-md rounded-xl p-2 border border-white/50 shadow-2xs text-center flex flex-col items-center transition-opacity hover:opacity-90">
+                        {{-- 1. Laundry --}}
+                        <a href="{{ route('services.index') }}#laundry" class="bg-white/30 backdrop-blur-md rounded-xl p-2 border border-white/50 shadow-2xs text-center flex flex-col items-center transition-opacity hover:opacity-90">
                             <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-lg overflow-hidden mb-1.5 relative ring-1 ring-emerald-400/50 shadow-2xs">
                                 <img src="{{ asset('images/frontend/service-laundry.jpg') }}" alt="Layanan Laundry Kos" class="w-full h-full object-cover">
                             </div>
                             <span class="text-xs font-black text-slate-800 leading-tight">Laundry</span>
-                            <span class="mt-1 inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-800 border border-emerald-500/20 text-[9px] font-black uppercase tracking-wide">
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                                Available
-                            </span>
                         </a>
 
-                        {{-- 2. Kebersihan (Available) --}}
-                        <a href="{{ url('/layanan#kebersihan') }}" class="bg-white/30 backdrop-blur-md rounded-xl p-2 border border-white/50 shadow-2xs text-center flex flex-col items-center transition-opacity hover:opacity-90">
+                        {{-- 2. Kebersihan --}}
+                        <a href="{{ route('services.index') }}#cleaning" class="bg-white/30 backdrop-blur-md rounded-xl p-2 border border-white/50 shadow-2xs text-center flex flex-col items-center transition-opacity hover:opacity-90">
                             <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-lg overflow-hidden mb-1.5 relative ring-1 ring-emerald-400/50 shadow-2xs">
                                 <img src="{{ asset('images/frontend/service-cleaning.jpg') }}" alt="Layanan Kebersihan Kos" class="w-full h-full object-cover">
                             </div>
                             <span class="text-xs font-black text-slate-800 leading-tight">Kebersihan</span>
-                            <span class="mt-1 inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-800 border border-emerald-500/20 text-[9px] font-black uppercase tracking-wide">
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                                Available
-                            </span>
                         </a>
 
-                        {{-- 3. Katering (Coming Soon) --}}
-                        <div class="bg-white/20 backdrop-blur-md rounded-xl p-2 border border-white/40 shadow-2xs text-center flex flex-col items-center opacity-85">
+                        {{-- 3. Katering --}}
+                        <a href="{{ route('services.index') }}#catering" class="bg-white/20 backdrop-blur-md rounded-xl p-2 border border-white/40 shadow-2xs text-center flex flex-col items-center opacity-85 hover:opacity-100 transition-opacity">
                             <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-lg overflow-hidden mb-1.5 relative ring-1 ring-amber-300/80 filter grayscale-30">
                                 <img src="{{ asset('images/frontend/service-catering.jpg') }}" alt="Layanan Katering Kos" class="w-full h-full object-cover">
                             </div>
                             <span class="text-xs font-bold text-slate-700 leading-tight">Katering</span>
-                            <span class="mt-1 inline-flex items-center px-1.5 py-0.5 rounded-full bg-amber-500/15 text-amber-800 border border-amber-500/20 text-[9px] font-bold uppercase tracking-wide">
-                                Coming Soon
-                            </span>
-                        </div>
+                        </a>
                     </div>
 
                     <div class="pt-1 flex items-center justify-between">
-                        <a href="#layanan" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md shadow-blue-500/20 transition-all">
+                        <a href="{{ route('services.index') }}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md shadow-blue-500/20 transition-all">
                             <span>Pesan Layanan</span>
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </a>

@@ -23,7 +23,7 @@
                 <h4 class="text-base font-extrabold text-slate-900 mb-4">Navigasi</h4>
                 <ul class="space-y-2.5 text-sm font-medium text-slate-600">
                     <li><a href="{{ url('/') }}" class="hover:text-blue-600 transition">Beranda</a></li>
-                    <li><a href="{{ url('/#layanan') }}" class="hover:text-blue-600 transition">Layanan</a></li>
+                    <li><a href="{{ route('services.index') }}" class="hover:text-blue-600 transition">Layanan</a></li>
                     <li><a href="{{ url('/paket-iklan') }}" class="hover:text-blue-600 transition">Pasang Iklan</a></li>
                     <li><a href="{{ url('/#marketplace') }}" class="hover:text-blue-600 transition">Marketplace</a></li>
                 </ul>

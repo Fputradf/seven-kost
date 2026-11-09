@@ -1,3 +1,12 @@
+@props([
+    'title' => null,
+    'description' => null,
+    'robots' => null,
+    'canonical' => null,
+    'transparentNavbar' => false,
+    'hideBottomNav' => false,
+])
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full scroll-smooth">
 <head>
@@ -30,12 +39,16 @@
 <body class="font-sans antialiased bg-slate-50 text-slate-800 min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
     <x-seven-navbar :transparent="$transparentNavbar ?? false" />
 
-    <main class="flex-1 w-full">
+    <main class="flex-1 w-full pb-16 md:pb-0">
         {{ $slot ?? '' }}
         @yield('content')
     </main>
 
-    <x-seven-footer class="mt-auto w-full" />
+    <x-seven-footer class="mt-auto w-full mb-16 md:mb-0" />
+
+    @if(!($hideBottomNav ?? false))
+        <x-seven-bottom-nav />
+    @endif
 
     @stack('scripts')
 </body>

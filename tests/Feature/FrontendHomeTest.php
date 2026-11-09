@@ -21,11 +21,13 @@ class FrontendHomeTest extends TestCase
 
         // Header / Logo
         $response->assertSee('logo-seven-kost.png');
-        $response->assertSee('Cari kos di sini...');
+        $response->assertSee('SevenKost');
         $response->assertSee('Beranda');
-        $response->assertSee('Layanan');
         $response->assertSee('Pasang Iklan');
+        $response->assertSee('Layanan');
         $response->assertSee('Marketplace');
+        $response->assertSee('FAQ');
+        $response->assertDontSee('Cari kos di sini...');
 
         // Hero Section & HD Building
         $response->assertSee('Terpercaya');
@@ -68,8 +70,9 @@ class FrontendHomeTest extends TestCase
         $response->assertSee('service-laundry.jpg');
         $response->assertSee('service-cleaning.jpg');
         $response->assertSee('service-catering.jpg');
-        $response->assertSee('Available');
-        $response->assertSee('Coming Soon');
+        $response->assertSee('Laundry');
+        $response->assertSee('Kebersihan');
+        $response->assertSee('Katering');
         $response->assertDontSee('Kebutuhan Kamar Kos');
         $response->assertDontSee('Solusi Hidup Kos');
 
