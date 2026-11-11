@@ -227,10 +227,10 @@
                         @endif
                     </div>
 
-                    {{-- Tombol Login Pill Rounded Sesuai Referensi --}}
+                    {{-- Tombol Login Pill Rounded Sesuai Warna Wave Pattern --}}
                     <div class="pt-2">
                         <button type="submit" 
-                                class="w-full py-3 px-6 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md shadow-blue-500/25 active:scale-[0.99] transition cursor-pointer flex items-center justify-center">
+                                class="w-full py-3 px-6 rounded-full bg-gradient-to-r from-blue-600 via-sky-500 to-sky-400 hover:from-blue-700 hover:via-sky-600 hover:to-sky-500 text-white font-bold text-sm shadow-md shadow-sky-500/25 active:scale-[0.99] transition cursor-pointer flex items-center justify-center">
                             Login
                         </button>
                     </div>
