@@ -163,13 +163,21 @@
                 {{-- FAQ 1: Cara Sewa Kos --}}
                 <div 
                     x-show="(activeCategory === 'all' || activeCategory === 'kost') && (searchQuery === '' || 'cara alur cari pesan booking sewa kamar kos idaman'.includes(searchQuery.toLowerCase()))"
-                    class="bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:border-blue-200 hover:shadow-md transition-all p-5 sm:p-6 flex flex-col justify-between"
+                    class="bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:border-blue-200 hover:shadow-md transition-all overflow-hidden flex flex-col justify-between"
                 >
                     <div>
-                        <h3 class="font-bold text-slate-900 text-sm sm:text-base leading-snug mb-3">
-                            Bagaimana alur mencari dan memesan kamar kos di SevenKost?
-                        </h3>
-                        <div class="text-xs sm:text-sm text-slate-600 space-y-2 border-t border-slate-100 pt-3 leading-relaxed">
+                        <button 
+                            type="button" 
+                            @click="toggleFaq(1)" 
+                            class="w-full p-5 text-left flex items-start justify-between gap-3 font-bold text-sm sm:text-base focus:outline-none transition-colors cursor-pointer"
+                            :class="openFaq === 1 ? 'text-blue-600 bg-blue-50/30' : 'text-slate-900 hover:text-blue-600'"
+                        >
+                            <span class="leading-snug">
+                                Bagaimana alur mencari dan memesan kamar kos di SevenKost?
+                            </span>
+                            <span class="text-xs font-semibold shrink-0 mt-0.5 transition-colors" :class="openFaq === 1 ? 'text-blue-600' : 'text-slate-400'" x-text="openFaq === 1 ? 'Tutup' : 'Buka'"></span>
+                        </button>
+                        <div x-show="openFaq === 1" x-collapse class="px-5 pb-5 text-xs sm:text-sm text-slate-600 space-y-2 border-t border-slate-100 pt-3.5 leading-relaxed">
                             <p>Alur pemesanan kos di SevenKost dirancang cepat dan transparan:</p>
                             <ol class="list-decimal pl-5 space-y-1 text-slate-700">
                                 <li>Cari kos berdasarkan nama kota, area kampus, atau fasilitas di kolom pencarian Beranda.</li>
@@ -185,13 +193,21 @@
                 {{-- FAQ 2: Survei Kos --}}
                 <div 
                     x-show="(activeCategory === 'all' || activeCategory === 'kost') && (searchQuery === '' || 'survei lokasi datang lihat fisik kamar janji temu'.includes(searchQuery.toLowerCase()))"
-                    class="bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:border-blue-200 hover:shadow-md transition-all p-5 sm:p-6 flex flex-col justify-between"
+                    class="bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:border-blue-200 hover:shadow-md transition-all overflow-hidden flex flex-col justify-between"
                 >
                     <div>
-                        <h3 class="font-bold text-slate-900 text-sm sm:text-base leading-snug mb-3">
-                            Apakah saya bisa survei lokasi kamar kos terlebih dahulu?
-                        </h3>
-                        <div class="text-xs sm:text-sm text-slate-600 space-y-2 border-t border-slate-100 pt-3 leading-relaxed">
+                        <button 
+                            type="button" 
+                            @click="toggleFaq(2)" 
+                            class="w-full p-5 text-left flex items-start justify-between gap-3 font-bold text-sm sm:text-base focus:outline-none transition-colors cursor-pointer"
+                            :class="openFaq === 2 ? 'text-blue-600 bg-blue-50/30' : 'text-slate-900 hover:text-blue-600'"
+                        >
+                            <span class="leading-snug">
+                                Apakah saya bisa survei lokasi kamar kos terlebih dahulu?
+                            </span>
+                            <span class="text-xs font-semibold shrink-0 mt-0.5 transition-colors" :class="openFaq === 2 ? 'text-blue-600' : 'text-slate-400'" x-text="openFaq === 2 ? 'Tutup' : 'Buka'"></span>
+                        </button>
+                        <div x-show="openFaq === 2" x-collapse class="px-5 pb-5 text-xs sm:text-sm text-slate-600 space-y-2 border-t border-slate-100 pt-3.5 leading-relaxed">
                             <p>Ya, sangat disarankan! Calon penyewa dapat membuat jadwal survei lokasi langsung ke bangunan kos sebelum memutuskan untuk membayar sewa. Anda dapat menghubungi pemilik atau penjaga kos melalui kontak resmi yang tertera di halaman detail properti untuk menentukan jam temu survei.</p>
                         </div>
                     </div>
@@ -200,13 +216,21 @@
                 {{-- FAQ 3: Verifikasi Kos --}}
                 <div 
                     x-show="(activeCategory === 'all' || activeCategory === 'kost') && (searchQuery === '' || 'aman penipuan verifikasi kos asli terverifikasi palsu'.includes(searchQuery.toLowerCase()))"
-                    class="bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:border-blue-200 hover:shadow-md transition-all p-5 sm:p-6 flex flex-col justify-between"
+                    class="bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:border-blue-200 hover:shadow-md transition-all overflow-hidden flex flex-col justify-between"
                 >
                     <div>
-                        <h3 class="font-bold text-slate-900 text-sm sm:text-base leading-snug mb-3">
-                            Apa jaminan bahwa listing kos di SevenKost aman dan tidak fiktif?
-                        </h3>
-                        <div class="text-xs sm:text-sm text-slate-600 space-y-2 border-t border-slate-100 pt-3 leading-relaxed">
+                        <button 
+                            type="button" 
+                            @click="toggleFaq(3)" 
+                            class="w-full p-5 text-left flex items-start justify-between gap-3 font-bold text-sm sm:text-base focus:outline-none transition-colors cursor-pointer"
+                            :class="openFaq === 3 ? 'text-blue-600 bg-blue-50/30' : 'text-slate-900 hover:text-blue-600'"
+                        >
+                            <span class="leading-snug">
+                                Apa jaminan bahwa listing kos di SevenKost aman dan tidak fiktif?
+                            </span>
+                            <span class="text-xs font-semibold shrink-0 mt-0.5 transition-colors" :class="openFaq === 3 ? 'text-blue-600' : 'text-slate-400'" x-text="openFaq === 3 ? 'Tutup' : 'Buka'"></span>
+                        </button>
+                        <div x-show="openFaq === 3" x-collapse class="px-5 pb-5 text-xs sm:text-sm text-slate-600 space-y-2 border-t border-slate-100 pt-3.5 leading-relaxed">
                             <p>Listing properti yang memiliki tanda <strong>Kos Terverifikasi</strong> telah ditinjau secara ketat oleh tim admin kami dengan memvalidasi identitas kepemilikan pemilik, alamat akurat, dan keaslian foto properti untuk melindungi calon penyewa dari potensi penipuan.</p>
                         </div>
                     </div>
@@ -215,13 +239,21 @@
                 {{-- FAQ 4: Marketplace Cara Jual Barang --}}
                 <div 
                     x-show="(activeCategory === 'all' || activeCategory === 'marketplace') && (searchQuery === '' || 'jual barang bekas perlengkapan kos kasur meja belajar posting'.includes(searchQuery.toLowerCase()))"
-                    class="bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:border-blue-200 hover:shadow-md transition-all p-5 sm:p-6 flex flex-col justify-between"
+                    class="bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:border-blue-200 hover:shadow-md transition-all overflow-hidden flex flex-col justify-between"
                 >
                     <div>
-                        <h3 class="font-bold text-slate-900 text-sm sm:text-base leading-snug mb-3">
-                            Bagaimana cara menjual barang kos bekas yang sudah tidak terpakai?
-                        </h3>
-                        <div class="text-xs sm:text-sm text-slate-600 space-y-2 border-t border-slate-100 pt-3 leading-relaxed">
+                        <button 
+                            type="button" 
+                            @click="toggleFaq(4)" 
+                            class="w-full p-5 text-left flex items-start justify-between gap-3 font-bold text-sm sm:text-base focus:outline-none transition-colors cursor-pointer"
+                            :class="openFaq === 4 ? 'text-blue-600 bg-blue-50/30' : 'text-slate-900 hover:text-blue-600'"
+                        >
+                            <span class="leading-snug">
+                                Bagaimana cara menjual barang kos bekas yang sudah tidak terpakai?
+                            </span>
+                            <span class="text-xs font-semibold shrink-0 mt-0.5 transition-colors" :class="openFaq === 4 ? 'text-blue-600' : 'text-slate-400'" x-text="openFaq === 4 ? 'Tutup' : 'Buka'"></span>
+                        </button>
+                        <div x-show="openFaq === 4" x-collapse class="px-5 pb-5 text-xs sm:text-sm text-slate-600 space-y-2 border-t border-slate-100 pt-3.5 leading-relaxed">
                             <p>Memasang iklan jual barang di Marketplace SevenKost 100% gratis:</p>
                             <ol class="list-decimal pl-5 space-y-1 text-slate-700">
                                 <li>Masuk ke akun terdaftar Anda di SevenKost (akun pencari kos/penghuni atau pemilik).</li>
@@ -237,13 +269,21 @@
                 {{-- FAQ 5: Marketplace Sistem COD --}}
                 <div 
                     x-show="(activeCategory === 'all' || activeCategory === 'marketplace') && (searchQuery === '' || 'cod bayar tempat perantara rekening bersama pihak ketiga escrow'.includes(searchQuery.toLowerCase()))"
-                    class="bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:border-blue-200 hover:shadow-md transition-all p-5 sm:p-6 flex flex-col justify-between"
+                    class="bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:border-blue-200 hover:shadow-md transition-all overflow-hidden flex flex-col justify-between"
                 >
                     <div>
-                        <h3 class="font-bold text-slate-900 text-sm sm:text-base leading-snug mb-3">
-                            Bagaimana sistem transaksi COD di Marketplace SevenKost?
-                        </h3>
-                        <div class="text-xs sm:text-sm text-slate-600 space-y-2 border-t border-slate-100 pt-3 leading-relaxed">
+                        <button 
+                            type="button" 
+                            @click="toggleFaq(5)" 
+                            class="w-full p-5 text-left flex items-start justify-between gap-3 font-bold text-sm sm:text-base focus:outline-none transition-colors cursor-pointer"
+                            :class="openFaq === 5 ? 'text-blue-600 bg-blue-50/30' : 'text-slate-900 hover:text-blue-600'"
+                        >
+                            <span class="leading-snug">
+                                Bagaimana sistem transaksi COD di Marketplace SevenKost?
+                            </span>
+                            <span class="text-xs font-semibold shrink-0 mt-0.5 transition-colors" :class="openFaq === 5 ? 'text-blue-600' : 'text-slate-400'" x-text="openFaq === 5 ? 'Tutup' : 'Buka'"></span>
+                        </button>
+                        <div x-show="openFaq === 5" x-collapse class="px-5 pb-5 text-xs sm:text-sm text-slate-600 space-y-2 border-t border-slate-100 pt-3.5 leading-relaxed">
                             <p>Platform SevenKost menerapkan <strong>Sistem 100% COD (Cash on Delivery)</strong> murni. SevenKost tidak bertindak sebagai pihak ketiga penampung uang (escrow). Seluruh transaksi pembayaran dilakukan langsung antara pembeli dan penjual saat bertatap muka memeriksa kondisi barang secara fisik di lokasi titik temu aman.</p>
                             <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-900 text-xs font-semibold">
                                 Tips Keamanan: Jangan pernah melakukan transfer uang muka (DP) kepada siapa pun sebelum bertemu langsung dan memastikan kondisi barang sesuai kesepakatan.
@@ -255,13 +295,21 @@
                 {{-- FAQ 6: Layanan Siapa yang Bisa Pesan --}}
                 <div 
                     x-show="(activeCategory === 'all' || activeCategory === 'layanan') && (searchQuery === '' || 'siapa pesan layanan laundry cleaning teknisi penghuni'.includes(searchQuery.toLowerCase()))"
-                    class="bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:border-blue-200 hover:shadow-md transition-all p-5 sm:p-6 flex flex-col justify-between"
+                    class="bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:border-blue-200 hover:shadow-md transition-all overflow-hidden flex flex-col justify-between"
                 >
                     <div>
-                        <h3 class="font-bold text-slate-900 text-sm sm:text-base leading-snug mb-3">
-                            Siapa saja yang berhak memesan Layanan Kos (Laundry, Cleaning, Teknisi)?
-                        </h3>
-                        <div class="text-xs sm:text-sm text-slate-600 space-y-2 border-t border-slate-100 pt-3 leading-relaxed">
+                        <button 
+                            type="button" 
+                            @click="toggleFaq(6)" 
+                            class="w-full p-5 text-left flex items-start justify-between gap-3 font-bold text-sm sm:text-base focus:outline-none transition-colors cursor-pointer"
+                            :class="openFaq === 6 ? 'text-blue-600 bg-blue-50/30' : 'text-slate-900 hover:text-blue-600'"
+                        >
+                            <span class="leading-snug">
+                                Siapa saja yang berhak memesan Layanan Kos (Laundry, Cleaning, Teknisi)?
+                            </span>
+                            <span class="text-xs font-semibold shrink-0 mt-0.5 transition-colors" :class="openFaq === 6 ? 'text-blue-600' : 'text-slate-400'" x-text="openFaq === 6 ? 'Tutup' : 'Buka'"></span>
+                        </button>
+                        <div x-show="openFaq === 6" x-collapse class="px-5 pb-5 text-xs sm:text-sm text-slate-600 space-y-2 border-t border-slate-100 pt-3.5 leading-relaxed">
                             <p>Pemesanan layanan harian SevenKost khusus diperuntukkan bagi <strong>penghuni kos aktif</strong> yang terdaftar. Saat memesan, Anda akan diminta mengisi nomor kamar kos dan jadwal kedatangan mitra agar pengerjaan dapat dilakukan tepat waktu langsung ke kamar kos Anda.</p>
                         </div>
                     </div>
@@ -270,13 +318,21 @@
                 {{-- FAQ 7: Ragam Layanan --}}
                 <div 
                     x-show="(activeCategory === 'all' || activeCategory === 'layanan') && (searchQuery === '' || 'paket laundry kiloan bersih kamar mandi toilet ac teknisi'.includes(searchQuery.toLowerCase()))"
-                    class="bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:border-blue-200 hover:shadow-md transition-all p-5 sm:p-6 flex flex-col justify-between"
+                    class="bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:border-blue-200 hover:shadow-md transition-all overflow-hidden flex flex-col justify-between"
                 >
                     <div>
-                        <h3 class="font-bold text-slate-900 text-sm sm:text-base leading-snug mb-3">
-                            Apa saja jenis layanan yang tersedia di SevenKost?
-                        </h3>
-                        <div class="text-xs sm:text-sm text-slate-600 space-y-2 border-t border-slate-100 pt-3 leading-relaxed">
+                        <button 
+                            type="button" 
+                            @click="toggleFaq(7)" 
+                            class="w-full p-5 text-left flex items-start justify-between gap-3 font-bold text-sm sm:text-base focus:outline-none transition-colors cursor-pointer"
+                            :class="openFaq === 7 ? 'text-blue-600 bg-blue-50/30' : 'text-slate-900 hover:text-blue-600'"
+                        >
+                            <span class="leading-snug">
+                                Apa saja jenis layanan yang tersedia di SevenKost?
+                            </span>
+                            <span class="text-xs font-semibold shrink-0 mt-0.5 transition-colors" :class="openFaq === 7 ? 'text-blue-600' : 'text-slate-400'" x-text="openFaq === 7 ? 'Tutup' : 'Buka'"></span>
+                        </button>
+                        <div x-show="openFaq === 7" x-collapse class="px-5 pb-5 text-xs sm:text-sm text-slate-600 space-y-2 border-t border-slate-100 pt-3.5 leading-relaxed">
                             <ul class="space-y-1.5 list-disc pl-5 text-slate-700">
                                 <li><strong>Seven Laundry Kos</strong>: Cuci lipat & cuci setrika kiloan/satuan dengan layanan antar jemput langsung ke depan kamar kos.</li>
                                 <li><strong>Seven Clean Kamar</strong>: Layanan kebersihan kamar kos, pembersihan debu, sapu pel, hingga pembersihan kerak toilet kamar mandi kos.</li>
@@ -289,13 +345,21 @@
                 {{-- FAQ 8: Pasang Iklan VIP Kos --}}
                 <div 
                     x-show="(activeCategory === 'all' || activeCategory === 'iklan') && (searchQuery === '' || 'pasang iklan properti kos vip pemilik sundul prioritas'.includes(searchQuery.toLowerCase()))"
-                    class="bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:border-blue-200 hover:shadow-md transition-all p-5 sm:p-6 flex flex-col justify-between"
+                    class="bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:border-blue-200 hover:shadow-md transition-all overflow-hidden flex flex-col justify-between"
                 >
                     <div>
-                        <h3 class="font-bold text-slate-900 text-sm sm:text-base leading-snug mb-3">
-                            Apa keuntungan paket Iklan VIP Properti bagi pemilik kos?
-                        </h3>
-                        <div class="text-xs sm:text-sm text-slate-600 space-y-2 border-t border-slate-100 pt-3 leading-relaxed">
+                        <button 
+                            type="button" 
+                            @click="toggleFaq(8)" 
+                            class="w-full p-5 text-left flex items-start justify-between gap-3 font-bold text-sm sm:text-base focus:outline-none transition-colors cursor-pointer"
+                            :class="openFaq === 8 ? 'text-blue-600 bg-blue-50/30' : 'text-slate-900 hover:text-blue-600'"
+                        >
+                            <span class="leading-snug">
+                                Apa keuntungan paket Iklan VIP Properti bagi pemilik kos?
+                            </span>
+                            <span class="text-xs font-semibold shrink-0 mt-0.5 transition-colors" :class="openFaq === 8 ? 'text-blue-600' : 'text-slate-400'" x-text="openFaq === 8 ? 'Tutup' : 'Buka'"></span>
+                        </button>
+                        <div x-show="openFaq === 8" x-collapse class="px-5 pb-5 text-xs sm:text-sm text-slate-600 space-y-2 border-t border-slate-100 pt-3.5 leading-relaxed">
                             <p>Dengan mengupgrade kos ke <strong>Paket VIP Terpilih</strong>, properti Anda akan mendapatkan:</p>
                             <ul class="list-disc pl-5 space-y-1 text-slate-700">
                                 <li>Posisi prioritas teratas di halaman pencarian kota dan kampus.</li>
@@ -310,13 +374,21 @@
                 {{-- FAQ 9: Banner Promosi --}}
                 <div 
                     x-show="(activeCategory === 'all' || activeCategory === 'iklan') && (searchQuery === '' || 'banner promosi iklan sponsor komersial brand bisnis tayang'.includes(searchQuery.toLowerCase()))"
-                    class="bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:border-blue-200 hover:shadow-md transition-all p-5 sm:p-6 flex flex-col justify-between"
+                    class="bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:border-blue-200 hover:shadow-md transition-all overflow-hidden flex flex-col justify-between"
                 >
                     <div>
-                        <h3 class="font-bold text-slate-900 text-sm sm:text-base leading-snug mb-3">
-                            Di mana saja Iklan Banner Promosi akan ditayangkan?
-                        </h3>
-                        <div class="text-xs sm:text-sm text-slate-600 space-y-2 border-t border-slate-100 pt-3 leading-relaxed">
+                        <button 
+                            type="button" 
+                            @click="toggleFaq(9)" 
+                            class="w-full p-5 text-left flex items-start justify-between gap-3 font-bold text-sm sm:text-base focus:outline-none transition-colors cursor-pointer"
+                            :class="openFaq === 9 ? 'text-blue-600 bg-blue-50/30' : 'text-slate-900 hover:text-blue-600'"
+                        >
+                            <span class="leading-snug">
+                                Di mana saja Iklan Banner Promosi akan ditayangkan?
+                            </span>
+                            <span class="text-xs font-semibold shrink-0 mt-0.5 transition-colors" :class="openFaq === 9 ? 'text-blue-600' : 'text-slate-400'" x-text="openFaq === 9 ? 'Tutup' : 'Buka'"></span>
+                        </button>
+                        <div x-show="openFaq === 9" x-collapse class="px-5 pb-5 text-xs sm:text-sm text-slate-600 space-y-2 border-t border-slate-100 pt-3.5 leading-relaxed">
                             <p>Iklan Banner Promosi Brand & Layanan ditayangkan pada slider premium di 3 halaman utama: <strong>Beranda Utama</strong>, <strong>Marketplace Barang Kos</strong>, dan <strong>Layanan Kos</strong>. Banner dilengkapi tautan langsung ke situs atau nomor kontak bisnis Anda.</p>
                         </div>
                     </div>
@@ -325,13 +397,21 @@
                 {{-- FAQ 10: Akun & Lupa Password --}}
                 <div 
                     x-show="(activeCategory === 'all' || activeCategory === 'akun') && (searchQuery === '' || 'daftar akun lupa kata sandi password reset profil'.includes(searchQuery.toLowerCase()))"
-                    class="bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:border-blue-200 hover:shadow-md transition-all p-5 sm:p-6 flex flex-col justify-between"
+                    class="bg-white rounded-2xl border border-slate-200/90 shadow-xs hover:border-blue-200 hover:shadow-md transition-all overflow-hidden flex flex-col justify-between"
                 >
                     <div>
-                        <h3 class="font-bold text-slate-900 text-sm sm:text-base leading-snug mb-3">
-                            Bagaimana cara mendaftar akun atau mereset kata sandi yang lupa?
-                        </h3>
-                        <div class="text-xs sm:text-sm text-slate-600 space-y-2 border-t border-slate-100 pt-3 leading-relaxed">
+                        <button 
+                            type="button" 
+                            @click="toggleFaq(10)" 
+                            class="w-full p-5 text-left flex items-start justify-between gap-3 font-bold text-sm sm:text-base focus:outline-none transition-colors cursor-pointer"
+                            :class="openFaq === 10 ? 'text-blue-600 bg-blue-50/30' : 'text-slate-900 hover:text-blue-600'"
+                        >
+                            <span class="leading-snug">
+                                Bagaimana cara mendaftar akun atau mereset kata sandi yang lupa?
+                            </span>
+                            <span class="text-xs font-semibold shrink-0 mt-0.5 transition-colors" :class="openFaq === 10 ? 'text-blue-600' : 'text-slate-400'" x-text="openFaq === 10 ? 'Tutup' : 'Buka'"></span>
+                        </button>
+                        <div x-show="openFaq === 10" x-collapse class="px-5 pb-5 text-xs sm:text-sm text-slate-600 space-y-2 border-t border-slate-100 pt-3.5 leading-relaxed">
                             <p>Pendaftaran akun di SevenKost 100% gratis melalui menu <strong>Daftar</strong>. Jika Anda lupa kata sandi, buka menu <strong>Masuk</strong> lalu klik tautan <em>Lupa kata sandi?</em> dan masukkan email Anda untuk menerima instruksi pemulihan instan.</p>
                         </div>
                     </div>
