@@ -13,8 +13,8 @@
                 </a>
             </div>
 
-            {{-- Center: Compact Desktop Nav Links (5 Fitur: Beranda, Pasang Iklan, Layanan, Marketplace, FAQ) --}}
-            <div class="hidden md:flex items-center gap-4 lg:gap-7 text-xs sm:text-sm lg:text-[15px] font-bold text-slate-800">
+            {{-- Center: Compact Desktop Nav Links (Beranda, Pasang Iklan, Layanan, Marketplace, FAQ, Syarat & Ketentuan) --}}
+            <div class="hidden md:flex items-center gap-3 lg:gap-5.5 text-xs sm:text-[13px] lg:text-[15px] font-bold text-slate-800">
                 {{-- 1. Beranda --}}
                 <a href="{{ url('/') }}" class="flex items-center gap-1.5 transition-colors pb-1 {{ request()->is('/') ? 'text-blue-600 border-b-2 border-blue-600' : 'hover:text-blue-600' }}">
                     <svg class="w-4 h-4 {{ request()->is('/') ? 'text-blue-600' : 'text-slate-600' }}" fill="currentColor" viewBox="0 0 20 20">
@@ -53,6 +53,14 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
                     <span>FAQ</span>
+                </a>
+
+                {{-- 6. Syarat dan Ketentuan --}}
+                <a href="{{ route('terms.conditions') }}" class="flex items-center gap-1.5 transition-colors pb-1 {{ request()->routeIs('terms.conditions') ? 'text-blue-600 border-b-2 border-blue-600' : 'hover:text-blue-600' }} text-slate-800">
+                    <svg class="w-4 h-4 {{ request()->routeIs('terms.conditions') ? 'text-blue-600' : 'text-slate-600' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    <span>Syarat & Ketentuan</span>
                 </a>
             </div>
 
@@ -102,6 +110,11 @@
                                 Profil
                             </a>
 
+                            <a href="{{ route('terms.conditions') }}" class="flex items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 transition">
+                                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                Syarat & Ketentuan
+                            </a>
+
                             <div class="my-1 border-t border-slate-100"></div>
 
                             <form method="POST" action="{{ route('logout') }}">
@@ -146,6 +159,7 @@
             <a href="{{ route('services.index') }}" @click="mobileMenuOpen = false" class="block px-3 py-2 rounded-lg {{ request()->is('layanan*') ? 'text-blue-600 font-bold bg-blue-50' : 'text-slate-800 hover:bg-slate-50' }}">Layanan</a>
             <a href="{{ route('marketplace.index') }}" @click="mobileMenuOpen = false" class="block px-3 py-2 rounded-lg {{ request()->is('marketplace*') ? 'text-blue-600 font-bold bg-blue-50' : 'text-slate-800 hover:bg-slate-50' }}">Marketplace</a>
             <a href="{{ url('/bantuan') }}" @click="mobileMenuOpen = false" class="block px-3 py-2 rounded-lg {{ request()->is('bantuan*') ? 'text-blue-600 bg-blue-50' : 'text-slate-800 hover:bg-slate-50' }}">FAQ</a>
+            <a href="{{ route('terms.conditions') }}" @click="mobileMenuOpen = false" class="block px-3 py-2 rounded-lg {{ request()->routeIs('terms.conditions') ? 'text-blue-600 bg-blue-50' : 'text-slate-800 hover:bg-slate-50' }}">Syarat & Ketentuan</a>
         </div>
 
         <div class="pt-3 border-t border-slate-100 flex flex-col gap-2">
