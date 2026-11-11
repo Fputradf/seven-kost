@@ -219,7 +219,7 @@
 │   ├── 📄 .htaccess
 │   ├── 📁 build/
 │   │   ├── 📁 assets/
-│   │   │   ├── 📄 app-BKLJWPvQ.css
+│   │   │   ├── 📄 app-BcnVAcRb.css
 │   │   │   └── 📄 app-Dr67-uCa.js
 │   │   └── 📄 manifest.json
 │   ├── 📁 css/
@@ -426,7 +426,99 @@
 │   │   ├── 📁 private/
 │   │   │   └── 📄 .gitignore
 │   │   └── 📁 public/
-│   │       └── 📄 .gitignore
+│   │       ├── 📄 .gitignore
+│   │       ├── 📁 kosts/
+│   │       │   ├── 📄 banner-bandung-hd.jpg
+│   │       │   ├── 📄 banner-bandung-wide.jpg
+│   │       │   ├── 📄 banner-jakarta-hd.jpg
+│   │       │   ├── 📄 banner-jakarta-wide.jpg
+│   │       │   ├── 📄 banner-studio-hd.jpg
+│   │       │   ├── 📄 banner-yogyakarta-hd.jpg
+│   │       │   ├── 📄 banner-yogyakarta-wide.jpg
+│   │       │   ├── 📄 city-bandung.png
+│   │       │   ├── 📄 city-depok.png
+│   │       │   ├── 📄 city-jakarta.png
+│   │       │   ├── 📄 city-surabaya.png
+│   │       │   ├── 📄 city-yogyakarta.png
+│   │       │   ├── 📄 cta-host-female.jpg
+│   │       │   ├── 📄 cta-host-male.jpg
+│   │       │   ├── 📄 cta-house-keys.jpg
+│   │       │   ├── 📄 cta-house.png
+│   │       │   ├── 📄 cta-kost-room.jpg
+│   │       │   ├── 📄 cta-person.png
+│   │       │   ├── 📄 footer-logo-crop.png
+│   │       │   ├── 📄 footer-newsletter-crop.png
+│   │       │   ├── 📄 footer-social-crop.png
+│   │       │   ├── 📄 header-logo-crop.png
+│   │       │   ├── 📄 header-nav-crop.png
+│   │       │   ├── 📄 header-wide-crop.png
+│   │       │   ├── 📄 hero-building-ap-1.jpg
+│   │       │   ├── 📄 hero-building-ap-2.jpg
+│   │       │   ├── 📄 hero-building-hd.jpg
+│   │       │   ├── 📄 hero-building.png
+│   │       │   ├── 📄 kost-1-hd.jpg
+│   │       │   ├── 📄 kost-1.png
+│   │       │   ├── 📄 kost-2-hd.jpg
+│   │       │   ├── 📄 kost-2.png
+│   │       │   ├── 📄 kost-3-hd.jpg
+│   │       │   ├── 📄 kost-3.png
+│   │       │   ├── 📄 kost-4-hd.jpg
+│   │       │   ├── 📄 kost-4.png
+│   │       │   ├── 📄 logo-full-bounds.png
+│   │       │   ├── 📄 marketplace-hd.jpg
+│   │       │   ├── 📄 marketplace-items.png
+│   │       │   ├── 📄 promo-bandung.png
+│   │       │   ├── 📄 promo-jakarta.png
+│   │       │   ├── 📄 promo-yogyakarta.png
+│   │       │   ├── 📄 service-catering.jpg
+│   │       │   ├── 📄 service-cleaning.jpg
+│   │       │   └── 📄 service-laundry.jpg
+│   │       └── 📁 marketplace/
+│   │           ├── 📄 banner-bandung-hd.jpg
+│   │           ├── 📄 banner-bandung-wide.jpg
+│   │           ├── 📄 banner-jakarta-hd.jpg
+│   │           ├── 📄 banner-jakarta-wide.jpg
+│   │           ├── 📄 banner-studio-hd.jpg
+│   │           ├── 📄 banner-yogyakarta-hd.jpg
+│   │           ├── 📄 banner-yogyakarta-wide.jpg
+│   │           ├── 📄 city-bandung.png
+│   │           ├── 📄 city-depok.png
+│   │           ├── 📄 city-jakarta.png
+│   │           ├── 📄 city-surabaya.png
+│   │           ├── 📄 city-yogyakarta.png
+│   │           ├── 📄 cta-host-female.jpg
+│   │           ├── 📄 cta-host-male.jpg
+│   │           ├── 📄 cta-house-keys.jpg
+│   │           ├── 📄 cta-house.png
+│   │           ├── 📄 cta-kost-room.jpg
+│   │           ├── 📄 cta-person.png
+│   │           ├── 📄 footer-logo-crop.png
+│   │           ├── 📄 footer-newsletter-crop.png
+│   │           ├── 📄 footer-social-crop.png
+│   │           ├── 📄 header-logo-crop.png
+│   │           ├── 📄 header-nav-crop.png
+│   │           ├── 📄 header-wide-crop.png
+│   │           ├── 📄 hero-building-ap-1.jpg
+│   │           ├── 📄 hero-building-ap-2.jpg
+│   │           ├── 📄 hero-building-hd.jpg
+│   │           ├── 📄 hero-building.png
+│   │           ├── 📄 kost-1-hd.jpg
+│   │           ├── 📄 kost-1.png
+│   │           ├── 📄 kost-2-hd.jpg
+│   │           ├── 📄 kost-2.png
+│   │           ├── 📄 kost-3-hd.jpg
+│   │           ├── 📄 kost-3.png
+│   │           ├── 📄 kost-4-hd.jpg
+│   │           ├── 📄 kost-4.png
+│   │           ├── 📄 logo-full-bounds.png
+│   │           ├── 📄 marketplace-hd.jpg
+│   │           ├── 📄 marketplace-items.png
+│   │           ├── 📄 promo-bandung.png
+│   │           ├── 📄 promo-jakarta.png
+│   │           ├── 📄 promo-yogyakarta.png
+│   │           ├── 📄 service-catering.jpg
+│   │           ├── 📄 service-cleaning.jpg
+│   │           └── 📄 service-laundry.jpg
 │   ├── 📁 framework/
 │   │   ├── 📄 .gitignore
 │   │   ├── 📁 cache/
@@ -438,91 +530,59 @@
 │   │   ├── 📁 sessions/
 │   │   │   └── 📄 .gitignore
 │   │   ├── 📁 testing/
-│   │   │   └── 📄 .gitignore
+│   │   │   ├── 📄 .gitignore
+│   │   │   └── 📁 disks/
+│   │   │       └── 📁 public/
+│   │   │           └── 📁 marketplace/
+│   │   │               └── 📄 Y817FQLk2MaG2hGbeReplwl6YyAEZw74qPFQViLN.jpg
 │   │   └── 📁 views/
 │   │       ├── 📄 .gitignore
-│   │       ├── 📄 06453edcfd39f4f50da614ba51c334d6.php
-│   │       ├── 📄 06525a6a093ac6cf6e23a13d606695cf.php
+│   │       ├── 📄 014f72a8fc260e1e5115ec90214a8f8c.php
 │   │       ├── 📄 0b51b9c94d7dc367e1955c17a1c67fc1.php
-│   │       ├── 📄 0c113b5c45d1fa62135004ebec938c33.php
 │   │       ├── 📄 1288003ed32b0676e6ccb14eb5942b70.php
 │   │       ├── 📄 139f55eeb4805572ebcdbda37fb1779c.php
-│   │       ├── 📄 1807d3741cafbb28190875a2bc68cd8a.php
-│   │       ├── 📄 21ce1a07eb531ce18af400f0e82b442f.php
-│   │       ├── 📄 21d1e72ad79e89d7ca1c7c5f0c3e06e5.php
+│   │       ├── 📄 1a9dfb9505693721783dd2cee36490d7.php
+│   │       ├── 📄 2067122e10fdc9e51c356f8bbadf029c.php
 │   │       ├── 📄 222f9f7b50f61affbc6fd95cbef8cba5.php
-│   │       ├── 📄 2b4525a05eac0b808486def8581bc872.php
-│   │       ├── 📄 2b46671.tmp
-│   │       ├── 📄 2d92d3751b0350164cfc9cd4199c93a9.php
-│   │       ├── 📄 306c1b7844ed35df52d05c6fa377b411.php
-│   │       ├── 📄 3250b76407007457f397559cf1fba22b.php
-│   │       ├── 📄 3663a565db9f674cb2a8d33176098870.php
-│   │       ├── 📄 36a67b7aae46cb5f2a60857996f4483f.php
+│   │       ├── 📄 3d453ac3027de318344bd556b7e39b91.php
 │   │       ├── 📄 486de72dbd4b945f20c3910b1ee5c1a1.php
 │   │       ├── 📄 4d155c1c02b7d655be2898fc0881cfaf.php
-│   │       ├── 📄 50c54807ccdfa7d10abc2523a7c2041a.php
-│   │       ├── 📄 53fe4c0c657ff4622708f18f3bd438a1.php
 │   │       ├── 📄 55c1ecbcac3a31fd997d25602d945fbd.php
 │   │       ├── 📄 58e63bbaf7158fa397bc4cdf4ce1a0f0.php
 │   │       ├── 📄 5df34508c3b81b2704b6439892e3b444.php
 │   │       ├── 📄 5e0ebabc54928ab25cdd47f972c96e42.php
 │   │       ├── 📄 61e26aed2b463b1f2684633871801f0b.php
 │   │       ├── 📄 61e7d4e6e1a02c31c29c846b8cf94b5a.php
-│   │       ├── 📄 62db2057226c2d111a77e867c595ee8f.php
 │   │       ├── 📄 656d743aed3752b0fb108ec3425010f0.php
 │   │       ├── 📄 66bcf106e03c2aabc3cf40e191891450.php
 │   │       ├── 📄 68bd94e7fa4f514ea9fcf1b9721d97f3.php
-│   │       ├── 📄 6c00b85a2d558fbfe61c4c20af3b2449.php
 │   │       ├── 📄 6e24a24b1cb63264d4c2fcb113a08126.php
-│   │       ├── 📄 6f812d570b33db8d46c9ce443b23154f.php
 │   │       ├── 📄 78029afd8380e277140a5196c33b6a22.php
-│   │       ├── 📄 80ee7f4f789bc5d65dd80de372b327b9.php
-│   │       ├── 📄 82cb0751e0f9a883cbf4387c1e28643a.php
 │   │       ├── 📄 8452e5beff424fa5a6b18e3e4a796b43.php
-│   │       ├── 📄 84d80e328a56ccfae00b47772cb9af8d.php
 │   │       ├── 📄 84fd10794213dff83a609ff042e43844.php
 │   │       ├── 📄 874fbc92070c0e295b3ffe7dffc8b899.php
-│   │       ├── 📄 877eae2646cde6bfd897c022dcc12502.php
-│   │       ├── 📄 9573ffb70b0f586470714eb4227e17c8.php
+│   │       ├── 📄 93166af4e8ac6a51278753e016cf57e3.php
 │   │       ├── 📄 9644caa35071308b97dd7f89d52e34c2.php
-│   │       ├── 📄 988220688adde84be38ebf4aa14c0fd1.php
 │   │       ├── 📄 99d7fafb1e763e7e7df27922cdfc500b.php
 │   │       ├── 📄 9a344bdb66808e71f5f2832552ea066f.php
 │   │       ├── 📄 9d3ab3a73f095965e6dd09e352bb4e0b.php
 │   │       ├── 📄 a3292333ed6b82b06f216cfb4c068187.php
 │   │       ├── 📄 ab9fd7a489ff338aba69c4dfaa2ecb5f.php
-│   │       ├── 📄 af99aa6b333cd5341c59d6eedee202f6.php
-│   │       ├── 📄 b68e6a31ee76443f03c7fdc54fef1278.php
 │   │       ├── 📄 b7c4a40ea7608f4cb2d25ba42921e6ec.php
-│   │       ├── 📄 ba6ddb7d9c0c3ae83408c3cdbc9ac356.php
-│   │       ├── 📄 ba9748c3c8f2c139eb64a3f732e0124f.php
 │   │       ├── 📄 c5fa10e208837514e1a36a0fdbdaefb0.php
-│   │       ├── 📄 c921e6d779d7d3e3dbdb2a09b2a298c1.php
-│   │       ├── 📄 c96567d61d612823c09f1fb54e352fac.php
+│   │       ├── 📄 c821aaf1cb4f9114558f95afd819fccc.php
 │   │       ├── 📄 c974825975ab40adc2d9584fbe61f692.php
-│   │       ├── 📄 ca70e4b6a82317648a52f8629800a119.php
-│   │       ├── 📄 d1a7887c90a319470cfbf13eb666f346.php
-│   │       ├── 📄 d234e85c38fe2850cb0b1cf457e6fc8c.php
+│   │       ├── 📄 caf0f0dcf3c13cd85fe00e855d005969.php
 │   │       ├── 📄 d45a3ed121c1dd7770205830287f9336.php
 │   │       ├── 📄 d51192fc9cf0016eee18ef3dd2e126af.php
-│   │       ├── 📄 d525209119bc62f5d80d13fe2bd482bd.php
 │   │       ├── 📄 d5cfc8f84c45255b3b888918b76ce252.php
-│   │       ├── 📄 d842e2867dc7c868640b7324649b705f.php
-│   │       ├── 📄 d9fc96f0667c74fa2a362f962932da39.php
-│   │       ├── 📄 dee2446b7a6e97462da9f6ae447d8d5c.php
-│   │       ├── 📄 e947292da1ff13b0375fcd9dd91cc244.php
 │   │       ├── 📄 eaac4a9ef0769d66c54ba768b2dbe495.php
-│   │       ├── 📄 ed193cae1b30170d712ec1bd55dcfb10.php
-│   │       ├── 📄 ee6bc2f249879b0f7166ff8554d0ba4e.php
 │   │       ├── 📄 eea2247c5960730fd4c921f669c14a6f.php
 │   │       ├── 📄 f13f0f9bdae90ae8597d05b0f1adafc8.php
-│   │       ├── 📄 f5683d1403b9a018eb9244b3774579dc.php
-│   │       ├── 📄 f7ae3b6788dec2445ff93b0168ca22cd.php
-│   │       ├── 📄 faddb8c13d503aa66f7d3c7a3bb049fe.php
-│   │       ├── 📄 fc936bc3bc9adc0efa3af6e09a7aad70.php
-│   │       └── 📄 ffe847a00699cd7a895b145a84e2ee4c.php
+│   │       └── 📄 f7ae3b6788dec2445ff93b0168ca22cd.php
 │   └── 📁 logs/
 │       ├── 📄 .gitignore
+│       ├── 📄 browser.log
 │       └── 📄 laravel.log
 ├── 📄 structure.md
 ├── 📄 tailwind.config.js
