@@ -1,11 +1,18 @@
 <x-guest-layout title="Daftar Akun Baru - SevenKost">
-    <div class="min-h-screen lg:h-screen w-full flex flex-col lg:flex-row lg:overflow-hidden"
+    <div class="min-h-screen lg:h-screen w-full flex flex-col lg:flex-row lg:overflow-hidden relative"
          x-data="{
              selectedRole: '{{ old('role', 'penghuni') }}',
              showPassword: false,
              showPasswordConfirmation: false,
+             openTermsModal: false,
+             activeTermsTab: 'terms',
+             termsAgreed: false,
              setRole(role) {
                  this.selectedRole = role;
+             },
+             agreeAndClose() {
+                 this.termsAgreed = true;
+                 this.openTermsModal = false;
              }
          }">
 
@@ -281,18 +288,27 @@
                         </div>
                     </div>
 
-                    {{-- Persetujuan UU PDP & Ketentuan Layanan --}}
+                    {{-- Persetujuan UU PDP & Ketentuan Layanan (Modal Popup Interaktif) --}}
                     <div class="flex items-start gap-2 pt-0.5">
                         <input type="checkbox" 
                                id="terms" 
                                name="terms" 
                                required 
+                               x-model="termsAgreed"
                                class="w-3.5 h-3.5 mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-blue-500 shrink-0 cursor-pointer">
                         <label for="terms" class="text-[11px] text-slate-600 leading-tight select-none cursor-pointer">
                             Saya menyetujui 
-                            <a href="{{ route('terms.conditions') }}" target="_blank" class="font-bold text-blue-600 hover:text-blue-700 hover:underline">Ketentuan Layanan</a> 
+                            <button type="button" 
+                                    @click.prevent="openTermsModal = true; activeTermsTab = 'terms'" 
+                                    class="font-bold text-blue-600 hover:text-blue-700 hover:underline inline cursor-pointer">
+                                Ketentuan Layanan
+                            </button> 
                             serta pemrosesan data sesuai 
-                            <a href="{{ route('privacy.policy') }}" target="_blank" class="font-bold text-blue-600 hover:text-blue-700 hover:underline">Kebijakan Privasi (UU PDP No. 27/2022)</a>.
+                            <button type="button" 
+                                    @click.prevent="openTermsModal = true; activeTermsTab = 'privacy'" 
+                                    class="font-bold text-blue-600 hover:text-blue-700 hover:underline inline cursor-pointer">
+                                Kebijakan Privasi (UU PDP No. 27/2022)
+                            </button>.
                         </label>
                     </div>
 
@@ -314,6 +330,176 @@
                     <a href="{{ route('login') }}" class="font-bold text-blue-600 hover:text-blue-700 hover:underline ml-1">
                         Masuk ke Akun
                     </a>
+                </div>
+
+            </div>
+        </div>
+
+        {{-- ============================================================= --}}
+        {{-- MODAL POPUP: SYARAT & KETENTUAN DAN KEBIJAKAN PRIVASI         --}}
+        {{-- ============================================================= --}}
+        <div x-show="openTermsModal" 
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0"
+             x-transition:enter-end="opacity-100"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100"
+             x-transition:leave-end="opacity-0"
+             class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs"
+             style="display: none;"
+             @keydown.escape.window="openTermsModal = false">
+            
+            {{-- Klik Luar untuk Tutup --}}
+            <div class="fixed inset-0" @click="openTermsModal = false"></div>
+
+            {{-- Kotak Modal --}}
+            <div class="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden z-10 flex flex-col max-h-[85vh]">
+                
+                {{-- Header Modal --}}
+                <div class="px-5 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/80">
+                    <div>
+                        <h3 class="text-base font-extrabold text-slate-900">
+                            Regulasi & Kebijakan Platform
+                        </h3>
+                        <p class="text-xs text-slate-500">SevenKost Indonesia • Kepatuhan UU PDP No. 27/2022</p>
+                    </div>
+                    <button type="button" 
+                            @click="openTermsModal = false"
+                            aria-label="Tutup popup"
+                            class="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 transition cursor-pointer">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+
+                {{-- Tabs Switcher: Syarat Ketentuan vs Kebijakan Privasi --}}
+                <div class="px-5 pt-3 border-b border-slate-100 flex gap-4 text-xs font-bold bg-white">
+                    <button type="button" 
+                            @click="activeTermsTab = 'terms'"
+                            :class="activeTermsTab === 'terms' ? 'text-blue-600 border-b-2 border-blue-600 pb-2.5' : 'text-slate-500 hover:text-slate-800 pb-2.5'"
+                            class="transition cursor-pointer">
+                        1. Syarat & Ketentuan Layanan
+                    </button>
+                    <button type="button" 
+                            @click="activeTermsTab = 'privacy'"
+                            :class="activeTermsTab === 'privacy' ? 'text-blue-600 border-b-2 border-blue-600 pb-2.5' : 'text-slate-500 hover:text-slate-800 pb-2.5'"
+                            class="transition cursor-pointer">
+                        2. Kebijakan Privasi (UU PDP)
+                    </button>
+                </div>
+
+                {{-- Body Modal (Scrollable) --}}
+                <div class="p-5 overflow-y-auto space-y-4 text-xs text-slate-600 leading-relaxed max-h-[50vh]">
+                    
+                    {{-- Tab 1: Syarat & Ketentuan Layanan --}}
+                    <div x-show="activeTermsTab === 'terms'" class="space-y-4">
+                        <div class="p-3 rounded-xl bg-blue-50/70 border border-blue-100 text-blue-900">
+                            <span class="font-bold block mb-0.5">Ringkasan Ketentuan Layanan:</span>
+                            Dengan mendaftar, Anda menyepakati interaksi yang aman, jujur, dan bertanggung jawab antara pencari kos, mitra pemilik kos, dan mitra layanan di SevenKost.
+                        </div>
+
+                        <div class="space-y-1">
+                            <h4 class="font-bold text-slate-800 text-xs flex items-center gap-1.5">
+                                <span class="w-4 h-4 rounded bg-blue-100 text-blue-700 flex items-center justify-center text-[10px] font-black">1</span>
+                                Peran & Batasan Tanggung Jawab Platform
+                            </h4>
+                            <p class="pl-5.5 text-slate-600">
+                                SevenKost memfasilitasi publikasi data kos terverifikasi, penentuan koordinat peta presisi, serta penyampaian minat sewa. SevenKost bukan pemilik fisik properti, melainkan penyedia sistem penghubung resmi.
+                            </p>
+                        </div>
+
+                        <div class="space-y-1">
+                            <h4 class="font-bold text-slate-800 text-xs flex items-center gap-1.5">
+                                <span class="w-4 h-4 rounded bg-blue-100 text-blue-700 flex items-center justify-center text-[10px] font-black">2</span>
+                                Kewajiban Pengguna & Pemilik Kos
+                            </h4>
+                            <ul class="list-disc pl-9 space-y-1 text-slate-600">
+                                <li>Wajib memberikan informasi yang benar, foto aktual kamar, tarif sewa yang transparan, dan ketersediaan nyata.</li>
+                                <li>Dilarang mengunggah konten fiktif, properti palsu, atau gambar milik pihak lain tanpa hak cipta.</li>
+                                <li>Iklan kos yang melanggar standar kenyamanan akan ditindak dan dinonaktifkan oleh tim verifikator SevenKost.</li>
+                            </ul>
+                        </div>
+
+                        <div class="space-y-1">
+                            <h4 class="font-bold text-slate-800 text-xs flex items-center gap-1.5">
+                                <span class="w-4 h-4 rounded bg-blue-100 text-blue-700 flex items-center justify-center text-[10px] font-black">3</span>
+                                Alur Booking & Pembayaran Sewa
+                            </h4>
+                            <p class="pl-5.5 text-slate-600">
+                                Pengajuan sewa melalui fitur booking merupakan reservasi awal yang memerlukan konfirmasi pemilik kos. Pembayaran sewa dilakukan langsung sesuai kesepakatan kedua pihak tanpa potongan sepihak.
+                            </p>
+                        </div>
+
+                        <div class="space-y-1">
+                            <h4 class="font-bold text-slate-800 text-xs flex items-center gap-1.5">
+                                <span class="w-4 h-4 rounded bg-blue-100 text-blue-700 flex items-center justify-center text-[10px] font-black">4</span>
+                                Laporan Pelanggaran & Sanksi
+                            </h4>
+                            <p class="pl-5.5 text-slate-600">
+                                Setiap pengguna berhak melaporkan listing atau pengguna yang mencurigakan melalui tombol pelaporan. Tim moderator SevenKost berhak menangguhkan akun pelanggar demi menjaga kenyamanan ekosistem.
+                            </p>
+                        </div>
+                    </div>
+
+                    {{-- Tab 2: Kebijakan Privasi (UU PDP No. 27/2022) --}}
+                    <div x-show="activeTermsTab === 'privacy'" style="display: none;" class="space-y-4">
+                        <div class="p-3 rounded-xl bg-emerald-50/70 border border-emerald-100 text-emerald-900">
+                            <span class="font-bold block mb-0.5">Kepatuhan UU No. 27 Tahun 2022 (UU PDP):</span>
+                            SevenKost menjamin pelindungan data pribadi Anda secara ketat, tidak memperjualbelikan data pribadi, dan menggunakan enkripsi standar industri.
+                        </div>
+
+                        <div class="space-y-1">
+                            <h4 class="font-bold text-slate-800 text-xs flex items-center gap-1.5">
+                                <span class="w-4 h-4 rounded bg-emerald-100 text-emerald-700 flex items-center justify-center text-[10px] font-black">1</span>
+                                Jenis Data Pribadi yang Dikumpulkan
+                            </h4>
+                            <p class="pl-5.5 text-slate-600">
+                                Data yang dikumpulkan terbatas pada nama lengkap, alamat surel (email), nomor telepon aktif, dan kata sandi terenkripsi guna keperluan pembuatan akun dan autentikasi.
+                            </p>
+                        </div>
+
+                        <div class="space-y-1">
+                            <h4 class="font-bold text-slate-800 text-xs flex items-center gap-1.5">
+                                <span class="w-4 h-4 rounded bg-emerald-100 text-emerald-700 flex items-center justify-center text-[10px] font-black">2</span>
+                                Tujuan Pemrosesan Data
+                            </h4>
+                            <p class="pl-5.5 text-slate-600">
+                                Data diproses secara sah untuk menghubungkan penyewa dengan pemilik kos terverifikasi, mengelola administrasi reservasi kamar, dan memastikan keamanan transaksi.
+                            </p>
+                        </div>
+
+                        <div class="space-y-1">
+                            <h4 class="font-bold text-slate-800 text-xs flex items-center gap-1.5">
+                                <span class="w-4 h-4 rounded bg-emerald-100 text-emerald-700 flex items-center justify-center text-[10px] font-black">3</span>
+                                Kerahasiaan Dokumen & Hak Subjek Data
+                            </h4>
+                            <p class="pl-5.5 text-slate-600">
+                                Dokumen identitas verifikasi disimpan di area penyimpanan tertutup (private storage). Anda memiliki hak penuh untuk memperbarui, meminta koreksi data, atau menarik persetujuan akun Anda.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+                {{-- Footer Modal --}}
+                <div class="px-5 py-3.5 border-t border-slate-100 flex items-center justify-between bg-slate-50">
+                    <span class="text-[11px] text-slate-500">SevenKost • Amanah & Terpercaya</span>
+                    <div class="flex items-center gap-2">
+                        <button type="button" 
+                                @click="openTermsModal = false"
+                                class="px-3.5 py-1.5 rounded-lg border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-100 transition cursor-pointer">
+                            Tutup
+                        </button>
+                        <button type="button" 
+                                @click="agreeAndClose()"
+                                class="px-4 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-xs font-bold text-white transition shadow-xs cursor-pointer flex items-center gap-1.5">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span>Saya Setuju</span>
+                        </button>
+                    </div>
                 </div>
 
             </div>
