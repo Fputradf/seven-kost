@@ -14,18 +14,28 @@
         {{-- ============================================================= --}}
         <div class="w-full lg:w-1/2 bg-blue-600 text-white p-6 sm:p-10 lg:p-12 xl:p-14 flex flex-col justify-between">
             <div>
+                {{-- Tombol Navigasi Kembali ke Beranda di Bagian Atas Kiri --}}
+                <div class="mb-6">
+                    <a href="{{ url('/') }}" class="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-white/95 hover:text-white transition group py-1.5 px-3 rounded-xl bg-blue-700/60 hover:bg-blue-700 border border-blue-400/40 w-fit">
+                        <svg class="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                        </svg>
+                        <span>Kembali ke Beranda</span>
+                    </a>
+                </div>
+
                 {{-- Brand Header: Logo & Nama Aplikasi --}}
-                <a href="{{ url('/') }}" class="inline-flex items-center gap-3 group mb-6">
+                <div class="flex items-center gap-3 mb-6">
                     <img src="{{ asset('images/logo-seven-kost.png') }}" 
                          alt="Logo SevenKost" 
-                         class="h-11 w-11 object-contain bg-white rounded-xl p-1 shadow-sm group-hover:scale-105 transition">
+                         class="h-11 w-11 object-contain bg-white rounded-xl p-1 shadow-sm">
                     <div>
                         <span class="text-2xl font-black tracking-tight leading-none text-white block">
                             Seven<span class="text-sky-200">Kost</span>
                         </span>
                         <span class="text-xs text-blue-100 font-medium">Platform Cari & Kelola Kos</span>
                     </div>
-                </a>
+                </div>
 
                 {{-- Headline --}}
                 <div class="mb-5">
@@ -93,14 +103,9 @@
                 </div>
             </div>
 
-            {{-- Footer Layer Kiri: Navigasi ke Beranda --}}
+            {{-- Footer Layer Kiri: Info & Hak Cipta --}}
             <div class="pt-6 mt-6 border-t border-blue-500/50 flex items-center justify-between text-xs text-blue-100">
-                <a href="{{ url('/') }}" class="inline-flex items-center gap-1.5 hover:text-white font-medium transition">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-                    </svg>
-                    <span>Kembali ke Beranda</span>
-                </a>
+                <span class="text-blue-200">SevenKost Indonesia</span>
                 <span class="text-blue-200 text-[11px]">© {{ date('Y') }} SevenKost</span>
             </div>
         </div>
