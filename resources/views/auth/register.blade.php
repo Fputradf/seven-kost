@@ -10,98 +10,105 @@
          }">
 
         {{-- ============================================================= --}}
-        {{-- LAYER KIRI (BIRU SEVENKOST): LOGO, NAMA, & PENJELASAN ROLE    --}}
-        {{-- Warna: Navy-950 / #0F1E36 (Sama dengan Header Form Dashboard)  --}}
+        {{-- LAYER KIRI (BIRU CERAH 50% LEBAR): LOGO, GAMBAR, & ROLE       --}}
         {{-- ============================================================= --}}
-        <div class="w-full lg:w-5/12 xl:w-4/12 bg-navy-950 text-white p-8 sm:p-12 xl:p-16 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-slate-800">
+        <div class="w-full lg:w-1/2 bg-blue-600 text-white p-6 sm:p-10 lg:p-12 xl:p-14 flex flex-col justify-between">
             <div>
                 {{-- Brand Header: Logo & Nama Aplikasi --}}
-                <a href="{{ url('/') }}" class="inline-flex items-center gap-3.5 group mb-8">
+                <a href="{{ url('/') }}" class="inline-flex items-center gap-3 group mb-6">
                     <img src="{{ asset('images/logo-seven-kost.png') }}" 
                          alt="Logo SevenKost" 
-                         class="h-11 w-11 object-contain bg-white/10 rounded-xl p-1.5 border border-white/20 group-hover:scale-105 transition">
+                         class="h-11 w-11 object-contain bg-white rounded-xl p-1 shadow-sm group-hover:scale-105 transition">
                     <div>
                         <span class="text-2xl font-black tracking-tight leading-none text-white block">
-                            Seven<span class="text-blue-400">Kost</span>
+                            Seven<span class="text-sky-200">Kost</span>
                         </span>
-                        <span class="text-xs text-slate-400 font-medium">Platform Cari & Kelola Kos</span>
+                        <span class="text-xs text-blue-100 font-medium">Platform Cari & Kelola Kos</span>
                     </div>
                 </a>
 
-                {{-- Badge Panel Sesuai Dashboard --}}
-                <div class="mb-4">
-                    <span class="inline-block px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-semibold border border-blue-500/30">
-                        Portal Pendaftaran Akun
-                    </span>
-                </div>
-
                 {{-- Headline --}}
-                <div class="mb-8">
-                    <h1 class="text-2xl xl:text-3xl font-extrabold tracking-tight leading-tight">
-                        Bergabung ke Komunitas SevenKost
+                <div class="mb-5">
+                    <h1 class="text-2xl xl:text-3xl font-extrabold leading-snug">
+                        Daftar Akun SevenKost
                     </h1>
-                    <p class="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">
-                        Pilih jenis akun Anda untuk mendapatkan akses fitur yang disesuaikan secara khusus.
+                    <p class="text-xs sm:text-sm text-blue-100 mt-1.5 leading-relaxed">
+                        Pilih peran Anda dan nikmati kemudahan mencari hunian nyaman atau mengelola bisnis kos dalam satu aplikasi.
                     </p>
                 </div>
 
+                {{-- Gambar Kost Sesuai Dashboard/Website --}}
+                <div class="relative rounded-2xl overflow-hidden shadow-lg border-2 border-white/20 mb-6 group">
+                    <img src="{{ asset('images/frontend/hero-building-hd.jpg') }}" 
+                         alt="Hunian Kos SevenKost" 
+                         class="w-full h-40 sm:h-48 xl:h-52 object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-blue-950/70 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs text-white">
+                        <span class="bg-blue-600/90 backdrop-blur-xs px-2.5 py-1 rounded-lg font-bold text-[11px] shadow-xs">
+                            Kamar & Properti Pilihan
+                        </span>
+                        <span class="bg-black/50 backdrop-blur-xs px-2.5 py-1 rounded-lg font-medium text-[11px]">
+                            Terverifikasi Amanah
+                        </span>
+                    </div>
+                </div>
+
                 {{-- Penjelasan Role Singkat --}}
-                <div class="space-y-4">
-                    <div class="text-xs font-bold uppercase tracking-wider text-slate-400">
-                        Panduan Peran Akun:
+                <div class="space-y-3">
+                    <div class="text-xs font-bold uppercase tracking-wider text-blue-200">
+                        Pilih Peran Akun:
                     </div>
 
                     {{-- Role 1: Pencari / Penghuni --}}
                     <div @click="setRole('penghuni')"
-                         :class="selectedRole === 'penghuni' ? 'ring-2 ring-blue-400 bg-white/10' : 'bg-white/5 opacity-80 hover:opacity-100'"
-                         class="rounded-2xl p-4 border border-white/10 cursor-pointer transition">
-                        <div class="flex items-center justify-between mb-1.5">
+                         :class="selectedRole === 'penghuni' ? 'ring-2 ring-white bg-blue-700 shadow-md' : 'bg-blue-700/60 opacity-80 hover:opacity-100'"
+                         class="rounded-xl p-3.5 border border-blue-400/40 cursor-pointer transition">
+                        <div class="flex items-center justify-between mb-1">
                             <div class="flex items-center gap-2">
-                                <span class="w-6 h-6 rounded-lg bg-blue-600 text-white flex items-center justify-center text-xs font-bold shrink-0">1</span>
+                                <span class="w-5 h-5 rounded-md bg-white text-blue-600 flex items-center justify-center text-xs font-black shrink-0">1</span>
                                 <h2 class="font-bold text-sm text-white">Pencari / Penghuni Kos</h2>
                             </div>
-                            <span x-show="selectedRole === 'penghuni'" class="text-[10px] bg-blue-500 text-white font-bold px-2 py-0.5 rounded-full">Dipilih</span>
+                            <span x-show="selectedRole === 'penghuni'" class="text-[10px] bg-white text-blue-700 font-extrabold px-2 py-0.5 rounded-full">Dipilih</span>
                         </div>
-                        <p class="text-xs text-slate-300 leading-relaxed pl-8">
-                            Untuk mahasiswa atau pekerja yang ingin mencari hunian kos nyaman, booking kamar langsung, dan pantau status sewa.
+                        <p class="text-xs text-blue-100 pl-7 leading-relaxed">
+                            Cari kos berdasarkan kota & peta interaktif, booking kamar online, dan pantau status sewa.
                         </p>
                     </div>
 
                     {{-- Role 2: Pemilik Kos --}}
                     <div @click="setRole('pemilik')"
-                         :class="selectedRole === 'pemilik' ? 'ring-2 ring-blue-400 bg-white/10' : 'bg-white/5 opacity-80 hover:opacity-100'"
-                         class="rounded-2xl p-4 border border-white/10 cursor-pointer transition">
-                        <div class="flex items-center justify-between mb-1.5">
+                         :class="selectedRole === 'pemilik' ? 'ring-2 ring-white bg-blue-700 shadow-md' : 'bg-blue-700/60 opacity-80 hover:opacity-100'"
+                         class="rounded-xl p-3.5 border border-blue-400/40 cursor-pointer transition">
+                        <div class="flex items-center justify-between mb-1">
                             <div class="flex items-center gap-2">
-                                <span class="w-6 h-6 rounded-lg bg-blue-600 text-white flex items-center justify-center text-xs font-bold shrink-0">2</span>
+                                <span class="w-5 h-5 rounded-md bg-white text-blue-600 flex items-center justify-center text-xs font-black shrink-0">2</span>
                                 <h2 class="font-bold text-sm text-white">Pemilik / Pengelola Kos</h2>
                             </div>
-                            <span x-show="selectedRole === 'pemilik'" class="text-[10px] bg-blue-500 text-white font-bold px-2 py-0.5 rounded-full">Dipilih</span>
+                            <span x-show="selectedRole === 'pemilik'" class="text-[10px] bg-white text-blue-700 font-extrabold px-2 py-0.5 rounded-full">Dipilih</span>
                         </div>
-                        <p class="text-xs text-slate-300 leading-relaxed pl-8">
-                            Untuk pemilik kos yang ingin memasang iklan properti nasional, mengatur kamar, menerima pemesanan, dan mengelola penyewa.
+                        <p class="text-xs text-blue-100 pl-7 leading-relaxed">
+                            Pasang iklan kos nasional, atur kamar & tarif sewa, konfirmasi pemesanan, dan kelola penyewa.
                         </p>
                     </div>
                 </div>
             </div>
 
             {{-- Footer Layer Kiri: Navigasi ke Beranda --}}
-            <div class="pt-8 mt-8 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
-                <a href="{{ url('/') }}" class="inline-flex items-center gap-1.5 text-slate-300 hover:text-white font-medium transition">
-                    <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="pt-6 mt-6 border-t border-blue-500/50 flex items-center justify-between text-xs text-blue-100">
+                <a href="{{ url('/') }}" class="inline-flex items-center gap-1.5 hover:text-white font-medium transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                     </svg>
                     <span>Kembali ke Beranda</span>
                 </a>
-                <span class="text-slate-400 text-[11px]">© {{ date('Y') }} SevenKost</span>
+                <span class="text-blue-200 text-[11px]">© {{ date('Y') }} SevenKost</span>
             </div>
         </div>
 
         {{-- ============================================================= --}}
-        {{-- LAYER KANAN (PUTIH): KHUSUS FORM FIELD FULL SCREEN            --}}
-        {{-- Warna & Gaya Input: Sama Persis dengan Form Blade Dashboard   --}}
+        {{-- LAYER KANAN (PUTIH BERSIH 50% LEBAR): FORM REGISTER           --}}
         {{-- ============================================================= --}}
-        <div class="w-full lg:w-7/12 xl:w-8/12 bg-white flex flex-col justify-center items-center p-6 sm:p-12 lg:p-16 xl:p-20">
+        <div class="w-full lg:w-1/2 bg-white flex flex-col justify-center items-center p-6 sm:p-12 lg:p-14 xl:p-16">
             <div class="max-w-md w-full">
 
                 {{-- Header Form --}}
@@ -113,7 +120,7 @@
                         Buat Akun SevenKost
                     </h2>
                     <p class="text-xs sm:text-sm text-slate-500 mt-1.5">
-                        Lengkapi data di bawah ini untuk membuat akun baru Anda.
+                        Lengkapi formulir di bawah ini untuk membuat akun baru Anda.
                     </p>
                 </div>
 
