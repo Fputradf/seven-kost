@@ -91,6 +91,7 @@
 │   │   │   ├── 📄 HomeController.php
 │   │   │   ├── 📄 KostDetailController.php
 │   │   │   ├── 📄 MapController.php
+│   │   │   ├── 📄 MarketplaceController.php
 │   │   │   ├── 📁 Owner/
 │   │   │   │   ├── 📄 KostController.php
 │   │   │   │   └── 📄 RoomTenantController.php
@@ -103,7 +104,8 @@
 │   │   └── 📁 Requests/
 │   │       ├── 📁 Auth/
 │   │       │   └── 📄 LoginRequest.php
-│   │       └── 📄 ProfileUpdateRequest.php
+│   │       ├── 📄 ProfileUpdateRequest.php
+│   │       └── 📄 StoreMarketplaceItemRequest.php
 │   ├── 📁 Models/
 │   │   ├── 📄 AdsPackage.php
 │   │   ├── 📄 AdsPromotion.php
@@ -112,6 +114,8 @@
 │   │   ├── 📄 Facility.php
 │   │   ├── 📄 Kost.php
 │   │   ├── 📄 KostImage.php
+│   │   ├── 📄 MarketplaceItem.php
+│   │   ├── 📄 MarketplaceItemImage.php
 │   │   ├── 📄 Province.php
 │   │   ├── 📄 Regency.php
 │   │   ├── 📄 Report.php
@@ -169,12 +173,14 @@
 │   │   ├── 📄 2026_11_06_111500_create_kosts_and_related_tables.php
 │   │   ├── 📄 2026_11_06_113000_create_bookings_table.php
 │   │   ├── 📄 2026_11_06_114500_create_reports_table.php
-│   │   └── 📄 2026_11_06_120000_create_ads_packages_and_banners_tables.php
+│   │   ├── 📄 2026_11_06_120000_create_ads_packages_and_banners_tables.php
+│   │   └── 📄 2026_11_09_202219_create_marketplace_items_tables.php
 │   └── 📁 seeders/
 │       ├── 📄 AdsPackageSeeder.php
 │       ├── 📄 DatabaseSeeder.php
 │       ├── 📄 FacilitySeeder.php
 │       ├── 📄 KostSeeder.php
+│       ├── 📄 MarketplaceSeeder.php
 │       ├── 📄 RolePermissionSeeder.php
 │       └── 📄 WilayahSeeder.php
 ├── 📁 Desain Aplikasi Seven Kos/
@@ -221,8 +227,8 @@
 │   ├── 📄 .htaccess
 │   ├── 📁 build/
 │   │   ├── 📁 assets/
-│   │   │   ├── 📄 app-Dr67-uCa.js
-│   │   │   └── 📄 app-SJIJjhWv.css
+│   │   │   ├── 📄 app-BcnVAcRb.css
+│   │   │   └── 📄 app-Dr67-uCa.js
 │   │   └── 📄 manifest.json
 │   ├── 📁 css/
 │   │   └── 📁 filament/
@@ -398,6 +404,10 @@
 │       │   ├── 📄 navigation.blade.php
 │       │   └── 📄 seven.blade.php
 │       ├── 📄 map-search.blade.php
+│       ├── 📁 marketplace/
+│       │   ├── 📄 create.blade.php
+│       │   ├── 📄 index.blade.php
+│       │   └── 📄 show.blade.php
 │       ├── 📁 owner/
 │       │   ├── 📁 kosts/
 │       │   │   ├── 📄 create.blade.php
@@ -432,7 +442,53 @@
 │   │   │   └── 📄 .gitignore
 │   │   └── 📁 public/
 │   │       ├── 📄 .gitignore
-│   │       └── 📁 kosts/
+│   │       ├── 📁 kosts/
+│   │       │   ├── 📄 banner-bandung-hd.jpg
+│   │       │   ├── 📄 banner-bandung-wide.jpg
+│   │       │   ├── 📄 banner-jakarta-hd.jpg
+│   │       │   ├── 📄 banner-jakarta-wide.jpg
+│   │       │   ├── 📄 banner-studio-hd.jpg
+│   │       │   ├── 📄 banner-yogyakarta-hd.jpg
+│   │       │   ├── 📄 banner-yogyakarta-wide.jpg
+│   │       │   ├── 📄 city-bandung.png
+│   │       │   ├── 📄 city-depok.png
+│   │       │   ├── 📄 city-jakarta.png
+│   │       │   ├── 📄 city-surabaya.png
+│   │       │   ├── 📄 city-yogyakarta.png
+│   │       │   ├── 📄 cta-host-female.jpg
+│   │       │   ├── 📄 cta-host-male.jpg
+│   │       │   ├── 📄 cta-house-keys.jpg
+│   │       │   ├── 📄 cta-house.png
+│   │       │   ├── 📄 cta-kost-room.jpg
+│   │       │   ├── 📄 cta-person.png
+│   │       │   ├── 📄 footer-logo-crop.png
+│   │       │   ├── 📄 footer-newsletter-crop.png
+│   │       │   ├── 📄 footer-social-crop.png
+│   │       │   ├── 📄 header-logo-crop.png
+│   │       │   ├── 📄 header-nav-crop.png
+│   │       │   ├── 📄 header-wide-crop.png
+│   │       │   ├── 📄 hero-building-ap-1.jpg
+│   │       │   ├── 📄 hero-building-ap-2.jpg
+│   │       │   ├── 📄 hero-building-hd.jpg
+│   │       │   ├── 📄 hero-building.png
+│   │       │   ├── 📄 kost-1-hd.jpg
+│   │       │   ├── 📄 kost-1.png
+│   │       │   ├── 📄 kost-2-hd.jpg
+│   │       │   ├── 📄 kost-2.png
+│   │       │   ├── 📄 kost-3-hd.jpg
+│   │       │   ├── 📄 kost-3.png
+│   │       │   ├── 📄 kost-4-hd.jpg
+│   │       │   ├── 📄 kost-4.png
+│   │       │   ├── 📄 logo-full-bounds.png
+│   │       │   ├── 📄 marketplace-hd.jpg
+│   │       │   ├── 📄 marketplace-items.png
+│   │       │   ├── 📄 promo-bandung.png
+│   │       │   ├── 📄 promo-jakarta.png
+│   │       │   ├── 📄 promo-yogyakarta.png
+│   │       │   ├── 📄 service-catering.jpg
+│   │       │   ├── 📄 service-cleaning.jpg
+│   │       │   └── 📄 service-laundry.jpg
+│   │       └── 📁 marketplace/
 │   │           ├── 📄 banner-bandung-hd.jpg
 │   │           ├── 📄 banner-bandung-wide.jpg
 │   │           ├── 📄 banner-jakarta-hd.jpg
@@ -492,17 +548,18 @@
 │   │   │   ├── 📄 .gitignore
 │   │   │   └── 📁 disks/
 │   │   │       └── 📁 public/
-│   │   │           └── 📁 proofs/
-│   │   │               └── 📁 ads/
-│   │   │                   └── 📄 gnPZw6deht6G0DOdmrmvqaaDQI6icN02YiP0gGj9.jpg
+│   │   │           └── 📁 marketplace/
+│   │   │               └── 📄 Y817FQLk2MaG2hGbeReplwl6YyAEZw74qPFQViLN.jpg
 │   │   └── 📁 views/
 │   │       ├── 📄 .gitignore
+│   │       ├── 📄 014f72a8fc260e1e5115ec90214a8f8c.php
 │   │       ├── 📄 0b51b9c94d7dc367e1955c17a1c67fc1.php
 │   │       ├── 📄 1288003ed32b0676e6ccb14eb5942b70.php
 │   │       ├── 📄 139f55eeb4805572ebcdbda37fb1779c.php
 │   │       ├── 📄 1a9dfb9505693721783dd2cee36490d7.php
 │   │       ├── 📄 2067122e10fdc9e51c356f8bbadf029c.php
 │   │       ├── 📄 222f9f7b50f61affbc6fd95cbef8cba5.php
+│   │       ├── 📄 3d453ac3027de318344bd556b7e39b91.php
 │   │       ├── 📄 486de72dbd4b945f20c3910b1ee5c1a1.php
 │   │       ├── 📄 4d155c1c02b7d655be2898fc0881cfaf.php
 │   │       ├── 📄 55c1ecbcac3a31fd997d25602d945fbd.php
@@ -519,6 +576,7 @@
 │   │       ├── 📄 8452e5beff424fa5a6b18e3e4a796b43.php
 │   │       ├── 📄 84fd10794213dff83a609ff042e43844.php
 │   │       ├── 📄 874fbc92070c0e295b3ffe7dffc8b899.php
+│   │       ├── 📄 93166af4e8ac6a51278753e016cf57e3.php
 │   │       ├── 📄 9644caa35071308b97dd7f89d52e34c2.php
 │   │       ├── 📄 99d7fafb1e763e7e7df27922cdfc500b.php
 │   │       ├── 📄 9a344bdb66808e71f5f2832552ea066f.php
@@ -527,7 +585,9 @@
 │   │       ├── 📄 ab9fd7a489ff338aba69c4dfaa2ecb5f.php
 │   │       ├── 📄 b7c4a40ea7608f4cb2d25ba42921e6ec.php
 │   │       ├── 📄 c5fa10e208837514e1a36a0fdbdaefb0.php
+│   │       ├── 📄 c821aaf1cb4f9114558f95afd819fccc.php
 │   │       ├── 📄 c974825975ab40adc2d9584fbe61f692.php
+│   │       ├── 📄 caf0f0dcf3c13cd85fe00e855d005969.php
 │   │       ├── 📄 d45a3ed121c1dd7770205830287f9336.php
 │   │       ├── 📄 d51192fc9cf0016eee18ef3dd2e126af.php
 │   │       ├── 📄 d5cfc8f84c45255b3b888918b76ce252.php
@@ -553,7 +613,9 @@
 │   │   │   └── 📄 RegistrationTest.php
 │   │   ├── 📄 ExampleTest.php
 │   │   ├── 📄 FrontendHomeTest.php
+│   │   ├── 📄 HelpFaqTest.php
 │   │   ├── 📄 KostDetailTest.php
+│   │   ├── 📄 MarketplaceTest.php
 │   │   ├── 📄 ProfileTest.php
 │   │   └── 📄 ServiceTest.php
 │   ├── 📄 TestCase.php

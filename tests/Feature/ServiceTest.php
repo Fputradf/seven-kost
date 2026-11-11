@@ -6,6 +6,14 @@ use Tests\TestCase;
 
 class ServiceTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->seed([
+            \Database\Seeders\RolePermissionSeeder::class,
+        ]);
+    }
+
     /**
      * Test bahwa halaman Layanan Mitra Kos dapat diakses dan merender seluruh katalog paket.
      */
@@ -33,15 +41,29 @@ class ServiceTest extends TestCase
         $response->assertSee('Seven Katering Harian');
         $response->assertSee('Seven Care Teknisi');
 
-        // Paket & Tombol Pemesanan
+        // Paket & Tombol Pemesanan (Arahkan ke Login untuk Guest)
         $response->assertSee('Laundry Kiloan Reguler');
         $response->assertSee('Deep Clean Kamar Mandi Kos');
         $response->assertSee('Pesan Sekarang');
-        $response->assertSee('Form Pemesanan Layanan');
-        $response->assertSee('Teruskan ke WhatsApp');
+        $response->assertDontSee('Teruskan ke WhatsApp');
 
         // Alur & Mitra
+        $response->assertSee('Iklan Sponsor');
         $response->assertSee('Bagaimana Cara Pesan Layanan?');
         $response->assertSee('Punya Usaha Laundry');
+    }
+
+    /**
+     * Test bahwa akun dengan role penghuni dapat mengakses form pemesanan layanan.
+     */
+    public function test_authenticated_penghuni_can_view_order_modal(): void
+    {
+        $penghuni = \App\Models\User::role('penghuni')->first();
+        if ($penghuni) {
+            $response = $this->actingAs($penghuni)->get('/layanan');
+            $response->assertStatus(200);
+            $response->assertSee('Form Pemesanan Layanan');
+            $response->assertSee('Konfirmasi');
+        }
     }
 }

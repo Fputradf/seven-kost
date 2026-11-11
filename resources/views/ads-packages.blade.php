@@ -328,7 +328,7 @@
                                 class="relative rounded-3xl p-7 flex flex-col justify-between transition-all duration-200 cursor-pointer select-none"
                             >
                                 @if($isPop)
-                                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3.5 py-0.5 rounded-full bg-gradient-to-r from-blue-600 to-sky-500 text-white font-black text-[10px] uppercase tracking-wider shadow-sm">
+                                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3.5 py-0.5 rounded-lg bg-gradient-to-r from-blue-600 to-sky-500 text-white font-black text-[10px] uppercase tracking-wider shadow-sm">
                                         Paling Populer
                                     </div>
                                 @endif
@@ -475,7 +475,7 @@
                             class="relative rounded-3xl p-7 flex flex-col justify-between transition-all duration-200 cursor-pointer select-none"
                         >
                             @if($isBest)
-                                <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3.5 py-0.5 rounded-full bg-gradient-to-r from-blue-600 to-sky-500 text-white font-black text-[10px] uppercase tracking-wider shadow-sm">
+                                <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3.5 py-0.5 rounded-lg bg-gradient-to-r from-blue-600 to-sky-500 text-white font-black text-[10px] uppercase tracking-wider shadow-sm">
                                     Paling Populer
                                 </div>
                             @endif

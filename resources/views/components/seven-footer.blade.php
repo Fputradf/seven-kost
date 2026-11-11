@@ -36,7 +36,7 @@
                     <li><a href="{{ url('/syarat-ketentuan') }}" class="hover:text-blue-600 transition">Tentang Kami</a></li>
                     <li><a href="{{ url('/syarat-ketentuan') }}" class="hover:text-blue-600 transition">Syarat & Ketentuan</a></li>
                     <li><a href="{{ url('/kebijakan-privasi') }}" class="hover:text-blue-600 transition">Kebijakan Privasi</a></li>
-                    <li><a href="https://wa.me/6281234567890?text=Halo%20Bantuan%20Seven%20Kost" target="_blank" class="hover:text-blue-600 transition">Bantuan</a></li>
+                    <li><a href="{{ url('/bantuan') }}" class="hover:text-blue-600 transition">Pusat Bantuan & FAQ</a></li>
                 </ul>
             </div>
 

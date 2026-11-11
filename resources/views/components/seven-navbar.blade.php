@@ -40,8 +40,8 @@
                 </a>
 
                 {{-- 4. Marketplace --}}
-                <a href="{{ url('/#marketplace') }}" class="flex items-center gap-1.5 transition-colors hover:text-blue-600 pb-1 text-slate-800">
-                    <svg class="w-4 h-4 text-slate-600" fill="currentColor" viewBox="0 0 20 20">
+                <a href="{{ route('marketplace.index') }}" class="flex items-center gap-1.5 transition-colors pb-1 {{ request()->is('marketplace*') ? 'text-blue-600 border-b-2 border-blue-600 font-bold' : 'hover:text-blue-600' }} text-slate-800">
+                    <svg class="w-4 h-4 {{ request()->is('marketplace*') ? 'text-blue-600' : 'text-slate-600' }}" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"/>
                     </svg>
                     <span>Marketplace</span>
@@ -75,9 +75,9 @@
                             <div class="px-3 py-2 border-b border-slate-100">
                                 <p class="text-xs text-slate-400 font-medium">Masuk sebagai</p>
                                 <p class="text-xs font-bold text-slate-900 truncate">{{ Auth::user()->email }}</p>
-                                <span class="inline-block mt-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-blue-50 text-blue-700 capitalize">
+                                <div class="inline-block mt-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-blue-50 text-blue-700 capitalize">
                                     {{ Auth::user()->getRoleNames()->first() ?? 'Member' }}
-                                </span>
+                                </div>
                             </div>
 
                             @if(Auth::user()->hasAnyRole(['superadmin', 'admin']))
@@ -144,7 +144,7 @@
             <a href="{{ url('/') }}" class="block px-3 py-2 rounded-lg {{ request()->is('/') ? 'text-blue-600 bg-blue-50' : 'text-slate-800 hover:bg-slate-50' }}">Beranda</a>
             <a href="{{ url('/paket-iklan') }}" class="block px-3 py-2 rounded-lg {{ request()->is('paket-iklan*') ? 'text-blue-600 bg-blue-50' : 'text-slate-800 hover:bg-slate-50' }}">Pasang Iklan</a>
             <a href="{{ route('services.index') }}" @click="mobileMenuOpen = false" class="block px-3 py-2 rounded-lg {{ request()->is('layanan*') ? 'text-blue-600 font-bold bg-blue-50' : 'text-slate-800 hover:bg-slate-50' }}">Layanan</a>
-            <a href="{{ url('/#marketplace') }}" @click="mobileMenuOpen = false" class="block px-3 py-2 rounded-lg text-slate-800 hover:bg-slate-50">Marketplace</a>
+            <a href="{{ route('marketplace.index') }}" @click="mobileMenuOpen = false" class="block px-3 py-2 rounded-lg {{ request()->is('marketplace*') ? 'text-blue-600 font-bold bg-blue-50' : 'text-slate-800 hover:bg-slate-50' }}">Marketplace</a>
             <a href="{{ url('/bantuan') }}" @click="mobileMenuOpen = false" class="block px-3 py-2 rounded-lg {{ request()->is('bantuan*') ? 'text-blue-600 bg-blue-50' : 'text-slate-800 hover:bg-slate-50' }}">FAQ</a>
         </div>
 

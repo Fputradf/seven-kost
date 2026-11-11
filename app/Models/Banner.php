@@ -32,5 +32,22 @@ class Banner extends Model
     {
         return $this->belongsTo(Regency::class, 'regency_id');
     }
+
+    public function getImageUrlAttribute(): string
+    {
+        if (str_starts_with($this->image_path, 'http')) {
+            return $this->image_path;
+        }
+
+        if (str_starts_with($this->image_path, 'images/')) {
+            return asset($this->image_path);
+        }
+
+        if (file_exists(public_path($this->image_path))) {
+            return asset($this->image_path);
+        }
+
+        return asset('storage/' . $this->image_path);
+    }
 }
 

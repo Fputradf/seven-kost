@@ -5,6 +5,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KostDetailController;
 use App\Http\Controllers\MapController;
+use App\Http\Controllers\MarketplaceController;
 use App\Http\Controllers\Owner\KostController as OwnerKostController;
 use App\Http\Controllers\Owner\RoomTenantController as OwnerRoomTenantController;
 use App\Http\Controllers\ProfileController;
@@ -29,6 +30,10 @@ Route::get('/paket-iklan', [AdsPackageController::class, 'index'])->name('ads.pa
 // Layanan Kebutuhan Kos (Layanan Mitra)
 Route::get('/layanan', [ServiceController::class, 'index'])->name('services.index');
 
+// Marketplace Barang Kos (Jual Beli Sesama Anak Kos - Sistem COD)
+Route::get('/marketplace', [MarketplaceController::class, 'index'])->name('marketplace.index');
+Route::get('/marketplace/{slug}', [MarketplaceController::class, 'show'])->name('marketplace.show');
+
 // Pusat Bantuan & FAQ (Form bantuan & FAQ)
 Route::get('/bantuan', function () {
     return view('bantuan');
@@ -45,6 +50,10 @@ Route::get('/api/wilayah/provinces/{province}/regencies', [WilayahController::cl
 
 // Rute Penghuni & Pemilik (Memerlukan Login)
 Route::middleware('auth')->group(function () {
+    // Marketplace: Jual Barang Kos (Hanya Pengguna Login)
+    Route::get('/marketplace/jual/barang', [MarketplaceController::class, 'create'])->name('marketplace.create');
+    Route::post('/marketplace/jual/simpan', [MarketplaceController::class, 'store'])->name('marketplace.store');
+
     // Pesan Paket Iklan & Banner
     Route::post('/paket-iklan/pesan', [AdsPackageController::class, 'order'])->name('ads.packages.order');
     Route::post('/paket-iklan/banner', [AdsPackageController::class, 'orderBanner'])->name('ads.banner.order');

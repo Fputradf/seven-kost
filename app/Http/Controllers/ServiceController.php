@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -12,6 +13,18 @@ class ServiceController extends Controller
      */
     public function index(): View
     {
+        // Banner Iklan Komersial Aktif untuk Layanan
+        $banners = Banner::where('is_active', true)
+            ->where(function ($q) {
+                $q->whereNull('starts_at')->orWhere('starts_at', '<=', now());
+            })
+            ->where(function ($q) {
+                $q->whereNull('ends_at')->orWhere('ends_at', '>=', now());
+            })
+            ->latest()
+            ->take(4)
+            ->get();
+
         $services = [
             [
                 'id' => 'laundry',
@@ -115,6 +128,6 @@ class ServiceController extends Controller
             ],
         ];
 
-        return view('layanan', compact('services'));
+        return view('layanan', compact('services', 'banners'));
     }
 }

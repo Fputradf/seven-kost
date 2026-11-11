@@ -19,6 +19,8 @@
         x-data="{
             activeCategory: 'all',
             orderModalOpen: false,
+            alertNotTenant: false,
+            orderSuccess: false,
             selectedService: 'laundry',
             selectedServiceName: 'Seven Laundry Kos',
             selectedPackageName: 'Laundry Kiloan Reguler (2-3 Hari)',
@@ -36,51 +38,47 @@
                 this.selectedPackageName = defaultPkgName;
                 this.selectedPackagePrice = defaultPrice;
                 this.selectedPackageUnit = defaultUnit;
+                this.orderSuccess = false;
                 this.orderModalOpen = true;
             },
 
-            getWaOrderUrl() {
-                const text = encodeURIComponent(
-                    'Halo Admin Layanan SevenKost, saya ingin memesan layanan berikut:\n\n' +
-                    '• Layanan: ' + this.selectedServiceName + '\n' +
-                    '• Paket Pilihan: ' + this.selectedPackageName + ' (' + 'Rp ' + Number(this.selectedPackagePrice).toLocaleString('id-ID') + ' ' + this.selectedPackageUnit + ')\n' +
-                    '• Alamat Kos: ' + (this.kostAddress || '-') + '\n' +
-                    '• No. Kamar: ' + (this.roomNumber || '-') + '\n' +
-                    '• Jadwal Kunjungan: ' + this.orderDate + ' jam ' + this.orderTime + '\n' +
-                    '• Catatan Tambahan: ' + (this.orderNotes || '-') + '\n\n' +
-                    'Mohon konfirmasi ketersediaan mitra terdekat. Terima kasih!'
-                );
-                return 'https://wa.me/6281234567890?text=' + text;
+            submitOrder() {
+                this.orderSuccess = true;
+                setTimeout(() => {
+                    this.orderModalOpen = false;
+                    this.orderSuccess = false;
+                }, 2500);
             }
         }"
-        @keydown.escape.window="orderModalOpen = false"
+        @keydown.escape.window="orderModalOpen = false; alertNotTenant = false"
         class="pb-20"
     >
 
         {{-- Page Header: Modern Card Gradient (Sesuai Dashboard Home Page) --}}
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2">
-            <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#031d44] via-[#05377a] to-[#0a66c2] text-white p-6 sm:p-8 shadow-xl shadow-blue-950/20 border border-white/15">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-5 pb-2">
+            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#031d44] via-[#05377a] to-[#0a66c2] text-white p-4 sm:p-5 md:p-6 shadow-md shadow-blue-950/15 border border-white/15">
                 {{-- Decorative background glow --}}
-                <div class="absolute -right-8 -bottom-8 w-60 h-60 bg-blue-400/15 rounded-full blur-2xl pointer-events-none"></div>
-                <div class="absolute -top-10 right-1/4 w-44 h-44 bg-sky-300/15 rounded-full blur-xl pointer-events-none"></div>
+                <div class="absolute -right-6 -bottom-6 w-36 h-36 bg-blue-400/15 rounded-full blur-xl pointer-events-none"></div>
+                <div class="absolute -top-6 right-1/4 w-28 h-28 bg-sky-300/15 rounded-full blur-lg pointer-events-none"></div>
 
-                <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-                    <div class="space-y-2.5 max-w-2xl">
-                        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-white leading-tight">
-                            Layanan Kebutuhan <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 via-cyan-200 to-blue-200">Kos</span>
+                <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div class="space-y-1.5 max-w-2xl">
+                        <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-white leading-tight">
+                            Layanan Kebutuhan <span class="text-sky-300">Kos</span>
                         </h1>
-                        <p class="text-xs sm:text-sm text-slate-200 leading-relaxed">
+                        <p class="text-xs sm:text-sm text-slate-200 leading-relaxed font-normal">
                             Pilihan jasa harian terpercaya mulai dari laundry antar-jemput, bersih-bersih kamar & toilet, katering harian, hingga servis teknisi AC langsung ke kamar kosmu.
                         </p>
                     </div>
 
                     {{-- Trust Info on Gradient Card --}}
-                    <div class="flex flex-row md:flex-col items-start md:items-end gap-2.5 flex-wrap flex-shrink-0">
-                        <div class="text-xs text-slate-200 font-medium">
-                            Mitra Siap Melayani Hari Ini
+                    <div class="flex flex-row md:flex-col items-start md:items-end gap-1.5 sm:gap-2 flex-wrap flex-shrink-0 text-[11px] sm:text-xs text-slate-200">
+                        <div class="flex items-center gap-1.5 font-medium">
+                            <span class="w-1.5 h-1.5 bg-emerald-400 inline-block"></span>
+                            <span>Mitra Siap Melayani Hari Ini</span>
                         </div>
-                        <div class="hidden sm:flex items-center gap-2 text-xs text-sky-200 font-medium">
-                            🛡️ Garansi Kerapian & Keamanan
+                        <div class="hidden sm:flex items-center gap-1.5 text-sky-200 font-medium">
+                            <span>🛡️ Garansi Kerapian & Keamanan</span>
                         </div>
                     </div>
                 </div>
@@ -130,6 +128,118 @@
                 >
                     🔧 Teknisi & Service AC
                 </button>
+            </div>
+        </section>
+
+        {{-- COMMERCIAL AD BANNER SLIDER (BR-11: PENAYANGAN BANNER BRAND & LAYANAN MITRA) --}}
+        @php
+            $svcBanners = [];
+            if (isset($banners) && $banners->count() > 0) {
+                foreach ($banners as $b) {
+                    $svcBanners[] = [
+                        'img' => $b->image_url,
+                        'link' => $b->target_url ?: route('ads.packages.index', ['tab' => 'banner']),
+                        'alt' => $b->title,
+                    ];
+                }
+            }
+            if (empty($svcBanners)) {
+                $svcBanners = [
+                    ['img' => asset('images/frontend/banner-jakarta-wide.jpg'), 'link' => route('ads.packages.index', ['tab' => 'banner']), 'alt' => 'Promo Layanan Laundry Kos'],
+                    ['img' => asset('images/frontend/banner-bandung-wide.jpg'), 'link' => route('ads.packages.index', ['tab' => 'banner']), 'alt' => 'Promo Bersih-Bersih Kos'],
+                    ['img' => asset('images/frontend/banner-yogyakarta-wide.jpg'), 'link' => route('ads.packages.index', ['tab' => 'banner']), 'alt' => 'Promo Teknisi AC Kos'],
+                ];
+            }
+        @endphp
+
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-2">
+            <div 
+                class="group/banner relative overflow-hidden rounded-2xl bg-slate-900 border border-slate-200/80 shadow-xs"
+                x-data="{
+                    activeBanner: 0,
+                    totalBanners: {{ count($svcBanners) }},
+                    timer: null,
+                    start() {
+                        this.timer = setInterval(() => {
+                            this.next();
+                        }, 5000);
+                    },
+                    stop() { clearInterval(this.timer); },
+                    next() {
+                        this.activeBanner = (this.activeBanner + 1) % this.totalBanners;
+                    },
+                    prev() {
+                        this.activeBanner = (this.activeBanner - 1 + this.totalBanners) % this.totalBanners;
+                    }
+                }"
+                x-init="start()"
+                @mouseenter="stop()"
+                @mouseleave="start()"
+            >
+                <div class="relative w-full h-32 sm:h-44 md:h-52 overflow-hidden">
+                    @foreach($svcBanners as $idx => $bItem)
+                        <div 
+                            x-show="activeBanner === {{ $idx }}"
+                            x-transition:enter="transition ease-out duration-500"
+                            x-transition:enter-start="opacity-0 scale-98"
+                            x-transition:enter-end="opacity-100 scale-100"
+                            class="absolute inset-0 w-full h-full"
+                            style="{{ $idx > 0 ? 'display: none;' : '' }}"
+                        >
+                            <a href="{{ $bItem['link'] }}" class="block w-full h-full group">
+                                <img src="{{ $bItem['img'] }}" alt="{{ $bItem['alt'] }}" class="w-full h-full object-cover group-hover:scale-102 transition duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent"></div>
+                                <div class="absolute top-2.5 left-3 px-2 py-0.5 rounded bg-black/60 text-white text-[9px] font-bold tracking-wider uppercase backdrop-blur-xs">
+                                    Iklan Sponsor & Promosi
+                                </div>
+                                <div class="absolute bottom-2.5 right-3">
+                                    <div class="text-[11px] font-bold text-white bg-blue-600/90 hover:bg-blue-600 px-3 py-1 rounded-lg backdrop-blur-xs shadow-sm">
+                                        Lihat Penawaran →
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+
+                {{-- Tombol Navigasi Kiri & Kanan --}}
+                @if(count($svcBanners) > 1)
+                    <button 
+                        type="button" 
+                        @click.prevent="prev()" 
+                        aria-label="Banner Sebelumnya" 
+                        class="absolute left-2.5 sm:left-3.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/45 hover:bg-black/75 text-white flex items-center justify-center transition-all opacity-0 group-hover/banner:opacity-100 hover:scale-105 active:scale-95 focus:opacity-100 shadow-md backdrop-blur-xs z-10"
+                    >
+                        <svg class="w-4 h-4 -ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
+                        </svg>
+                    </button>
+                    <button 
+                        type="button" 
+                        @click.prevent="next()" 
+                        aria-label="Banner Selanjutnya" 
+                        class="absolute right-2.5 sm:right-3.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/45 hover:bg-black/75 text-white flex items-center justify-center transition-all opacity-0 group-hover/banner:opacity-100 hover:scale-105 active:scale-95 focus:opacity-100 shadow-md backdrop-blur-xs z-10"
+                    >
+                        <svg class="w-4 h-4 -mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                @endif
+
+                {{-- Dots Indicator --}}
+                @if(count($svcBanners) > 1)
+                    <div class="absolute bottom-2.5 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-xs">
+                        @foreach($svcBanners as $idx => $bItem)
+                            <button 
+                                type="button" 
+                                @click="activeBanner = {{ $idx }}" 
+                                class="h-1.5 rounded-full transition-all"
+                                :class="activeBanner === {{ $idx }} ? 'w-5 bg-white' : 'w-1.5 bg-white/50'"
+                                aria-label="Slide {{ $idx + 1 }}"
+                            ></button>
+                        @endforeach
+                    </div>
+                @endif
             </div>
         </section>
 
@@ -216,19 +326,38 @@
 
                             <div>
                                 @if($isAvail)
-                                    <button 
-                                        @click="openOrderModal(
-                                            '{{ $svc['id'] }}', 
-                                            '{{ addslashes($svc['title']) }}', 
-                                            '{{ addslashes($svc['packages'][0]['name']) }}', 
-                                            {{ $svc['packages'][0]['price'] }}, 
-                                            '{{ addslashes($svc['packages'][0]['unit']) }}'
-                                        )" 
-                                        type="button" 
-                                        class="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md shadow-blue-500/20 transition active:scale-95"
-                                    >
-                                        Pesan Sekarang
-                                    </button>
+                                    @auth
+                                        @if(auth()->user()->hasRole('penghuni'))
+                                            <button 
+                                                @click="openOrderModal(
+                                                    '{{ $svc['id'] }}', 
+                                                    '{{ addslashes($svc['title']) }}', 
+                                                    '{{ addslashes($svc['packages'][0]['name']) }}', 
+                                                    {{ $svc['packages'][0]['price'] }}, 
+                                                    '{{ addslashes($svc['packages'][0]['unit']) }}'
+                                                )" 
+                                                type="button" 
+                                                class="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md shadow-blue-500/20 transition active:scale-95"
+                                            >
+                                                Pesan Sekarang
+                                            </button>
+                                        @else
+                                            <button 
+                                                @click="alertNotTenant = true" 
+                                                type="button" 
+                                                class="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md shadow-blue-500/20 transition active:scale-95"
+                                            >
+                                                Pesan Sekarang
+                                            </button>
+                                        @endif
+                                    @else
+                                        <a 
+                                            href="{{ route('login') }}" 
+                                            class="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md shadow-blue-500/20 transition active:scale-95 inline-block text-center"
+                                        >
+                                            Pesan Sekarang
+                                        </a>
+                                    @endauth
                                 @else
                                     <button 
                                         type="button" 
@@ -392,11 +521,11 @@
         </section>
 
         {{-- 5. MITRA REGISTRATION CALLOUT (COMPACT & SESUAI PALET HOME PAGE) --}}
-        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-14">
-            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#031d44] via-[#05377a] to-[#0a66c2] text-white p-5 sm:p-6 shadow-md border border-white/10">
-                <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 sm:mt-10">
+            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#031d44] via-[#05377a] to-[#0a66c2] text-white p-4 sm:p-5 shadow-md border border-white/10">
+                <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
                     <div class="space-y-1 max-w-xl">
-                        <h3 class="text-base sm:text-lg font-bold text-white">
+                        <h3 class="text-sm sm:text-base font-bold text-white">
                             Punya Usaha Laundry, Katering, atau Kebersihan?
                         </h3>
                         <p class="text-xs text-slate-200 leading-relaxed">
@@ -407,7 +536,7 @@
                     <a 
                         href="https://wa.me/6281234567890?text=Halo%20Admin%20SevenKost%2C%20saya%20tertarik%20mendaftar%20menjadi%20Mitra%20Layanan%20di%20SevenKost." 
                         target="_blank" 
-                        class="inline-flex items-center justify-center gap-0.5 px-1.5 py-2.5 rounded-xl bg-white text-blue-900 hover:bg-slate-100 text-xs font-bold shadow-sm transition active:scale-95 flex-shrink-0"
+                        class="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-white text-blue-900 hover:bg-slate-100 text-xs font-bold shadow-sm transition active:scale-95 flex-shrink-0"
                     >
                         <span>Daftar Sekarang</span>
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
@@ -416,114 +545,162 @@
             </div>
         </section>
 
-        {{-- 7. ORDER MODAL INTERAKTIF (ALPINE MODAL) --}}
+        {{-- 7. ORDER MODAL INTERAKTIF (KHUSUS PENGHUNI KOS TERDAFTAR) --}}
+        @auth
+            @if(auth()->user()->hasRole('penghuni'))
+                <div 
+                    x-show="orderModalOpen" 
+                    x-transition.opacity 
+                    class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4" 
+                    style="display: none;"
+                >
+                    <div 
+                        @click.outside="orderModalOpen = false" 
+                        class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl space-y-5 text-slate-800 animate-in fade-in zoom-in-95 duration-200 relative overflow-hidden"
+                    >
+                        {{-- Notifikasi Sukses Pemesanan --}}
+                        <div 
+                            x-show="orderSuccess" 
+                            x-transition 
+                            class="absolute inset-0 bg-white/95 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center space-y-3 z-20"
+                            style="display: none;"
+                        >
+                            <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-3xl">
+                                ✓
+                            </div>
+                            <h4 class="text-lg font-black text-slate-900">Pesanan Berhasil Dikirim!</h4>
+                            <p class="text-xs text-slate-600 max-w-xs leading-relaxed">
+                                Jadwal kunjungan telah diteruskan ke mitra SevenKost terdekat. Mitra akan segera menuju ke kamar kos Anda sesuai jadwal.
+                            </p>
+                        </div>
+
+                        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                            <div>
+                                <span class="text-xs font-bold text-blue-600 uppercase tracking-wide">Form Pemesanan Layanan</span>
+                                <h3 class="text-lg font-black text-slate-900 mt-0.5" x-text="selectedServiceName"></h3>
+                            </div>
+                            <button @click="orderModalOpen = false" class="text-slate-400 hover:text-slate-700">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                            </button>
+                        </div>
+
+                        <form @submit.prevent="submitOrder()" class="space-y-4">
+                            {{-- Detail Pilihan Paket --}}
+                            <div class="p-3.5 rounded-2xl bg-blue-50/70 border border-blue-100 flex items-center justify-between">
+                                <div>
+                                    <span class="text-[11px] text-slate-500 font-medium block">Paket Terpilih:</span>
+                                    <strong class="text-xs sm:text-sm font-bold text-slate-900" x-text="selectedPackageName"></strong>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-sm font-extrabold text-blue-600" x-text="'Rp ' + Number(selectedPackagePrice).toLocaleString('id-ID')"></span>
+                                    <span class="text-[10px] text-slate-400 block" x-text="selectedPackageUnit"></span>
+                                </div>
+                            </div>
+
+                            {{-- Alamat Kos & No Kamar --}}
+                            <div class="space-y-1">
+                                <label class="block text-xs font-bold text-slate-700 uppercase">Nama Kos & Alamat Lengkap <span class="text-red-500">*</span></label>
+                                <input 
+                                    type="text" 
+                                    x-model="kostAddress" 
+                                    placeholder="Contoh: Seven Kost Melati Residence, Jl. Fatmawati No. 45" 
+                                    required 
+                                    class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5"
+                                >
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="space-y-1">
+                                    <label class="block text-xs font-bold text-slate-700 uppercase">Nomor Kamar <span class="text-red-500">*</span></label>
+                                    <input 
+                                        type="text" 
+                                        x-model="roomNumber" 
+                                        placeholder="Contoh: Kamar 204 (Lt. 2)" 
+                                        required 
+                                        class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5"
+                                    >
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="block text-xs font-bold text-slate-700 uppercase">Waktu Kunjungan</label>
+                                    <select x-model="orderTime" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5">
+                                        <option value="09:00">Pagi (09:00 WIB)</option>
+                                        <option value="11:30">Siang (11:30 WIB)</option>
+                                        <option value="14:00">Siang (14:00 WIB)</option>
+                                        <option value="16:30">Sore (16:30 WIB)</option>
+                                        <option value="19:00">Malam (19:00 WIB)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="space-y-1">
+                                <label class="block text-xs font-bold text-slate-700 uppercase">Tanggal Layanan</label>
+                                <input 
+                                    type="date" 
+                                    x-model="orderDate" 
+                                    min="{{ date('Y-m-d') }}" 
+                                    class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2"
+                                >
+                            </div>
+
+                            <div class="space-y-1">
+                                <label class="block text-xs font-bold text-slate-700 uppercase">Catatan Tambahan (Opsional)</label>
+                                <textarea 
+                                    x-model="orderNotes" 
+                                    rows="2" 
+                                    placeholder="Contoh: Mohon ketuk kamar dulu, ada pakaian jas butuh dry clean..." 
+                                    class="w-full text-xs rounded-xl border-slate-200 p-2.5"
+                                ></textarea>
+                            </div>
+
+                            {{-- Tombol Konfirmasi Pesanan --}}
+                            <div class="pt-2 flex gap-2">
+                                <button 
+                                    type="button" 
+                                    @click="orderModalOpen = false" 
+                                    class="flex-1 py-2.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50 transition"
+                                >
+                                    Batal
+                                </button>
+                                <button 
+                                    type="submit" 
+                                    class="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md shadow-blue-500/20 text-center transition"
+                                >
+                                    Konfirmasi & Pesan Layanan
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            @endif
+        @endauth
+
+        {{-- MODAL PERINGATAN BUKAN PENGHUNI KOS (UNTUK PEMILIK/ADMIN) --}}
         <div 
-            x-show="orderModalOpen" 
+            x-show="alertNotTenant" 
             x-transition.opacity 
             class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4" 
             style="display: none;"
         >
             <div 
-                @click.outside="orderModalOpen = false" 
-                class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl space-y-5 text-slate-800 animate-in fade-in zoom-in-95 duration-200"
+                @click.outside="alertNotTenant = false" 
+                class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-7 text-center space-y-4 shadow-2xl animate-in fade-in zoom-in-95 duration-200"
             >
-                <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-                    <div>
-                        <span class="text-xs font-bold text-blue-600 uppercase tracking-wide">Form Pemesanan Layanan</span>
-                        <h3 class="text-lg font-black text-slate-900 mt-0.5" x-text="selectedServiceName"></h3>
-                    </div>
-                    <button @click="orderModalOpen = false" class="text-slate-400 hover:text-slate-700">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                    </button>
+                <div class="w-14 h-14 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center mx-auto text-2xl shadow-xs">
+                    🔒
                 </div>
-
-                <div class="space-y-4">
-                    {{-- Detail Pilihan Paket --}}
-                    <div class="p-3.5 rounded-2xl bg-blue-50/70 border border-blue-100 flex items-center justify-between">
-                        <div>
-                            <span class="text-[11px] text-slate-500 font-medium block">Paket Terpilih:</span>
-                            <strong class="text-xs sm:text-sm font-bold text-slate-900" x-text="selectedPackageName"></strong>
-                        </div>
-                        <div class="text-right">
-                            <span class="text-sm font-extrabold text-blue-600" x-text="'Rp ' + Number(selectedPackagePrice).toLocaleString('id-ID')"></span>
-                            <span class="text-[10px] text-slate-400 block" x-text="selectedPackageUnit"></span>
-                        </div>
-                    </div>
-
-                    {{-- Alamat Kos & No Kamar --}}
-                    <div class="space-y-1">
-                        <label class="block text-xs font-bold text-slate-700 uppercase">Nama Kos & Alamat Lengkap <span class="text-red-500">*</span></label>
-                        <input 
-                            type="text" 
-                            x-model="kostAddress" 
-                            placeholder="Contoh: Seven Kost Melati Residence, Jl. Fatmawati No. 45" 
-                            required 
-                            class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5"
-                        >
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-3">
-                        <div class="space-y-1">
-                            <label class="block text-xs font-bold text-slate-700 uppercase">Nomor Kamar <span class="text-red-500">*</span></label>
-                            <input 
-                                type="text" 
-                                x-model="roomNumber" 
-                                placeholder="Contoh: Kamar 204 (Lt. 2)" 
-                                required 
-                                class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5"
-                            >
-                        </div>
-                        <div class="space-y-1">
-                            <label class="block text-xs font-bold text-slate-700 uppercase">Waktu Kunjungan</label>
-                            <select x-model="orderTime" class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5">
-                                <option value="09:00">Pagi (09:00 WIB)</option>
-                                <option value="11:30">Siang (11:30 WIB)</option>
-                                <option value="14:00">Siang (14:00 WIB)</option>
-                                <option value="16:30">Sore (16:30 WIB)</option>
-                                <option value="19:00">Malam (19:00 WIB)</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="space-y-1">
-                        <label class="block text-xs font-bold text-slate-700 uppercase">Tanggal Layanan</label>
-                        <input 
-                            type="date" 
-                            x-model="orderDate" 
-                            min="{{ date('Y-m-d') }}" 
-                            class="w-full text-xs font-medium rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2"
-                        >
-                    </div>
-
-                    <div class="space-y-1">
-                        <label class="block text-xs font-bold text-slate-700 uppercase">Catatan Tambahan (Opsional)</label>
-                        <textarea 
-                            x-model="orderNotes" 
-                            rows="2" 
-                            placeholder="Contoh: Mohon ketuk kamar dulu, ada pakaian jas butuh dry clean..." 
-                            class="w-full text-xs rounded-xl border-slate-200 p-2.5"
-                        ></textarea>
-                    </div>
-
-                    {{-- Submit via WhatsApp Dispatch --}}
-                    <div class="pt-2 flex gap-2">
-                        <button 
-                            type="button" 
-                            @click="orderModalOpen = false" 
-                            class="flex-1 py-2.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50 transition"
-                        >
-                            Batal
-                        </button>
-                        <a 
-                            :href="getWaOrderUrl()" 
-                            target="_blank" 
-                            class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white text-xs font-bold shadow-md shadow-emerald-500/20 text-center flex items-center justify-center gap-1.5 transition"
-                        >
-                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.299.144.35.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.174.086.275.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.145.39-.086s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824z"/></svg>
-                            <span>Teruskan ke WhatsApp</span>
-                        </a>
-                    </div>
+                <div>
+                    <h3 class="text-base sm:text-lg font-black text-slate-900">Khusus Akun Penghuni Kos</h3>
+                    <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                        Pemesanan layanan harian (laundry, cleaning, teknisi) hanya dapat dilakukan oleh akun yang terdaftar sebagai penghuni kos aktif di SevenKost.
+                    </p>
                 </div>
+                <button 
+                    type="button" 
+                    @click="alertNotTenant = false" 
+                    class="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-500/20 transition"
+                >
+                    Saya Mengerti
+                </button>
             </div>
         </div>
 
