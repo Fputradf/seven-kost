@@ -17,22 +17,33 @@
          }">
 
         {{-- ============================================================= --}}
-        {{-- LAYER KIRI (BIRU CERAH 50% LEBAR - PLUS JAKARTA SANS)         --}}
         {{-- ============================================================= --}}
-        <div class="w-full lg:w-1/2 bg-blue-600 text-white p-5 sm:p-7 lg:p-8 xl:p-10 flex flex-col justify-between overflow-y-auto lg:overflow-hidden">
+        {{-- LAYER KIRI / ATAS MOBILE (BIRU CERAH SEVENKOST)               --}}
+        {{-- ============================================================= --}}
+        <div class="w-full lg:w-1/2 bg-blue-600 text-white p-4 sm:p-6 lg:p-8 xl:p-10 flex flex-col justify-between shrink-0 lg:overflow-hidden">
             <div>
-                {{-- Tombol Navigasi Kembali ke Beranda di Bagian Atas Kiri --}}
-                <div class="mb-3">
-                    <a href="{{ url('/') }}" class="inline-flex items-center gap-1.5 text-xs font-medium text-white/95 hover:text-white transition group py-1.5 px-3 rounded-xl bg-blue-700/60 hover:bg-blue-700 border border-blue-400/40 w-fit">
+                {{-- Top Navigation: Tombol Kembali ke Beranda & Logo Brand (Mobile Friendly) --}}
+                <div class="flex items-center justify-between gap-3 mb-3 lg:mb-4">
+                    <a href="{{ url('/') }}" class="inline-flex items-center gap-1.5 text-xs font-semibold text-white/95 hover:text-white transition group py-1.5 px-3 rounded-xl bg-blue-700/60 hover:bg-blue-700 border border-blue-400/40 w-fit">
                         <svg class="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                         </svg>
                         <span>Kembali ke Beranda</span>
                     </a>
+
+                    {{-- Logo Brand di Pojok Kanan (Hanya Mobile) --}}
+                    <div class="flex items-center gap-2 lg:hidden">
+                        <img src="{{ asset('images/logo-seven-kost.png') }}" 
+                             alt="Logo SevenKost" 
+                             class="h-7 w-7 object-contain bg-white rounded-lg p-0.5 shadow-xs">
+                        <span class="text-base font-bold tracking-tight text-white">
+                            Seven<span class="text-sky-200">Kost</span>
+                        </span>
+                    </div>
                 </div>
 
-                {{-- Brand Header: Logo & Nama Aplikasi --}}
-                <div class="flex items-center gap-2.5 mb-3">
+                {{-- Brand Header Desktop (Logo & Nama Aplikasi) --}}
+                <div class="hidden lg:flex items-center gap-2.5 mb-3">
                     <img src="{{ asset('images/logo-seven-kost.png') }}" 
                          alt="Logo SevenKost" 
                          class="h-8 w-8 object-contain bg-white rounded-xl p-1 shadow-xs">
@@ -44,18 +55,18 @@
                     </div>
                 </div>
 
-                {{-- Headline --}}
-                <div class="mb-3">
-                    <h1 class="text-lg xl:text-xl font-bold leading-snug">
+                {{-- Headline Ringkas --}}
+                <div class="mb-2 lg:mb-3">
+                    <h1 class="text-base sm:text-lg lg:text-xl font-bold leading-snug">
                         Daftar Akun SevenKost
                     </h1>
-                    <p class="text-xs text-blue-100 mt-0.5 leading-relaxed">
+                    <p class="text-xs text-blue-100 mt-0.5 leading-relaxed hidden sm:block">
                         Pilih peran Anda dan nikmati kemudahan mencari hunian nyaman atau mengelola bisnis kos dalam satu aplikasi.
                     </p>
                 </div>
 
-                {{-- Gambar Kost Sesuai Dashboard/Website --}}
-                <div class="relative rounded-2xl overflow-hidden shadow-md border border-white/20 mb-3 group">
+                {{-- Gambar Kost (Desktop & Tablet Saja Agar Mobile Langsung Fokus Form) --}}
+                <div class="hidden lg:block relative rounded-2xl overflow-hidden shadow-md border border-white/20 mb-3 group">
                     <img src="{{ asset('images/frontend/hero-building-hd.jpg') }}" 
                          alt="Hunian Kos SevenKost" 
                          class="w-full h-28 sm:h-32 xl:h-36 object-cover group-hover:scale-105 transition-transform duration-500">
@@ -70,8 +81,8 @@
                     </div>
                 </div>
 
-                {{-- Penjelasan Role Singkat --}}
-                <div class="space-y-1.5">
+                {{-- Penjelasan 3 Role (Tampil Penuh di Desktop) --}}
+                <div class="hidden lg:block space-y-1.5">
                     <div class="text-[11px] font-semibold text-blue-100">
                         Pilih Peran Akun:
                     </div>
@@ -126,17 +137,26 @@
                 </div>
             </div>
 
-            {{-- Footer Layer Kiri: Hak Cipta --}}
-            <div class="pt-3 mt-3 border-t border-blue-500/50 flex items-center justify-between text-[11px] text-blue-100">
+            {{-- ========================================================= --}}
+            {{-- MOBILE WAVE PATTERN TRANSITION (GELOMBANG ORGANIK HALUS) --}}
+            {{-- ========================================================= --}}
+            <div class="w-full overflow-hidden leading-none lg:hidden pointer-events-none -mb-[1px]">
+                <svg class="relative block w-full h-8 sm:h-11 text-white" viewBox="0 0 1440 96" fill="none" preserveAspectRatio="none">
+                    <path d="M0,32 C360,90 540,10 820,50 C1100,90 1260,20 1440,45 L1440,96 L0,96 Z" fill="currentColor"></path>
+                </svg>
+            </div>
+
+            {{-- Footer Layer Kiri: Hak Cipta (Desktop Saja) --}}
+            <div class="hidden lg:flex p-5 lg:p-8 xl:p-10 pt-3 border-t border-blue-500/50 items-center justify-between text-[11px] text-blue-100">
                 <span class="text-blue-200">SevenKost Indonesia</span>
                 <span class="text-blue-200">© {{ date('Y') }}</span>
             </div>
         </div>
 
         {{-- ============================================================= --}}
-        {{-- LAYER KANAN (PUTIH BERSIH 50% LEBAR - LUWES & MODERN)         --}}
+        {{-- LAYER KANAN / BAWAH MOBILE (FORM PUTIH BERSIH DENGAN WAVE)    --}}
         {{-- ============================================================= --}}
-        <div class="w-full lg:w-1/2 bg-white flex flex-col justify-center items-center p-5 sm:p-8 lg:p-10 xl:p-12 overflow-y-auto lg:overflow-hidden">
+        <div class="w-full lg:w-1/2 bg-white flex flex-col justify-center items-center px-5 pt-3 pb-6 sm:p-8 lg:p-10 xl:p-12 flex-1 overflow-y-auto">
             <div class="max-w-sm xl:max-w-md w-full">
 
                 {{-- Header Form --}}
@@ -330,6 +350,11 @@
                     <a href="{{ route('login') }}" class="font-semibold text-blue-600 hover:text-blue-700 hover:underline ml-1">
                         Masuk ke Akun
                     </a>
+                </div>
+
+                {{-- Mobile Copyright Footer --}}
+                <div class="mt-4 text-center lg:hidden text-[10px] text-slate-400">
+                    SevenKost Indonesia © {{ date('Y') }}
                 </div>
 
             </div>
