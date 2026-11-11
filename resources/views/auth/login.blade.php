@@ -125,16 +125,16 @@
             </div>
 
             {{-- ========================================================= --}}
-            {{-- MULTI-LAYER WAVE PATTERN TRANSITION (BERKUALITAS & NYATA) --}}
+            {{-- MULTI-LAYER WAVE PATTERN TRANSITION (BESAR, ROUNDED & MELEKUK) --}}
             {{-- ========================================================= --}}
             <div class="w-full overflow-hidden leading-none lg:hidden pointer-events-none -mb-[1px]">
-                <svg class="relative block w-full h-10 sm:h-14" viewBox="0 0 1440 120" preserveAspectRatio="none">
+                <svg class="relative block w-full h-20 sm:h-28" viewBox="0 0 1440 220" preserveAspectRatio="none">
                     {{-- Layer Gelombang Belakang (Semi-transparan untuk kedalaman) --}}
-                    <path d="M0,36 C180,68 360,12 600,40 C840,68 1080,24 1260,54 C1340,66 1400,52 1440,46 L1440,120 L0,120 Z" class="fill-white/20"></path>
+                    <path d="M0,60 C320,160 640,10 960,110 C1200,180 1360,110 1440,70 L1440,220 L0,220 Z" class="fill-white/20"></path>
                     {{-- Layer Gelombang Tengah (Semi-transparan untuk kedalaman berlapis) --}}
-                    <path d="M0,52 C240,18 480,76 760,48 C1040,20 1240,64 1440,42 L1440,120 L0,120 Z" class="fill-white/40"></path>
+                    <path d="M0,110 C360,20 680,170 1020,70 C1220,10 1360,100 1440,60 L1440,220 L0,220 Z" class="fill-white/40"></path>
                     {{-- Layer Gelombang Depan (Solid White menyatu ke form) --}}
-                    <path d="M0,66 C320,96 560,44 840,64 C1120,84 1320,52 1440,60 L1440,120 L0,120 Z" class="fill-white"></path>
+                    <path d="M0,90 C320,180 640,30 960,130 C1200,190 1360,130 1440,80 L1440,220 L0,220 Z" class="fill-white"></path>
                 </svg>
             </div>
         </div>
@@ -142,7 +142,7 @@
         {{-- ============================================================= --}}
         {{-- LAYER KANAN / BAWAH MOBILE (FORM PUTIH BERSIH & RESPONSIVE)   --}}
         {{-- ============================================================= --}}
-        <div class="w-full lg:w-1/2 bg-white rounded-t-[2rem] sm:rounded-t-[2.5rem] lg:rounded-none -mt-4 sm:-mt-6 lg:mt-0 relative z-10 shadow-xl lg:shadow-none flex flex-col items-center px-5 py-6 sm:p-8 lg:p-10 xl:p-12 flex-1 overflow-y-auto">
+        <div class="w-full lg:w-1/2 bg-white rounded-t-[2.5rem] sm:rounded-t-[3rem] lg:rounded-none -mt-5 sm:-mt-7 lg:mt-0 relative z-10 shadow-2xl lg:shadow-none flex flex-col items-center px-5 py-6 sm:p-8 lg:p-10 xl:p-12 flex-1 overflow-y-auto">
             <div class="max-w-sm xl:max-w-md w-full my-auto">
 
                 {{-- Header Form --}}
