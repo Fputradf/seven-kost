@@ -24,7 +24,7 @@
     <!-- Scripts & Styles via Vite -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="min-h-screen w-full font-sans antialiased text-slate-800 m-0 p-0 overflow-x-hidden bg-slate-50">
+<body class="min-h-screen w-full font-sans antialiased text-slate-800 m-0 p-0 overflow-x-hidden bg-white">
 
     {{ $slot }}
 

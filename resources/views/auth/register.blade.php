@@ -135,16 +135,16 @@
             </div>
 
             {{-- ========================================================= --}}
-            {{-- MULTI-LAYER WAVE PATTERN TRANSITION (DIPERBESAR +40%)     --}}
+            {{-- MULTI-LAYER WAVE PATTERN TRANSITION (DIPERBESAR +100%)    --}}
             {{-- ========================================================= --}}
             <div class="w-full overflow-hidden leading-none lg:hidden pointer-events-none -mb-[1px]">
-                <svg class="relative block w-full h-24 sm:h-28" viewBox="0 0 1440 220" preserveAspectRatio="none">
+                <svg class="relative block w-full h-44 sm:h-56" viewBox="0 0 1440 400" preserveAspectRatio="none">
                     {{-- Layer Gelombang Belakang (Semi-transparan untuk kedalaman) --}}
-                    <path d="M0,50 C320,150 640,15 960,120 C1200,180 1360,110 1440,70 L1440,220 L0,220 Z" class="fill-white/20"></path>
+                    <path d="M0,80 C360,280 720,20 1080,220 C1240,300 1360,180 1440,110 L1440,400 L0,400 Z" class="fill-white/20"></path>
                     {{-- Layer Gelombang Tengah (Semi-transparan untuk kedalaman berlapis) --}}
-                    <path d="M0,100 C360,30 680,170 1020,80 C1220,15 1360,120 1440,70 L1440,220 L0,220 Z" class="fill-white/40"></path>
+                    <path d="M0,170 C360,50 680,300 1020,130 C1220,30 1360,200 1440,110 L1440,400 L0,400 Z" class="fill-white/40"></path>
                     {{-- Layer Gelombang Depan (Solid White menyatu ke form) --}}
-                    <path d="M0,80 C360,180 720,40 1080,150 C1260,195 1380,145 1440,95 L1440,220 L0,220 Z" class="fill-white"></path>
+                    <path d="M0,130 C360,310 720,60 1080,240 C1260,320 1380,220 1440,140 L1440,400 L0,400 Z" class="fill-white"></path>
                 </svg>
             </div>
         </div>
