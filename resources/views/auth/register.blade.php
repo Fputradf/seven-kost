@@ -1,5 +1,5 @@
-<x-guest-layout title="Daftar Akun Baru - SevenKost">
-    <div class="w-full max-w-5xl mx-auto my-auto"
+<x-guest-layout title="Daftar Akun - SevenKost">
+    <div class="bg-white rounded-2xl sm:rounded-3xl shadow-xl border border-slate-200/80 overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-[640px]"
          x-data="{
              selectedRole: '{{ old('role', 'penghuni') }}',
              showPassword: false,
@@ -9,136 +9,99 @@
              }
          }">
 
-        {{-- Navigasi Cepat Kembali ke Beranda --}}
-        <div class="mb-4 flex items-center justify-between px-2">
-            <a href="{{ url('/') }}" class="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-blue-200 hover:text-white transition-colors group">
-                <svg class="w-4 h-4 transition-transform group-hover:-translate-x-1 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-                </svg>
-                <span>Kembali ke Beranda SevenKost</span>
-            </a>
-            <span class="text-xs text-blue-200/70 hidden sm:inline-block">Daftar Gratis & Langsung Terhubung</span>
-        </div>
-
-        {{-- Main Container Card: Full Screen Glassmorphic Vibrant Navy Blue --}}
-        <div class="relative rounded-3xl bg-[#0f2d59]/80 backdrop-blur-2xl border border-white/20 shadow-2xl shadow-[#08182d]/80 overflow-hidden lg:grid lg:grid-cols-12">
-            {{-- Glowing Top Accent Line --}}
-            <div class="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-400"></div>
-
-            {{-- ================================================================= --}}
-            {{-- SISI KIRI: BRANDING HERO SCENE (Desktop LG+) --}}
-            {{-- ================================================================= --}}
-            <div class="hidden lg:flex lg:col-span-5 p-8 xl:p-10 flex-col justify-between border-r border-white/10 bg-gradient-to-b from-[#13386e]/70 to-[#0e274d]/90 relative select-none">
-                {{-- Ambient Inside Glow --}}
-                <div class="absolute top-10 left-10 w-48 h-48 bg-cyan-400/20 blur-3xl rounded-full pointer-events-none"></div>
-
-                {{-- Top Logo & Status Badge --}}
-                <div class="relative z-10 space-y-4">
-                    <a href="{{ url('/') }}" class="inline-flex items-center group transition transform hover:scale-[1.02] active:scale-95 duration-150">
-                        <x-seven-logo :light="true" size="lg" />
-                    </a>
-
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-400/15 border border-cyan-400/30 text-xs font-bold text-cyan-200">
-                        <span class="w-2 h-2 rounded-full bg-cyan-300 animate-pulse"></span>
-                        <span>Pendaftaran Multi-Peran Terintegrasi</span>
+        {{-- ============================================================= --}}
+        {{-- LAYER KIRI (BIRU): LOGO, NAMA APLIKASI, & PENJELASAN ROLE     --}}
+        {{-- ============================================================= --}}
+        <div class="lg:col-span-5 bg-blue-600 text-white p-8 sm:p-10 flex flex-col justify-between relative">
+            <div>
+                {{-- Brand Header: Logo & Nama Aplikasi --}}
+                <div class="flex items-center gap-3 mb-8">
+                    <img src="{{ asset('images/logo-seven-kost.png') }}" 
+                         alt="Logo SevenKost" 
+                         class="h-11 w-11 object-contain bg-white/10 rounded-xl p-1.5 border border-white/20">
+                    <div>
+                        <h1 class="text-2xl font-black tracking-tight leading-none text-white">
+                            Seven<span class="text-sky-300">Kost</span>
+                        </h1>
+                        <p class="text-xs text-blue-100 font-medium mt-0.5">Platform Cari & Kelola Kos</p>
                     </div>
                 </div>
 
-                {{-- Middle Headline & Role Cards --}}
-                <div class="relative z-10 space-y-4 my-6">
-                    <h1 class="text-2xl xl:text-3xl font-black tracking-tight leading-snug text-white">
-                        Satu Akun, Semua <br>
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-200 to-white">
-                            Kebutuhan Kos Anda.
-                        </span>
-                    </h1>
-                    <p class="text-blue-100/90 text-xs xl:text-sm leading-relaxed font-normal">
-                        Pilih jenis akun untuk menikmati kemudahan fitur terintegrasi yang disesuaikan dengan kebutuhan Anda.
+                {{-- Headline --}}
+                <div class="mb-6">
+                    <h2 class="text-xl sm:text-2xl font-extrabold leading-snug">
+                        Daftar Akun SevenKost
+                    </h2>
+                    <p class="text-xs sm:text-sm text-blue-100 mt-2 leading-relaxed">
+                        Pilih peran yang sesuai dengan kebutuhan Anda untuk mendapatkan pengalaman terbaik di platform kami.
                     </p>
-
-                    <div class="space-y-3 pt-2">
-                        {{-- 1. Kartu Pencari Kos --}}
-                        <div @click="setRole('penghuni')"
-                             :class="selectedRole === 'penghuni' 
-                                ? 'bg-cyan-500/25 border-cyan-300/60 shadow-lg shadow-cyan-500/20 translate-x-1' 
-                                : 'bg-white/10 border-white/15 opacity-75 hover:opacity-100 hover:bg-white/15'"
-                             class="p-3.5 rounded-2xl border backdrop-blur-md transition-all duration-200 flex items-start gap-3.5 cursor-pointer">
-                            <div class="w-9 h-9 rounded-xl bg-cyan-400/25 border border-cyan-300/40 flex items-center justify-center text-cyan-200 shrink-0">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                                </svg>
-                            </div>
-                            <div class="text-xs">
-                                <div class="flex items-center gap-2">
-                                    <span class="font-bold text-white block text-sm">Pencari / Penghuni Kos</span>
-                                    <span x-show="selectedRole === 'penghuni'" class="px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-cyan-400/30 text-cyan-100">Dipilih</span>
-                                </div>
-                                <span class="text-blue-200/80 text-[11px] mt-0.5 block leading-normal">
-                                    Cari kos terverifikasi, peta interaktif, booking kamar, dan nikmati layanan mitra.
-                                </span>
-                            </div>
-                        </div>
-
-                        {{-- 2. Kartu Pemilik Kos --}}
-                        <div @click="setRole('pemilik')"
-                             :class="selectedRole === 'pemilik' 
-                                ? 'bg-indigo-500/30 border-indigo-300/60 shadow-lg shadow-indigo-500/20 translate-x-1' 
-                                : 'bg-white/10 border-white/15 opacity-75 hover:opacity-100 hover:bg-white/15'"
-                             class="p-3.5 rounded-2xl border backdrop-blur-md transition-all duration-200 flex items-start gap-3.5 cursor-pointer">
-                            <div class="w-9 h-9 rounded-xl bg-indigo-400/25 border border-indigo-300/40 flex items-center justify-center text-indigo-200 shrink-0">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-                                </svg>
-                            </div>
-                            <div class="text-xs">
-                                <div class="flex items-center gap-2">
-                                    <span class="font-bold text-white block text-sm">Pemilik / Pengelola Kos</span>
-                                    <span x-show="selectedRole === 'pemilik'" class="px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-indigo-400/40 text-indigo-100">Dipilih</span>
-                                </div>
-                                <span class="text-blue-200/80 text-[11px] mt-0.5 block leading-normal">
-                                    Pasang iklan gratis/VIP, kelola ketersediaan kamar, pantau penyewa, dan terima booking.
-                                </span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
-                {{-- Bottom Badges --}}
-                <div class="relative z-10 pt-4 border-t border-white/10 flex items-center justify-between text-[11px] text-blue-200/70">
-                    <span>© {{ date('Y') }} SevenKost</span>
-                    <span class="font-semibold text-cyan-300 flex items-center gap-1">
-                        <svg class="w-3.5 h-3.5 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        Privasi Terlindungi UU PDP
-                    </span>
+                {{-- Penjelasan Role Singkat --}}
+                <div class="space-y-4">
+                    <div class="text-xs font-bold uppercase tracking-wider text-blue-200">
+                        Panduan Memilih Peran:
+                    </div>
+
+                    {{-- Role 1: Pencari / Penghuni --}}
+                    <div @click="setRole('penghuni')"
+                         :class="selectedRole === 'penghuni' ? 'ring-2 ring-white bg-blue-700' : 'bg-blue-700/60 opacity-85 hover:opacity-100'"
+                         class="rounded-xl p-4 border border-blue-500/40 cursor-pointer transition">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <div class="flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-lg bg-white/20 flex items-center justify-center text-xs font-bold">1</span>
+                                <h3 class="font-bold text-sm text-white">Pencari / Penghuni Kos</h3>
+                            </div>
+                            <span x-show="selectedRole === 'penghuni'" class="text-[10px] bg-white text-blue-700 font-bold px-2 py-0.5 rounded-full">Dipilih</span>
+                        </div>
+                        <p class="text-xs text-blue-100 leading-relaxed pl-8">
+                            Untuk mahasiswa atau pekerja yang mencari hunian kos, booking kamar, dan mengelola sewa bulanan.
+                        </p>
+                    </div>
+
+                    {{-- Role 2: Pemilik Kos --}}
+                    <div @click="setRole('pemilik')"
+                         :class="selectedRole === 'pemilik' ? 'ring-2 ring-white bg-blue-700' : 'bg-blue-700/60 opacity-85 hover:opacity-100'"
+                         class="rounded-xl p-4 border border-blue-500/40 cursor-pointer transition">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <div class="flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-lg bg-white/20 flex items-center justify-center text-xs font-bold">2</span>
+                                <h3 class="font-bold text-sm text-white">Pemilik / Pengelola Kos</h3>
+                            </div>
+                            <span x-show="selectedRole === 'pemilik'" class="text-[10px] bg-white text-blue-700 font-bold px-2 py-0.5 rounded-full">Dipilih</span>
+                        </div>
+                        <p class="text-xs text-blue-100 leading-relaxed pl-8">
+                            Untuk juragan atau agen kos yang ingin memasang iklan kos, kelola ketersediaan kamar, dan pantau penyewa.
+                        </p>
+                    </div>
                 </div>
             </div>
 
-            {{-- ================================================================= --}}
-            {{-- SISI KANAN: FORM REGISTER LENGKAP --}}
-            {{-- ================================================================= --}}
-            <div class="lg:col-span-7 p-6 sm:p-10 xl:p-12 flex flex-col justify-center relative">
+            {{-- Footer Layer Kiri: Link Kembali ke Beranda --}}
+            <div class="pt-6 mt-6 border-t border-blue-500/40 flex items-center justify-between text-xs text-blue-100">
+                <a href="{{ url('/') }}" class="inline-flex items-center gap-1.5 hover:text-white font-medium transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                    </svg>
+                    <span>Kembali ke Beranda</span>
+                </a>
+                <span class="text-blue-200 text-[11px]">© {{ date('Y') }} SevenKost</span>
+            </div>
+        </div>
+
+        {{-- ============================================================= --}}
+        {{-- LAYER KANAN (PUTIH): KHUSUS FORM FIELD                        --}}
+        {{-- ============================================================= --}}
+        <div class="lg:col-span-7 bg-white p-8 sm:p-10 lg:p-12 flex flex-col justify-center">
+            <div class="max-w-md w-full mx-auto">
+
                 {{-- Header Form --}}
                 <div class="mb-5">
-                    {{-- Mobile Logo --}}
-                    <div class="lg:hidden mb-4 flex justify-center">
-                        <a href="{{ url('/') }}" class="inline-flex items-center">
-                            <x-seven-logo :light="true" size="md" />
-                        </a>
-                    </div>
-
-                    <div class="flex items-center gap-2 mb-2">
-                        <span class="px-2.5 py-0.5 rounded-md bg-cyan-400/20 text-cyan-300 text-xs font-bold uppercase tracking-wider">
-                            Pendaftaran Akun
-                        </span>
-                    </div>
-
-                    <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight">
-                        Bergabung ke SevenKost 🚀
+                    <h2 class="text-2xl font-black text-slate-900 tracking-tight">
+                        Pendaftaran Akun
                     </h2>
-                    <p class="text-blue-200/80 text-xs sm:text-sm mt-1">
-                        Lengkapi data di bawah untuk membuka akses penuh platform kos.
+                    <p class="text-sm text-slate-600 mt-1">
+                        Lengkapi formulir di bawah untuk membuat akun baru.
                     </p>
                 </div>
 
@@ -149,122 +112,83 @@
                     {{-- Hidden Role Input --}}
                     <input type="hidden" name="role" :value="selectedRole">
 
-                    {{-- Role Selector Tabs (Mobile & Desktop Quick Switcher) --}}
+                    {{-- Pilihan Role (Switcher Cepat di Form) --}}
                     <div>
-                        <label class="block text-xs font-bold text-blue-100 uppercase tracking-wider mb-2">
-                            Pilih Tipe Pengguna:
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                            Daftar Sebagai:
                         </label>
-                        <div class="grid grid-cols-2 gap-2 p-1.5 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-md">
+                        <div class="grid grid-cols-2 gap-2 p-1 bg-slate-100 rounded-xl">
                             <button type="button" 
                                     @click="setRole('penghuni')"
-                                    :class="selectedRole === 'penghuni' 
-                                        ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold shadow-md shadow-cyan-500/30' 
-                                        : 'text-blue-200 hover:text-white font-medium hover:bg-white/5'"
-                                    class="py-2.5 px-3 rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer">
-                                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                                </svg>
-                                <span>Pencari Kos</span>
+                                    :class="selectedRole === 'penghuni' ? 'bg-blue-600 text-white font-bold shadow-sm' : 'text-slate-700 hover:text-slate-900 font-medium'"
+                                    class="py-2.5 px-3 rounded-lg text-xs sm:text-sm text-center transition cursor-pointer">
+                                Pencari / Penghuni
                             </button>
                             <button type="button" 
                                     @click="setRole('pemilik')"
-                                    :class="selectedRole === 'pemilik' 
-                                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold shadow-md shadow-indigo-500/30' 
-                                        : 'text-blue-200 hover:text-white font-medium hover:bg-white/5'"
-                                    class="py-2.5 px-3 rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-200 cursor-pointer">
-                                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-                                </svg>
-                                <span>Pemilik Kos</span>
+                                    :class="selectedRole === 'pemilik' ? 'bg-blue-600 text-white font-bold shadow-sm' : 'text-slate-700 hover:text-slate-900 font-medium'"
+                                    class="py-2.5 px-3 rounded-lg text-xs sm:text-sm text-center transition cursor-pointer">
+                                Pemilik Kos
                             </button>
                         </div>
                     </div>
 
                     {{-- Input Nama Lengkap --}}
                     <div>
-                        <label for="name" class="block text-xs font-bold text-blue-100 uppercase tracking-wider mb-1.5">
+                        <label for="name" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                             Nama Lengkap
                         </label>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-blue-300">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                                </svg>
-                            </div>
-                            <input id="name" 
-                                   type="text" 
-                                   name="name" 
-                                   value="{{ old('name') }}" 
-                                   required 
-                                   autofocus 
-                                   autocomplete="name" 
-                                   placeholder="Contoh: Budi Prasetyo"
-                                   class="w-full h-11 pl-10 pr-4 bg-white/10 border @error('name') border-rose-400/80 bg-rose-500/10 @else border-white/20 @enderror rounded-2xl text-sm text-white placeholder-blue-200/60 focus:bg-white/15 focus:outline-none focus:border-cyan-300 focus:ring-4 focus:ring-cyan-400/20 transition-all duration-200" />
-                        </div>
+                        <input id="name" 
+                               type="text" 
+                               name="name" 
+                               value="{{ old('name') }}" 
+                               required 
+                               autofocus 
+                               autocomplete="name" 
+                               placeholder="Contoh: Budi Prasetyo"
+                               class="w-full px-4 py-3 rounded-xl border @error('name') border-red-400 bg-red-50/30 @else border-slate-300 bg-white @enderror text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition" />
                         @error('name')
-                            <p class="mt-1 text-xs text-rose-300 font-semibold flex items-center gap-1.5">
-                                <svg class="w-3.5 h-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
-                                </svg>
-                                <span>{{ $message }}</span>
-                            </p>
+                            <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p>
                         @enderror
                     </div>
 
                     {{-- Input Email --}}
                     <div>
-                        <label for="email" class="block text-xs font-bold text-blue-100 uppercase tracking-wider mb-1.5">
+                        <label for="email" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                             Alamat Email
                         </label>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-blue-300">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"/>
-                                </svg>
-                            </div>
-                            <input id="email" 
-                                   type="email" 
-                                   name="email" 
-                                   value="{{ old('email') }}" 
-                                   required 
-                                   autocomplete="username" 
-                                   placeholder="nama@email.com"
-                                   class="w-full h-11 pl-10 pr-4 bg-white/10 border @error('email') border-rose-400/80 bg-rose-500/10 @else border-white/20 @enderror rounded-2xl text-sm text-white placeholder-blue-200/60 focus:bg-white/15 focus:outline-none focus:border-cyan-300 focus:ring-4 focus:ring-cyan-400/20 transition-all duration-200" />
-                        </div>
+                        <input id="email" 
+                               type="email" 
+                               name="email" 
+                               value="{{ old('email') }}" 
+                               required 
+                               autocomplete="username" 
+                               placeholder="nama@email.com"
+                               class="w-full px-4 py-3 rounded-xl border @error('email') border-red-400 bg-red-50/30 @else border-slate-300 bg-white @enderror text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition" />
                         @error('email')
-                            <p class="mt-1 text-xs text-rose-300 font-semibold flex items-center gap-1.5">
-                                <svg class="w-3.5 h-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
-                                </svg>
-                                <span>{{ $message }}</span>
-                            </p>
+                            <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p>
                         @enderror
                     </div>
 
-                    {{-- Grid 2 Kolom untuk Password & Konfirmasi --}}
+                    {{-- Input Kata Sandi & Konfirmasi --}}
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                        {{-- Password --}}
+                        {{-- Kata Sandi --}}
                         <div>
-                            <label for="password" class="block text-xs font-bold text-blue-100 uppercase tracking-wider mb-1.5">
+                            <label for="password" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                                 Kata Sandi
                             </label>
                             <div class="relative">
-                                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-blue-300">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-                                    </svg>
-                                </div>
                                 <input id="password" 
                                        :type="showPassword ? 'text' : 'password'"
                                        name="password" 
                                        required 
                                        autocomplete="new-password" 
-                                       placeholder="Minimal 8 karakter"
-                                       class="w-full h-11 pl-10 pr-10 bg-white/10 border @error('password') border-rose-400/80 bg-rose-500/10 @else border-white/20 @enderror rounded-2xl text-sm text-white placeholder-blue-200/60 focus:bg-white/15 focus:outline-none focus:border-cyan-300 focus:ring-4 focus:ring-cyan-400/20 transition-all duration-200" />
+                                       placeholder="Min. 8 karakter"
+                                       class="w-full pl-4 pr-10 py-3 rounded-xl border @error('password') border-red-400 bg-red-50/30 @else border-slate-300 bg-white @enderror text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition" />
                                 <button type="button" 
                                         @click="showPassword = !showPassword"
                                         aria-label="Tampilkan sandi"
-                                        class="absolute inset-y-0 right-0 pr-3 flex items-center text-blue-300 hover:text-white active:scale-75 transition-all duration-150 focus:outline-none cursor-pointer">
+                                        class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-700 focus:outline-none cursor-pointer">
                                     <svg x-show="!showPassword" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
@@ -275,32 +199,27 @@
                                 </button>
                             </div>
                             @error('password')
-                                <p class="mt-1 text-xs text-rose-300 font-semibold">{{ $message }}</p>
+                                <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p>
                             @enderror
                         </div>
 
-                        {{-- Konfirmasi Password --}}
+                        {{-- Konfirmasi Kata Sandi --}}
                         <div>
-                            <label for="password_confirmation" class="block text-xs font-bold text-blue-100 uppercase tracking-wider mb-1.5">
+                            <label for="password_confirmation" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                                 Ulangi Sandi
                             </label>
                             <div class="relative">
-                                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-blue-300">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                                    </svg>
-                                </div>
                                 <input id="password_confirmation" 
                                        :type="showPasswordConfirmation ? 'text' : 'password'"
                                        name="password_confirmation" 
                                        required 
                                        autocomplete="new-password" 
                                        placeholder="Ulangi sandi"
-                                       class="w-full h-11 pl-10 pr-10 bg-white/10 border @error('password_confirmation') border-rose-400/80 bg-rose-500/10 @else border-white/20 @enderror rounded-2xl text-sm text-white placeholder-blue-200/60 focus:bg-white/15 focus:outline-none focus:border-cyan-300 focus:ring-4 focus:ring-cyan-400/20 transition-all duration-200" />
+                                       class="w-full pl-4 pr-10 py-3 rounded-xl border @error('password_confirmation') border-red-400 bg-red-50/30 @else border-slate-300 bg-white @enderror text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition" />
                                 <button type="button" 
                                         @click="showPasswordConfirmation = !showPasswordConfirmation"
                                         aria-label="Tampilkan sandi konfirmasi"
-                                        class="absolute inset-y-0 right-0 pr-3 flex items-center text-blue-300 hover:text-white active:scale-75 transition-all duration-150 focus:outline-none cursor-pointer">
+                                        class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-700 focus:outline-none cursor-pointer">
                                     <svg x-show="!showPasswordConfirmation" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
@@ -311,7 +230,7 @@
                                 </button>
                             </div>
                             @error('password_confirmation')
-                                <p class="mt-1 text-xs text-rose-300 font-semibold">{{ $message }}</p>
+                                <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
@@ -322,19 +241,19 @@
                                id="terms" 
                                name="terms" 
                                required 
-                               class="w-4 h-4 mt-0.5 rounded-md border-white/30 bg-blue-950/60 text-cyan-400 focus:ring-cyan-400 focus:ring-offset-blue-900 shrink-0 cursor-pointer">
-                        <label for="terms" class="text-xs text-blue-200 leading-normal select-none cursor-pointer">
+                               class="w-4 h-4 mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-blue-500 shrink-0 cursor-pointer">
+                        <label for="terms" class="text-xs text-slate-600 leading-normal select-none cursor-pointer">
                             Saya menyetujui 
-                            <a href="{{ route('terms.conditions') }}" target="_blank" class="font-bold text-cyan-300 hover:text-white underline underline-offset-2 transition">Ketentuan Layanan</a> 
+                            <a href="{{ route('terms.conditions') }}" target="_blank" class="font-bold text-blue-600 hover:text-blue-700 hover:underline">Ketentuan Layanan</a> 
                             serta pemrosesan data sesuai 
-                            <a href="{{ route('privacy.policy') }}" target="_blank" class="font-bold text-cyan-300 hover:text-white underline underline-offset-2 transition">Kebijakan Privasi (UU PDP No. 27/2022)</a>.
+                            <a href="{{ route('privacy.policy') }}" target="_blank" class="font-bold text-blue-600 hover:text-blue-700 hover:underline">Kebijakan Privasi (UU PDP No. 27/2022)</a>.
                         </label>
                     </div>
 
-                    {{-- Tombol Submit dengan Click Bounce --}}
+                    {{-- Tombol Submit --}}
                     <div class="pt-2">
                         <button type="submit" 
-                                class="w-full h-12 flex justify-center items-center gap-2 px-6 rounded-2xl text-sm sm:text-base font-black text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 active:scale-95 shadow-lg shadow-blue-500/40 hover:shadow-cyan-400/50 focus:outline-none focus:ring-4 focus:ring-cyan-400/30 transition-all duration-150 cursor-pointer">
+                                class="w-full py-3.5 px-4 rounded-xl text-sm sm:text-base font-bold text-white bg-blue-600 hover:bg-blue-700 active:scale-[0.99] transition shadow-md shadow-blue-600/20 focus:outline-none focus:ring-4 focus:ring-blue-100 cursor-pointer flex items-center justify-center gap-2">
                             <span>Daftar Akun Sekarang</span>
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
@@ -344,9 +263,9 @@
                 </form>
 
                 {{-- Link ke Login --}}
-                <div class="mt-5 pt-4 border-t border-white/10 text-center text-xs sm:text-sm text-blue-200">
+                <div class="mt-5 pt-4 border-t border-slate-200 text-center text-xs sm:text-sm text-slate-600">
                     Sudah memiliki akun SevenKost?
-                    <a href="{{ route('login') }}" class="font-extrabold text-cyan-300 hover:text-white underline underline-offset-4 ml-1 transition">
+                    <a href="{{ route('login') }}" class="font-bold text-blue-600 hover:text-blue-700 hover:underline ml-1">
                         Masuk ke Akun
                     </a>
                 </div>

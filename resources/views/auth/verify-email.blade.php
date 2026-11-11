@@ -1,30 +1,29 @@
 <x-guest-layout title="Verifikasi Email - SevenKost">
     <div class="w-full max-w-md mx-auto my-auto">
 
-        <div class="relative rounded-3xl bg-[#0f2d59]/80 backdrop-blur-2xl border border-white/20 shadow-2xl shadow-[#08182d]/80 overflow-hidden p-6 sm:p-8">
-            <div class="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-400"></div>
-
+        <div class="bg-white rounded-2xl sm:rounded-3xl shadow-xl border border-slate-200/80 p-8 sm:p-10">
             <div class="mb-5 flex justify-center">
-                <a href="{{ url('/') }}" class="inline-flex items-center">
-                    <x-seven-logo :light="true" size="md" />
+                <a href="{{ url('/') }}" class="flex items-center gap-2.5">
+                    <img src="{{ asset('images/logo-seven-kost.png') }}" alt="SevenKost Logo" class="h-10 w-10 object-contain">
+                    <span class="text-xl font-black text-slate-900">Seven<span class="text-blue-600">Kost</span></span>
                 </a>
             </div>
 
             <div class="text-center mb-6">
-                <h2 class="text-xl sm:text-2xl font-black text-white tracking-tight">
-                    Verifikasi Email Anda 📬
+                <h2 class="text-xl font-extrabold text-slate-900 tracking-tight">
+                    Verifikasi Alamat Email
                 </h2>
-                <p class="text-xs sm:text-sm text-blue-200/80 mt-2 leading-relaxed">
-                    Terima kasih telah mendaftar di SevenKost! Sebelum memulai, silakan periksa inbox email Anda dan klik link verifikasi yang telah kami kirimkan.
+                <p class="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed">
+                    Terima kasih telah mendaftar di SevenKost. Silakan periksa inbox email Anda dan klik tautan verifikasi yang telah kami kirimkan.
                 </p>
             </div>
 
             @if (session('status') == 'verification-link-sent')
-                <div class="mb-5 p-3.5 rounded-2xl bg-emerald-500/20 border border-emerald-400/30 text-emerald-200 text-xs sm:text-sm flex items-center gap-2.5">
-                    <svg class="w-5 h-5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                <div class="mb-5 p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs sm:text-sm flex items-center gap-2">
+                    <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                     </svg>
-                    <span>Tautan verifikasi baru telah dikirimkan ke alamat email yang Anda daftarkan.</span>
+                    <span>Tautan verifikasi baru telah dikirimkan ke alamat email Anda.</span>
                 </div>
             @endif
 
@@ -32,14 +31,14 @@
                 <form method="POST" action="{{ route('verification.send') }}">
                     @csrf
                     <button type="submit" 
-                            class="w-full h-11 flex justify-center items-center gap-2 px-6 rounded-2xl text-sm font-black text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 active:scale-95 shadow-lg shadow-blue-500/40 hover:shadow-cyan-400/50 focus:outline-none focus:ring-4 focus:ring-cyan-400/30 transition-all duration-150 cursor-pointer">
-                        <span>Kirim Ulang Email Verifikasi</span>
+                            class="w-full py-3.5 px-4 rounded-xl text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 active:scale-[0.99] transition shadow-md shadow-blue-600/20 focus:outline-none focus:ring-4 focus:ring-blue-100 cursor-pointer text-center">
+                        Kirim Ulang Email Verifikasi
                     </button>
                 </form>
 
-                <form method="POST" action="{{ route('logout') }}" class="text-center">
+                <form method="POST" action="{{ route('logout') }}" class="text-center pt-2 border-t border-slate-200">
                     @csrf
-                    <button type="submit" class="text-xs font-semibold text-rose-300 hover:text-rose-200 hover:underline transition">
+                    <button type="submit" class="text-xs font-semibold text-red-600 hover:text-red-700 hover:underline">
                         Keluar dari Akun (Log Out)
                     </button>
                 </form>
