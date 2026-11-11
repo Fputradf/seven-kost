@@ -122,8 +122,8 @@
             {{-- ========================================================= --}}
             <div class="w-full overflow-hidden leading-none lg:hidden pointer-events-none -mb-[1px]">
                 <svg class="relative block w-full h-28 sm:h-36" viewBox="0 0 1440 320" preserveAspectRatio="none">
-                    {{-- Layer Aksen Ungu/Biru Jelas di Belakang --}}
-                    <path d="M0,60 C460,260 840,80 1160,180 C1280,220 1380,210 1440,200 L1440,320 L0,320 Z" class="fill-[#6366f1]/80"></path>
+                    {{-- Layer Aksen Biru Muda SevenKost (Pairing Selaras dengan Identitas Brand) --}}
+                    <path d="M0,60 C460,260 840,80 1160,180 C1280,220 1380,210 1440,200 L1440,320 L0,320 Z" class="fill-sky-400/40"></path>
                     {{-- Layer Depan Solid White (Menyatu Mulus ke Form) --}}
                     <path d="M0,120 C460,290 840,120 1160,210 C1280,250 1380,240 1440,230 L1440,320 L0,320 Z" class="fill-white"></path>
                 </svg>
