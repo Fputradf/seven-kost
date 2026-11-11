@@ -2,15 +2,19 @@
     <div class="min-h-screen lg:h-screen w-full flex flex-col lg:flex-row lg:overflow-hidden bg-white" x-data="{ showPassword: false }">
 
         {{-- ============================================================= --}}
-        {{-- LAYER KIRI / ATAS MOBILE (BIRU CERAH DENGAN MULTI-LAYER WAVE) --}}
+        {{-- LAYER KIRI / ATAS MOBILE (NAVY GELAP SEPERTI WELCOME HERO)   --}}
         {{-- ============================================================= --}}
-        <div class="w-full lg:w-1/2 bg-blue-600 text-white flex flex-col justify-between shrink-0 lg:overflow-hidden relative">
+        <div class="w-full lg:w-1/2 bg-gradient-to-br from-[#031d44] via-[#05377a] to-[#020b1f] text-white flex flex-col justify-between shrink-0 lg:overflow-hidden relative">
             
+            {{-- Glow samar biru seperti pada welcome hero --}}
+            <div class="absolute -top-24 -left-24 w-80 h-80 bg-blue-500/15 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-20 -right-20 w-80 h-80 bg-sky-400/10 rounded-full blur-3xl pointer-events-none"></div>
+
             {{-- Konten Utama Header --}}
-            <div class="p-4 sm:p-6 lg:p-8 xl:p-10 pb-1 sm:pb-2 lg:pb-8">
+            <div class="p-4 sm:p-6 lg:p-8 xl:p-10 pb-1 sm:pb-2 lg:pb-8 relative z-10">
                 {{-- Top Navigation: Tombol Kembali ke Beranda & Logo Brand (Mobile Friendly) --}}
                 <div class="flex items-center justify-between gap-3 mb-3 lg:mb-4">
-                    <a href="{{ url('/') }}" class="inline-flex items-center gap-1.5 text-xs font-semibold text-white/95 hover:text-white transition group py-1.5 px-3 rounded-xl bg-blue-700/70 hover:bg-blue-700 border border-blue-400/40 w-fit shadow-xs">
+                    <a href="{{ url('/') }}" class="inline-flex items-center gap-1.5 text-xs font-semibold text-white hover:text-white transition group py-1.5 px-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 w-fit backdrop-blur-md shadow-xs">
                         <svg class="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                         </svg>
@@ -23,7 +27,7 @@
                              alt="Logo SevenKost" 
                              class="h-7 w-7 object-contain bg-white rounded-lg p-0.5 shadow-xs">
                         <span class="text-base font-bold tracking-tight text-white">
-                            Seven<span class="text-sky-200">Kost</span>
+                            Seven<span class="text-sky-300">Kost</span>
                         </span>
                     </div>
                 </div>
@@ -35,40 +39,40 @@
                          class="h-8 w-8 object-contain bg-white rounded-xl p-1 shadow-xs">
                     <div>
                         <span class="text-lg xl:text-xl font-bold tracking-tight leading-none text-white block">
-                            Seven<span class="text-sky-200">Kost</span>
+                            Seven<span class="text-sky-300">Kost</span>
                         </span>
-                        <span class="text-[11px] text-blue-100 font-medium">Platform Cari & Kelola Kos</span>
+                        <span class="text-[11px] text-blue-200 font-medium">Platform Cari & Kelola Kos</span>
                     </div>
                 </div>
 
                 {{-- Headline Ringkas --}}
                 <div class="mb-2 lg:mb-3">
-                    <h1 class="text-base sm:text-lg lg:text-xl font-bold leading-snug">
-                        Cari & Kelola Kos Jadi Lebih Mudah
+                    <h1 class="text-base sm:text-lg lg:text-xl font-bold leading-snug text-white">
+                        Cari & Kelola Kos Jadi <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 via-cyan-300 to-blue-200">Lebih Mudah</span>
                     </h1>
-                    <p class="text-xs text-blue-100 mt-0.5 leading-relaxed hidden sm:block">
+                    <p class="text-xs text-blue-100/90 mt-0.5 leading-relaxed hidden sm:block">
                         Akses kamar kos terverifikasi di seluruh Indonesia atau kelola bisnis sewa properti Anda.
                     </p>
                     {{-- Badges Peran Singkat di Mobile --}}
                     <div class="flex flex-wrap items-center gap-1.5 mt-2 lg:hidden">
-                        <span class="bg-blue-700/80 border border-blue-400/40 text-blue-100 text-[10px] px-2 py-0.5 rounded-md font-medium">
+                        <span class="bg-white/10 border border-white/20 text-blue-100 backdrop-blur-md text-[10px] px-2 py-0.5 rounded-md font-medium">
                             Penghuni
                         </span>
-                        <span class="bg-blue-700/80 border border-blue-400/40 text-blue-100 text-[10px] px-2 py-0.5 rounded-md font-medium">
+                        <span class="bg-white/10 border border-white/20 text-blue-100 backdrop-blur-md text-[10px] px-2 py-0.5 rounded-md font-medium">
                             Pemilik Kos
                         </span>
-                        <span class="bg-blue-700/80 border border-blue-400/40 text-blue-100 text-[10px] px-2 py-0.5 rounded-md font-medium">
+                        <span class="bg-white/10 border border-white/20 text-blue-100 backdrop-blur-md text-[10px] px-2 py-0.5 rounded-md font-medium">
                             Mitra Layanan
                         </span>
                     </div>
                 </div>
 
                 {{-- Gambar Kost (Desktop Saja) --}}
-                <div class="hidden lg:block relative rounded-2xl overflow-hidden shadow-md border border-white/20 mb-3 group">
+                <div class="hidden lg:block relative rounded-2xl overflow-hidden shadow-md border border-white/15 mb-3 group">
                     <img src="{{ asset('images/frontend/hero-building-hd.jpg') }}" 
                          alt="Hunian Kos SevenKost" 
                          class="w-full h-28 sm:h-32 xl:h-36 object-cover group-hover:scale-105 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-blue-950/70 via-transparent to-transparent"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#020b1f]/85 via-transparent to-transparent"></div>
                     <div class="absolute bottom-2 left-2.5 right-2.5 flex items-center justify-between text-white">
                         <span class="bg-blue-600/90 backdrop-blur-xs px-2.5 py-0.5 rounded-lg text-[10px] font-semibold shadow-xs">
                             Puluhan Kos Aktif
@@ -81,39 +85,39 @@
 
                 {{-- Penjelasan 3 Role (Desktop Saja) --}}
                 <div class="hidden lg:block space-y-1.5">
-                    <div class="text-[11px] font-semibold text-blue-100">
+                    <div class="text-[11px] font-semibold text-blue-200">
                         Akses Layanan Sesuai Peran:
                     </div>
 
                     {{-- Role 1: Pencari / Penghuni --}}
-                    <div class="bg-blue-700/70 rounded-xl p-2.5 border border-blue-400/40">
+                    <div class="bg-white/10 rounded-xl p-2.5 border border-white/15 backdrop-blur-md">
                         <div class="flex items-center gap-1.5 mb-0.5">
-                            <span class="w-4 h-4 rounded-full bg-white text-blue-600 flex items-center justify-center text-[10px] font-bold shrink-0">1</span>
+                            <span class="w-4 h-4 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px] font-bold shrink-0">1</span>
                             <h2 class="font-semibold text-xs text-white">Pencari / Penghuni Kos</h2>
                         </div>
-                        <p class="text-[11px] text-blue-100 pl-5.5 leading-normal">
+                        <p class="text-[11px] text-blue-100/90 pl-5.5 leading-normal">
                             Cari kos terverifikasi, booking kamar online, dan akses layanan kebutuhan harian.
                         </p>
                     </div>
 
                     {{-- Role 2: Pemilik Kos --}}
-                    <div class="bg-blue-700/70 rounded-xl p-2.5 border border-blue-400/40">
+                    <div class="bg-white/10 rounded-xl p-2.5 border border-white/15 backdrop-blur-md">
                         <div class="flex items-center gap-1.5 mb-0.5">
-                            <span class="w-4 h-4 rounded-full bg-white text-blue-600 flex items-center justify-center text-[10px] font-bold shrink-0">2</span>
+                            <span class="w-4 h-4 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px] font-bold shrink-0">2</span>
                             <h2 class="font-semibold text-xs text-white">Pemilik / Pengelola Kos</h2>
                         </div>
-                        <p class="text-[11px] text-blue-100 pl-5.5 leading-normal">
+                        <p class="text-[11px] text-blue-100/90 pl-5.5 leading-normal">
                             Pasang iklan properti kos, atur kamar, terima pemesanan, dan pantau penyewa.
                         </p>
                     </div>
 
                     {{-- Role 3: Mitra Layanan --}}
-                    <div class="bg-blue-700/70 rounded-xl p-2.5 border border-blue-400/40">
+                    <div class="bg-white/10 rounded-xl p-2.5 border border-white/15 backdrop-blur-md">
                         <div class="flex items-center gap-1.5 mb-0.5">
-                            <span class="w-4 h-4 rounded-full bg-white text-blue-600 flex items-center justify-center text-[10px] font-bold shrink-0">3</span>
+                            <span class="w-4 h-4 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px] font-bold shrink-0">3</span>
                             <h2 class="font-semibold text-xs text-white">Mitra Layanan Kos</h2>
                         </div>
-                        <p class="text-[11px] text-blue-100 pl-5.5 leading-normal">
+                        <p class="text-[11px] text-blue-100/90 pl-5.5 leading-normal">
                             Tawarkan jasa laundry, kebersihan, katering, dan teknisi langsung ke ekosistem kos.
                         </p>
                     </div>
@@ -133,7 +137,7 @@
             </div>
 
             {{-- Footer Layer Kiri: Hak Cipta (Desktop Saja) --}}
-            <div class="hidden lg:flex p-5 lg:p-8 xl:p-10 pt-3 border-t border-blue-500/50 items-center justify-between text-[11px] text-blue-100">
+            <div class="hidden lg:flex p-5 lg:p-8 xl:p-10 pt-3 border-t border-white/15 items-center justify-between text-[11px] text-blue-200">
                 <span class="text-blue-200">SevenKost Indonesia</span>
                 <span class="text-blue-200">© {{ date('Y') }}</span>
             </div>
@@ -244,7 +248,7 @@
                     {{-- Tombol Submit --}}
                     <div class="pt-1">
                         <button type="submit" 
-                                class="w-full py-2.5 sm:py-2.5 px-4 rounded-xl text-sm sm:text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 active:scale-[0.99] transition shadow-sm shadow-blue-600/20 focus:outline-none focus:ring-4 focus:ring-blue-100 cursor-pointer flex items-center justify-center gap-2">
+                                class="w-full py-2.5 sm:py-2.5 px-4 rounded-xl text-sm sm:text-xs font-semibold text-white bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 active:scale-[0.99] transition shadow-md shadow-blue-500/20 focus:outline-none focus:ring-4 focus:ring-blue-100 cursor-pointer flex items-center justify-center gap-2">
                             <span>Masuk ke Akun</span>
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
