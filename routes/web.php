@@ -39,6 +39,15 @@ Route::get('/bantuan', function () {
     return view('bantuan');
 })->name('help');
 
+// Kebijakan Privasi & Syarat Ketentuan (Kepatuhan UU PDP No. 27/2022)
+Route::get('/syarat-ketentuan', function () {
+    return view('terms-and-conditions');
+})->name('terms.conditions');
+
+Route::get('/kebijakan-privasi', function () {
+    return view('privacy-policy');
+})->name('privacy.policy');
+
 // Detail Kos Publik
 Route::get('/kos/{slug}', [KostDetailController::class, 'show'])->name('kost.detail');
 
