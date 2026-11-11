@@ -17,15 +17,19 @@
          }">
 
         {{-- ============================================================= --}}
-        {{-- LAYER KIRI / ATAS MOBILE (BIRU CERAH DENGAN MULTI-LAYER WAVE) --}}
+        {{-- LAYER KIRI / ATAS MOBILE (NAVY GELAP SEPERTI WELCOME HERO)   --}}
         {{-- ============================================================= --}}
-        <div class="w-full lg:w-1/2 bg-blue-600 text-white flex flex-col justify-between shrink-0 lg:overflow-hidden relative">
+        <div class="w-full lg:w-1/2 bg-gradient-to-br from-[#031d44] via-[#05377a] to-[#020b1f] text-white flex flex-col justify-between shrink-0 lg:overflow-hidden relative">
             
+            {{-- Glow samar biru seperti pada welcome hero --}}
+            <div class="absolute -top-24 -left-24 w-80 h-80 bg-blue-500/15 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-20 -right-20 w-80 h-80 bg-sky-400/10 rounded-full blur-3xl pointer-events-none"></div>
+
             {{-- Konten Utama Header --}}
-            <div class="p-4 sm:p-6 lg:p-8 xl:p-10 pb-1 sm:pb-2 lg:pb-8">
+            <div class="p-4 sm:p-6 lg:p-8 xl:p-10 pb-1 sm:pb-2 lg:pb-8 relative z-10">
                 {{-- Top Navigation: Tombol Kembali ke Beranda & Logo Brand (Mobile Friendly) --}}
                 <div class="flex items-center justify-between gap-3 mb-3 lg:mb-4">
-                    <a href="{{ url('/') }}" class="inline-flex items-center gap-1.5 text-xs font-semibold text-white/95 hover:text-white transition group py-1.5 px-3 rounded-xl bg-blue-700/70 hover:bg-blue-700 border border-blue-400/40 w-fit shadow-xs">
+                    <a href="{{ url('/') }}" class="inline-flex items-center gap-1.5 text-xs font-semibold text-white hover:text-white transition group py-1.5 px-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 w-fit backdrop-blur-md shadow-xs">
                         <svg class="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                         </svg>
@@ -38,7 +42,7 @@
                              alt="Logo SevenKost" 
                              class="h-7 w-7 object-contain bg-white rounded-lg p-0.5 shadow-xs">
                         <span class="text-base font-bold tracking-tight text-white">
-                            Seven<span class="text-sky-200">Kost</span>
+                            Seven<span class="text-sky-300">Kost</span>
                         </span>
                     </div>
                 </div>
@@ -50,28 +54,28 @@
                          class="h-8 w-8 object-contain bg-white rounded-xl p-1 shadow-xs">
                     <div>
                         <span class="text-lg xl:text-xl font-bold tracking-tight leading-none text-white block">
-                            Seven<span class="text-sky-200">Kost</span>
+                            Seven<span class="text-sky-300">Kost</span>
                         </span>
-                        <span class="text-[11px] text-blue-100 font-medium">Platform Cari & Kelola Kos</span>
+                        <span class="text-[11px] text-blue-200 font-medium">Platform Cari & Kelola Kos</span>
                     </div>
                 </div>
 
                 {{-- Headline Ringkas --}}
                 <div class="mb-2 lg:mb-3">
-                    <h1 class="text-base sm:text-lg lg:text-xl font-bold leading-snug">
-                        Daftar Akun SevenKost
+                    <h1 class="text-base sm:text-lg lg:text-xl font-bold leading-snug text-white">
+                        Daftar Akun <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 via-cyan-300 to-blue-200">SevenKost</span>
                     </h1>
-                    <p class="text-xs text-blue-100 mt-0.5 leading-relaxed hidden sm:block">
+                    <p class="text-xs text-blue-100/90 mt-0.5 leading-relaxed hidden sm:block">
                         Pilih peran Anda dan nikmati kemudahan mencari hunian nyaman atau mengelola bisnis kos dalam satu aplikasi.
                     </p>
                 </div>
 
                 {{-- Gambar Kost (Desktop Saja) --}}
-                <div class="hidden lg:block relative rounded-2xl overflow-hidden shadow-md border border-white/20 mb-3 group">
+                <div class="hidden lg:block relative rounded-2xl overflow-hidden shadow-md border border-white/15 mb-3 group">
                     <img src="{{ asset('images/frontend/hero-building-hd.jpg') }}" 
                          alt="Hunian Kos SevenKost" 
                          class="w-full h-28 sm:h-32 xl:h-36 object-cover group-hover:scale-105 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-blue-950/70 via-transparent to-transparent"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#020b1f]/85 via-transparent to-transparent"></div>
                     <div class="absolute bottom-2 left-2.5 right-2.5 flex items-center justify-between text-white">
                         <span class="bg-blue-600/90 backdrop-blur-xs px-2.5 py-0.5 rounded-lg text-[10px] font-semibold shadow-xs">
                             Kamar & Properti Pilihan
@@ -84,54 +88,54 @@
 
                 {{-- Penjelasan 3 Role (Desktop Saja) --}}
                 <div class="hidden lg:block space-y-1.5">
-                    <div class="text-[11px] font-semibold text-blue-100">
+                    <div class="text-[11px] font-semibold text-blue-200">
                         Pilih Peran Akun:
                     </div>
 
                     {{-- Role 1: Pencari / Penghuni --}}
                     <div @click="setRole('penghuni')"
-                         :class="selectedRole === 'penghuni' ? 'ring-2 ring-white bg-blue-700 shadow-sm' : 'bg-blue-700/60 opacity-80 hover:opacity-100'"
-                         class="rounded-xl p-2.5 border border-blue-400/40 cursor-pointer transition">
+                         :class="selectedRole === 'penghuni' ? 'ring-2 ring-sky-400 bg-white/20 shadow-md border-white/30' : 'bg-white/10 opacity-80 hover:opacity-100 border-white/15'"
+                         class="rounded-xl p-2.5 border cursor-pointer transition backdrop-blur-md">
                         <div class="flex items-center justify-between mb-0.5">
                             <div class="flex items-center gap-1.5">
-                                <span class="w-4 h-4 rounded-full bg-white text-blue-600 flex items-center justify-center text-[10px] font-bold shrink-0">1</span>
+                                <span class="w-4 h-4 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px] font-bold shrink-0">1</span>
                                 <h2 class="font-semibold text-xs text-white">Pencari / Penghuni Kos</h2>
                             </div>
-                            <span x-show="selectedRole === 'penghuni'" class="text-[9px] bg-white text-blue-700 font-bold px-1.5 py-0.5 rounded-full">Dipilih</span>
+                            <span x-show="selectedRole === 'penghuni'" class="text-[9px] bg-sky-400 text-slate-900 font-bold px-1.5 py-0.5 rounded-full">Dipilih</span>
                         </div>
-                        <p class="text-[11px] text-blue-100 pl-5.5 leading-normal">
+                        <p class="text-[11px] text-blue-100/90 pl-5.5 leading-normal">
                             Cari kos berdasarkan kota & peta interaktif, booking kamar online, dan pantau status sewa.
                         </p>
                     </div>
 
                     {{-- Role 2: Pemilik Kos --}}
                     <div @click="setRole('pemilik')"
-                         :class="selectedRole === 'pemilik' ? 'ring-2 ring-white bg-blue-700 shadow-sm' : 'bg-blue-700/60 opacity-80 hover:opacity-100'"
-                         class="rounded-xl p-2.5 border border-blue-400/40 cursor-pointer transition">
+                         :class="selectedRole === 'pemilik' ? 'ring-2 ring-sky-400 bg-white/20 shadow-md border-white/30' : 'bg-white/10 opacity-80 hover:opacity-100 border-white/15'"
+                         class="rounded-xl p-2.5 border cursor-pointer transition backdrop-blur-md">
                         <div class="flex items-center justify-between mb-0.5">
                             <div class="flex items-center gap-1.5">
-                                <span class="w-4 h-4 rounded-full bg-white text-blue-600 flex items-center justify-center text-[10px] font-bold shrink-0">2</span>
+                                <span class="w-4 h-4 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px] font-bold shrink-0">2</span>
                                 <h2 class="font-semibold text-xs text-white">Pemilik / Pengelola Kos</h2>
                             </div>
-                            <span x-show="selectedRole === 'pemilik'" class="text-[9px] bg-white text-blue-700 font-bold px-1.5 py-0.5 rounded-full">Dipilih</span>
+                            <span x-show="selectedRole === 'pemilik'" class="text-[9px] bg-sky-400 text-slate-900 font-bold px-1.5 py-0.5 rounded-full">Dipilih</span>
                         </div>
-                        <p class="text-[11px] text-blue-100 pl-5.5 leading-normal">
+                        <p class="text-[11px] text-blue-100/90 pl-5.5 leading-normal">
                             Pasang iklan kos nasional, atur kamar & tarif sewa, konfirmasi pemesanan, dan kelola penyewa.
                         </p>
                     </div>
 
                     {{-- Role 3: Mitra Layanan --}}
                     <div @click="setRole('mitra')"
-                         :class="selectedRole === 'mitra' ? 'ring-2 ring-white bg-blue-700 shadow-sm' : 'bg-blue-700/60 opacity-80 hover:opacity-100'"
-                         class="rounded-xl p-2.5 border border-blue-400/40 cursor-pointer transition">
+                         :class="selectedRole === 'mitra' ? 'ring-2 ring-sky-400 bg-white/20 shadow-md border-white/30' : 'bg-white/10 opacity-80 hover:opacity-100 border-white/15'"
+                         class="rounded-xl p-2.5 border cursor-pointer transition backdrop-blur-md">
                         <div class="flex items-center justify-between mb-0.5">
                             <div class="flex items-center gap-1.5">
-                                <span class="w-4 h-4 rounded-full bg-white text-blue-600 flex items-center justify-center text-[10px] font-bold shrink-0">3</span>
+                                <span class="w-4 h-4 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px] font-bold shrink-0">3</span>
                                 <h2 class="font-semibold text-xs text-white">Mitra Layanan Kos</h2>
                             </div>
-                            <span x-show="selectedRole === 'mitra'" class="text-[9px] bg-white text-blue-700 font-bold px-1.5 py-0.5 rounded-full">Dipilih</span>
+                            <span x-show="selectedRole === 'mitra'" class="text-[9px] bg-sky-400 text-slate-900 font-bold px-1.5 py-0.5 rounded-full">Dipilih</span>
                         </div>
-                        <p class="text-[11px] text-blue-100 pl-5.5 leading-normal">
+                        <p class="text-[11px] text-blue-100/90 pl-5.5 leading-normal">
                             Tawarkan jasa laundry, katering, kebersihan, atau servis teknisi langsung ke ekosistem kos.
                         </p>
                     </div>
@@ -151,7 +155,7 @@
             </div>
 
             {{-- Footer Layer Kiri: Hak Cipta (Desktop Saja) --}}
-            <div class="hidden lg:flex p-5 lg:p-8 xl:p-10 pt-3 border-t border-blue-500/50 items-center justify-between text-[11px] text-blue-100">
+            <div class="hidden lg:flex p-5 lg:p-8 xl:p-10 pt-3 border-t border-white/15 items-center justify-between text-[11px] text-blue-200">
                 <span class="text-blue-200">SevenKost Indonesia</span>
                 <span class="text-blue-200">© {{ date('Y') }}</span>
             </div>
@@ -174,28 +178,6 @@
                     <p class="text-xs text-slate-500 mt-0.5">
                         Lengkapi formulir di bawah ini untuk membuat akun baru Anda.
                     </p>
-                </div>
-
-                {{-- Tombol Daftar via Google (Standar Resmi Google Branding) --}}
-                <div class="mb-3">
-                    <a href="{{ Route::has('auth.google') ? route('auth.google') : '#' }}" 
-                       class="w-full py-2.5 px-4 rounded-xl border border-slate-200 hover:border-slate-300 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs sm:text-sm flex items-center justify-center gap-2.5 shadow-2xs transition active:scale-[0.99] cursor-pointer">
-                        {{-- Logo Resmi Google 4 Warna --}}
-                        <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24">
-                            <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
-                            <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"/>
-                            <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 10.03 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
-                            <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
-                        </svg>
-                        <span>Daftar dengan Google</span>
-                    </a>
-                </div>
-
-                {{-- Divider "atau daftar dengan email" --}}
-                <div class="relative flex items-center mb-3">
-                    <div class="flex-grow border-t border-slate-200"></div>
-                    <span class="flex-shrink mx-3 text-[11px] text-slate-400 font-normal">atau daftar manual</span>
-                    <div class="flex-grow border-t border-slate-200"></div>
                 </div>
 
                 {{-- Form Register --}}
@@ -379,7 +361,7 @@
                     {{-- Tombol Submit --}}
                     <div class="pt-1">
                         <button type="submit" 
-                                class="w-full py-2.5 px-4 rounded-xl text-xs sm:text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 active:scale-[0.99] transition shadow-sm shadow-blue-600/20 focus:outline-none focus:ring-4 focus:ring-blue-100 cursor-pointer flex items-center justify-center gap-2">
+                                class="w-full py-2.5 px-4 rounded-xl text-xs sm:text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 active:scale-[0.99] transition shadow-md shadow-blue-500/20 focus:outline-none focus:ring-4 focus:ring-blue-100 cursor-pointer flex items-center justify-center gap-2">
                             <span>Daftar Akun Sekarang</span>
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
@@ -387,6 +369,28 @@
                         </button>
                     </div>
                 </form>
+
+                {{-- Divider "atau daftar dengan" --}}
+                <div class="relative flex items-center my-3 sm:my-3.5">
+                    <div class="flex-grow border-t border-slate-200"></div>
+                    <span class="flex-shrink mx-3 text-[11px] text-slate-400 font-normal">atau daftar dengan</span>
+                    <div class="flex-grow border-t border-slate-200"></div>
+                </div>
+
+                {{-- Tombol Daftar via Google (Standar Resmi Google Branding) --}}
+                <div>
+                    <a href="{{ Route::has('auth.google') ? route('auth.google') : '#' }}" 
+                       class="w-full py-2.5 px-4 rounded-xl border border-slate-200 hover:border-slate-300 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs sm:text-sm flex items-center justify-center gap-2.5 shadow-2xs transition active:scale-[0.99] cursor-pointer">
+                        {{-- Logo Resmi Google 4 Warna --}}
+                        <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24">
+                            <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
+                            <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"/>
+                            <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 10.03 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
+                            <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+                        </svg>
+                        <span>Daftar dengan Google</span>
+                    </a>
+                </div>
 
                 {{-- Link ke Login --}}
                 <div class="mt-4 pt-3 border-t border-slate-100 text-center text-xs text-slate-600">
