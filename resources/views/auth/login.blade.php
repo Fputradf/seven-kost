@@ -2,7 +2,7 @@
     <div class="min-h-screen lg:h-screen w-full flex flex-col lg:flex-row lg:overflow-hidden bg-white" x-data="{ showPassword: false }">
 
         {{-- ============================================================= --}}
-        {{-- LAYER KIRI / ATAS MOBILE (BIRU CERAH DENGAN WAVE PATTERN)     --}}
+        {{-- LAYER KIRI / ATAS MOBILE (BIRU CERAH DENGAN MULTI-LAYER WAVE) --}}
         {{-- ============================================================= --}}
         <div class="w-full lg:w-1/2 bg-blue-600 text-white flex flex-col justify-between shrink-0 lg:overflow-hidden relative">
             
@@ -63,7 +63,7 @@
                     </div>
                 </div>
 
-                {{-- Gambar Kost (Desktop & Tablet Lebar Saja Agar Mobile Langsung Fokus Form) --}}
+                {{-- Gambar Kost (Desktop Saja) --}}
                 <div class="hidden lg:block relative rounded-2xl overflow-hidden shadow-md border border-white/20 mb-3 group">
                     <img src="{{ asset('images/frontend/hero-building-hd.jpg') }}" 
                          alt="Hunian Kos SevenKost" 
@@ -79,7 +79,7 @@
                     </div>
                 </div>
 
-                {{-- Penjelasan 3 Role (Tampil Penuh di Desktop) --}}
+                {{-- Penjelasan 3 Role (Desktop Saja) --}}
                 <div class="hidden lg:block space-y-1.5">
                     <div class="text-[11px] font-semibold text-blue-100">
                         Akses Layanan Sesuai Peran:
@@ -121,11 +121,14 @@
             </div>
 
             {{-- ========================================================= --}}
-            {{-- MOBILE WAVE PATTERN TRANSITION (GELOMBANG ORGANIK HALUS) --}}
+            {{-- MULTI-LAYER WAVE PATTERN TRANSITION (BERKUALITAS & NYATA) --}}
             {{-- ========================================================= --}}
             <div class="w-full overflow-hidden leading-none lg:hidden pointer-events-none -mb-[1px]">
-                <svg class="relative block w-full h-8 sm:h-11 text-white" viewBox="0 0 1440 96" fill="none" preserveAspectRatio="none">
-                    <path d="M0,32 C360,90 540,10 820,50 C1100,90 1260,20 1440,45 L1440,96 L0,96 Z" fill="currentColor"></path>
+                <svg class="relative block w-full h-12 sm:h-16" viewBox="0 0 1440 120" preserveAspectRatio="none">
+                    {{-- Layer Gelombang Belakang (Semi-transparan untuk kedalaman) --}}
+                    <path d="M0,45 C240,95 480,15 720,65 C960,115 1200,35 1440,75 L1440,120 L0,120 Z" class="fill-white/30"></path>
+                    {{-- Layer Gelombang Depan (Solid White menyatu ke form) --}}
+                    <path d="M0,60 C320,120 540,25 840,70 C1140,115 1320,40 1440,65 L1440,120 L0,120 Z" class="fill-white"></path>
                 </svg>
             </div>
 
@@ -137,9 +140,9 @@
         </div>
 
         {{-- ============================================================= --}}
-        {{-- LAYER KANAN / BAWAH MOBILE (FORM PUTIH BERSIH DENGAN WAVE)    --}}
+        {{-- LAYER KANAN / BAWAH MOBILE (FORM PUTIH BERSIH & RESPONSIVE)   --}}
         {{-- ============================================================= --}}
-        <div class="w-full lg:w-1/2 bg-white flex flex-col justify-center items-center px-5 pt-3 pb-6 sm:p-8 lg:p-10 xl:p-12 flex-1 overflow-y-auto">
+        <div class="w-full lg:w-1/2 bg-white flex flex-col justify-start lg:justify-center items-center px-5 pt-3 pb-8 sm:p-8 lg:p-10 xl:p-12 flex-1 overflow-y-auto">
             <div class="max-w-sm xl:max-w-md w-full">
 
                 {{-- Header Form --}}

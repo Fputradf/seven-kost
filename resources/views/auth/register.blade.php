@@ -1,5 +1,5 @@
 <x-guest-layout title="Daftar Akun Baru - SevenKost">
-    <div class="min-h-screen lg:h-screen w-full flex flex-col lg:flex-row lg:overflow-hidden relative"
+    <div class="min-h-screen lg:h-screen w-full flex flex-col lg:flex-row lg:overflow-hidden relative bg-white"
          x-data="{
              selectedRole: '{{ old('role', 'penghuni') }}',
              showPassword: false,
@@ -17,14 +17,15 @@
          }">
 
         {{-- ============================================================= --}}
+        {{-- LAYER KIRI / ATAS MOBILE (BIRU CERAH DENGAN MULTI-LAYER WAVE) --}}
         {{-- ============================================================= --}}
-        {{-- LAYER KIRI / ATAS MOBILE (BIRU CERAH SEVENKOST)               --}}
-        {{-- ============================================================= --}}
-        <div class="w-full lg:w-1/2 bg-blue-600 text-white p-4 sm:p-6 lg:p-8 xl:p-10 flex flex-col justify-between shrink-0 lg:overflow-hidden">
-            <div>
+        <div class="w-full lg:w-1/2 bg-blue-600 text-white flex flex-col justify-between shrink-0 lg:overflow-hidden relative">
+            
+            {{-- Konten Utama Header --}}
+            <div class="p-4 sm:p-6 lg:p-8 xl:p-10 pb-1 sm:pb-2 lg:pb-8">
                 {{-- Top Navigation: Tombol Kembali ke Beranda & Logo Brand (Mobile Friendly) --}}
                 <div class="flex items-center justify-between gap-3 mb-3 lg:mb-4">
-                    <a href="{{ url('/') }}" class="inline-flex items-center gap-1.5 text-xs font-semibold text-white/95 hover:text-white transition group py-1.5 px-3 rounded-xl bg-blue-700/60 hover:bg-blue-700 border border-blue-400/40 w-fit">
+                    <a href="{{ url('/') }}" class="inline-flex items-center gap-1.5 text-xs font-semibold text-white/95 hover:text-white transition group py-1.5 px-3 rounded-xl bg-blue-700/70 hover:bg-blue-700 border border-blue-400/40 w-fit shadow-xs">
                         <svg class="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                         </svg>
@@ -65,7 +66,7 @@
                     </p>
                 </div>
 
-                {{-- Gambar Kost (Desktop & Tablet Saja Agar Mobile Langsung Fokus Form) --}}
+                {{-- Gambar Kost (Desktop Saja) --}}
                 <div class="hidden lg:block relative rounded-2xl overflow-hidden shadow-md border border-white/20 mb-3 group">
                     <img src="{{ asset('images/frontend/hero-building-hd.jpg') }}" 
                          alt="Hunian Kos SevenKost" 
@@ -81,7 +82,7 @@
                     </div>
                 </div>
 
-                {{-- Penjelasan 3 Role (Tampil Penuh di Desktop) --}}
+                {{-- Penjelasan 3 Role (Desktop Saja) --}}
                 <div class="hidden lg:block space-y-1.5">
                     <div class="text-[11px] font-semibold text-blue-100">
                         Pilih Peran Akun:
@@ -138,11 +139,14 @@
             </div>
 
             {{-- ========================================================= --}}
-            {{-- MOBILE WAVE PATTERN TRANSITION (GELOMBANG ORGANIK HALUS) --}}
+            {{-- MULTI-LAYER WAVE PATTERN TRANSITION (BERKUALITAS & NYATA) --}}
             {{-- ========================================================= --}}
             <div class="w-full overflow-hidden leading-none lg:hidden pointer-events-none -mb-[1px]">
-                <svg class="relative block w-full h-8 sm:h-11 text-white" viewBox="0 0 1440 96" fill="none" preserveAspectRatio="none">
-                    <path d="M0,32 C360,90 540,10 820,50 C1100,90 1260,20 1440,45 L1440,96 L0,96 Z" fill="currentColor"></path>
+                <svg class="relative block w-full h-12 sm:h-16" viewBox="0 0 1440 120" preserveAspectRatio="none">
+                    {{-- Layer Gelombang Belakang (Semi-transparan untuk kedalaman) --}}
+                    <path d="M0,45 C240,95 480,15 720,65 C960,115 1200,35 1440,75 L1440,120 L0,120 Z" class="fill-white/30"></path>
+                    {{-- Layer Gelombang Depan (Solid White menyatu ke form) --}}
+                    <path d="M0,60 C320,120 540,25 840,70 C1140,115 1320,40 1440,65 L1440,120 L0,120 Z" class="fill-white"></path>
                 </svg>
             </div>
 
@@ -154,9 +158,9 @@
         </div>
 
         {{-- ============================================================= --}}
-        {{-- LAYER KANAN / BAWAH MOBILE (FORM PUTIH BERSIH DENGAN WAVE)    --}}
+        {{-- LAYER KANAN / BAWAH MOBILE (FORM PUTIH BERSIH & RESPONSIVE)   --}}
         {{-- ============================================================= --}}
-        <div class="w-full lg:w-1/2 bg-white flex flex-col justify-center items-center px-5 pt-3 pb-6 sm:p-8 lg:p-10 xl:p-12 flex-1 overflow-y-auto">
+        <div class="w-full lg:w-1/2 bg-white flex flex-col justify-start lg:justify-center items-center px-5 pt-3 pb-12 sm:p-8 lg:p-10 xl:p-12 flex-1 overflow-y-auto">
             <div class="max-w-sm xl:max-w-md w-full">
 
                 {{-- Header Form --}}
@@ -218,8 +222,8 @@
                                required 
                                autofocus 
                                autocomplete="name" 
-                               placeholder="Contoh: Budi Prasetyo"
-                               class="w-full text-xs sm:text-sm rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2 px-3 text-slate-900 placeholder-slate-400 @error('name') border-red-300 bg-red-50/20 @enderror transition" />
+                               placeholder="Nama lengkap sesuai KTP"
+                               class="w-full text-sm sm:text-xs rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2 px-3 text-slate-900 placeholder-slate-400 @error('name') border-red-300 bg-red-50/20 @enderror transition" />
                         @error('name')
                             <p class="text-xs text-red-600 font-medium mt-0.5">{{ $message }}</p>
                         @enderror
@@ -236,16 +240,35 @@
                                value="{{ old('email') }}" 
                                required 
                                autocomplete="username" 
+                               inputmode="email"
                                placeholder="nama@email.com"
-                               class="w-full text-xs sm:text-sm rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2 px-3 text-slate-900 placeholder-slate-400 @error('email') border-red-300 bg-red-50/20 @enderror transition" />
+                               class="w-full text-sm sm:text-xs rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2 px-3 text-slate-900 placeholder-slate-400 @error('email') border-red-300 bg-red-50/20 @enderror transition" />
                         @error('email')
                             <p class="text-xs text-red-600 font-medium mt-0.5">{{ $message }}</p>
                         @enderror
                     </div>
 
-                    {{-- Input Kata Sandi & Konfirmasi (Grid 2 Kolom) --}}
+                    {{-- Input Nomor WhatsApp / Telepon --}}
+                    <div class="space-y-1">
+                        <label for="phone" class="block text-xs font-medium text-slate-700">
+                            Nomor WhatsApp <span class="text-red-500">*</span>
+                        </label>
+                        <input id="phone" 
+                               type="tel" 
+                               name="phone" 
+                               value="{{ old('phone') }}" 
+                               required 
+                               autocomplete="tel" 
+                               placeholder="081234567890"
+                               class="w-full text-sm sm:text-xs rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2 px-3 text-slate-900 placeholder-slate-400 @error('phone') border-red-300 bg-red-50/20 @enderror transition" />
+                        @error('phone')
+                            <p class="text-xs text-red-600 font-medium mt-0.5">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    {{-- Grid Input Password & Konfirmasi Password --}}
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                        {{-- Kata Sandi --}}
+                        {{-- Password --}}
                         <div class="space-y-1">
                             <label for="password" class="block text-xs font-medium text-slate-700">
                                 Kata Sandi <span class="text-red-500">*</span>
@@ -256,8 +279,8 @@
                                        name="password" 
                                        required 
                                        autocomplete="new-password" 
-                                       placeholder="Min. 8 karakter"
-                                       class="w-full text-xs sm:text-sm rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2 pl-3 pr-9 text-slate-900 placeholder-slate-400 @error('password') border-red-300 bg-red-50/20 @enderror transition" />
+                                       placeholder="Minimal 8 karakter"
+                                       class="w-full text-sm sm:text-xs rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2 pl-3 pr-9 text-slate-900 placeholder-slate-400 @error('password') border-red-300 bg-red-50/20 @enderror transition" />
                                 <button type="button" 
                                         @click="showPassword = !showPassword"
                                         aria-label="Tampilkan kata sandi"
@@ -271,12 +294,9 @@
                                     </svg>
                                 </button>
                             </div>
-                            @error('password')
-                                <p class="text-xs text-red-600 font-medium mt-0.5">{{ $message }}</p>
-                            @enderror
                         </div>
 
-                        {{-- Konfirmasi Kata Sandi --}}
+                        {{-- Konfirmasi Password --}}
                         <div class="space-y-1">
                             <label for="password_confirmation" class="block text-xs font-medium text-slate-700">
                                 Ulangi Sandi <span class="text-red-500">*</span>
@@ -287,11 +307,11 @@
                                        name="password_confirmation" 
                                        required 
                                        autocomplete="new-password" 
-                                       placeholder="Ulangi sandi"
-                                       class="w-full text-xs sm:text-sm rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2 pl-3 pr-9 text-slate-900 placeholder-slate-400 @error('password_confirmation') border-red-300 bg-red-50/20 @enderror transition" />
+                                       placeholder="Ulangi kata sandi"
+                                       class="w-full text-sm sm:text-xs rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2 pl-3 pr-9 text-slate-900 placeholder-slate-400 @error('password_confirmation') border-red-300 bg-red-50/20 @enderror transition" />
                                 <button type="button" 
                                         @click="showPasswordConfirmation = !showPasswordConfirmation"
-                                        aria-label="Tampilkan sandi konfirmasi"
+                                        aria-label="Tampilkan konfirmasi sandi"
                                         class="absolute inset-y-0 right-0 pr-2.5 flex items-center text-slate-400 hover:text-slate-700 focus:outline-none cursor-pointer">
                                     <svg x-show="!showPasswordConfirmation" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -302,33 +322,35 @@
                                     </svg>
                                 </button>
                             </div>
-                            @error('password_confirmation')
-                                <p class="text-xs text-red-600 font-medium mt-0.5">{{ $message }}</p>
-                            @enderror
                         </div>
                     </div>
+                    @error('password')
+                        <p class="text-xs text-red-600 font-medium">{{ $message }}</p>
+                    @enderror
 
-                    {{-- Persetujuan UU PDP & Ketentuan Layanan (Modal Popup Interaktif) --}}
-                    <div class="flex items-start gap-2 pt-0.5">
-                        <input type="checkbox" 
-                               id="terms" 
-                               name="terms" 
-                               required 
-                               x-model="termsAgreed"
-                               class="w-3.5 h-3.5 mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-blue-500 shrink-0 cursor-pointer">
-                        <label for="terms" class="text-[11px] text-slate-600 leading-tight select-none cursor-pointer">
-                            Saya menyetujui 
-                            <button type="button" 
-                                    @click.prevent="openTermsModal = true; activeTermsTab = 'terms'" 
-                                    class="font-semibold text-blue-600 hover:text-blue-700 hover:underline inline cursor-pointer">
-                                Ketentuan Layanan
-                            </button> 
-                            serta pemrosesan data sesuai 
-                            <button type="button" 
-                                    @click.prevent="openTermsModal = true; activeTermsTab = 'privacy'" 
-                                    class="font-semibold text-blue-600 hover:text-blue-700 hover:underline inline cursor-pointer">
-                                Kebijakan Privasi (UU PDP No. 27/2022)
-                            </button>.
+                    {{-- Checkbox Syarat & Ketentuan dengan Pop Up Modal Trigger --}}
+                    <div class="pt-1">
+                        <label class="flex items-start gap-2 cursor-pointer select-none">
+                            <input type="checkbox" 
+                                   name="terms" 
+                                   id="terms"
+                                   x-model="termsAgreed"
+                                   required 
+                                   class="mt-0.5 w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer">
+                            <span class="text-[11px] sm:text-xs text-slate-600 leading-snug">
+                                Saya menyetujui 
+                                <button type="button" 
+                                        @click.prevent="openTermsModal = true; activeTermsTab = 'terms'" 
+                                        class="font-semibold text-blue-600 hover:text-blue-700 underline cursor-pointer">
+                                    Syarat & Ketentuan
+                                </button> 
+                                dan 
+                                <button type="button" 
+                                        @click.prevent="openTermsModal = true; activeTermsTab = 'privacy'" 
+                                        class="font-semibold text-blue-600 hover:text-blue-700 underline cursor-pointer">
+                                    Kebijakan Privasi (UU PDP)
+                                </button>.
+                            </span>
                         </label>
                     </div>
 
@@ -378,28 +400,26 @@
             <div class="fixed inset-0" @click="openTermsModal = false"></div>
 
             {{-- Kotak Modal --}}
-            <div class="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden z-10 flex flex-col max-h-[85vh]">
+            <div class="relative bg-white rounded-2xl shadow-2xl max-w-lg w-full max-h-[85vh] flex flex-col overflow-hidden border border-slate-200/80 z-10"
+                 @click.stop>
                 
                 {{-- Header Modal --}}
-                <div class="px-5 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/80">
-                    <div>
-                        <h3 class="text-base font-bold text-slate-900">
-                            Regulasi & Kebijakan Platform
-                        </h3>
-                        <p class="text-xs text-slate-500">SevenKost Indonesia • Kepatuhan UU PDP No. 27/2022</p>
+                <div class="px-5 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
+                    <div class="flex items-center gap-2">
+                        <img src="{{ asset('images/logo-seven-kost.png') }}" alt="SevenKost" class="h-6 w-6 object-contain">
+                        <h3 class="font-bold text-sm text-slate-900">Ketentuan Resmi SevenKost</h3>
                     </div>
                     <button type="button" 
-                            @click="openTermsModal = false"
-                            aria-label="Tutup popup"
-                            class="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 transition cursor-pointer">
+                            @click="openTermsModal = false" 
+                            class="text-slate-400 hover:text-slate-600 rounded-lg p-1 hover:bg-slate-200/60 transition cursor-pointer">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                         </svg>
                     </button>
                 </div>
 
-                {{-- Tabs Switcher: Syarat Ketentuan vs Kebijakan Privasi --}}
-                <div class="px-5 pt-3 border-b border-slate-100 flex gap-4 text-xs font-semibold bg-white">
+                {{-- Tabs Navigasi di Modal --}}
+                <div class="flex border-b border-slate-100 px-5 pt-2 gap-4 text-xs font-semibold">
                     <button type="button" 
                             @click="activeTermsTab = 'terms'"
                             :class="activeTermsTab === 'terms' ? 'text-blue-600 border-b-2 border-blue-600 pb-2.5' : 'text-slate-500 hover:text-slate-800 pb-2.5'"
@@ -452,45 +472,35 @@
                                 Alur Booking & Pembayaran Sewa
                             </h4>
                             <p class="pl-5.5 text-slate-600">
-                                Pengajuan sewa melalui fitur booking merupakan reservasi awal yang memerlukan konfirmasi pemilik kos. Pembayaran sewa dilakukan langsung sesuai kesepakatan kedua pihak tanpa potongan sepihak.
-                            </p>
-                        </div>
-
-                        <div class="space-y-1">
-                            <h4 class="font-semibold text-slate-800 text-xs flex items-center gap-1.5">
-                                <span class="w-4 h-4 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-[10px] font-bold">4</span>
-                                Laporan Pelanggaran & Sanksi
-                            </h4>
-                            <p class="pl-5.5 text-slate-600">
-                                Setiap pengguna berhak melaporkan listing atau pengguna yang mencurigakan melalui tombol pelaporan. Tim moderator SevenKost berhak menangguhkan akun pelanggar demi menjaga kenyamanan ekosistem.
+                                Pengajuan sewa awal dicatat melalui sistem reservasi. Pembayaran sewa dilakukan langsung sesuai kesepakatan antara calon penyewa dan pengelola tanpa potongan perantara platform.
                             </p>
                         </div>
                     </div>
 
-                    {{-- Tab 2: Kebijakan Privasi (UU PDP No. 27/2022) --}}
-                    <div x-show="activeTermsTab === 'privacy'" style="display: none;" class="space-y-4">
+                    {{-- Tab 2: Kebijakan Privasi --}}
+                    <div x-show="activeTermsTab === 'privacy'" class="space-y-4" style="display: none;">
                         <div class="p-3 rounded-xl bg-emerald-50/70 border border-emerald-100 text-emerald-900">
-                            <span class="font-semibold block mb-0.5">Kepatuhan UU No. 27 Tahun 2022 (UU PDP):</span>
-                            SevenKost menjamin pelindungan data pribadi Anda secara ketat, tidak memperjualbelikan data pribadi, dan menggunakan enkripsi standar industri.
+                            <span class="font-semibold block mb-0.5">Komitmen Privasi UU No. 27 Tahun 2022:</span>
+                            Data pribadi Anda dilindungi dengan standar keamanan modern. SevenKost tidak pernah menjual informasi pribadi Anda kepada pihak mana pun.
                         </div>
 
                         <div class="space-y-1">
                             <h4 class="font-semibold text-slate-800 text-xs flex items-center gap-1.5">
                                 <span class="w-4 h-4 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-[10px] font-bold">1</span>
-                                Jenis Data Pribadi yang Dikumpulkan
+                                Jenis Data yang Kami Proses
                             </h4>
                             <p class="pl-5.5 text-slate-600">
-                                Data yang dikumpulkan terbatas pada nama lengkap, alamat surel (email), nomor telepon aktif, dan kata sandi terenkripsi guna keperluan pembuatan akun dan autentikasi.
+                                Kami memproses nama lengkap, alamat email aktif, nomor WhatsApp, serta data properti bagi pemilik kos untuk keperluan verifikasi akun dan komunikasi sewa.
                             </p>
                         </div>
 
                         <div class="space-y-1">
                             <h4 class="font-semibold text-slate-800 text-xs flex items-center gap-1.5">
                                 <span class="w-4 h-4 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-[10px] font-bold">2</span>
-                                Tujuan Pemrosesan Data
+                                Tujuan Penggunaan Data
                             </h4>
                             <p class="pl-5.5 text-slate-600">
-                                Data diproses secara sah untuk menghubungkan penyewa dengan pemilik kos terverifikasi, mengelola administrasi reservasi kamar, dan memastikan keamanan transaksi.
+                                Data digunakan terbatas untuk menghubungkan pencari kos dengan pemilik, mengirimkan status pemesanan, dan mencegah akun penipuan.
                             </p>
                         </div>
 
@@ -512,7 +522,7 @@
                     <span class="text-[11px] text-slate-500">SevenKost • Amanah & Terpercaya</span>
                     <div class="flex items-center gap-2">
                         <button type="button" 
-                                @click="openTermsModal = false"
+                                @click="openTermsModal = false" 
                                 class="px-3.5 py-1.5 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-100 transition cursor-pointer">
                             Tutup
                         </button>
