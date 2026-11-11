@@ -39,10 +39,14 @@
     @stack('styles')
     @stack('head')
 </head>
+@php
+    $isHome = request()->is('/');
+    $isTransparentHero = ($transparentNavbar ?? false) || $isHome;
+@endphp
 <body class="font-sans antialiased bg-slate-50 text-slate-800 min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
     <x-seven-navbar :transparent="$transparentNavbar ?? false" />
 
-    <main class="flex-1 w-full pb-16 md:pb-0">
+    <main class="flex-1 w-full pb-16 md:pb-0 {{ $isTransparentHero ? '' : 'pt-[72px] sm:pt-[80px]' }}">
         {{ $slot ?? '' }}
         @yield('content')
     </main>

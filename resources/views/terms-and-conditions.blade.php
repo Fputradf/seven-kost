@@ -1,7 +1,7 @@
 <x-seven-layout title="Syarat & Ketentuan Layanan - SevenKost" description="Syarat dan ketentuan umum penggunaan platform pencarian, sewa kos, marketplace, dan kemitraan layanan di SevenKost.">
 
     {{-- Breadcrumbs Navigation --}}
-    <div class="bg-white/90 backdrop-blur-md border-b border-slate-100 py-2.5 sticky top-0 z-20">
+    <div class="bg-white/90 backdrop-blur-md border-b border-slate-100 py-2.5 relative z-10">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 flex items-center justify-between">
             <nav class="flex items-center gap-2 text-xs text-slate-500 overflow-x-auto whitespace-nowrap">
                 <a href="{{ url('/') }}" class="hover:text-blue-600 transition flex items-center gap-1 font-medium">
