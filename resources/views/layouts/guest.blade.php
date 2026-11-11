@@ -21,11 +21,9 @@
     <!-- Scripts & Styles via Vite -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="min-h-screen w-full font-sans antialiased bg-slate-100 text-slate-800 flex items-center justify-center p-3 sm:p-6 lg:p-10">
+<body class="min-h-screen w-full font-sans antialiased text-slate-800 m-0 p-0 overflow-x-hidden bg-slate-50">
 
-    <main class="w-full max-w-5xl">
-        {{ $slot }}
-    </main>
+    {{ $slot }}
 
 </body>
 </html>

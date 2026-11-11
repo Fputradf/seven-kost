@@ -1,5 +1,5 @@
-<x-guest-layout title="Daftar Akun - SevenKost">
-    <div class="bg-white rounded-2xl sm:rounded-3xl shadow-xl border border-slate-200/80 overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-[640px]"
+<x-guest-layout title="Daftar Akun Baru - SevenKost">
+    <div class="min-h-screen w-full flex flex-col lg:flex-row"
          x-data="{
              selectedRole: '{{ old('role', 'penghuni') }}',
              showPassword: false,
@@ -10,98 +10,110 @@
          }">
 
         {{-- ============================================================= --}}
-        {{-- LAYER KIRI (BIRU): LOGO, NAMA APLIKASI, & PENJELASAN ROLE     --}}
+        {{-- LAYER KIRI (BIRU SEVENKOST): LOGO, NAMA, & PENJELASAN ROLE    --}}
+        {{-- Warna: Navy-950 / #0F1E36 (Sama dengan Header Form Dashboard)  --}}
         {{-- ============================================================= --}}
-        <div class="lg:col-span-5 bg-blue-600 text-white p-8 sm:p-10 flex flex-col justify-between relative">
+        <div class="w-full lg:w-5/12 xl:w-4/12 bg-navy-950 text-white p-8 sm:p-12 xl:p-16 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-slate-800">
             <div>
                 {{-- Brand Header: Logo & Nama Aplikasi --}}
-                <div class="flex items-center gap-3 mb-8">
+                <a href="{{ url('/') }}" class="inline-flex items-center gap-3.5 group mb-8">
                     <img src="{{ asset('images/logo-seven-kost.png') }}" 
                          alt="Logo SevenKost" 
-                         class="h-11 w-11 object-contain bg-white/10 rounded-xl p-1.5 border border-white/20">
+                         class="h-11 w-11 object-contain bg-white/10 rounded-xl p-1.5 border border-white/20 group-hover:scale-105 transition">
                     <div>
-                        <h1 class="text-2xl font-black tracking-tight leading-none text-white">
-                            Seven<span class="text-sky-300">Kost</span>
-                        </h1>
-                        <p class="text-xs text-blue-100 font-medium mt-0.5">Platform Cari & Kelola Kos</p>
+                        <span class="text-2xl font-black tracking-tight leading-none text-white block">
+                            Seven<span class="text-blue-400">Kost</span>
+                        </span>
+                        <span class="text-xs text-slate-400 font-medium">Platform Cari & Kelola Kos</span>
                     </div>
+                </a>
+
+                {{-- Badge Panel Sesuai Dashboard --}}
+                <div class="mb-4">
+                    <span class="inline-block px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-semibold border border-blue-500/30">
+                        Portal Pendaftaran Akun
+                    </span>
                 </div>
 
                 {{-- Headline --}}
-                <div class="mb-6">
-                    <h2 class="text-xl sm:text-2xl font-extrabold leading-snug">
-                        Daftar Akun SevenKost
-                    </h2>
-                    <p class="text-xs sm:text-sm text-blue-100 mt-2 leading-relaxed">
-                        Pilih peran yang sesuai dengan kebutuhan Anda untuk mendapatkan pengalaman terbaik di platform kami.
+                <div class="mb-8">
+                    <h1 class="text-2xl xl:text-3xl font-extrabold tracking-tight leading-tight">
+                        Bergabung ke Komunitas SevenKost
+                    </h1>
+                    <p class="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">
+                        Pilih jenis akun Anda untuk mendapatkan akses fitur yang disesuaikan secara khusus.
                     </p>
                 </div>
 
                 {{-- Penjelasan Role Singkat --}}
                 <div class="space-y-4">
-                    <div class="text-xs font-bold uppercase tracking-wider text-blue-200">
-                        Panduan Memilih Peran:
+                    <div class="text-xs font-bold uppercase tracking-wider text-slate-400">
+                        Panduan Peran Akun:
                     </div>
 
                     {{-- Role 1: Pencari / Penghuni --}}
                     <div @click="setRole('penghuni')"
-                         :class="selectedRole === 'penghuni' ? 'ring-2 ring-white bg-blue-700' : 'bg-blue-700/60 opacity-85 hover:opacity-100'"
-                         class="rounded-xl p-4 border border-blue-500/40 cursor-pointer transition">
+                         :class="selectedRole === 'penghuni' ? 'ring-2 ring-blue-400 bg-white/10' : 'bg-white/5 opacity-80 hover:opacity-100'"
+                         class="rounded-2xl p-4 border border-white/10 cursor-pointer transition">
                         <div class="flex items-center justify-between mb-1.5">
                             <div class="flex items-center gap-2">
-                                <span class="w-6 h-6 rounded-lg bg-white/20 flex items-center justify-center text-xs font-bold">1</span>
-                                <h3 class="font-bold text-sm text-white">Pencari / Penghuni Kos</h3>
+                                <span class="w-6 h-6 rounded-lg bg-blue-600 text-white flex items-center justify-center text-xs font-bold shrink-0">1</span>
+                                <h2 class="font-bold text-sm text-white">Pencari / Penghuni Kos</h2>
                             </div>
-                            <span x-show="selectedRole === 'penghuni'" class="text-[10px] bg-white text-blue-700 font-bold px-2 py-0.5 rounded-full">Dipilih</span>
+                            <span x-show="selectedRole === 'penghuni'" class="text-[10px] bg-blue-500 text-white font-bold px-2 py-0.5 rounded-full">Dipilih</span>
                         </div>
-                        <p class="text-xs text-blue-100 leading-relaxed pl-8">
-                            Untuk mahasiswa atau pekerja yang mencari hunian kos, booking kamar, dan mengelola sewa bulanan.
+                        <p class="text-xs text-slate-300 leading-relaxed pl-8">
+                            Untuk mahasiswa atau pekerja yang ingin mencari hunian kos nyaman, booking kamar langsung, dan pantau status sewa.
                         </p>
                     </div>
 
                     {{-- Role 2: Pemilik Kos --}}
                     <div @click="setRole('pemilik')"
-                         :class="selectedRole === 'pemilik' ? 'ring-2 ring-white bg-blue-700' : 'bg-blue-700/60 opacity-85 hover:opacity-100'"
-                         class="rounded-xl p-4 border border-blue-500/40 cursor-pointer transition">
+                         :class="selectedRole === 'pemilik' ? 'ring-2 ring-blue-400 bg-white/10' : 'bg-white/5 opacity-80 hover:opacity-100'"
+                         class="rounded-2xl p-4 border border-white/10 cursor-pointer transition">
                         <div class="flex items-center justify-between mb-1.5">
                             <div class="flex items-center gap-2">
-                                <span class="w-6 h-6 rounded-lg bg-white/20 flex items-center justify-center text-xs font-bold">2</span>
-                                <h3 class="font-bold text-sm text-white">Pemilik / Pengelola Kos</h3>
+                                <span class="w-6 h-6 rounded-lg bg-blue-600 text-white flex items-center justify-center text-xs font-bold shrink-0">2</span>
+                                <h2 class="font-bold text-sm text-white">Pemilik / Pengelola Kos</h2>
                             </div>
-                            <span x-show="selectedRole === 'pemilik'" class="text-[10px] bg-white text-blue-700 font-bold px-2 py-0.5 rounded-full">Dipilih</span>
+                            <span x-show="selectedRole === 'pemilik'" class="text-[10px] bg-blue-500 text-white font-bold px-2 py-0.5 rounded-full">Dipilih</span>
                         </div>
-                        <p class="text-xs text-blue-100 leading-relaxed pl-8">
-                            Untuk juragan atau agen kos yang ingin memasang iklan kos, kelola ketersediaan kamar, dan pantau penyewa.
+                        <p class="text-xs text-slate-300 leading-relaxed pl-8">
+                            Untuk pemilik kos yang ingin memasang iklan properti nasional, mengatur kamar, menerima pemesanan, dan mengelola penyewa.
                         </p>
                     </div>
                 </div>
             </div>
 
-            {{-- Footer Layer Kiri: Link Kembali ke Beranda --}}
-            <div class="pt-6 mt-6 border-t border-blue-500/40 flex items-center justify-between text-xs text-blue-100">
-                <a href="{{ url('/') }}" class="inline-flex items-center gap-1.5 hover:text-white font-medium transition">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {{-- Footer Layer Kiri: Navigasi ke Beranda --}}
+            <div class="pt-8 mt-8 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
+                <a href="{{ url('/') }}" class="inline-flex items-center gap-1.5 text-slate-300 hover:text-white font-medium transition">
+                    <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                     </svg>
                     <span>Kembali ke Beranda</span>
                 </a>
-                <span class="text-blue-200 text-[11px]">© {{ date('Y') }} SevenKost</span>
+                <span class="text-slate-400 text-[11px]">© {{ date('Y') }} SevenKost</span>
             </div>
         </div>
 
         {{-- ============================================================= --}}
-        {{-- LAYER KANAN (PUTIH): KHUSUS FORM FIELD                        --}}
+        {{-- LAYER KANAN (PUTIH): KHUSUS FORM FIELD FULL SCREEN            --}}
+        {{-- Warna & Gaya Input: Sama Persis dengan Form Blade Dashboard   --}}
         {{-- ============================================================= --}}
-        <div class="lg:col-span-7 bg-white p-8 sm:p-10 lg:p-12 flex flex-col justify-center">
-            <div class="max-w-md w-full mx-auto">
+        <div class="w-full lg:w-7/12 xl:w-8/12 bg-white flex flex-col justify-center items-center p-6 sm:p-12 lg:p-16 xl:p-20">
+            <div class="max-w-md w-full">
 
                 {{-- Header Form --}}
-                <div class="mb-5">
-                    <h2 class="text-2xl font-black text-slate-900 tracking-tight">
+                <div class="mb-6">
+                    <span class="text-xs font-bold text-blue-600 uppercase tracking-wider block mb-1">
                         Pendaftaran Akun
+                    </span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                        Buat Akun SevenKost
                     </h2>
-                    <p class="text-sm text-slate-600 mt-1">
-                        Lengkapi formulir di bawah untuk membuat akun baru.
+                    <p class="text-xs sm:text-sm text-slate-500 mt-1.5">
+                        Lengkapi data di bawah ini untuk membuat akun baru Anda.
                     </p>
                 </div>
 
@@ -112,21 +124,21 @@
                     {{-- Hidden Role Input --}}
                     <input type="hidden" name="role" :value="selectedRole">
 
-                    {{-- Pilihan Role (Switcher Cepat di Form) --}}
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                            Daftar Sebagai:
+                    {{-- Switcher Role --}}
+                    <div class="space-y-1.5">
+                        <label class="block text-xs font-bold text-slate-700 uppercase">
+                            Daftar Sebagai <span class="text-red-500">*</span>
                         </label>
                         <div class="grid grid-cols-2 gap-2 p-1 bg-slate-100 rounded-xl">
                             <button type="button" 
                                     @click="setRole('penghuni')"
-                                    :class="selectedRole === 'penghuni' ? 'bg-blue-600 text-white font-bold shadow-sm' : 'text-slate-700 hover:text-slate-900 font-medium'"
+                                    :class="selectedRole === 'penghuni' ? 'bg-blue-600 text-white font-bold shadow-xs' : 'text-slate-700 hover:text-slate-900 font-medium'"
                                     class="py-2.5 px-3 rounded-lg text-xs sm:text-sm text-center transition cursor-pointer">
                                 Pencari / Penghuni
                             </button>
                             <button type="button" 
                                     @click="setRole('pemilik')"
-                                    :class="selectedRole === 'pemilik' ? 'bg-blue-600 text-white font-bold shadow-sm' : 'text-slate-700 hover:text-slate-900 font-medium'"
+                                    :class="selectedRole === 'pemilik' ? 'bg-blue-600 text-white font-bold shadow-xs' : 'text-slate-700 hover:text-slate-900 font-medium'"
                                     class="py-2.5 px-3 rounded-lg text-xs sm:text-sm text-center transition cursor-pointer">
                                 Pemilik Kos
                             </button>
@@ -134,9 +146,9 @@
                     </div>
 
                     {{-- Input Nama Lengkap --}}
-                    <div>
-                        <label for="name" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                            Nama Lengkap
+                    <div class="space-y-1.5">
+                        <label for="name" class="block text-xs font-bold text-slate-700 uppercase">
+                            Nama Lengkap <span class="text-red-500">*</span>
                         </label>
                         <input id="name" 
                                type="text" 
@@ -146,16 +158,16 @@
                                autofocus 
                                autocomplete="name" 
                                placeholder="Contoh: Budi Prasetyo"
-                               class="w-full px-4 py-3 rounded-xl border @error('name') border-red-400 bg-red-50/30 @else border-slate-300 bg-white @enderror text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition" />
+                               class="w-full text-sm rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-3 px-4 text-slate-900 placeholder-slate-400 @error('name') border-red-300 bg-red-50/20 @enderror transition" />
                         @error('name')
-                            <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p>
+                            <p class="text-xs text-red-600 font-medium mt-1">{{ $message }}</p>
                         @enderror
                     </div>
 
                     {{-- Input Email --}}
-                    <div>
-                        <label for="email" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                            Alamat Email
+                    <div class="space-y-1.5">
+                        <label for="email" class="block text-xs font-bold text-slate-700 uppercase">
+                            Alamat Email <span class="text-red-500">*</span>
                         </label>
                         <input id="email" 
                                type="email" 
@@ -164,18 +176,18 @@
                                required 
                                autocomplete="username" 
                                placeholder="nama@email.com"
-                               class="w-full px-4 py-3 rounded-xl border @error('email') border-red-400 bg-red-50/30 @else border-slate-300 bg-white @enderror text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition" />
+                               class="w-full text-sm rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-3 px-4 text-slate-900 placeholder-slate-400 @error('email') border-red-300 bg-red-50/20 @enderror transition" />
                         @error('email')
-                            <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p>
+                            <p class="text-xs text-red-600 font-medium mt-1">{{ $message }}</p>
                         @enderror
                     </div>
 
-                    {{-- Input Kata Sandi & Konfirmasi --}}
+                    {{-- Input Kata Sandi & Konfirmasi (Grid 2 Kolom) --}}
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                         {{-- Kata Sandi --}}
-                        <div>
-                            <label for="password" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                                Kata Sandi
+                        <div class="space-y-1.5">
+                            <label for="password" class="block text-xs font-bold text-slate-700 uppercase">
+                                Kata Sandi <span class="text-red-500">*</span>
                             </label>
                             <div class="relative">
                                 <input id="password" 
@@ -184,10 +196,10 @@
                                        required 
                                        autocomplete="new-password" 
                                        placeholder="Min. 8 karakter"
-                                       class="w-full pl-4 pr-10 py-3 rounded-xl border @error('password') border-red-400 bg-red-50/30 @else border-slate-300 bg-white @enderror text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition" />
+                                       class="w-full text-sm rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-3 pl-4 pr-10 text-slate-900 placeholder-slate-400 @error('password') border-red-300 bg-red-50/20 @enderror transition" />
                                 <button type="button" 
                                         @click="showPassword = !showPassword"
-                                        aria-label="Tampilkan sandi"
+                                        aria-label="Tampilkan kata sandi"
                                         class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-700 focus:outline-none cursor-pointer">
                                     <svg x-show="!showPassword" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -199,14 +211,14 @@
                                 </button>
                             </div>
                             @error('password')
-                                <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p>
+                                <p class="text-xs text-red-600 font-medium mt-1">{{ $message }}</p>
                             @enderror
                         </div>
 
                         {{-- Konfirmasi Kata Sandi --}}
-                        <div>
-                            <label for="password_confirmation" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                                Ulangi Sandi
+                        <div class="space-y-1.5">
+                            <label for="password_confirmation" class="block text-xs font-bold text-slate-700 uppercase">
+                                Ulangi Sandi <span class="text-red-500">*</span>
                             </label>
                             <div class="relative">
                                 <input id="password_confirmation" 
@@ -215,7 +227,7 @@
                                        required 
                                        autocomplete="new-password" 
                                        placeholder="Ulangi sandi"
-                                       class="w-full pl-4 pr-10 py-3 rounded-xl border @error('password_confirmation') border-red-400 bg-red-50/30 @else border-slate-300 bg-white @enderror text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition" />
+                                       class="w-full text-sm rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-3 pl-4 pr-10 text-slate-900 placeholder-slate-400 @error('password_confirmation') border-red-300 bg-red-50/20 @enderror transition" />
                                 <button type="button" 
                                         @click="showPasswordConfirmation = !showPasswordConfirmation"
                                         aria-label="Tampilkan sandi konfirmasi"
@@ -230,7 +242,7 @@
                                 </button>
                             </div>
                             @error('password_confirmation')
-                                <p class="mt-1 text-xs text-red-600 font-medium">{{ $message }}</p>
+                                <p class="text-xs text-red-600 font-medium mt-1">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
@@ -263,7 +275,7 @@
                 </form>
 
                 {{-- Link ke Login --}}
-                <div class="mt-5 pt-4 border-t border-slate-200 text-center text-xs sm:text-sm text-slate-600">
+                <div class="mt-6 pt-5 border-t border-slate-100 text-center text-xs sm:text-sm text-slate-600">
                     Sudah memiliki akun SevenKost?
                     <a href="{{ route('login') }}" class="font-bold text-blue-600 hover:text-blue-700 hover:underline ml-1">
                         Masuk ke Akun
