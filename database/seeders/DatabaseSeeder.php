@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             FacilitySeeder::class,
             KostSeeder::class,
             AdsPackageSeeder::class,
+            MarketplaceSeeder::class,
         ]);
     }
 }

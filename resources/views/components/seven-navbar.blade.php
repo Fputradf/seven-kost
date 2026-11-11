@@ -2,64 +2,57 @@
 
 <nav x-data="{ mobileMenuOpen: false, userDropdownOpen: false }" class="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/80 text-slate-800 shadow-xs">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-20 lg:h-22 gap-4">
-            {{-- Left: Logo & Search Bar --}}
-            <div class="flex items-center gap-4 lg:gap-6 flex-shrink-0">
-                <a href="{{ url('/') }}" class="flex items-center gap-2 group focus:outline-none">
-                    <img src="{{ asset('images/logo-seven-kost.png') }}" alt="SevenKost Logo" class="h-11 w-11 md:h-12 md:w-12 object-contain group-hover:scale-105 transition-transform drop-shadow-sm">
+        <div class="flex items-center justify-between h-18 sm:h-20 gap-4">
+            {{-- Left: Logo Brand --}}
+            <div class="flex items-center flex-shrink-0">
+                <a href="{{ url('/') }}" class="flex items-center gap-2.5 group focus:outline-none">
+                    <img src="{{ asset('images/logo-seven-kost.png') }}" alt="SevenKost Logo" class="h-10 w-10 sm:h-11 sm:w-11 object-contain group-hover:scale-105 transition-transform drop-shadow-sm">
+                    <span class="text-xl sm:text-2xl font-black tracking-tight text-slate-900 group-hover:text-blue-600 transition-colors">
+                        Seven<span class="text-blue-600">Kost</span>
+                    </span>
                 </a>
-
-                {{-- Quick Search Pill in Navbar --}}
-                <form action="{{ url('/cari') }}" method="GET" class="hidden sm:flex items-center">
-                    <div class="relative flex items-center">
-                        <span class="absolute left-4 text-slate-500 pointer-events-none">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                            </svg>
-                        </span>
-                        <input 
-                            type="text" 
-                            name="q" 
-                            value="{{ request('q') }}"
-                            placeholder="Cari kos di sini..." 
-                            class="pl-11 pr-5 py-2.5 text-sm lg:text-base font-medium bg-slate-100 hover:bg-slate-200/70 focus:bg-white text-slate-800 placeholder-slate-400 rounded-full border border-slate-200/80 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 w-48 md:w-60 lg:w-72 transition-all shadow-inner"
-                        >
-                    </div>
-                </form>
             </div>
 
-            {{-- Center: Desktop Nav Links (Prominent, Bold & Clear Typography) --}}
-            <div class="hidden md:flex items-center gap-6 lg:gap-10 text-base lg:text-[17px] font-bold text-slate-800">
-                {{-- Beranda --}}
-                <a href="{{ url('/') }}" class="flex items-center gap-2 transition-colors pb-1 {{ request()->is('/') ? 'text-blue-600 border-b-2 border-blue-600' : 'hover:text-blue-600' }}">
-                    <svg class="w-5 h-5 {{ request()->is('/') ? 'text-blue-600' : 'text-slate-700' }}" fill="currentColor" viewBox="0 0 20 20">
+            {{-- Center: Compact Desktop Nav Links (5 Fitur: Beranda, Pasang Iklan, Layanan, Marketplace, FAQ) --}}
+            <div class="hidden md:flex items-center gap-4 lg:gap-7 text-xs sm:text-sm lg:text-[15px] font-bold text-slate-800">
+                {{-- 1. Beranda --}}
+                <a href="{{ url('/') }}" class="flex items-center gap-1.5 transition-colors pb-1 {{ request()->is('/') ? 'text-blue-600 border-b-2 border-blue-600' : 'hover:text-blue-600' }}">
+                    <svg class="w-4 h-4 {{ request()->is('/') ? 'text-blue-600' : 'text-slate-600' }}" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
                     </svg>
                     <span>Beranda</span>
                 </a>
 
-                {{-- Layanan --}}
-                <a href="{{ url('/#layanan') }}" class="flex items-center gap-2 transition-colors hover:text-blue-600 pb-1">
-                    <svg class="w-5 h-5 text-slate-700" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
-                    </svg>
-                    <span>Layanan</span>
-                </a>
-
-                {{-- Pasang Iklan --}}
-                <a href="{{ url('/paket-iklan') }}" class="flex items-center gap-2 transition-colors pb-1 {{ request()->is('paket-iklan*') ? 'text-blue-600 border-b-2 border-blue-600' : 'hover:text-blue-600' }}">
-                    <svg class="w-5 h-5 text-slate-700" fill="currentColor" viewBox="0 0 20 20">
+                {{-- 2. Pasang Iklan --}}
+                <a href="{{ url('/paket-iklan') }}" class="flex items-center gap-1.5 transition-colors pb-1 {{ request()->is('paket-iklan*') ? 'text-blue-600 border-b-2 border-blue-600' : 'hover:text-blue-600' }}">
+                    <svg class="w-4 h-4 text-slate-600" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M18 3a1 1 0 00-1.447-.894L8.763 6H5a3 3 0 000 6h.28l1.771 5.316A1 1 0 008 18h1a1 1 0 001-1v-4.39l6.553 3.276A1 1 0 0018 15V3z" clip-rule="evenodd"/>
                     </svg>
                     <span>Pasang Iklan</span>
                 </a>
 
-                {{-- Marketplace --}}
-                <a href="{{ url('/#marketplace') }}" class="flex items-center gap-2 transition-colors hover:text-blue-600 pb-1">
-                    <svg class="w-5 h-5 text-slate-700" fill="currentColor" viewBox="0 0 20 20">
+                {{-- 3. Layanan --}}
+                <a href="{{ route('services.index') }}" class="flex items-center gap-1.5 transition-colors pb-1 {{ request()->is('layanan*') ? 'text-blue-600 border-b-2 border-blue-600 font-bold' : 'hover:text-blue-600' }}">
+                    <svg class="w-4 h-4 {{ request()->is('layanan*') ? 'text-blue-600' : 'text-slate-600' }}" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+                    </svg>
+                    <span>Layanan</span>
+                </a>
+
+                {{-- 4. Marketplace --}}
+                <a href="{{ route('marketplace.index') }}" class="flex items-center gap-1.5 transition-colors pb-1 {{ request()->is('marketplace*') ? 'text-blue-600 border-b-2 border-blue-600 font-bold' : 'hover:text-blue-600' }} text-slate-800">
+                    <svg class="w-4 h-4 {{ request()->is('marketplace*') ? 'text-blue-600' : 'text-slate-600' }}" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"/>
                     </svg>
                     <span>Marketplace</span>
+                </a>
+
+                {{-- 5. FAQ --}}
+                <a href="{{ url('/bantuan') }}" class="flex items-center gap-1.5 transition-colors pb-1 {{ request()->is('bantuan*') ? 'text-blue-600 border-b-2 border-blue-600' : 'hover:text-blue-600' }} text-slate-800">
+                    <svg class="w-4 h-4 {{ request()->is('bantuan*') ? 'text-blue-600' : 'text-slate-600' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span>FAQ</span>
                 </a>
             </div>
 
@@ -82,9 +75,9 @@
                             <div class="px-3 py-2 border-b border-slate-100">
                                 <p class="text-xs text-slate-400 font-medium">Masuk sebagai</p>
                                 <p class="text-xs font-bold text-slate-900 truncate">{{ Auth::user()->email }}</p>
-                                <span class="inline-block mt-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-blue-50 text-blue-700 capitalize">
+                                <div class="inline-block mt-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-blue-50 text-blue-700 capitalize">
                                     {{ Auth::user()->getRoleNames()->first() ?? 'Member' }}
-                                </span>
+                                </div>
                             </div>
 
                             @if(Auth::user()->hasAnyRole(['superadmin', 'admin']))
@@ -147,29 +140,12 @@
 
     {{-- Mobile Menu Dropdown --}}
     <div x-show="mobileMenuOpen" x-transition class="md:hidden border-t border-slate-100 bg-white px-4 pt-3 pb-6 space-y-3" style="display: none;">
-        {{-- Mobile Search --}}
-        <form action="{{ url('/cari') }}" method="GET" class="pt-1">
-            <div class="relative flex items-center">
-                <span class="absolute left-3.5 text-slate-400 pointer-events-none">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                    </svg>
-                </span>
-                <input 
-                    type="text" 
-                    name="q" 
-                    value="{{ request('q') }}"
-                    placeholder="Cari kos di sini..." 
-                    class="w-full pl-10 pr-4 py-2 text-sm bg-slate-100 rounded-full border border-slate-200"
-                >
-            </div>
-        </form>
-
-        <div class="space-y-1 text-base font-bold pt-2">
-            <a href="{{ url('/') }}" class="block px-3 py-2 rounded-lg text-blue-600 bg-blue-50">Beranda</a>
-            <a href="{{ url('/#layanan') }}" @click="mobileMenuOpen = false" class="block px-3 py-2 rounded-lg text-slate-800 hover:bg-slate-50">Layanan</a>
-            <a href="{{ url('/paket-iklan') }}" class="block px-3 py-2 rounded-lg text-slate-800 hover:bg-slate-50">Pasang Iklan</a>
-            <a href="{{ url('/#marketplace') }}" @click="mobileMenuOpen = false" class="block px-3 py-2 rounded-lg text-slate-800 hover:bg-slate-50">Marketplace</a>
+        <div class="space-y-1 text-base font-bold pt-1">
+            <a href="{{ url('/') }}" class="block px-3 py-2 rounded-lg {{ request()->is('/') ? 'text-blue-600 bg-blue-50' : 'text-slate-800 hover:bg-slate-50' }}">Beranda</a>
+            <a href="{{ url('/paket-iklan') }}" class="block px-3 py-2 rounded-lg {{ request()->is('paket-iklan*') ? 'text-blue-600 bg-blue-50' : 'text-slate-800 hover:bg-slate-50' }}">Pasang Iklan</a>
+            <a href="{{ route('services.index') }}" @click="mobileMenuOpen = false" class="block px-3 py-2 rounded-lg {{ request()->is('layanan*') ? 'text-blue-600 font-bold bg-blue-50' : 'text-slate-800 hover:bg-slate-50' }}">Layanan</a>
+            <a href="{{ route('marketplace.index') }}" @click="mobileMenuOpen = false" class="block px-3 py-2 rounded-lg {{ request()->is('marketplace*') ? 'text-blue-600 font-bold bg-blue-50' : 'text-slate-800 hover:bg-slate-50' }}">Marketplace</a>
+            <a href="{{ url('/bantuan') }}" @click="mobileMenuOpen = false" class="block px-3 py-2 rounded-lg {{ request()->is('bantuan*') ? 'text-blue-600 bg-blue-50' : 'text-slate-800 hover:bg-slate-50' }}">FAQ</a>
         </div>
 
         <div class="pt-3 border-t border-slate-100 flex flex-col gap-2">

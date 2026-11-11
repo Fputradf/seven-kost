@@ -5,11 +5,13 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KostDetailController;
 use App\Http\Controllers\MapController;
+use App\Http\Controllers\MarketplaceController;
 use App\Http\Controllers\Owner\KostController as OwnerKostController;
 use App\Http\Controllers\Owner\RoomTenantController as OwnerRoomTenantController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\WilayahController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,8 +24,20 @@ Route::get('/cari', [SearchController::class, 'index'])->name('search');
 // Peta Pencarian Nasional (Leaflet + Marker Cluster)
 Route::get('/peta', [MapController::class, 'index'])->name('map');
 
-// Paket Iklan Unggulan (Monetisasi BR-10, BR-15)
+// Paket Iklan & Promosi (Monetisasi BR-10, BR-15, Banner Komersial)
 Route::get('/paket-iklan', [AdsPackageController::class, 'index'])->name('ads.packages.index');
+
+// Layanan Kebutuhan Kos (Layanan Mitra)
+Route::get('/layanan', [ServiceController::class, 'index'])->name('services.index');
+
+// Marketplace Barang Kos (Jual Beli Sesama Anak Kos - Sistem COD)
+Route::get('/marketplace', [MarketplaceController::class, 'index'])->name('marketplace.index');
+Route::get('/marketplace/{slug}', [MarketplaceController::class, 'show'])->name('marketplace.show');
+
+// Pusat Bantuan & FAQ (Form bantuan & FAQ)
+Route::get('/bantuan', function () {
+    return view('bantuan');
+})->name('help');
 
 // Detail Kos Publik
 Route::get('/kos/{slug}', [KostDetailController::class, 'show'])->name('kost.detail');
@@ -36,8 +50,13 @@ Route::get('/api/wilayah/provinces/{province}/regencies', [WilayahController::cl
 
 // Rute Penghuni & Pemilik (Memerlukan Login)
 Route::middleware('auth')->group(function () {
-    // Pesan Paket Iklan
+    // Marketplace: Jual Barang Kos (Hanya Pengguna Login)
+    Route::get('/marketplace/jual/barang', [MarketplaceController::class, 'create'])->name('marketplace.create');
+    Route::post('/marketplace/jual/simpan', [MarketplaceController::class, 'store'])->name('marketplace.store');
+
+    // Pesan Paket Iklan & Banner
     Route::post('/paket-iklan/pesan', [AdsPackageController::class, 'order'])->name('ads.packages.order');
+    Route::post('/paket-iklan/banner', [AdsPackageController::class, 'orderBanner'])->name('ads.banner.order');
     // Alur Booking Sewa (Minggu 3 Hari 1)
     Route::post('/kos/{kost}/booking', [BookingController::class, 'store'])->name('tenant.bookings.store');
     Route::get('/penghuni/booking-saya', [BookingController::class, 'myBookings'])->name('tenant.bookings.index');

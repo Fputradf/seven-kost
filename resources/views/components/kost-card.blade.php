@@ -51,13 +51,13 @@
         {{-- Floating Badge Bottom (Ketersediaan) --}}
         <div class="absolute bottom-3 left-3 pointer-events-none">
             @if($availableRooms > 0)
-                <span class="rounded-lg bg-slate-900/80 backdrop-blur-md px-2.5 py-1 text-[11px] font-medium text-white shadow-sm">
+                <div class="inline-block rounded-lg bg-slate-900/80 backdrop-blur-md px-2.5 py-1 text-[11px] font-medium text-white shadow-sm">
                     Sisa {{ $availableRooms }} Kamar
-                </span>
+                </div>
             @else
-                <span class="rounded-lg bg-red-600/90 backdrop-blur-md px-2.5 py-1 text-[11px] font-medium text-white shadow-sm">
+                <div class="inline-block rounded-lg bg-red-600/90 backdrop-blur-md px-2.5 py-1 text-[11px] font-medium text-white shadow-sm">
                     Penuh
-                </span>
+                </div>
             @endif
         </div>
     </div>
@@ -84,9 +84,9 @@
         @if(!empty($facilities))
             <div class="flex items-center gap-1.5 mt-2.5 flex-wrap">
                 @foreach(array_slice($facilities, 0, 3) as $facility)
-                    <span class="rounded-md bg-slate-100 px-2 py-0.5 text-[11px] font-medium text-slate-600">
+                    <div class="rounded-md bg-slate-100 px-2 py-0.5 text-[11px] font-medium text-slate-600 inline-block">
                         {{ $facility }}
-                    </span>
+                    </div>
                 @endforeach
             </div>
         @endif

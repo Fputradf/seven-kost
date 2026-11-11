@@ -91,6 +91,7 @@
 │   │   │   ├── 📄 HomeController.php
 │   │   │   ├── 📄 KostDetailController.php
 │   │   │   ├── 📄 MapController.php
+│   │   │   ├── 📄 MarketplaceController.php
 │   │   │   ├── 📁 Owner/
 │   │   │   │   ├── 📄 KostController.php
 │   │   │   │   └── 📄 RoomTenantController.php
@@ -98,11 +99,13 @@
 │   │   │   ├── 📄 ReportController.php
 │   │   │   ├── 📄 SearchController.php
 │   │   │   ├── 📄 SeoWilayahController.php
+│   │   │   ├── 📄 ServiceController.php
 │   │   │   └── 📄 WilayahController.php
 │   │   └── 📁 Requests/
 │   │       ├── 📁 Auth/
 │   │       │   └── 📄 LoginRequest.php
-│   │       └── 📄 ProfileUpdateRequest.php
+│   │       ├── 📄 ProfileUpdateRequest.php
+│   │       └── 📄 StoreMarketplaceItemRequest.php
 │   ├── 📁 Models/
 │   │   ├── 📄 AdsPackage.php
 │   │   ├── 📄 AdsPromotion.php
@@ -111,6 +114,8 @@
 │   │   ├── 📄 Facility.php
 │   │   ├── 📄 Kost.php
 │   │   ├── 📄 KostImage.php
+│   │   ├── 📄 MarketplaceItem.php
+│   │   ├── 📄 MarketplaceItemImage.php
 │   │   ├── 📄 Province.php
 │   │   ├── 📄 Regency.php
 │   │   ├── 📄 Report.php
@@ -148,7 +153,8 @@
 │   ├── 📄 permission.php
 │   ├── 📄 queue.php
 │   ├── 📄 services.php
-│   └── 📄 session.php
+│   ├── 📄 session.php
+│   └── 📄 sevenkost.php
 ├── 📁 database/
 │   ├── 📄 .gitignore
 │   ├── 📁 data/
@@ -167,12 +173,14 @@
 │   │   ├── 📄 2026_11_06_111500_create_kosts_and_related_tables.php
 │   │   ├── 📄 2026_11_06_113000_create_bookings_table.php
 │   │   ├── 📄 2026_11_06_114500_create_reports_table.php
-│   │   └── 📄 2026_11_06_120000_create_ads_packages_and_banners_tables.php
+│   │   ├── 📄 2026_11_06_120000_create_ads_packages_and_banners_tables.php
+│   │   └── 📄 2026_11_09_202219_create_marketplace_items_tables.php
 │   └── 📁 seeders/
 │       ├── 📄 AdsPackageSeeder.php
 │       ├── 📄 DatabaseSeeder.php
 │       ├── 📄 FacilitySeeder.php
 │       ├── 📄 KostSeeder.php
+│       ├── 📄 MarketplaceSeeder.php
 │       ├── 📄 RolePermissionSeeder.php
 │       └── 📄 WilayahSeeder.php
 ├── 📁 Desain Aplikasi Seven Kos/
@@ -365,6 +373,7 @@
 │       │   ├── 📄 register.blade.php
 │       │   ├── 📄 reset-password.blade.php
 │       │   └── 📄 verify-email.blade.php
+│       ├── 📄 bantuan.blade.php
 │       ├── 📁 components/
 │       │   ├── 📄 application-logo.blade.php
 │       │   ├── 📄 auth-session-status.blade.php
@@ -380,6 +389,7 @@
 │       │   ├── 📄 responsive-nav-link.blade.php
 │       │   ├── 📄 secondary-button.blade.php
 │       │   ├── 📄 seven-badge.blade.php
+│       │   ├── 📄 seven-bottom-nav.blade.php
 │       │   ├── 📄 seven-button.blade.php
 │       │   ├── 📄 seven-footer.blade.php
 │       │   ├── 📄 seven-logo.blade.php
@@ -387,12 +397,17 @@
 │       │   └── 📄 text-input.blade.php
 │       ├── 📄 dashboard.blade.php
 │       ├── 📄 kost-detail.blade.php
+│       ├── 📄 layanan.blade.php
 │       ├── 📁 layouts/
 │       │   ├── 📄 app.blade.php
 │       │   ├── 📄 guest.blade.php
 │       │   ├── 📄 navigation.blade.php
 │       │   └── 📄 seven.blade.php
 │       ├── 📄 map-search.blade.php
+│       ├── 📁 marketplace/
+│       │   ├── 📄 create.blade.php
+│       │   ├── 📄 index.blade.php
+│       │   └── 📄 show.blade.php
 │       ├── 📁 owner/
 │       │   ├── 📁 kosts/
 │       │   │   ├── 📄 create.blade.php
@@ -588,6 +603,7 @@
 ├── 📄 tailwind.config.js
 ├── 📁 tests/
 │   ├── 📁 Feature/
+│   │   ├── 📄 AdsPackageTest.php
 │   │   ├── 📁 Auth/
 │   │   │   ├── 📄 AuthenticationTest.php
 │   │   │   ├── 📄 EmailVerificationTest.php
@@ -597,7 +613,11 @@
 │   │   │   └── 📄 RegistrationTest.php
 │   │   ├── 📄 ExampleTest.php
 │   │   ├── 📄 FrontendHomeTest.php
-│   │   └── 📄 ProfileTest.php
+│   │   ├── 📄 HelpFaqTest.php
+│   │   ├── 📄 KostDetailTest.php
+│   │   ├── 📄 MarketplaceTest.php
+│   │   ├── 📄 ProfileTest.php
+│   │   └── 📄 ServiceTest.php
 │   ├── 📄 TestCase.php
 │   └── 📁 Unit/
 │       └── 📄 ExampleTest.php

@@ -2,9 +2,6 @@
 
     <div class="bg-navy-950 text-white py-10 border-b border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <span class="inline-block px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-semibold mb-2">
-                Panel Penghuni
-            </span>
             <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
                 Riwayat Pengajuan Sewa & Booking Kos
             </h1>
@@ -50,9 +47,9 @@
                                         default => ['bg' => 'bg-amber-50 text-amber-700 border-amber-200', 'label' => 'Menunggu Konfirmasi'],
                                     };
                                 @endphp
-                                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold border {{ $statusBadge['bg'] }} whitespace-nowrap">
+                                <div class="px-2.5 py-1 rounded-md text-[10px] font-bold border {{ $statusBadge['bg'] }} whitespace-nowrap">
                                     {{ $statusBadge['label'] }}
-                                </span>
+                                </div>
                             </div>
 
                             {{-- Details box --}}
