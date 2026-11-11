@@ -19,14 +19,14 @@
         {{-- ============================================================= --}}
         {{-- LAYER KIRI / ATAS MOBILE (NAVY GELAP SEPERTI WELCOME HERO)   --}}
         {{-- ============================================================= --}}
-        <div class="w-full lg:w-1/2 bg-gradient-to-br from-[#031d44] via-[#05377a] to-[#020b1f] text-white flex flex-col justify-between shrink-0 lg:overflow-hidden relative">
+        <div class="w-full lg:w-1/2 bg-gradient-to-br from-[#031d44] via-[#05377a] to-[#020b1f] text-white flex flex-col justify-center shrink-0 lg:overflow-hidden relative">
             
             {{-- Glow samar biru seperti pada welcome hero --}}
             <div class="absolute -top-24 -left-24 w-80 h-80 bg-blue-500/15 rounded-full blur-3xl pointer-events-none"></div>
             <div class="absolute -bottom-20 -right-20 w-80 h-80 bg-sky-400/10 rounded-full blur-3xl pointer-events-none"></div>
 
             {{-- Konten Utama Header --}}
-            <div class="p-4 sm:p-6 lg:p-6 xl:p-8 pb-1 sm:pb-2 lg:pb-2 relative z-10 flex-1 overflow-y-auto lg:overflow-visible">
+            <div class="p-4 sm:p-6 lg:p-8 xl:p-10 relative z-10 w-full max-w-lg xl:max-w-xl mx-auto my-auto">
                 {{-- Top Navigation: Tombol Kembali ke Beranda & Logo Brand (Mobile Friendly) --}}
                 <div class="flex items-center justify-between gap-3 mb-3 lg:mb-3.5">
                     <a href="{{ url('/') }}" class="inline-flex items-center gap-1.5 text-xs font-semibold text-white hover:text-white transition group py-1.5 px-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 w-fit backdrop-blur-md shadow-xs">
@@ -153,19 +153,13 @@
                     <path d="M0,60 C320,120 540,25 840,70 C1140,115 1320,40 1440,65 L1440,120 L0,120 Z" class="fill-white"></path>
                 </svg>
             </div>
-
-            {{-- Footer Layer Kiri: Hak Cipta (Desktop Saja) --}}
-            <div class="hidden lg:flex px-6 lg:px-8 xl:px-10 py-3.5 border-t border-white/15 items-center justify-between text-[11px] text-blue-200 shrink-0 bg-[#020b1f]/40 backdrop-blur-xs">
-                <span class="text-blue-200">SevenKost Indonesia</span>
-                <span class="text-blue-200">© {{ date('Y') }}</span>
-            </div>
         </div>
 
         {{-- ============================================================= --}}
         {{-- LAYER KANAN / BAWAH MOBILE (FORM PUTIH BERSIH & RESPONSIVE)   --}}
         {{-- ============================================================= --}}
-        <div class="w-full lg:w-1/2 bg-white flex flex-col justify-start lg:justify-center items-center px-5 pt-3 pb-8 sm:p-8 lg:p-10 xl:p-12 flex-1 overflow-y-auto">
-            <div class="max-w-sm xl:max-w-md w-full">
+        <div class="w-full lg:w-1/2 bg-white flex flex-col items-center px-5 py-6 sm:p-8 lg:p-10 xl:p-12 flex-1 overflow-y-auto">
+            <div class="max-w-sm xl:max-w-md w-full my-auto">
 
                 {{-- Header Form --}}
                 <div class="mb-4 sm:mb-5">
@@ -398,11 +392,6 @@
                     <a href="{{ route('login') }}" class="font-semibold text-blue-600 hover:text-blue-700 hover:underline ml-1">
                         Masuk ke Akun
                     </a>
-                </div>
-
-                {{-- Mobile Copyright Footer --}}
-                <div class="mt-4 text-center lg:hidden text-[10px] text-slate-400">
-                    SevenKost Indonesia © {{ date('Y') }}
                 </div>
 
             </div>
