@@ -47,7 +47,7 @@
                     <div class="absolute inset-0 bg-gradient-to-t from-blue-950/70 via-transparent to-transparent"></div>
                     <div class="absolute bottom-2 left-2.5 right-2.5 flex items-center justify-between text-white">
                         <span class="bg-blue-600/90 backdrop-blur-xs px-2.5 py-0.5 rounded-lg text-[10px] font-semibold shadow-xs">
-                            10.000+ Kos Aktif
+                            Kost Terverifikasi
                         </span>
                         <span class="bg-black/50 backdrop-blur-xs px-2.5 py-0.5 rounded-lg text-[10px] font-medium">
                             34 Provinsi
