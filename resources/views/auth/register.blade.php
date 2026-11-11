@@ -63,8 +63,8 @@
                     </div>
                 </div>
 
-                {{-- Penjelasan Role Singkat --}}
-                <div class="space-y-2">
+                {{-- Penjelasan Role Singkat (3 Peran: Penghuni, Pemilik, Mitra) --}}
+                <div class="space-y-1.5">
                     <div class="text-[10px] font-bold uppercase tracking-wider text-blue-200">
                         Pilih Peran Akun:
                     </div>
@@ -72,7 +72,7 @@
                     {{-- Role 1: Pencari / Penghuni --}}
                     <div @click="setRole('penghuni')"
                          :class="selectedRole === 'penghuni' ? 'ring-2 ring-white bg-blue-700 shadow-sm' : 'bg-blue-700/60 opacity-80 hover:opacity-100'"
-                         class="rounded-lg p-2.5 border border-blue-400/40 cursor-pointer transition">
+                         class="rounded-lg p-2 border border-blue-400/40 cursor-pointer transition">
                         <div class="flex items-center justify-between mb-0.5">
                             <div class="flex items-center gap-1.5">
                                 <span class="w-4 h-4 rounded bg-white text-blue-600 flex items-center justify-center text-[10px] font-black shrink-0">1</span>
@@ -80,7 +80,7 @@
                             </div>
                             <span x-show="selectedRole === 'penghuni'" class="text-[9px] bg-white text-blue-700 font-extrabold px-1.5 py-0.5 rounded-full">Dipilih</span>
                         </div>
-                        <p class="text-[11px] text-blue-100 pl-5.5 leading-relaxed">
+                        <p class="text-[10px] text-blue-100 pl-5.5 leading-tight">
                             Cari kos berdasarkan kota & peta interaktif, booking kamar online, dan pantau status sewa.
                         </p>
                     </div>
@@ -88,7 +88,7 @@
                     {{-- Role 2: Pemilik Kos --}}
                     <div @click="setRole('pemilik')"
                          :class="selectedRole === 'pemilik' ? 'ring-2 ring-white bg-blue-700 shadow-sm' : 'bg-blue-700/60 opacity-80 hover:opacity-100'"
-                         class="rounded-lg p-2.5 border border-blue-400/40 cursor-pointer transition">
+                         class="rounded-lg p-2 border border-blue-400/40 cursor-pointer transition">
                         <div class="flex items-center justify-between mb-0.5">
                             <div class="flex items-center gap-1.5">
                                 <span class="w-4 h-4 rounded bg-white text-blue-600 flex items-center justify-center text-[10px] font-black shrink-0">2</span>
@@ -96,8 +96,24 @@
                             </div>
                             <span x-show="selectedRole === 'pemilik'" class="text-[9px] bg-white text-blue-700 font-extrabold px-1.5 py-0.5 rounded-full">Dipilih</span>
                         </div>
-                        <p class="text-[11px] text-blue-100 pl-5.5 leading-relaxed">
+                        <p class="text-[10px] text-blue-100 pl-5.5 leading-tight">
                             Pasang iklan kos nasional, atur kamar & tarif sewa, konfirmasi pemesanan, dan kelola penyewa.
+                        </p>
+                    </div>
+
+                    {{-- Role 3: Mitra Layanan --}}
+                    <div @click="setRole('mitra')"
+                         :class="selectedRole === 'mitra' ? 'ring-2 ring-white bg-blue-700 shadow-sm' : 'bg-blue-700/60 opacity-80 hover:opacity-100'"
+                         class="rounded-lg p-2 border border-blue-400/40 cursor-pointer transition">
+                        <div class="flex items-center justify-between mb-0.5">
+                            <div class="flex items-center gap-1.5">
+                                <span class="w-4 h-4 rounded bg-white text-blue-600 flex items-center justify-center text-[10px] font-black shrink-0">3</span>
+                                <h2 class="font-bold text-xs text-white">Mitra Layanan Kos</h2>
+                            </div>
+                            <span x-show="selectedRole === 'mitra'" class="text-[9px] bg-white text-blue-700 font-extrabold px-1.5 py-0.5 rounded-full">Dipilih</span>
+                        </div>
+                        <p class="text-[10px] text-blue-100 pl-5.5 leading-tight">
+                            Tawarkan jasa laundry, katering, kebersihan, atau servis teknisi langsung ke ekosistem kos.
                         </p>
                     </div>
                 </div>
@@ -136,23 +152,29 @@
                     {{-- Hidden Role Input --}}
                     <input type="hidden" name="role" :value="selectedRole">
 
-                    {{-- Switcher Role --}}
+                    {{-- Switcher Role (3 Pilihan: Penghuni, Pemilik, Mitra) --}}
                     <div class="space-y-1">
                         <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">
                             Daftar Sebagai <span class="text-red-500">*</span>
                         </label>
-                        <div class="grid grid-cols-2 gap-1.5 p-1 bg-slate-100 rounded-lg">
+                        <div class="grid grid-cols-3 gap-1 p-1 bg-slate-100 rounded-lg">
                             <button type="button" 
                                     @click="setRole('penghuni')"
                                     :class="selectedRole === 'penghuni' ? 'bg-blue-600 text-white font-bold shadow-xs' : 'text-slate-700 hover:text-slate-900 font-medium'"
-                                    class="py-1.5 px-2.5 rounded-md text-xs text-center transition cursor-pointer">
-                                Pencari / Penghuni
+                                    class="py-1.5 px-2 rounded-md text-[11px] sm:text-xs text-center transition cursor-pointer">
+                                Penghuni
                             </button>
                             <button type="button" 
                                     @click="setRole('pemilik')"
                                     :class="selectedRole === 'pemilik' ? 'bg-blue-600 text-white font-bold shadow-xs' : 'text-slate-700 hover:text-slate-900 font-medium'"
-                                    class="py-1.5 px-2.5 rounded-md text-xs text-center transition cursor-pointer">
+                                    class="py-1.5 px-2 rounded-md text-[11px] sm:text-xs text-center transition cursor-pointer">
                                 Pemilik Kos
+                            </button>
+                            <button type="button" 
+                                    @click="setRole('mitra')"
+                                    :class="selectedRole === 'mitra' ? 'bg-blue-600 text-white font-bold shadow-xs' : 'text-slate-700 hover:text-slate-900 font-medium'"
+                                    class="py-1.5 px-2 rounded-md text-[11px] sm:text-xs text-center transition cursor-pointer">
+                                Mitra Layanan
                             </button>
                         </div>
                     </div>

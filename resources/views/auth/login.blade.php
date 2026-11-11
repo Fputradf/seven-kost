@@ -55,31 +55,42 @@
                     </div>
                 </div>
 
-                {{-- Penjelasan Role Singkat --}}
-                <div class="space-y-2">
+                {{-- Penjelasan Role Singkat (3 Peran: Penghuni, Pemilik, Mitra) --}}
+                <div class="space-y-1.5">
                     <div class="text-[10px] font-bold uppercase tracking-wider text-blue-200">
                         Akses Layanan Sesuai Peran:
                     </div>
 
                     {{-- Role 1: Pencari / Penghuni --}}
-                    <div class="bg-blue-700/70 rounded-lg p-2.5 border border-blue-400/40">
-                        <div class="flex items-center gap-2 mb-0.5">
+                    <div class="bg-blue-700/70 rounded-lg p-2 border border-blue-400/40">
+                        <div class="flex items-center gap-1.5 mb-0.5">
                             <span class="w-4 h-4 rounded bg-white text-blue-600 flex items-center justify-center text-[10px] font-black shrink-0">1</span>
                             <h2 class="font-bold text-xs text-white">Pencari / Penghuni Kos</h2>
                         </div>
-                        <p class="text-[11px] text-blue-100 pl-6 leading-relaxed">
-                            Cari kos terverifikasi, lihat peta interaktif, booking kamar online, dan akses layanan mitra kos.
+                        <p class="text-[10px] text-blue-100 pl-5.5 leading-tight">
+                            Cari kos terverifikasi, booking kamar online, dan akses layanan kebutuhan harian.
                         </p>
                     </div>
 
                     {{-- Role 2: Pemilik Kos --}}
-                    <div class="bg-blue-700/70 rounded-lg p-2.5 border border-blue-400/40">
-                        <div class="flex items-center gap-2 mb-0.5">
+                    <div class="bg-blue-700/70 rounded-lg p-2 border border-blue-400/40">
+                        <div class="flex items-center gap-1.5 mb-0.5">
                             <span class="w-4 h-4 rounded bg-white text-blue-600 flex items-center justify-center text-[10px] font-black shrink-0">2</span>
                             <h2 class="font-bold text-xs text-white">Pemilik / Pengelola Kos</h2>
                         </div>
-                        <p class="text-[11px] text-blue-100 pl-6 leading-relaxed">
-                            Pasang iklan properti kos, atur ketersediaan kamar, terima pemesanan, dan pantau penyewa.
+                        <p class="text-[10px] text-blue-100 pl-5.5 leading-tight">
+                            Pasang iklan properti kos, atur kamar, terima pemesanan, dan pantau penyewa.
+                        </p>
+                    </div>
+
+                    {{-- Role 3: Mitra Layanan --}}
+                    <div class="bg-blue-700/70 rounded-lg p-2 border border-blue-400/40">
+                        <div class="flex items-center gap-1.5 mb-0.5">
+                            <span class="w-4 h-4 rounded bg-white text-blue-600 flex items-center justify-center text-[10px] font-black shrink-0">3</span>
+                            <h2 class="font-bold text-xs text-white">Mitra Layanan Kos</h2>
+                        </div>
+                        <p class="text-[10px] text-blue-100 pl-5.5 leading-tight">
+                            Tawarkan jasa laundry, kebersihan, katering, dan teknisi langsung ke komunitas kos.
                         </p>
                     </div>
                 </div>
