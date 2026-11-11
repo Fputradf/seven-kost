@@ -27,37 +27,29 @@
 
             {{-- Konten Utama Header --}}
             <div class="p-4 sm:p-6 lg:p-8 xl:p-10 relative z-10 w-full max-w-lg xl:max-w-xl mx-auto my-auto">
-                {{-- Top Navigation: Tombol Kembali ke Beranda & Logo Brand (Mobile Friendly) --}}
-                <div class="flex items-center justify-between gap-3 mb-3 lg:mb-3.5">
+                {{-- Top Navigation: Tombol Kembali ke Beranda (Hanya Desktop) --}}
+                <div class="hidden lg:flex items-center gap-3 mb-4">
                     <a href="{{ url('/') }}" class="inline-flex items-center gap-1.5 text-xs font-semibold text-white hover:text-white transition group py-1.5 px-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 w-fit backdrop-blur-md shadow-xs">
                         <svg class="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                         </svg>
                         <span>Kembali ke Beranda</span>
                     </a>
-
-                    {{-- Logo Brand di Pojok Kanan (Hanya Mobile) --}}
-                    <div class="flex items-center gap-2 lg:hidden">
-                        <img src="{{ asset('images/logo-seven-kost.png') }}" 
-                             alt="Logo SevenKost" 
-                             class="h-7 w-7 object-contain bg-white rounded-lg p-0.5 shadow-xs">
-                        <span class="text-base font-bold tracking-tight text-white">
-                            Seven<span class="text-sky-300">Kost</span>
-                        </span>
-                    </div>
                 </div>
 
-                {{-- Brand Header Desktop (Logo & Nama Aplikasi) --}}
-                <div class="hidden lg:flex items-center gap-2.5 mb-3">
-                    <img src="{{ asset('images/logo-seven-kost.png') }}" 
-                         alt="Logo SevenKost" 
-                         class="h-8 w-8 object-contain bg-white rounded-xl p-1 shadow-xs">
-                    <div>
-                        <span class="text-lg xl:text-xl font-bold tracking-tight leading-none text-white block">
-                            Seven<span class="text-sky-300">Kost</span>
-                        </span>
-                        <span class="text-[11px] text-blue-200 font-medium">Platform Cari & Kelola Kos</span>
-                    </div>
+                {{-- Brand Header (Logo di Pojok Kiri di Mobile & Desktop) --}}
+                <div class="flex items-center gap-2.5 mb-3 lg:mb-4">
+                    <a href="{{ url('/') }}" class="flex items-center gap-2.5 group">
+                        <img src="{{ asset('images/logo-seven-kost.png') }}" 
+                             alt="Logo SevenKost" 
+                             class="h-7 w-7 lg:h-8 lg:w-8 object-contain bg-white rounded-xl p-1 shadow-xs">
+                        <div>
+                            <span class="text-base lg:text-lg xl:text-xl font-bold tracking-tight leading-none text-white block">
+                                Seven<span class="text-sky-300">Kost</span>
+                            </span>
+                            <span class="text-[10px] lg:text-[11px] text-blue-200 font-medium block">Platform Cari & Kelola Kos</span>
+                        </div>
+                    </a>
                 </div>
 
                 {{-- Headline Ringkas --}}
@@ -143,16 +135,16 @@
             </div>
 
             {{-- ========================================================= --}}
-            {{-- MULTI-LAYER WAVE PATTERN TRANSITION (BESAR, ROUNDED & MELEKUK) --}}
+            {{-- MULTI-LAYER WAVE PATTERN TRANSITION (EKSTRA BESAR KE BAWAH) --}}
             {{-- ========================================================= --}}
             <div class="w-full overflow-hidden leading-none lg:hidden pointer-events-none -mb-[1px]">
-                <svg class="relative block w-full h-20 sm:h-28" viewBox="0 0 1440 220" preserveAspectRatio="none">
+                <svg class="relative block w-full h-28 sm:h-36" viewBox="0 0 1440 320" preserveAspectRatio="none">
                     {{-- Layer Gelombang Belakang (Semi-transparan untuk kedalaman) --}}
-                    <path d="M0,60 C320,160 640,10 960,110 C1200,180 1360,110 1440,70 L1440,220 L0,220 Z" class="fill-white/20"></path>
+                    <path d="M0,80 C360,260 720,20 1080,200 C1240,260 1360,180 1440,120 L1440,320 L0,320 Z" class="fill-white/20"></path>
                     {{-- Layer Gelombang Tengah (Semi-transparan untuk kedalaman berlapis) --}}
-                    <path d="M0,110 C360,20 680,170 1020,70 C1220,10 1360,100 1440,60 L1440,220 L0,220 Z" class="fill-white/40"></path>
+                    <path d="M0,140 C320,40 680,260 1040,100 C1220,30 1360,180 1440,100 L1440,320 L0,320 Z" class="fill-white/40"></path>
                     {{-- Layer Gelombang Depan (Solid White menyatu ke form) --}}
-                    <path d="M0,90 C320,180 640,30 960,130 C1200,190 1360,130 1440,80 L1440,220 L0,220 Z" class="fill-white"></path>
+                    <path d="M0,120 C360,280 720,50 1080,220 C1240,280 1360,200 1440,130 L1440,320 L0,320 Z" class="fill-white"></path>
                 </svg>
             </div>
         </div>
@@ -160,7 +152,7 @@
         {{-- ============================================================= --}}
         {{-- LAYER KANAN / BAWAH MOBILE (FORM PUTIH BERSIH & RESPONSIVE)   --}}
         {{-- ============================================================= --}}
-        <div class="w-full lg:w-1/2 bg-white rounded-t-[2.5rem] sm:rounded-t-[3rem] lg:rounded-none -mt-5 sm:-mt-7 lg:mt-0 relative z-10 shadow-2xl lg:shadow-none flex flex-col items-center px-5 py-6 sm:p-8 lg:p-10 xl:p-12 flex-1 overflow-y-auto">
+        <div class="w-full lg:w-1/2 bg-white rounded-t-[2.5rem] sm:rounded-t-[3rem] lg:rounded-none -mt-6 sm:-mt-8 lg:mt-0 relative z-10 shadow-2xl lg:shadow-none flex flex-col items-center px-5 py-6 sm:p-8 lg:p-10 xl:p-12 flex-1 overflow-y-auto">
             <div class="max-w-sm xl:max-w-md w-full my-auto">
 
                 {{-- Header Form --}}
@@ -185,7 +177,7 @@
 
                     {{-- Switcher Role --}}
                     <div class="space-y-1">
-                        <label class="block text-xs font-medium text-slate-700">
+                        <label class="block text-x  s font-medium text-slate-700">
                             Daftar Sebagai <span class="text-red-500">*</span>
                         </label>
                         <div class="grid grid-cols-3 gap-1 p-1 bg-slate-100 rounded-xl">
