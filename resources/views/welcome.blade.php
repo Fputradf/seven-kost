@@ -1,54 +1,85 @@
-<x-seven-layout title="SevenKost - Cari Kos Jadi Lebih Mudah | Platform Kos Terpercaya">
+<x-seven-layout title="SevenKost - Cari Kos Jadi Lebih Mudah | Platform Kos Terpercaya" :transparentNavbar="true">
 
-    {{-- 1. HERO SECTION (Vibrant Blue Gradient, Building & Floating Search) --}}
-    <section class="relative bg-gradient-to-r from-[#031d44] via-[#05377a] to-[#0a66c2] text-white overflow-hidden pt-8 pb-16 lg:pt-14 lg:pb-24">
-        {{-- Background Glow Accents --}}
-        <div class="absolute -top-20 -left-20 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute top-1/2 right-10 w-[500px] h-[500px] bg-sky-400/15 rounded-full blur-3xl pointer-events-none"></div>
+@push('styles')
+<style>
+    @keyframes heroFadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(24px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    .hero-animate-1 { animation: heroFadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both; }
+    .hero-animate-2 { animation: heroFadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both; }
+    .hero-animate-3 { animation: heroFadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both; }
+    .hero-animate-4 { animation: heroFadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.55s both; }
+</style>
+@endpush
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                {{-- Hero Left Content --}}
-                <div class="lg:col-span-7 space-y-5 text-center lg:text-left">
-                    {{-- Main Headline --}}
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.15]">
-                        Cari Kos Jadi <br>
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 via-cyan-300 to-blue-200">
-                            Lebih Mudah
-                        </span>
-                    </h1>
+    {{-- 1. HERO SECTION (FULLSCREEN DARK HERO DENGAN OVERLAY FOTO GEDUNG & SEARCH TERPUSAT) --}}
+    <section class="relative min-h-screen w-full flex flex-col justify-center items-center text-center overflow-hidden pt-28 pb-16 lg:pt-32 lg:pb-20">
+        
+        {{-- Fullscreen Background Image dengan Overlay Navy Gelap --}}
+        <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+            <img 
+                src="{{ asset('images/frontend/hero-building-hd.jpg') }}" 
+                alt="SevenKost Hero Background" 
+                class="w-full h-full object-cover object-center scale-105 filter brightness-90"
+            >
+            {{-- Overlay gradient navy gelap (atas sekitar #031d44 opacity 60%, bawah hampir solid #020b1f) --}}
+            <div class="absolute inset-0 bg-gradient-to-b from-[#031d44]/65 via-[#031d44]/85 to-[#020b1f]"></div>
+            {{-- Glow biru samar di tengah --}}
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] bg-blue-500/20 rounded-full blur-[140px]"></div>
+        </div>
 
-                    <p class="text-blue-100 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 font-normal leading-relaxed">
-                        Temukan kos terbaik di lokasi strategis, dengan harga bersahabat.
-                    </p>
-                </div>
+        {{-- Hero Center Content (Horisontal & Vertikal Rata Tengah) --}}
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full flex flex-col items-center">
+            
+            {{-- Main Headline --}}
+            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] text-white hero-animate-1">
+                Cari Kos Jadi <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 via-cyan-300 to-blue-200">
+                    Lebih Mudah
+                </span>
+            </h1>
 
-                {{-- Hero Right: Modern Building Facade (HD Internet Image) --}}
-                <div class="lg:col-span-5 relative hidden lg:block">
-                    <div class="relative mx-auto rounded-3xl overflow-hidden shadow-2xl border-4 border-white/20 group cursor-pointer transition-all duration-500 hover:shadow-blue-500/30">
-                        <img 
-                            src="{{ asset('images/frontend/hero-building-hd.jpg') }}" 
-                            alt="SevenKost Hunian Strategis HD" 
-                            class="w-full h-84 object-cover group-hover:scale-108 transition-transform duration-700 ease-out"
-                        >
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent"></div>
-                        <div class="absolute bottom-4 right-4 text-xs text-white">
-                            <span class="bg-black/60 backdrop-blur-md px-3 py-1 font-semibold">
-                                34 Provinsi
-                            </span>
-                        </div>
-                    </div>
-                </div>
+            {{-- Subheading Rata Tengah --}}
+            <p class="text-blue-100/90 text-sm sm:text-base md:text-lg max-w-[700px] mx-auto font-medium leading-relaxed mt-4 sm:mt-5 hero-animate-2">
+                Temukan kos terbaik di lokasi strategis di 34 Provinsi, dengan harga bersahabat.
+            </p>
+
+            {{-- 2 Tombol Aksi Berdampingan (Menumpuk di Mobile) --}}
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4 mt-6 sm:mt-8 w-full sm:w-auto hero-animate-3">
+                {{-- Primary Button: Cari Kos Sekarang --}}
+                <a href="{{ url('/cari') }}" 
+                   class="w-full sm:w-auto px-7 py-3.5 rounded-xl font-bold text-sm sm:text-base text-white bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 shadow-lg shadow-blue-500/30 transition transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                    <span>Cari Kos Sekarang</span>
+                </a>
+
+                {{-- Secondary Button: Pasang Iklan Kos --}}
+                <a href="{{ url('/paket-iklan') }}" 
+                   class="w-full sm:w-auto px-7 py-3.5 rounded-xl font-bold text-sm sm:text-base text-white bg-white/10 hover:bg-white/20 border border-white/25 backdrop-blur-md transition transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 shadow-sm">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                    </svg>
+                    <span>Pasang Iklan Kos</span>
+                </a>
             </div>
 
-            {{-- Floating Search Bar Card --}}
+            {{-- Floating Search Bar Card (Gaya Glass: bg-white/95 + backdrop-blur, max-w-5xl, posisi di bawah tombol) --}}
             <div 
                 x-data="{
                     location: '{{ request('kota', '') }}',
                     type: '{{ request('tipe', '') }}',
                     price: '{{ request('max_price', '') }}'
                 }"
-                class="mt-10 lg:mt-12 bg-white rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-5 text-slate-800 border border-slate-100"
+                class="w-full max-w-5xl mx-auto mt-8 sm:mt-10 bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-5 text-slate-800 border border-white/40 text-left hero-animate-4"
             >
                 <form action="{{ url('/cari') }}" method="GET">
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-center">
@@ -134,7 +165,7 @@
     </section>
 
     {{-- 2. BANNER IKLAN WIDE (DIPASANG OLEH PEMILIK / ADMIN - SLIDER PROMOSI SPONSOR KOMERSIAL) --}}
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 sm:-mt-8 relative z-20">
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 sm:mt-12 relative z-20">
         @php
             $bannerItems = [];
             if (isset($banners) && $banners->count() > 0) {
