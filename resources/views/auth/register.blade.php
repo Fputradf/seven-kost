@@ -164,59 +164,59 @@
         {{-- ============================================================= --}}
         {{-- LAYER KANAN / BAWAH MOBILE (FORM PUTIH BERSIH & RESPONSIVE)   --}}
         {{-- ============================================================= --}}
-        <div class="w-full lg:w-1/2 bg-white flex flex-col justify-start lg:justify-center items-center px-5 pt-3 pb-12 sm:p-8 lg:p-10 xl:p-12 flex-1 overflow-y-auto">
+        <div class="w-full lg:w-1/2 bg-white flex flex-col justify-start lg:justify-center items-center px-5 pt-3 pb-6 sm:px-8 sm:py-6 lg:py-4 xl:py-6 lg:px-8 xl:px-12 flex-1 overflow-y-auto">
             <div class="max-w-sm xl:max-w-md w-full">
 
                 {{-- Header Form --}}
-                <div class="mb-3 sm:mb-3.5">
-                    <span class="text-xs font-semibold text-blue-600 block mb-0.5">
+                <div class="mb-2 sm:mb-2.5">
+                    <span class="text-[11px] sm:text-xs font-semibold text-blue-600 block mb-0.5">
                         Pendaftaran Akun
                     </span>
-                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+                    <h2 class="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
                         Buat Akun SevenKost
                     </h2>
-                    <p class="text-xs text-slate-500 mt-0.5">
+                    <p class="text-[11px] sm:text-xs text-slate-500 mt-0.5">
                         Lengkapi formulir di bawah ini untuk membuat akun baru Anda.
                     </p>
                 </div>
 
                 {{-- Form Register --}}
-                <form method="POST" action="{{ route('register') }}" class="space-y-2.5">
+                <form method="POST" action="{{ route('register') }}" class="space-y-2">
                     @csrf
 
                     {{-- Hidden Role Input --}}
                     <input type="hidden" name="role" :value="selectedRole">
 
                     {{-- Switcher Role --}}
-                    <div class="space-y-1">
-                        <label class="block text-xs font-medium text-slate-700">
+                    <div class="space-y-0.5">
+                        <label class="block text-[11px] sm:text-xs font-medium text-slate-700">
                             Daftar Sebagai <span class="text-red-500">*</span>
                         </label>
-                        <div class="grid grid-cols-3 gap-1 p-1 bg-slate-100 rounded-xl">
+                        <div class="grid grid-cols-3 gap-1 p-0.5 bg-slate-100 rounded-xl">
                             <button type="button" 
                                     @click="setRole('penghuni')"
                                     :class="selectedRole === 'penghuni' ? 'bg-blue-600 text-white font-semibold shadow-xs' : 'text-slate-700 hover:text-slate-900 font-normal'"
-                                    class="py-1.5 px-2 rounded-lg text-xs text-center transition cursor-pointer">
+                                    class="py-1 px-2 rounded-lg text-[11px] sm:text-xs text-center transition cursor-pointer">
                                 Penghuni
                             </button>
                             <button type="button" 
                                     @click="setRole('pemilik')"
                                     :class="selectedRole === 'pemilik' ? 'bg-blue-600 text-white font-semibold shadow-xs' : 'text-slate-700 hover:text-slate-900 font-normal'"
-                                    class="py-1.5 px-2 rounded-lg text-xs text-center transition cursor-pointer">
+                                    class="py-1 px-2 rounded-lg text-[11px] sm:text-xs text-center transition cursor-pointer">
                                 Pemilik Kos
                             </button>
                             <button type="button" 
                                     @click="setRole('mitra')"
                                     :class="selectedRole === 'mitra' ? 'bg-blue-600 text-white font-semibold shadow-xs' : 'text-slate-700 hover:text-slate-900 font-normal'"
-                                    class="py-1.5 px-2 rounded-lg text-xs text-center transition cursor-pointer">
+                                    class="py-1 px-2 rounded-lg text-[11px] sm:text-xs text-center transition cursor-pointer">
                                 Mitra Layanan
                             </button>
                         </div>
                     </div>
 
                     {{-- Input Nama Lengkap --}}
-                    <div class="space-y-1">
-                        <label for="name" class="block text-xs font-medium text-slate-700">
+                    <div class="space-y-0.5">
+                        <label for="name" class="block text-[11px] sm:text-xs font-medium text-slate-700">
                             Nama Lengkap <span class="text-red-500">*</span>
                         </label>
                         <input id="name" 
@@ -227,15 +227,15 @@
                                autofocus 
                                autocomplete="name" 
                                placeholder="Nama lengkap sesuai KTP"
-                               class="w-full text-sm sm:text-xs rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2 px-3 text-slate-900 placeholder-slate-400 @error('name') border-red-300 bg-red-50/20 @enderror transition" />
+                               class="w-full text-xs rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-1.5 px-3 text-slate-900 placeholder-slate-400 @error('name') border-red-300 bg-red-50/20 @enderror transition" />
                         @error('name')
                             <p class="text-xs text-red-600 font-medium mt-0.5">{{ $message }}</p>
                         @enderror
                     </div>
 
                     {{-- Input Email --}}
-                    <div class="space-y-1">
-                        <label for="email" class="block text-xs font-medium text-slate-700">
+                    <div class="space-y-0.5">
+                        <label for="email" class="block text-[11px] sm:text-xs font-medium text-slate-700">
                             Alamat Email <span class="text-red-500">*</span>
                         </label>
                         <input id="email" 
@@ -246,15 +246,15 @@
                                autocomplete="username" 
                                inputmode="email"
                                placeholder="nama@email.com"
-                               class="w-full text-sm sm:text-xs rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2 px-3 text-slate-900 placeholder-slate-400 @error('email') border-red-300 bg-red-50/20 @enderror transition" />
+                               class="w-full text-xs rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-1.5 px-3 text-slate-900 placeholder-slate-400 @error('email') border-red-300 bg-red-50/20 @enderror transition" />
                         @error('email')
                             <p class="text-xs text-red-600 font-medium mt-0.5">{{ $message }}</p>
                         @enderror
                     </div>
 
                     {{-- Input Nomor WhatsApp / Telepon --}}
-                    <div class="space-y-1">
-                        <label for="phone" class="block text-xs font-medium text-slate-700">
+                    <div class="space-y-0.5">
+                        <label for="phone" class="block text-[11px] sm:text-xs font-medium text-slate-700">
                             Nomor WhatsApp <span class="text-red-500">*</span>
                         </label>
                         <input id="phone" 
@@ -264,17 +264,17 @@
                                required 
                                autocomplete="tel" 
                                placeholder="081234567890"
-                               class="w-full text-sm sm:text-xs rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2 px-3 text-slate-900 placeholder-slate-400 @error('phone') border-red-300 bg-red-50/20 @enderror transition" />
+                               class="w-full text-xs rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-1.5 px-3 text-slate-900 placeholder-slate-400 @error('phone') border-red-300 bg-red-50/20 @enderror transition" />
                         @error('phone')
                             <p class="text-xs text-red-600 font-medium mt-0.5">{{ $message }}</p>
                         @enderror
                     </div>
 
                     {{-- Grid Input Password & Konfirmasi Password --}}
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                         {{-- Password --}}
-                        <div class="space-y-1">
-                            <label for="password" class="block text-xs font-medium text-slate-700">
+                        <div class="space-y-0.5">
+                            <label for="password" class="block text-[11px] sm:text-xs font-medium text-slate-700">
                                 Kata Sandi <span class="text-red-500">*</span>
                             </label>
                             <div class="relative">
@@ -284,7 +284,7 @@
                                        required 
                                        autocomplete="new-password" 
                                        placeholder="Minimal 8 karakter"
-                                       class="w-full text-sm sm:text-xs rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2 pl-3 pr-9 text-slate-900 placeholder-slate-400 @error('password') border-red-300 bg-red-50/20 @enderror transition" />
+                                       class="w-full text-xs rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-1.5 pl-3 pr-8 text-slate-900 placeholder-slate-400 @error('password') border-red-300 bg-red-50/20 @enderror transition" />
                                 <button type="button" 
                                         @click="showPassword = !showPassword"
                                         aria-label="Tampilkan kata sandi"
@@ -301,8 +301,8 @@
                         </div>
 
                         {{-- Konfirmasi Password --}}
-                        <div class="space-y-1">
-                            <label for="password_confirmation" class="block text-xs font-medium text-slate-700">
+                        <div class="space-y-0.5">
+                            <label for="password_confirmation" class="block text-[11px] sm:text-xs font-medium text-slate-700">
                                 Ulangi Sandi <span class="text-red-500">*</span>
                             </label>
                             <div class="relative">
@@ -312,7 +312,7 @@
                                        required 
                                        autocomplete="new-password" 
                                        placeholder="Ulangi kata sandi"
-                                       class="w-full text-sm sm:text-xs rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2 pl-3 pr-9 text-slate-900 placeholder-slate-400 @error('password_confirmation') border-red-300 bg-red-50/20 @enderror transition" />
+                                       class="w-full text-xs rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-1.5 pl-3 pr-8 text-slate-900 placeholder-slate-400 @error('password_confirmation') border-red-300 bg-red-50/20 @enderror transition" />
                                 <button type="button" 
                                         @click="showPasswordConfirmation = !showPasswordConfirmation"
                                         aria-label="Tampilkan konfirmasi sandi"
@@ -333,15 +333,15 @@
                     @enderror
 
                     {{-- Checkbox Syarat & Ketentuan dengan Pop Up Modal Trigger --}}
-                    <div class="pt-1">
+                    <div class="pt-0.5">
                         <label class="flex items-start gap-2 cursor-pointer select-none">
                             <input type="checkbox" 
                                    name="terms" 
                                    id="terms"
                                    x-model="termsAgreed"
                                    required 
-                                   class="mt-0.5 w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer">
-                            <span class="text-[11px] sm:text-xs text-slate-600 leading-snug">
+                                   class="mt-0.5 w-3.5 h-3.5 rounded border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer">
+                            <span class="text-[11px] text-slate-600 leading-snug">
                                 Saya menyetujui 
                                 <button type="button" 
                                         @click.prevent="openTermsModal = true; activeTermsTab = 'terms'" 
@@ -359,9 +359,9 @@
                     </div>
 
                     {{-- Tombol Submit --}}
-                    <div class="pt-1">
+                    <div class="pt-0.5">
                         <button type="submit" 
-                                class="w-full py-2.5 px-4 rounded-xl text-xs sm:text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 active:scale-[0.99] transition shadow-md shadow-blue-500/20 focus:outline-none focus:ring-4 focus:ring-blue-100 cursor-pointer flex items-center justify-center gap-2">
+                                class="w-full py-2 px-4 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 active:scale-[0.99] transition shadow-md shadow-blue-500/20 focus:outline-none focus:ring-4 focus:ring-blue-100 cursor-pointer flex items-center justify-center gap-2">
                             <span>Daftar Akun Sekarang</span>
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
@@ -371,7 +371,7 @@
                 </form>
 
                 {{-- Divider "atau daftar dengan" --}}
-                <div class="relative flex items-center my-3 sm:my-3.5">
+                <div class="relative flex items-center my-2 sm:my-2.5">
                     <div class="flex-grow border-t border-slate-200"></div>
                     <span class="flex-shrink mx-3 text-[11px] text-slate-400 font-normal">atau daftar dengan</span>
                     <div class="flex-grow border-t border-slate-200"></div>
@@ -380,7 +380,7 @@
                 {{-- Tombol Daftar via Google (Standar Resmi Google Branding) --}}
                 <div>
                     <a href="{{ Route::has('auth.google') ? route('auth.google') : '#' }}" 
-                       class="w-full py-2.5 px-4 rounded-xl border border-slate-200 hover:border-slate-300 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs sm:text-sm flex items-center justify-center gap-2.5 shadow-2xs transition active:scale-[0.99] cursor-pointer">
+                       class="w-full py-2 px-4 rounded-xl border border-slate-200 hover:border-slate-300 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs flex items-center justify-center gap-2.5 shadow-2xs transition active:scale-[0.99] cursor-pointer">
                         {{-- Logo Resmi Google 4 Warna --}}
                         <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24">
                             <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
@@ -393,7 +393,7 @@
                 </div>
 
                 {{-- Link ke Login --}}
-                <div class="mt-4 pt-3 border-t border-slate-100 text-center text-xs text-slate-600">
+                <div class="mt-2.5 pt-2 border-t border-slate-100 text-center text-xs text-slate-600">
                     Sudah memiliki akun SevenKost?
                     <a href="{{ route('login') }}" class="font-semibold text-blue-600 hover:text-blue-700 hover:underline ml-1">
                         Masuk ke Akun
