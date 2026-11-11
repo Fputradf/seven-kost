@@ -1,5 +1,5 @@
 <x-guest-layout title="Daftar Akun Baru - SevenKost">
-    <div class="min-h-screen min-h-[100dvh] lg:h-screen w-full flex flex-col lg:flex-row lg:overflow-hidden relative bg-[#031d44]"
+    <div class="min-h-screen lg:h-screen w-full flex flex-col lg:flex-row lg:overflow-hidden relative bg-white"
          x-data="{
              selectedRole: '{{ old('role', 'penghuni') }}',
              showPassword: false,
@@ -135,16 +135,16 @@
             </div>
 
             {{-- ========================================================= --}}
-            {{-- MULTI-LAYER WAVE PATTERN TRANSITION (EKSTRA BESAR KE BAWAH) --}}
+            {{-- MULTI-LAYER WAVE PATTERN TRANSITION (MENYATU SEMPURNA)    --}}
             {{-- ========================================================= --}}
             <div class="w-full overflow-hidden leading-none lg:hidden pointer-events-none -mb-[1px]">
-                <svg class="relative block w-full h-28 sm:h-36" viewBox="0 0 1440 320" preserveAspectRatio="none">
+                <svg class="relative block w-full h-16 sm:h-20" viewBox="0 0 1440 160" preserveAspectRatio="none">
                     {{-- Layer Gelombang Belakang (Semi-transparan untuk kedalaman) --}}
-                    <path d="M0,60 C360,200 720,20 1080,160 C1240,220 1360,140 1440,90 L1440,320 L0,320 Z" class="fill-white/20"></path>
+                    <path d="M0,40 C320,120 640,10 960,90 C1200,140 1360,80 1440,50 L1440,160 L0,160 Z" class="fill-white/20"></path>
                     {{-- Layer Gelombang Tengah (Semi-transparan untuk kedalaman berlapis) --}}
-                    <path d="M0,110 C320,30 680,210 1040,80 C1220,20 1360,140 1440,80 L1440,320 L0,320 Z" class="fill-white/40"></path>
+                    <path d="M0,80 C360,20 680,130 1020,60 C1220,10 1360,90 1440,50 L1440,160 L0,160 Z" class="fill-white/40"></path>
                     {{-- Layer Gelombang Depan (Solid White menyatu ke form) --}}
-                    <path d="M0,90 C360,220 720,40 1080,180 C1240,230 1360,160 1440,100 L1440,320 L0,320 Z" class="fill-white"></path>
+                    <path d="M0,60 C360,140 720,30 1080,110 C1260,145 1380,105 1440,70 L1440,160 L0,160 Z" class="fill-white"></path>
                 </svg>
             </div>
         </div>
@@ -152,8 +152,8 @@
         {{-- ============================================================= --}}
         {{-- LAYER KANAN / BAWAH MOBILE (FORM PUTIH BERSIH & RESPONSIVE)   --}}
         {{-- ============================================================= --}}
-        <div class="w-full lg:w-1/2 bg-white rounded-t-[2.5rem] sm:rounded-t-[3rem] lg:rounded-none -mt-10 sm:-mt-14 lg:mt-0 relative z-10 shadow-2xl lg:shadow-none flex flex-col items-center justify-end px-5 pt-6 pb-6 sm:pb-8 lg:p-10 xl:p-12 flex-1 mt-auto">
-            <div class="max-w-sm xl:max-w-md w-full mt-auto mb-0 lg:my-auto">
+        <div class="w-full lg:w-1/2 bg-white flex flex-col items-center px-5 py-6 sm:p-8 lg:p-10 xl:p-12 flex-1">
+            <div class="max-w-sm xl:max-w-md w-full my-auto">
 
                 {{-- Header Form --}}
                 <div class="mb-4 sm:mb-5">
