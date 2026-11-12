@@ -1,7 +1,7 @@
 <x-seven-layout :title="'Layanan Kebutuhan Kos - Seven Kost'">
 
     {{-- Breadcrumbs Navigation --}}
-    <div class="bg-white/80 backdrop-blur-md border-b border-slate-100 py-3.5 sticky top-0 z-20">
+    <div class="bg-white/80 backdrop-blur-md border-b border-slate-100 py-3.5 relative z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
             <nav class="flex items-center gap-2 text-xs text-slate-500 overflow-x-auto whitespace-nowrap">
                 <a href="{{ url('/') }}" class="hover:text-blue-600 transition flex items-center gap-1 font-medium">

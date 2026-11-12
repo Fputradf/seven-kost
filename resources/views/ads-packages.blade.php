@@ -1,20 +1,52 @@
-<x-seven-layout title="Pusat Pasang Iklan & Kemitraan - SevenKost">
+<x-seven-layout title="Pusat Pasang Iklan & Kemitraan - SevenKost" :transparentNavbar="true">
 
-    {{-- HEADER HERO SECTION --}}
-    <div class="relative bg-gradient-to-br from-[#031d44] via-[#05377a] to-[#0a66c2] text-white py-14 sm:py-18 overflow-hidden border-b border-white/10">
-        {{-- Subtle background glow --}}
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.12),transparent_50%)] pointer-events-none"></div>
-        <div class="absolute -bottom-10 -left-10 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+@push('styles')
+<style>
+    @keyframes heroFadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    .ads-hero-animate-1 { animation: heroFadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both; }
+    .ads-hero-animate-2 { animation: heroFadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both; }
+</style>
+@endpush
 
-        <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3">
-            <h1 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
-                Pusat Pasang Iklan & Kemitraan
+    {{-- HEADER HERO SECTION DENGAN OVERLAY FOTO GEDUNG & NAVY BIRU FULLSCREEN SEPERTI WELCOME --}}
+    <section class="relative min-h-screen w-full flex flex-col justify-center items-center text-center overflow-hidden pt-28 pb-16 lg:pt-32 lg:pb-20 border-b border-white/10">
+        
+        {{-- Background Image dengan Overlay Navy Gelap Transparan --}}
+        <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+            <img 
+                src="{{ asset('images/frontend/hero-building-hd.jpg') }}" 
+                alt="SevenKost Ads Hero Background" 
+                class="w-full h-full object-cover object-center scale-105 filter brightness-90"
+            >
+            {{-- Overlay gradient navy gelap (atas sekitar #031d44 opacity 70%, tengah 85%, bawah hampir solid #020b1f) --}}
+            <div class="absolute inset-0 bg-gradient-to-b from-[#031d44]/70 via-[#031d44]/85 to-[#020b1f]"></div>
+            {{-- Glow biru samar di tengah --}}
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] bg-blue-500/20 rounded-full blur-[140px]"></div>
+        </div>
+
+        {{-- Hero Center Content --}}
+        <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight leading-[1.1] text-white ads-hero-animate-1">
+                Pusat Pasang Iklan & <br class="hidden sm:inline">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 via-cyan-300 to-blue-200">
+                    Kemitraan SevenKost
+                </span>
             </h1>
-            <p class="text-xs sm:text-base text-slate-200 max-w-2xl mx-auto leading-relaxed font-normal">
+
+            <p class="text-blue-100/90 text-sm sm:text-base md:text-lg max-w-2xl mx-auto font-medium leading-relaxed mt-5 sm:mt-6 ads-hero-animate-2">
                 Dapatkan solusi periklanan tepat sasaran: pasang listing kos gratis atau upgrade ke status VIP untuk jangkauan maksimal, serta pasang banner promosi bisnis Anda di SevenKost.
             </p>
         </div>
-    </div>
+    </section>
 
     {{-- MAIN CONTAINER WITH ALPINE.JS TAB CONTROL --}}
     <div 

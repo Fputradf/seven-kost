@@ -18,13 +18,14 @@ class RolePermissionSeeder extends Seeder
         // Reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // 1. Buat 5 peran MVP
+        // 1. Buat peran MVP & Mitra Layanan
         $roles = [
             'superadmin',
             'admin',
             'pemilik',
             'penghuni',
             'pengunjung',
+            'mitra',
         ];
 
         foreach ($roles as $roleName) {

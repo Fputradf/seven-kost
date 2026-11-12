@@ -26,9 +26,12 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     <link rel="apple-touch-icon" href="{{ asset('images/logo-seven-kost.png') }}">
 
-    <!-- Fonts -->
+    <!-- Fonts: Poppins (Font Populer, Humanis & Modern) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700,800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=poppins:300,400,500,600,700,800&display=swap" rel="stylesheet" />
 
     <!-- Scripts & Styles via Vite -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -36,10 +39,14 @@
     @stack('styles')
     @stack('head')
 </head>
+@php
+    $isHome = request()->is('/');
+    $isTransparentHero = ($transparentNavbar ?? false) || $isHome;
+@endphp
 <body class="font-sans antialiased bg-slate-50 text-slate-800 min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
     <x-seven-navbar :transparent="$transparentNavbar ?? false" />
 
-    <main class="flex-1 w-full pb-16 md:pb-0">
+    <main class="flex-1 w-full pb-16 md:pb-0 {{ $isTransparentHero ? '' : 'pt-[72px] sm:pt-[80px]' }}">
         {{ $slot ?? '' }}
         @yield('content')
     </main>

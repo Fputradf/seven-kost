@@ -118,7 +118,7 @@
     >
 
         {{-- Breadcrumb & Quick Actions Bar --}}
-        <div class="bg-white/80 backdrop-blur-md border-b border-slate-100 sticky top-0 z-30 transition-all">
+        <div class="bg-white/80 backdrop-blur-md border-b border-slate-100 relative z-10 transition-all">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
                 {{-- Breadcrumbs --}}
                 <nav class="flex items-center gap-2 text-xs text-slate-500 overflow-x-auto whitespace-nowrap scrollbar-none">
