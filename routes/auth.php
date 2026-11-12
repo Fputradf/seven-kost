@@ -61,6 +61,12 @@ Route::middleware('auth')->group(function () {
 
     Route::put('password', [PasswordController::class, 'update'])->name('password.update');
 
+    Route::get('onboarding/role', [GoogleAuthController::class, 'showRoleSelection'])
+        ->name('onboarding.role');
+
+    Route::post('onboarding/role', [GoogleAuthController::class, 'storeRoleSelection'])
+        ->name('onboarding.role.store');
+
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 });

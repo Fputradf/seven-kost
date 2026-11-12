@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\View\View;
 use Laravel\Socialite\Facades\Socialite;
 
 class GoogleAuthController extends Controller
@@ -32,6 +33,8 @@ class GoogleAuthController extends Controller
                 return redirect()->route('login')->with('error', 'Gagal memverifikasi akun Google Anda.');
             }
 
+            $isNewUser = false;
+
             // Cari user berdasarkan google_id terlebih dahulu
             $user = User::where('google_id', $googleUser->getId())->first();
 
@@ -50,7 +53,7 @@ class GoogleAuthController extends Controller
                     }
                     $user->save();
                 } else {
-                    // Daftarkan akun baru via Google
+                    // Daftarkan akun baru via Google tanpa role awal
                     $user = User::create([
                         'name' => $googleUser->getName() ?: ($googleUser->getNickname() ?: 'Pengguna Google'),
                         'email' => $googleUser->getEmail(),
@@ -60,14 +63,7 @@ class GoogleAuthController extends Controller
                         'password' => null,
                     ]);
 
-                    // Berikan peran default 'penghuni' jika role terdaftar
-                    if (method_exists($user, 'assignRole')) {
-                        try {
-                            $user->assignRole('penghuni');
-                        } catch (\Throwable) {
-                            // Abaikan jika role belum ter-seed
-                        }
-                    }
+                    $isNewUser = true;
                 }
             } else {
                 // Perbarui avatar jika ada perubahan
@@ -81,6 +77,11 @@ class GoogleAuthController extends Controller
 
             $request->session()->regenerate();
 
+            // Jika user baru atau belum memiliki peran, arahkan ke halaman Onboarding Role
+            if ($isNewUser || (method_exists($user, 'roles') && $user->roles()->count() === 0)) {
+                return redirect()->route('onboarding.role');
+            }
+
             return redirect()->intended(route('dashboard', absolute: false));
         } catch (\Throwable $e) {
             Log::error('Google OAuth Error: ' . $e->getMessage(), [
@@ -89,5 +90,40 @@ class GoogleAuthController extends Controller
 
             return redirect()->route('login')->with('error', 'Terjadi kesalahan saat masuk dengan Google: ' . $e->getMessage());
         }
+    }
+
+    /**
+     * Tampilkan halaman pemilihan peran (Onboarding) untuk pengguna Google.
+     */
+    public function showRoleSelection(Request $request): View|RedirectResponse
+    {
+        $user = $request->user();
+
+        // Jika user sudah memiliki peran aktif, langsung arahkan ke dashboard
+        if ($user && method_exists($user, 'roles') && $user->roles()->count() > 0) {
+            return redirect()->route('dashboard');
+        }
+
+        return view('auth.onboarding-role', [
+            'user' => $user,
+        ]);
+    }
+
+    /**
+     * Simpan peran yang dipilih pengguna dan arahkan ke dashboard.
+     */
+    public function storeRoleSelection(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'role' => ['required', 'string', 'in:penghuni,pemilik,mitra'],
+        ]);
+
+        $user = $request->user();
+
+        if (method_exists($user, 'syncRoles')) {
+            $user->syncRoles([$request->role]);
+        }
+
+        return redirect()->route('dashboard')->with('status', 'Peran akun berhasil dipilih! Selamat datang di SevenKost.');
     }
 }

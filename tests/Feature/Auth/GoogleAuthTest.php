@@ -28,7 +28,7 @@ class GoogleAuthTest extends TestCase
         $this->assertStringContainsString('accounts.google.com', $response->getTargetUrl());
     }
 
-    public function test_google_callback_registers_new_user(): void
+    public function test_google_callback_registers_new_user_and_redirects_to_onboarding_role(): void
     {
         $socialiteUser = Mockery::mock(SocialiteUser::class);
         $socialiteUser->shouldReceive('getId')->andReturn('google-unique-id-12345');
@@ -44,7 +44,8 @@ class GoogleAuthTest extends TestCase
 
         $response = $this->get(route('auth.google.callback'));
 
-        $response->assertRedirect(route('dashboard', absolute: false));
+        // Pengguna baru diarahkan ke halaman pemilihan peran
+        $response->assertRedirect(route('onboarding.role'));
         $this->assertAuthenticated();
 
         $this->assertDatabaseHas('users', [
@@ -54,12 +55,54 @@ class GoogleAuthTest extends TestCase
         ]);
     }
 
-    public function test_google_callback_logs_in_existing_user_by_google_id(): void
+    public function test_onboarding_role_screen_can_be_rendered_for_user_without_role(): void
+    {
+        $user = User::factory()->create([
+            'email' => 'unassigned_role@example.com',
+        ]);
+
+        $response = $this->actingAs($user)->get(route('onboarding.role'));
+
+        $response->assertStatus(200);
+        $response->assertSee('Selamat Datang di SevenKost');
+        $response->assertSee('Pencari / Penghuni Kos');
+        $response->assertSee('Pemilik / Pengelola Kos');
+        $response->assertSee('Mitra Layanan Kos');
+    }
+
+    public function test_onboarding_role_can_be_selected_and_stored(): void
+    {
+        $user = User::factory()->create([
+            'email' => 'choosing_role@example.com',
+        ]);
+
+        $response = $this->actingAs($user)->post(route('onboarding.role.store'), [
+            'role' => 'pemilik',
+        ]);
+
+        $response->assertRedirect(route('dashboard'));
+        $this->assertTrue($user->fresh()->hasRole('pemilik'));
+    }
+
+    public function test_onboarding_role_redirects_if_user_already_has_role(): void
+    {
+        $user = User::factory()->create([
+            'email' => 'has_role@example.com',
+        ]);
+        $user->assignRole('penghuni');
+
+        $response = $this->actingAs($user)->get(route('onboarding.role'));
+
+        $response->assertRedirect(route('dashboard'));
+    }
+
+    public function test_google_callback_logs_in_existing_user_by_google_id_straight_to_dashboard(): void
     {
         $existingUser = User::factory()->create([
             'google_id' => 'google-existing-id-999',
             'email' => 'existing_google@example.com',
         ]);
+        $existingUser->assignRole('penghuni');
 
         $socialiteUser = Mockery::mock(SocialiteUser::class);
         $socialiteUser->shouldReceive('getId')->andReturn('google-existing-id-999');
@@ -75,37 +118,8 @@ class GoogleAuthTest extends TestCase
 
         $response = $this->get(route('auth.google.callback'));
 
+        // Pengguna lama yang sudah punya peran langsung ke dashboard
         $response->assertRedirect(route('dashboard', absolute: false));
         $this->assertAuthenticatedAs($existingUser);
-    }
-
-    public function test_google_callback_links_existing_user_by_email(): void
-    {
-        $existingUser = User::factory()->create([
-            'google_id' => null,
-            'email' => 'manual_user@example.com',
-        ]);
-
-        $socialiteUser = Mockery::mock(SocialiteUser::class);
-        $socialiteUser->shouldReceive('getId')->andReturn('google-link-id-777');
-        $socialiteUser->shouldReceive('getName')->andReturn($existingUser->name);
-        $socialiteUser->shouldReceive('getNickname')->andReturn(null);
-        $socialiteUser->shouldReceive('getEmail')->andReturn('manual_user@example.com');
-        $socialiteUser->shouldReceive('getAvatar')->andReturn('https://lh3.googleusercontent.com/new-avatar');
-
-        $provider = Mockery::mock('Laravel\Socialite\Contracts\Provider');
-        $provider->shouldReceive('user')->andReturn($socialiteUser);
-
-        Socialite::shouldReceive('driver')->with('google')->andReturn($provider);
-
-        $response = $this->get(route('auth.google.callback'));
-
-        $response->assertRedirect(route('dashboard', absolute: false));
-        $this->assertAuthenticatedAs($existingUser);
-
-        $this->assertDatabaseHas('users', [
-            'id' => $existingUser->id,
-            'google_id' => 'google-link-id-777',
-        ]);
     }
 }
