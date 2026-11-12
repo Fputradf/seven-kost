@@ -122,10 +122,10 @@
             {{-- ========================================================= --}}
             <div class="w-full overflow-hidden leading-none lg:hidden pointer-events-none -mb-[1px]">
                 <svg class="relative block w-full h-28 sm:h-36" viewBox="0 0 1440 320" preserveAspectRatio="none">
-                    {{-- Layer Aksen Biru Muda SevenKost (Pairing Selaras dengan Identitas Brand) --}}
-                    <path d="M0,60 C460,260 840,80 1160,180 C1280,220 1380,210 1440,200 L1440,320 L0,320 Z" class="fill-sky-400/40"></path>
+                    {{-- Layer Aksen Biru Gelap Wave (Satu Warna Solid Identik dengan Tombol) --}}
+                    <path d="M0,60 C460,260 840,80 1160,180 C1280,220 1380,210 1440,200 L1440,320 L0,320 Z" fill="#ffffff"></path>
                     {{-- Layer Depan Solid White (Menyatu Mulus ke Form) --}}
-                    <path d="M0,120 C460,290 840,120 1160,210 C1280,250 1380,240 1440,230 L1440,320 L0,320 Z" class="fill-white"></path>
+                    <path d="M0,120 C460,290 840,120 1160,210 C1280,250 1380,240 1440,230 L1440,320 L0,320 Z" fill="#ffffff"></path>
                 </svg>
             </div>
         </div>
@@ -139,7 +139,7 @@
                 {{-- Header Form di Tengah Sesuai Gambar Inspirasi --}}
                 <div class="mb-5 sm:mb-6 text-center">
                     <h1 class="text-2xl sm:text-3xl font-bold text-slate-800 tracking-tight">
-                        Welcome back !
+                        Selamat Datang !
                     </h1>
                     <p class="text-xs text-slate-500 mt-1">
                         Masuk ke akun SevenKost Anda untuk melanjutkan
@@ -218,28 +218,28 @@
                                    type="checkbox" 
                                    name="remember"
                                    class="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer">
-                            <span class="ms-2 text-slate-600 font-normal">Remember me</span>
+                            <span class="ms-2 text-slate-600 font-normal">Ingat Saya</span>
                         </label>
                         @if (Route::has('password.request'))
                             <a href="{{ route('password.request') }}" class="text-slate-500 hover:text-blue-600 font-medium transition">
-                                Forget password?
+                                Lupa Password?
                             </a>
                         @endif
                     </div>
 
-                    {{-- Tombol Login Pill Rounded Satu Warna Gelap --}}
+                    {{-- Tombol Login Pill Rounded Satu Warna Biru Gelap Sesuai Wave Pattern --}}
                     <div class="pt-2">
                         <button type="submit" 
-                                class="w-full py-3 px-6 rounded-full bg-[#031d44] hover:bg-[#05377a] text-white font-bold text-sm shadow-md shadow-[#031d44]/25 active:scale-[0.99] transition cursor-pointer flex items-center justify-center">
+                                class="w-full py-3 px-6 rounded-full bg-[#083873] hover:bg-[#062c5a] text-white font-bold text-sm shadow-md shadow-[#083873]/25 active:scale-[0.99] transition cursor-pointer flex items-center justify-center">
                             Login
                         </button>
                     </div>
 
                     {{-- Link Daftar: New user? Sign Up Tepat di Bawah Tombol --}}
                     <div class="text-center text-xs text-slate-500 pt-1">
-                        New user? 
-                        <a href="{{ route('register') }}" class="font-bold text-blue-600 hover:underline ml-0.5">
-                            Sign Up
+                        Belum punya akun? 
+                        <a href="{{ route('register') }}" class="font-bold text-[#083873] hover:underline ml-0.5">
+                             Daftar Sekarang
                         </a>
                     </div>
                 </form>

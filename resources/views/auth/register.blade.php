@@ -152,10 +152,10 @@
             {{-- ========================================================= --}}
             <div class="w-full overflow-hidden leading-none lg:hidden pointer-events-none -mb-[1px]">
                 <svg class="relative block w-full h-28 sm:h-36" viewBox="0 0 1440 320" preserveAspectRatio="none">
-                    {{-- Layer Aksen Biru Muda SevenKost (Pairing Selaras dengan Identitas Brand) --}}
-                    <path d="M0,60 C460,260 840,80 1160,180 C1280,220 1380,210 1440,200 L1440,320 L0,320 Z" class="fill-sky-400/40"></path>
+                    {{-- Layer Aksen Wave Putih Bersih (Samakan dengan Login Blade) --}}
+                    <path d="M0,60 C460,260 840,80 1160,180 C1280,220 1380,210 1440,200 L1440,320 L0,320 Z" fill="#ffffff"></path>
                     {{-- Layer Depan Solid White (Menyatu Mulus ke Form) --}}
-                    <path d="M0,120 C460,290 840,120 1160,210 C1280,250 1380,240 1440,230 L1440,320 L0,320 Z" class="fill-white"></path>
+                    <path d="M0,120 C460,290 840,120 1160,210 C1280,250 1380,240 1440,230 L1440,320 L0,320 Z" fill="#ffffff"></path>
                 </svg>
             </div>
         </div>
@@ -191,19 +191,19 @@
                         <div class="grid grid-cols-3 gap-1 p-1 bg-slate-100 rounded-xl">
                             <button type="button" 
                                     @click="setRole('penghuni')"
-                                    :class="selectedRole === 'penghuni' ? 'bg-blue-600 text-white font-semibold shadow-xs' : 'text-slate-700 hover:text-slate-900 font-normal'"
+                                    :class="selectedRole === 'penghuni' ? 'bg-[#083873] text-white font-semibold shadow-xs' : 'text-slate-700 hover:text-slate-900 font-normal'"
                                     class="py-1.5 px-2 rounded-lg text-xs text-center transition cursor-pointer">
                                 Penghuni
                             </button>
                             <button type="button" 
                                     @click="setRole('pemilik')"
-                                    :class="selectedRole === 'pemilik' ? 'bg-blue-600 text-white font-semibold shadow-xs' : 'text-slate-700 hover:text-slate-900 font-normal'"
+                                    :class="selectedRole === 'pemilik' ? 'bg-[#083873] text-white font-semibold shadow-xs' : 'text-slate-700 hover:text-slate-900 font-normal'"
                                     class="py-1.5 px-2 rounded-lg text-xs text-center transition cursor-pointer">
                                 Pemilik Kos
                             </button>
                             <button type="button" 
                                     @click="setRole('mitra')"
-                                    :class="selectedRole === 'mitra' ? 'bg-blue-600 text-white font-semibold shadow-xs' : 'text-slate-700 hover:text-slate-900 font-normal'"
+                                    :class="selectedRole === 'mitra' ? 'bg-[#083873] text-white font-semibold shadow-xs' : 'text-slate-700 hover:text-slate-900 font-normal'"
                                     class="py-1.5 px-2 rounded-lg text-xs text-center transition cursor-pointer">
                                 Mitra Layanan
                             </button>
@@ -341,23 +341,23 @@
                                 Saya menyetujui 
                                 <button type="button" 
                                         @click.prevent="openTermsModal = true; activeTermsTab = 'terms'" 
-                                        class="font-semibold text-blue-600 hover:text-blue-700 underline cursor-pointer">
+                                        class="font-semibold text-[#083873] hover:underline cursor-pointer">
                                     Syarat & Ketentuan
                                 </button> 
                                 dan 
                                 <button type="button" 
                                         @click.prevent="openTermsModal = true; activeTermsTab = 'privacy'" 
-                                        class="font-semibold text-blue-600 hover:text-blue-700 underline cursor-pointer">
+                                        class="font-semibold text-[#083873] hover:underline cursor-pointer">
                                     Kebijakan Privasi (UU PDP)
                                 </button>.
                             </span>
                         </label>
                     </div>
 
-                    {{-- Tombol Submit Pill Rounded Satu Warna Gelap --}}
+                    {{-- Tombol Submit Pill Rounded Satu Warna Biru Gelap Sesuai Wave Pattern --}}
                     <div class="pt-2">
                         <button type="submit" 
-                                class="w-full py-3 px-6 rounded-full bg-[#031d44] hover:bg-[#05377a] text-white font-bold text-sm shadow-md shadow-[#031d44]/25 active:scale-[0.99] transition cursor-pointer flex items-center justify-center">
+                                class="w-full py-3 px-6 rounded-full bg-[#083873] hover:bg-[#062c5a] text-white font-bold text-sm shadow-md shadow-[#083873]/25 active:scale-[0.99] transition cursor-pointer flex items-center justify-center">
                             Create Account
                         </button>
                     </div>
@@ -365,7 +365,7 @@
                     {{-- Link Sudah Punya Akun Tepat di Bawah Tombol Sesuai Referensi --}}
                     <div class="text-center text-xs text-slate-500 pt-1">
                         Already have an account? 
-                        <a href="{{ route('login') }}" class="font-bold text-blue-600 hover:underline ml-0.5">
+                        <a href="{{ route('login') }}" class="font-bold text-[#083873] hover:underline ml-0.5">
                             Login
                         </a>
                     </div>
@@ -435,13 +435,13 @@
                 <div class="flex border-b border-slate-100 px-5 pt-2 gap-4 text-xs font-semibold">
                     <button type="button" 
                             @click="activeTermsTab = 'terms'"
-                            :class="activeTermsTab === 'terms' ? 'text-blue-600 border-b-2 border-blue-600 pb-2.5' : 'text-slate-500 hover:text-slate-800 pb-2.5'"
+                            :class="activeTermsTab === 'terms' ? 'text-[#083873] border-b-2 border-[#083873] pb-2.5' : 'text-slate-500 hover:text-slate-800 pb-2.5'"
                             class="transition cursor-pointer">
                         1. Syarat & Ketentuan Layanan
                     </button>
                     <button type="button" 
                             @click="activeTermsTab = 'privacy'"
-                            :class="activeTermsTab === 'privacy' ? 'text-blue-600 border-b-2 border-blue-600 pb-2.5' : 'text-slate-500 hover:text-slate-800 pb-2.5'"
+                            :class="activeTermsTab === 'privacy' ? 'text-[#083873] border-b-2 border-[#083873] pb-2.5' : 'text-slate-500 hover:text-slate-800 pb-2.5'"
                             class="transition cursor-pointer">
                         2. Kebijakan Privasi (UU PDP)
                     </button>
@@ -541,7 +541,7 @@
                         </button>
                         <button type="button" 
                                 @click="agreeAndClose()"
-                                class="px-4 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-xs font-bold text-white transition shadow-xs cursor-pointer flex items-center gap-1.5">
+                                class="px-4 py-1.5 rounded-xl bg-[#083873] hover:bg-[#062c5a] text-xs font-bold text-white transition shadow-xs cursor-pointer flex items-center gap-1.5">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
                             </svg>
