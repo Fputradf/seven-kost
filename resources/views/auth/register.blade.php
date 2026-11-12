@@ -169,7 +169,7 @@
                 {{-- Header Form di Tengah Sesuai Gambar Inspirasi --}}
                 <div class="mb-5 sm:mb-6 text-center">
                     <h1 class="text-2xl sm:text-3xl font-bold text-slate-800 tracking-tight">
-                        Create Account
+                        Daftar Akun Baru
                     </h1>
                     <p class="text-xs text-slate-500 mt-1">
                         Lengkapi formulir untuk membuat akun baru Anda
@@ -348,7 +348,7 @@
                                 <button type="button" 
                                         @click.prevent="openTermsModal = true; activeTermsTab = 'privacy'" 
                                         class="font-semibold text-[#083873] hover:underline cursor-pointer">
-                                    Kebijakan Privasi (UU PDP)
+                                    Kebijakan Privasi
                                 </button>.
                             </span>
                         </label>
@@ -358,13 +358,13 @@
                     <div class="pt-2">
                         <button type="submit" 
                                 class="w-full py-3 px-6 rounded-full bg-[#083873] hover:bg-[#062c5a] text-white font-bold text-sm shadow-md shadow-[#083873]/25 active:scale-[0.99] transition cursor-pointer flex items-center justify-center">
-                            Create Account
+                            Daftar Akun Baru
                         </button>
                     </div>
 
                     {{-- Link Sudah Punya Akun Tepat di Bawah Tombol Sesuai Referensi --}}
                     <div class="text-center text-xs text-slate-500 pt-1">
-                        Already have an account? 
+                        Sudah Punya Akun? 
                         <a href="{{ route('login') }}" class="font-bold text-[#083873] hover:underline ml-0.5">
                             Login
                         </a>
@@ -374,7 +374,7 @@
                 {{-- Divider OR Sesuai Gambar Inspirasi --}}
                 <div class="relative flex items-center justify-center my-4">
                     <div class="w-full border-t border-slate-200"></div>
-                    <span class="absolute px-3 bg-white text-[11px] font-bold text-slate-400">OR</span>
+                    <span class="absolute px-3 bg-white text-[11px] font-bold text-slate-400">Atau</span>
                 </div>
 
                 {{-- Tombol Daftar via Google Rounded Pill --}}
@@ -443,7 +443,7 @@
                             @click="activeTermsTab = 'privacy'"
                             :class="activeTermsTab === 'privacy' ? 'text-[#083873] border-b-2 border-[#083873] pb-2.5' : 'text-slate-500 hover:text-slate-800 pb-2.5'"
                             class="transition cursor-pointer">
-                        2. Kebijakan Privasi (UU PDP)
+                        2. Kebijakan Privasi
                     </button>
                 </div>
 

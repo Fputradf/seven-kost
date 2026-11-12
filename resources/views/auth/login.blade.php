@@ -247,7 +247,7 @@
                 {{-- Divider OR Sesuai Gambar Inspirasi --}}
                 <div class="relative flex items-center justify-center my-4">
                     <div class="w-full border-t border-slate-200"></div>
-                    <span class="absolute px-3 bg-white text-[11px] font-bold text-slate-400">OR</span>
+                    <span class="absolute px-3 bg-white text-[11px] font-bold text-slate-400">Atau</span>
                 </div>
 
                 {{-- Tombol Login via Google Rounded Pill --}}
