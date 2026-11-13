@@ -51,12 +51,12 @@ class MapController extends Controller
                 'slug' => $k->slug,
                 'type' => $k->type,
                 'price' => (float) $k->price_start,
-                'price_formatted' => 'Rp ' . number_format($k->price_start, 0, ',', '.'),
+                'price_formatted' => 'Rp '.number_format($k->price_start, 0, ',', '.'),
                 'lat' => (float) $k->latitude,
                 'lng' => (float) $k->longitude,
                 'city' => $k->regency->name ?? '',
                 'address' => $k->address,
-                'image' => $k->primaryImage ? asset('storage/' . $k->primaryImage->file_path) : 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=600&q=80',
+                'image' => $k->primaryImage ? asset('storage/'.$k->primaryImage->file_path) : 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=600&q=80',
                 'url' => route('kost.detail', $k->slug),
             ];
         });
@@ -71,4 +71,3 @@ class MapController extends Controller
         ));
     }
 }
-

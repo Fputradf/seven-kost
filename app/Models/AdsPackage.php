@@ -29,4 +29,3 @@ class AdsPackage extends Model
         return $this->hasMany(AdsPromotion::class, 'ads_package_id');
     }
 }
-

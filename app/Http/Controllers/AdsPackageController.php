@@ -19,8 +19,8 @@ class AdsPackageController extends Controller
     {
         $packages = AdsPackage::where('is_active', true)->orderBy('price')->get();
         $myKosts = auth()->check() ? auth()->user()->kosts()->where('verification_status', 'verified')->get() : collect();
-        $bannerPackages = config('sevenkost.banner_packages', []);
-        $vipPackages = config('sevenkost.vip_packages', []);
+        $bannerPackages = app_banner_packages();
+        $vipPackages = app_vip_packages();
         $activeTab = $request->query('tab', 'kost');
 
         return view('ads-packages', compact('packages', 'myKosts', 'bannerPackages', 'vipPackages', 'activeTab'));
@@ -69,7 +69,7 @@ class AdsPackageController extends Controller
             'payment_channel' => 'nullable|string|max:50',
         ]);
 
-        $bannerPackages = config('sevenkost.banner_packages', []);
+        $bannerPackages = app_banner_packages();
         $durationDays = (int) $validated['duration_days'];
         $pkgName = $bannerPackages[$durationDays]['name'] ?? "Banner {$durationDays} Hari";
 

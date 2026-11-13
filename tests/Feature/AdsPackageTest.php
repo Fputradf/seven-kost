@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Models\AdsPackage;
-use App\Models\Banner;
 use App\Models\Kost;
 use App\Models\Province;
 use App\Models\Regency;

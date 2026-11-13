@@ -22,15 +22,20 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-18 sm:h-20 gap-4">
             
-            {{-- Left: Logo Brand (Icon Logo Tetap, Teks Berubah Sesuai State) --}}
+            {{-- Left: Logo Brand (Dinamis dari Pengaturan Aplikasi & Mode Gelap/Terang) --}}
             <div class="flex items-center flex-shrink-0">
                 <a href="{{ url('/') }}" class="flex items-center gap-2.5 group focus:outline-none">
-                    <img src="{{ asset('images/logo-seven-kost.png') }}" 
-                         alt="SevenKost Logo" 
-                         class="h-9 w-9 sm:h-10 sm:w-10 object-contain group-hover:scale-105 transition-transform drop-shadow-sm bg-white rounded-xl p-1">
+                    <img src="{{ app_logo_url('light') }}" 
+                         x-show="scrolled"
+                         alt="{{ app_name() }} Logo" 
+                         class="h-9 w-9 sm:h-10 sm:w-10 object-contain group-hover:scale-105 transition-transform drop-shadow-sm">
+                    <img src="{{ app_logo_url('dark') }}" 
+                         x-show="!scrolled"
+                         alt="{{ app_name() }} Logo" 
+                         class="h-9 w-9 sm:h-10 sm:w-10 object-contain group-hover:scale-105 transition-transform drop-shadow-sm">
                     <span class="text-xl sm:text-2xl font-black tracking-tight transition-colors"
                           :class="scrolled ? 'text-slate-900 group-hover:text-blue-600' : 'text-white group-hover:text-sky-200'">
-                        Seven<span :class="scrolled ? 'text-blue-600' : 'text-sky-300'">Kost</span>
+                        {{ app_name() }}
                     </span>
                 </a>
             </div>

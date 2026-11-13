@@ -41,8 +41,8 @@ class SearchController extends Controller
         if ($keyword) {
             $query->where(function ($q) use ($keyword) {
                 $q->where('name', 'like', "%{$keyword}%")
-                  ->orWhere('address', 'like', "%{$keyword}%")
-                  ->orWhere('description', 'like', "%{$keyword}%");
+                    ->orWhere('address', 'like', "%{$keyword}%")
+                    ->orWhere('description', 'like', "%{$keyword}%");
             });
         }
 
@@ -66,7 +66,7 @@ class SearchController extends Controller
             $query->where('price_start', '<=', (float) $maxPrice);
         }
 
-        if (!empty($selectedFacilities)) {
+        if (! empty($selectedFacilities)) {
             foreach ($selectedFacilities as $facilityName) {
                 $query->whereHas('facilities', function ($f) use ($facilityName) {
                     $f->where('name', 'like', "%{$facilityName}%");
@@ -99,7 +99,7 @@ class SearchController extends Controller
                 'isFeatured' => (bool) $k->is_featured,
                 'availableRooms' => $k->rooms->sum('available_rooms'),
                 'facilities' => $k->facilities->pluck('name')->toArray(),
-                'image' => $k->primaryImage ? asset('storage/' . $k->primaryImage->file_path) : null,
+                'image' => $k->primaryImage ? asset('storage/'.$k->primaryImage->file_path) : null,
             ];
         });
 

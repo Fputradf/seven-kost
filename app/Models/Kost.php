@@ -31,12 +31,14 @@ class Kost extends Model
         'rejection_reason',
         'is_available',
         'is_featured',
+        'ad_clicks_count',
     ];
 
     protected $casts = [
         'price_start' => 'decimal:2',
         'is_available' => 'boolean',
         'is_featured' => 'boolean',
+        'ad_clicks_count' => 'integer',
         'latitude' => 'decimal:8',
         'longitude' => 'decimal:8',
     ];
@@ -54,7 +56,7 @@ class Kost extends Model
                 $slug = $baseSlug;
                 $count = 1;
                 while (static::where('slug', $slug)->exists()) {
-                    $slug = $baseSlug . '-' . $count++;
+                    $slug = $baseSlug.'-'.$count++;
                 }
                 $kost->slug = $slug;
             }
@@ -118,6 +120,14 @@ class Kost extends Model
     }
 
     /**
+     * Riwayat promosi iklan kos.
+     */
+    public function promotions(): HasMany
+    {
+        return $this->hasMany(AdsPromotion::class, 'kost_id');
+    }
+
+    /**
      * Foto utama / cover kos.
      */
     public function primaryImage()
@@ -125,4 +135,3 @@ class Kost extends Model
         return $this->hasOne(KostImage::class, 'kost_id')->where('is_primary', true);
     }
 }
-

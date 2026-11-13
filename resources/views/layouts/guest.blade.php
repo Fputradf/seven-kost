@@ -7,12 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $title ?? config('app.name', 'SevenKost - Platform Kos Terpercaya') }}</title>
+    <title>{{ $title ?? (app_name() . ' - Platform Kos Terpercaya') }}</title>
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
-    <link rel="apple-touch-icon" href="{{ asset('images/logo-seven-kost.png') }}">
+    <!-- Favicon (Dinamis dari Pengaturan Aplikasi) -->
+    <link rel="icon" type="image/png" href="{{ app_favicon_url() }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ app_favicon_url() }}">
+    <link rel="apple-touch-icon" href="{{ app_logo_url() }}">
 
     <!-- Fonts: Poppins (Font Populer, Bersahabat, Modern & Ramah Pengguna) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

@@ -126,7 +126,7 @@ class AdsPromotionsTable
                                 ->where('ends_at', '>', now())
                                 ->exists();
 
-                            if (!$hasActivePromotions) {
+                            if (! $hasActivePromotions) {
                                 $record->kost->update(['is_featured' => false]);
                             }
                         }

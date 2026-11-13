@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role;
 
 class MarketplaceSeeder extends Seeder
 {
@@ -18,24 +20,24 @@ class MarketplaceSeeder extends Seeder
     {
         // 1. Pastikan folder storage marketplace tersedia
         $storageDir = storage_path('app/public/marketplace');
-        if (!File::exists($storageDir)) {
+        if (! File::exists($storageDir)) {
             File::makeDirectory($storageDir, 0755, true);
         }
 
         $frontendImgDir = public_path('images/frontend');
         if (File::exists($frontendImgDir)) {
             foreach (File::files($frontendImgDir) as $file) {
-                $dest = $storageDir . '/' . $file->getFilename();
-                if (!File::exists($dest)) {
+                $dest = $storageDir.'/'.$file->getFilename();
+                if (! File::exists($dest)) {
                     File::copy($file->getPathname(), $dest);
                 }
             }
         }
 
         // 2. Akun Penjual Anak Kos / Mitra Pemilik
-        if (class_exists(\Spatie\Permission\Models\Role::class)) {
-            \Spatie\Permission\Models\Role::firstOrCreate(['name' => 'penghuni', 'guard_name' => 'web']);
-            \Spatie\Permission\Models\Role::firstOrCreate(['name' => 'pemilik', 'guard_name' => 'web']);
+        if (class_exists(Role::class)) {
+            Role::firstOrCreate(['name' => 'penghuni', 'guard_name' => 'web']);
+            Role::firstOrCreate(['name' => 'pemilik', 'guard_name' => 'web']);
         }
 
         $sellerRizky = User::updateOrCreate(
@@ -173,7 +175,7 @@ class MarketplaceSeeder extends Seeder
                     'title' => $data['title'],
                 ],
                 [
-                    'slug' => \Illuminate\Support\Str::slug($data['title']),
+                    'slug' => Str::slug($data['title']),
                     'category' => $data['category'],
                     'price' => $data['price'],
                     'condition' => $data['condition'],
@@ -193,7 +195,7 @@ class MarketplaceSeeder extends Seeder
                     'order' => 1,
                 ],
                 [
-                    'image_path' => 'marketplace/' . $data['image'],
+                    'image_path' => 'marketplace/'.$data['image'],
                     'is_primary' => true,
                 ]
             );

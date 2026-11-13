@@ -7,7 +7,6 @@ use App\Models\Banner;
 use App\Models\MarketplaceItem;
 use App\Models\MarketplaceItemImage;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class MarketplaceController extends Controller
@@ -32,8 +31,8 @@ class MarketplaceController extends Controller
         if ($search) {
             $query->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%{$search}%")
-                  ->orWhere('description', 'like', "%{$search}%")
-                  ->orWhere('meetup_location', 'like', "%{$search}%");
+                    ->orWhere('description', 'like', "%{$search}%")
+                    ->orWhere('meetup_location', 'like', "%{$search}%");
             });
         }
 
@@ -112,7 +111,7 @@ class MarketplaceController extends Controller
         $item = MarketplaceItem::create([
             'user_id' => auth()->id(),
             'title' => $validated['title'],
-            'slug' => Str::slug($validated['title']) . '-' . Str::random(5),
+            'slug' => Str::slug($validated['title']).'-'.Str::random(5),
             'category' => $validated['category'],
             'price' => $validated['price'],
             'condition' => $validated['condition'],

@@ -30,4 +30,3 @@ class ReportController extends Controller
         return back()->with('success', 'Terima kasih atas laporan Anda. Tim moderasi Seven Kost akan meninjau iklan ini dalam 1-3 hari kerja.');
     }
 }
-

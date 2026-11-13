@@ -1,11 +1,11 @@
-<x-guest-layout title="Verifikasi Email - SevenKost">
+<x-guest-layout :title="'Verifikasi Email - ' . app_name()">
     <div class="w-full max-w-md mx-auto my-auto">
 
         <div class="bg-white rounded-2xl sm:rounded-3xl shadow-xl border border-slate-200/80 p-8 sm:p-10">
             <div class="mb-5 flex justify-center">
                 <a href="{{ url('/') }}" class="flex items-center gap-2.5">
-                    <img src="{{ asset('images/logo-seven-kost.png') }}" alt="SevenKost Logo" class="h-10 w-10 object-contain">
-                    <span class="text-xl font-black text-slate-900">Seven<span class="text-blue-600">Kost</span></span>
+                    <img src="{{ app_logo_url() }}" alt="{{ app_name() }} Logo" class="h-10 w-10 object-contain">
+                    <span class="text-xl font-black text-slate-900">{{ app_name() }}</span>
                 </a>
             </div>
 

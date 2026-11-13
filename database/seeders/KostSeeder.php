@@ -22,25 +22,26 @@ class KostSeeder extends Seeder
     {
         // 1. Ambil akun Pemilik Kos
         $pemilikJakarta = User::where('email', 'pemilik@sevenkos.com')->first() ?? User::first();
-        $pemilikYogya   = User::where('email', 'pemilik.ratna@sevenkos.com')->first() ?? $pemilikJakarta;
-        $pemilikDaerah  = User::where('email', 'pemilik.hendra@sevenkos.com')->first() ?? $pemilikJakarta;
+        $pemilikYogya = User::where('email', 'pemilik.ratna@sevenkos.com')->first() ?? $pemilikJakarta;
+        $pemilikDaerah = User::where('email', 'pemilik.hendra@sevenkos.com')->first() ?? $pemilikJakarta;
 
-        if (!$pemilikJakarta) {
+        if (! $pemilikJakarta) {
             $this->command->error('Tidak ditemukan user pemilik di database. Jalankan RolePermissionSeeder terlebih dahulu.');
+
             return;
         }
 
         // 2. Siapkan file gambar di storage/app/public/kosts jika belum ada
         $storageKostsDir = storage_path('app/public/kosts');
-        if (!File::exists($storageKostsDir)) {
+        if (! File::exists($storageKostsDir)) {
             File::makeDirectory($storageKostsDir, 0755, true);
         }
 
         $frontendImgDir = public_path('images/frontend');
         if (File::exists($frontendImgDir)) {
             foreach (File::files($frontendImgDir) as $file) {
-                $dest = $storageKostsDir . '/' . $file->getFilename();
-                if (!File::exists($dest)) {
+                $dest = $storageKostsDir.'/'.$file->getFilename();
+                if (! File::exists($dest)) {
                     File::copy($file->getPathname(), $dest);
                 }
             }
@@ -434,6 +435,6 @@ class KostSeeder extends Seeder
             }
         }
 
-        $this->command->info('Sukses! ' . count($kostList) . ' Kos lengkap beserta berbagai variasi tipe kamar berhasil di-seed.');
+        $this->command->info('Sukses! '.count($kostList).' Kos lengkap beserta berbagai variasi tipe kamar berhasil di-seed.');
     }
 }

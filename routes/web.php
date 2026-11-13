@@ -88,6 +88,14 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/dashboard', function () {
+    if (auth()->user()?->hasRole('superadmin')) {
+        return redirect('/superadmin');
+    }
+
+    if (auth()->user()?->hasRole('admin')) {
+        return redirect('/admin');
+    }
+
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 

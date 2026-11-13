@@ -19,7 +19,9 @@ class ReportResource extends Resource
     protected static ?string $model = Report::class;
 
     protected static ?string $navigationLabel = 'Laporan Pelanggaran';
+
     protected static ?string $modelLabel = 'Laporan';
+
     protected static ?string $pluralModelLabel = 'Laporan Pelanggaran';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedExclamationTriangle;

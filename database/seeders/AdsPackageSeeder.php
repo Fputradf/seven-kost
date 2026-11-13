@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\AdsPackage;
+use App\Models\Banner;
 use Illuminate\Database\Seeder;
 
 class AdsPackageSeeder extends Seeder
@@ -69,8 +70,7 @@ class AdsPackageSeeder extends Seeder
         ];
 
         foreach ($banners as $b) {
-            \App\Models\Banner::firstOrCreate(['title' => $b['title']], $b);
+            Banner::firstOrCreate(['title' => $b['title']], $b);
         }
     }
 }
-

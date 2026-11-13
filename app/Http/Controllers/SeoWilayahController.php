@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Kost;
 use App\Models\Province;
-use App\Models\Regency;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
@@ -26,7 +25,7 @@ class SeoWilayahController extends Controller
             return Str::slug($p->name) === $provinsiSlug;
         });
 
-        if (!$province) {
+        if (! $province) {
             abort(404, 'Provinsi tidak ditemukan');
         }
 
@@ -34,7 +33,7 @@ class SeoWilayahController extends Controller
             return Str::slug($r->name) === $kotaSlug;
         });
 
-        if (!$regency) {
+        if (! $regency) {
             abort(404, 'Kabupaten/Kota tidak ditemukan');
         }
 
@@ -80,13 +79,13 @@ class SeoWilayahController extends Controller
                     '@type' => 'ListItem',
                     'position' => 3,
                     'name' => $province->name,
-                    'item' => url('/cari?provinsi=' . $province->id),
+                    'item' => url('/cari?provinsi='.$province->id),
                 ],
                 [
                     '@type' => 'ListItem',
                     'position' => 4,
-                    'name' => 'Kos ' . $regency->name,
-                    'item' => url('/kos/' . $provinsiSlug . '/' . $kotaSlug),
+                    'name' => 'Kos '.$regency->name,
+                    'item' => url('/kos/'.$provinsiSlug.'/'.$kotaSlug),
                 ],
             ],
         ];
@@ -101,7 +100,7 @@ class SeoWilayahController extends Controller
                     'name' => "Berapa rata-rata harga sewa kos di {$regency->name}?",
                     'acceptedAnswer' => [
                         '@type' => 'Answer',
-                        'text' => "Harga sewa kos di {$regency->name} berkisar mulai dari Rp " . number_format($minPrice, 0, ',', '.') . " hingga Rp " . number_format($maxPrice, 0, ',', '.') . " per bulan, bervariasi menurut fasilitas seperti kamar mandi dalam, AC, WiFi, dan kedekatan dengan fasilitas umum.",
+                        'text' => "Harga sewa kos di {$regency->name} berkisar mulai dari Rp ".number_format($minPrice, 0, ',', '.').' hingga Rp '.number_format($maxPrice, 0, ',', '.').' per bulan, bervariasi menurut fasilitas seperti kamar mandi dalam, AC, WiFi, dan kedekatan dengan fasilitas umum.',
                     ],
                 ],
                 [
@@ -109,7 +108,7 @@ class SeoWilayahController extends Controller
                     'name' => "Bagaimana cara booking kos di {$regency->name} lewat Seven Kost?",
                     'acceptedAnswer' => [
                         '@type' => 'Answer',
-                        'text' => "Anda dapat memilih kamar kos yang diinginkan, menekan tombol Ajukan Sewa / Booking untuk reservasi langsung, atau menghubungi nomor WhatsApp pemilik yang tertera secara transparan tanpa biaya komisi perantara.",
+                        'text' => 'Anda dapat memilih kamar kos yang diinginkan, menekan tombol Ajukan Sewa / Booking untuk reservasi langsung, atau menghubungi nomor WhatsApp pemilik yang tertera secara transparan tanpa biaya komisi perantara.',
                     ],
                 ],
                 [
@@ -153,4 +152,3 @@ class SeoWilayahController extends Controller
             ->header('Content-Type', 'text/xml');
     }
 }
-

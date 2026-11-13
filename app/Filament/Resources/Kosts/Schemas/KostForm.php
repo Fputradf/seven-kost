@@ -48,9 +48,10 @@ class KostForm
                     ->label('Kabupaten / Kota')
                     ->options(function (callable $get) {
                         $provId = $get('province_id');
-                        if (!$provId) {
+                        if (! $provId) {
                             return Regency::pluck('name', 'id');
                         }
+
                         return Regency::where('province_id', $provId)->pluck('name', 'id');
                     })
                     ->searchable()

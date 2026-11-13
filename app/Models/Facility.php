@@ -24,4 +24,3 @@ class Facility extends Model
         return $this->belongsToMany(Kost::class, 'kost_facilities', 'facility_id', 'kost_id');
     }
 }
-

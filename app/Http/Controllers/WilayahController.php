@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Province;
 use App\Models\Regency;
 use Illuminate\Http\JsonResponse;
 
@@ -20,4 +19,3 @@ class WilayahController extends Controller
         return response()->json($regencies);
     }
 }
-

@@ -131,7 +131,7 @@ class KostsTable
                     ->label(fn (Kost $record): string => $record->is_featured ? 'Batal Unggulan' : 'Set Unggulan')
                     ->icon('heroicon-o-star')
                     ->color('warning')
-                    ->action(fn (Kost $record) => $record->update(['is_featured' => !$record->is_featured])),
+                    ->action(fn (Kost $record) => $record->update(['is_featured' => ! $record->is_featured])),
 
                 EditAction::make(),
             ])

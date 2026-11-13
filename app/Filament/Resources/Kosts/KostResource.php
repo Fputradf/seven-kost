@@ -19,7 +19,9 @@ class KostResource extends Resource
     protected static ?string $model = Kost::class;
 
     protected static ?string $navigationLabel = 'Moderasi & Verifikasi Kos';
+
     protected static ?string $modelLabel = 'Listing Kos';
+
     protected static ?string $pluralModelLabel = 'Listing Kos';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBuildingOffice;

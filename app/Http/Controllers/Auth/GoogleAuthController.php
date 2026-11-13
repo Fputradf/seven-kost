@@ -29,7 +29,7 @@ class GoogleAuthController extends Controller
         try {
             $googleUser = Socialite::driver('google')->user();
 
-            if (!$googleUser || !$googleUser->getEmail()) {
+            if (! $googleUser || ! $googleUser->getEmail()) {
                 return redirect()->route('login')->with('error', 'Gagal memverifikasi akun Google Anda.');
             }
 
@@ -38,17 +38,17 @@ class GoogleAuthController extends Controller
             // Cari user berdasarkan google_id terlebih dahulu
             $user = User::where('google_id', $googleUser->getId())->first();
 
-            if (!$user) {
+            if (! $user) {
                 // Jika belum ada google_id, cari berdasarkan email
                 $user = User::where('email', $googleUser->getEmail())->first();
 
                 if ($user) {
                     // Hubungkan google_id ke akun yang sudah terdaftar
                     $user->google_id = $googleUser->getId();
-                    if (!$user->avatar && $googleUser->getAvatar()) {
+                    if (! $user->avatar && $googleUser->getAvatar()) {
                         $user->avatar = $googleUser->getAvatar();
                     }
-                    if (!$user->email_verified_at) {
+                    if (! $user->email_verified_at) {
                         $user->email_verified_at = now();
                     }
                     $user->save();
@@ -82,13 +82,21 @@ class GoogleAuthController extends Controller
                 return redirect()->route('onboarding.role');
             }
 
+            if ($user->hasRole('superadmin')) {
+                return redirect()->intended('/superadmin');
+            }
+
+            if ($user->hasRole('admin')) {
+                return redirect()->intended('/admin');
+            }
+
             return redirect()->intended(route('dashboard', absolute: false));
         } catch (\Throwable $e) {
-            Log::error('Google OAuth Error: ' . $e->getMessage(), [
+            Log::error('Google OAuth Error: '.$e->getMessage(), [
                 'exception' => $e,
             ]);
 
-            return redirect()->route('login')->with('error', 'Terjadi kesalahan saat masuk dengan Google: ' . $e->getMessage());
+            return redirect()->route('login')->with('error', 'Terjadi kesalahan saat masuk dengan Google: '.$e->getMessage());
         }
     }
 

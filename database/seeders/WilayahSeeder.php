@@ -7,7 +7,6 @@ use App\Models\Regency;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 
 class WilayahSeeder extends Seeder
 {
@@ -17,12 +16,12 @@ class WilayahSeeder extends Seeder
     public function run(): void
     {
         $dataPath = database_path('data');
-        if (!File::exists($dataPath)) {
+        if (! File::exists($dataPath)) {
             File::makeDirectory($dataPath, 0755, true);
         }
 
-        $provincesFile = $dataPath . '/provinces.json';
-        $regenciesFile = $dataPath . '/regencies.json';
+        $provincesFile = $dataPath.'/provinces.json';
+        $regenciesFile = $dataPath.'/regencies.json';
 
         // 1. Ambil data Provinsi (Gunakan cache lokal jika ada, atau unduh jika belum)
         if (File::exists($provincesFile)) {
@@ -35,6 +34,7 @@ class WilayahSeeder extends Seeder
                 File::put($provincesFile, json_encode($provinces, JSON_PRETTY_PRINT));
             } else {
                 $this->command->error('Gagal mengunduh data provinsi.');
+
                 return;
             }
         }
@@ -102,7 +102,6 @@ class WilayahSeeder extends Seeder
             Regency::upsert($chunk, ['id'], ['province_id', 'name', 'type', 'updated_at']);
         }
 
-        $this->command->info('Selesai! ' . count($provinceRows) . ' Provinsi dan ' . count($regencyRows) . ' Kabupaten/Kota berhasil tersimpan.');
+        $this->command->info('Selesai! '.count($provinceRows).' Provinsi dan '.count($regencyRows).' Kabupaten/Kota berhasil tersimpan.');
     }
 }
-

@@ -9,19 +9,22 @@ use App\Filament\Resources\AdsPackages\Schemas\AdsPackageForm;
 use App\Filament\Resources\AdsPackages\Tables\AdsPackagesTable;
 use App\Models\AdsPackage;
 use BackedEnum;
-use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class AdsPackageResource extends Resource
 {
     protected static ?string $model = AdsPackage::class;
 
     protected static ?string $navigationLabel = 'Tarif Paket Iklan';
+
     protected static ?string $modelLabel = 'Paket Iklan';
+
     protected static ?string $pluralModelLabel = 'Tarif Paket Iklan';
+
     protected static string|UnitEnum|null $navigationGroup = 'Monetisasi & Iklan';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCurrencyDollar;

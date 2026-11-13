@@ -55,13 +55,13 @@
             activeTab: '{{ $activeTab ?? 'kost' }}',
             vipModalOpen: false,
             selectedVipId: '3_months',
-            selectedVipName: 'VIP 3 Bulan',
-            selectedVipPrice: 'Rp 129.000',
+            selectedVipName: '{{ $vipPackages['3_months']['name'] ?? 'VIP 3 Bulan' }}',
+            selectedVipPrice: '{{ $vipPackages['3_months']['price_label'] ?? 'Rp 129.000' }}',
             bannerDuration: 90,
             bannerRates: {
-                30: { price: 250000, name: 'Banner 1 Bulan (30 Hari)' },
-                90: { price: 650000, name: 'Banner 3 Bulan (90 Hari)' },
-                365: { price: 1990000, name: 'Banner 1 Tahun (365 Hari)' }
+                @foreach($bannerPackages as $dKey => $bVal)
+                    {{ $dKey }}: { price: {{ (int) $bVal['price'] }}, name: '{{ $bVal['name'] }}' },
+                @endforeach
             },
             getBannerTotal() {
                 return this.bannerRates[this.bannerDuration]?.price || 0;

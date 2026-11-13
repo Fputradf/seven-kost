@@ -5,12 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'SevenKost') }}</title>
+        <title>{{ app_name() }}</title>
 
-        <!-- Favicon (Logo Resmi SevenKost pada Tab Browser) -->
-        <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
-        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
-        <link rel="apple-touch-icon" href="{{ asset('images/logo-seven-kost.png') }}">
+        <!-- Favicon (Dinamis dari Pengaturan Aplikasi) -->
+        <link rel="icon" type="image/png" href="{{ app_favicon_url() }}">
+        <link rel="shortcut icon" type="image/x-icon" href="{{ app_favicon_url() }}">
+        <link rel="apple-touch-icon" href="{{ app_logo_url() }}">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">

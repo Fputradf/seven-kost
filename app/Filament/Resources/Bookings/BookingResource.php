@@ -19,7 +19,9 @@ class BookingResource extends Resource
     protected static ?string $model = Booking::class;
 
     protected static ?string $navigationLabel = 'Data Pengajuan & Sewa';
+
     protected static ?string $modelLabel = 'Booking Sewa';
+
     protected static ?string $pluralModelLabel = 'Data Booking Sewa';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentCheck;

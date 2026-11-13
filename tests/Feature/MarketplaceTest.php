@@ -4,6 +4,11 @@ namespace Tests\Feature;
 
 use App\Models\MarketplaceItem;
 use App\Models\User;
+use Database\Seeders\FacilitySeeder;
+use Database\Seeders\KostSeeder;
+use Database\Seeders\MarketplaceSeeder;
+use Database\Seeders\RolePermissionSeeder;
+use Database\Seeders\WilayahSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -18,11 +23,11 @@ class MarketplaceTest extends TestCase
         parent::setUp();
 
         $this->seed([
-            \Database\Seeders\RolePermissionSeeder::class,
-            \Database\Seeders\WilayahSeeder::class,
-            \Database\Seeders\FacilitySeeder::class,
-            \Database\Seeders\KostSeeder::class,
-            \Database\Seeders\MarketplaceSeeder::class,
+            RolePermissionSeeder::class,
+            WilayahSeeder::class,
+            FacilitySeeder::class,
+            KostSeeder::class,
+            MarketplaceSeeder::class,
         ]);
     }
 

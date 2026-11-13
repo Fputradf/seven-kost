@@ -39,6 +39,7 @@ class RolePermissionSeeder extends Seeder
                 'name' => 'Super Admin Seven Kost',
                 'phone' => '081100000001',
                 'password' => Hash::make('password'),
+                'status' => 'active',
                 'email_verified_at' => now(),
             ]
         );

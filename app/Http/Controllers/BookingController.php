@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\Kost;
 use App\Models\Room;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -43,8 +44,10 @@ class BookingController extends Controller
         }
 
         $user = auth()->user();
-        $totalAmount = $room->price * $validated['duration_months'];
-        $startDate = \Carbon\Carbon::parse($validated['start_date']);
+        $subtotal = $room->price * $validated['duration_months'];
+        $tenantFee = (float) setting('fee_booking_tenant', 0);
+        $totalAmount = $subtotal + $tenantFee;
+        $startDate = Carbon::parse($validated['start_date']);
         $endDate = $startDate->copy()->addMonths($validated['duration_months']);
 
         Booking::create([
@@ -76,10 +79,10 @@ class BookingController extends Controller
 
         if ($booking->status === 'pending') {
             $booking->update(['status' => 'cancelled']);
+
             return back()->with('success', 'Pengajuan sewa berhasil dibatalkan.');
         }
 
         return back()->with('error', 'Pengajuan sewa ini tidak dapat dibatalkan secara sepihak.');
     }
 }
-

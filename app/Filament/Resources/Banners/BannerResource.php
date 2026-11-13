@@ -9,19 +9,22 @@ use App\Filament\Resources\Banners\Schemas\BannerForm;
 use App\Filament\Resources\Banners\Tables\BannersTable;
 use App\Models\Banner;
 use BackedEnum;
-use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class BannerResource extends Resource
 {
     protected static ?string $model = Banner::class;
 
     protected static ?string $navigationLabel = 'Banner Beranda';
+
     protected static ?string $modelLabel = 'Banner Promosi';
+
     protected static ?string $pluralModelLabel = 'Banner Beranda';
+
     protected static string|UnitEnum|null $navigationGroup = 'Monetisasi & Iklan';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedPhoto;

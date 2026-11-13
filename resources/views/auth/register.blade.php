@@ -28,13 +28,13 @@
             {{-- MOBILE BRAND HEADER (LOGO & BRAND DI TENGAH SESUAI REFERENSI) --}}
             <div class="flex flex-col items-center justify-center pt-8 pb-3 lg:hidden text-center z-10">
                 <a href="{{ url('/') }}" class="inline-flex flex-col items-center">
-                    <img src="{{ asset('images/logo-seven-kost.png') }}" 
-                         alt="Logo SevenKost" 
-                         class="h-14 w-14 object-contain bg-white rounded-2xl p-1.5 shadow-md mb-2">
+                    <img src="{{ app_logo_url('dark') }}" 
+                         alt="Logo {{ app_name() }}" 
+                         class="h-14 w-14 object-contain mb-2">
                     <span class="text-xl font-bold tracking-tight text-white block">
-                        Seven<span class="text-sky-300">Kost</span>
+                        {{ app_name() }}
                     </span>
-                    <span class="text-[10px] text-blue-200 font-medium block mt-0.5">Platform Cari & Kelola Kos</span>
+                    <span class="text-[10px] text-blue-200 font-medium block mt-0.5">{{ setting('app_slogan', 'Platform Cari & Kelola Kos') }}</span>
                 </a>
             </div>
 
@@ -53,14 +53,14 @@
                 {{-- Brand Header Desktop --}}
                 <div class="flex items-center gap-2.5 mb-3.5">
                     <a href="{{ url('/') }}" class="flex items-center gap-2.5 group">
-                        <img src="{{ asset('images/logo-seven-kost.png') }}" 
-                             alt="Logo SevenKost" 
-                             class="h-8 w-8 object-contain bg-white rounded-xl p-1 shadow-xs">
+                        <img src="{{ app_logo_url('dark') }}" 
+                             alt="Logo {{ app_name() }}" 
+                             class="h-8 w-8 object-contain">
                         <div>
                             <span class="text-lg xl:text-xl font-bold tracking-tight leading-none text-white block">
-                                Seven<span class="text-sky-300">Kost</span>
+                                {{ app_name() }}
                             </span>
-                            <span class="text-[11px] text-blue-200 font-medium block">Platform Cari & Kelola Kos</span>
+                            <span class="text-[11px] text-blue-200 font-medium block">{{ setting('app_slogan', 'Platform Cari & Kelola Kos') }}</span>
                         </div>
                     </a>
                 </div>
@@ -429,8 +429,8 @@
                 {{-- Header Modal --}}
                 <div class="px-5 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
                     <div class="flex items-center gap-2">
-                        <img src="{{ asset('images/logo-seven-kost.png') }}" alt="SevenKost" class="h-6 w-6 object-contain">
-                        <h3 class="font-bold text-sm text-slate-900">Ketentuan Resmi SevenKost</h3>
+                        <img src="{{ app_logo_url() }}" alt="{{ app_name() }}" class="h-6 w-6 object-contain">
+                        <h3 class="font-bold text-sm text-slate-900">Ketentuan Resmi {{ app_name() }}</h3>
                     </div>
                     <button type="button" 
                             @click="openTermsModal = false" 

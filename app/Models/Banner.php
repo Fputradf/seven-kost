@@ -47,7 +47,6 @@ class Banner extends Model
             return asset($this->image_path);
         }
 
-        return asset('storage/' . $this->image_path);
+        return asset('storage/'.$this->image_path);
     }
 }
-

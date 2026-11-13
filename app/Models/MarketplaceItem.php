@@ -42,7 +42,7 @@ class MarketplaceItem extends Model
                 $slug = $baseSlug;
                 $count = 1;
                 while (static::where('slug', $slug)->exists()) {
-                    $slug = $baseSlug . '-' . $count++;
+                    $slug = $baseSlug.'-'.$count++;
                 }
                 $item->slug = $slug;
             }
@@ -66,7 +66,7 @@ class MarketplaceItem extends Model
 
     public function getFormattedPriceAttribute(): string
     {
-        return 'Rp ' . number_format($this->price, 0, ',', '.');
+        return 'Rp '.number_format($this->price, 0, ',', '.');
     }
 
     public function getCategoryLabelAttribute(): string
@@ -100,7 +100,8 @@ class MarketplaceItem extends Model
             if (str_starts_with($primary->image_path, 'http') || str_starts_with($primary->image_path, 'images/')) {
                 return asset($primary->image_path);
             }
-            return asset('storage/' . $primary->image_path);
+
+            return asset('storage/'.$primary->image_path);
         }
 
         return asset('images/frontend/marketplace-hd.jpg');

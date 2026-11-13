@@ -17,7 +17,7 @@ class RoomTenantController extends Controller
      */
     public function rooms(Kost $kost): View
     {
-        if ($kost->user_id !== auth()->id() && !auth()->user()->hasAnyRole(['admin', 'superadmin'])) {
+        if ($kost->user_id !== auth()->id() && ! auth()->user()->hasAnyRole(['admin', 'superadmin'])) {
             abort(403);
         }
 
@@ -31,7 +31,7 @@ class RoomTenantController extends Controller
      */
     public function storeRoom(Request $request, Kost $kost): RedirectResponse
     {
-        if ($kost->user_id !== auth()->id() && !auth()->user()->hasAnyRole(['admin', 'superadmin'])) {
+        if ($kost->user_id !== auth()->id() && ! auth()->user()->hasAnyRole(['admin', 'superadmin'])) {
             abort(403);
         }
 
@@ -53,7 +53,7 @@ class RoomTenantController extends Controller
      */
     public function destroyRoom(Kost $kost, Room $room): RedirectResponse
     {
-        if ($kost->user_id !== auth()->id() && !auth()->user()->hasAnyRole(['admin', 'superadmin'])) {
+        if ($kost->user_id !== auth()->id() && ! auth()->user()->hasAnyRole(['admin', 'superadmin'])) {
             abort(403);
         }
 
@@ -82,7 +82,7 @@ class RoomTenantController extends Controller
      */
     public function updateBookingStatus(Request $request, Booking $booking): RedirectResponse
     {
-        if ($booking->kost->user_id !== auth()->id() && !auth()->user()->hasAnyRole(['admin', 'superadmin'])) {
+        if ($booking->kost->user_id !== auth()->id() && ! auth()->user()->hasAnyRole(['admin', 'superadmin'])) {
             abort(403);
         }
 
@@ -101,7 +101,6 @@ class RoomTenantController extends Controller
             $booking->room->increment('available_rooms');
         }
 
-        return back()->with('success', 'Status pengajuan sewa berhasil diperbarui menjadi ' . ucfirst($newStatus));
+        return back()->with('success', 'Status pengajuan sewa berhasil diperbarui menjadi '.ucfirst($newStatus));
     }
 }
-

@@ -14,6 +14,7 @@ class Province extends Model
      * Primary key tidak auto-increment karena menggunakan kode resmi (char 2 digit).
      */
     public $incrementing = false;
+
     protected $keyType = 'string';
 
     protected $fillable = [
@@ -31,4 +32,3 @@ class Province extends Model
         return $this->hasMany(Regency::class, 'province_id', 'id');
     }
 }
-

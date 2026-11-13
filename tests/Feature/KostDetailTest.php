@@ -54,7 +54,7 @@ class KostDetailTest extends TestCase
     {
         $kost = $this->getOrCreateTestKost();
 
-        $response = $this->get('/kos/' . $kost->slug);
+        $response = $this->get('/kos/'.$kost->slug);
 
         $response->assertStatus(200);
 
@@ -90,7 +90,7 @@ class KostDetailTest extends TestCase
         $user = User::first() ?? User::factory()->create();
         $kost = $this->getOrCreateTestKost();
 
-        $response = $this->actingAs($user)->get('/kos/' . $kost->slug);
+        $response = $this->actingAs($user)->get('/kos/'.$kost->slug);
 
         $response->assertStatus(200);
         $response->assertSee('Ajukan Booking Sewa');

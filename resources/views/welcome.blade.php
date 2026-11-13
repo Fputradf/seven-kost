@@ -1,4 +1,4 @@
-<x-seven-layout title="SevenKost - Cari Kos Jadi Lebih Mudah | Platform Kos Terpercaya" :transparentNavbar="true">
+<x-seven-layout :title="app_name() . ' - ' . setting('app_slogan', 'Cari Kos Jadi Lebih Mudah') . ' | Platform Kos Terpercaya'" :transparentNavbar="true">
 
 @push('styles')
 <style>

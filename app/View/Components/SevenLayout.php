@@ -23,4 +23,3 @@ class SevenLayout extends Component
         return view('layouts.seven');
     }
 }
-

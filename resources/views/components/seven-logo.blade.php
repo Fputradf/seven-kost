@@ -16,15 +16,17 @@
         default => 'text-xl',
     };
     $textColor = $light ? 'text-white' : 'text-slate-900';
-    $kostColor = $light ? 'text-cyan-400' : 'text-blue-600';
     $subColor = $light ? 'text-slate-300' : 'text-slate-500';
+
+    $logoUrl = app_logo_url($light ? 'dark' : 'light');
+    $appName = app_name('SevenKost');
 @endphp
 
 <div {{ $attributes->merge(['class' => 'inline-flex items-center gap-3 select-none']) }}>
-    <img src="{{ asset('images/logo-seven-kost.png') }}" alt="SevenKost Logo" class="{{ $imgSizeClasses }} object-contain drop-shadow-sm flex-shrink-0">
+    <img src="{{ $logoUrl }}" alt="{{ $appName }} Logo" class="{{ $imgSizeClasses }} object-contain drop-shadow-sm flex-shrink-0">
     @if($withText)
         <div class="leading-none flex flex-col justify-center">
-            <span class="{{ $textColor }} font-extrabold tracking-tight {{ $titleSize }}">Seven<span class="{{ $kostColor }}">Kost</span></span>
+            <span class="{{ $textColor }} font-extrabold tracking-tight {{ $titleSize }}">{{ $appName }}</span>
             @if($subtitle)
                 <span class="text-[10px] font-medium tracking-normal {{ $subColor }} mt-1">{{ $subtitle }}</span>
             @endif

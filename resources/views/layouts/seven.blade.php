@@ -14,24 +14,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $title ?? 'SevenKost - Cari & Sewa Kos Amanah Seluruh Indonesia' }}</title>
-    <meta name="description" content="{{ $description ?? 'Platform pencarian kos terlengkap dan terverifikasi di seluruh Indonesia dengan peta interaktif dan kemudahan sewa kos langsung ke pemilik.' }}">
+    <title>{{ $title ?? (app_name() . ' - ' . setting('app_slogan', 'Cari & Sewa Kos Amanah Seluruh Indonesia')) }}</title>
+    <meta name="description" content="{{ $description ?? setting('app_description', 'Platform pencarian kos terlengkap dan terverifikasi di seluruh Indonesia dengan peta interaktif dan kemudahan sewa kos langsung ke pemilik.') }}">
     <meta name="robots" content="{{ $robots ?? 'index, follow' }}">
     @if(isset($canonical) && $canonical)
         <link rel="canonical" href="{{ $canonical }}">
     @endif
 
-    <!-- Favicon (Logo Resmi SevenKost pada Tab Browser) -->
-    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
+    <!-- Favicon (Dinamis dari Pengaturan Aplikasi & Fallback ICO) -->
+    <link rel="icon" type="image/png" href="{{ app_favicon_url() }}">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
-    <link rel="apple-touch-icon" href="{{ asset('images/logo-seven-kost.png') }}">
+    <link rel="apple-touch-icon" href="{{ app_logo_url() }}">
 
-    <!-- Fonts: Poppins (Font Populer, Humanis & Modern) -->
+    <!-- Fonts: Inter & Plus Jakarta Sans (Modern, Clean & Ultra Legible) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=poppins:300,400,500,600,700,800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Scripts & Styles via Vite -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])

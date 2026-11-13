@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
+use Database\Seeders\RolePermissionSeeder;
 use Tests\TestCase;
 
 class ServiceTest extends TestCase
@@ -10,7 +12,7 @@ class ServiceTest extends TestCase
     {
         parent::setUp();
         $this->seed([
-            \Database\Seeders\RolePermissionSeeder::class,
+            RolePermissionSeeder::class,
         ]);
     }
 
@@ -58,7 +60,7 @@ class ServiceTest extends TestCase
      */
     public function test_authenticated_penghuni_can_view_order_modal(): void
     {
-        $penghuni = \App\Models\User::role('penghuni')->first();
+        $penghuni = User::role('penghuni')->first();
         if ($penghuni) {
             $response = $this->actingAs($penghuni)->get('/layanan');
             $response->assertStatus(200);

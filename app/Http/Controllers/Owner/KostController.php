@@ -12,8 +12,6 @@ use App\Models\Room;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class KostController extends Controller
@@ -81,7 +79,7 @@ class KostController extends Controller
             $user = auth()->user();
 
             // Pastikan user memiliki role pemilik jika belum ada
-            if (!$user->hasAnyRole(['pemilik', 'admin', 'superadmin'])) {
+            if (! $user->hasAnyRole(['pemilik', 'admin', 'superadmin'])) {
                 $user->assignRole('pemilik');
             }
 
@@ -105,7 +103,7 @@ class KostController extends Controller
             ]);
 
             // 2. Hubungkan Fasilitas
-            if (!empty($validated['facilities'])) {
+            if (! empty($validated['facilities'])) {
                 $kost->facilities()->sync($validated['facilities']);
             }
 
@@ -133,7 +131,7 @@ class KostController extends Controller
 
             // 5. Unggah Foto Galeri
             if ($request->hasFile('photos')) {
-                $isFirst = !$request->hasFile('cover_image');
+                $isFirst = ! $request->hasFile('cover_image');
                 foreach ($request->file('photos') as $photo) {
                     $path = $photo->store('kosts/gallery', 'public');
                     KostImage::create([
@@ -160,7 +158,7 @@ class KostController extends Controller
     public function edit(Kost $kost): View
     {
         // Pastikan hanya pemilik yang bisa mengedit
-        if ($kost->user_id !== auth()->id() && !auth()->user()->hasAnyRole(['admin', 'superadmin'])) {
+        if ($kost->user_id !== auth()->id() && ! auth()->user()->hasAnyRole(['admin', 'superadmin'])) {
             abort(403, 'Anda tidak memiliki hak akses untuk mengedit iklan ini.');
         }
 
@@ -178,7 +176,7 @@ class KostController extends Controller
      */
     public function update(Request $request, Kost $kost): RedirectResponse
     {
-        if ($kost->user_id !== auth()->id() && !auth()->user()->hasAnyRole(['admin', 'superadmin'])) {
+        if ($kost->user_id !== auth()->id() && ! auth()->user()->hasAnyRole(['admin', 'superadmin'])) {
             abort(403);
         }
 
@@ -199,7 +197,7 @@ class KostController extends Controller
             'facilities.*' => 'exists:facilities,id',
         ]);
 
-        DB::transaction(function () use ($validated, $kost, $request) {
+        DB::transaction(function () use ($validated, $kost) {
             $kost->update([
                 'province_id' => $validated['province_id'],
                 'regency_id' => $validated['regency_id'],
@@ -228,7 +226,7 @@ class KostController extends Controller
      */
     public function destroy(Kost $kost): RedirectResponse
     {
-        if ($kost->user_id !== auth()->id() && !auth()->user()->hasAnyRole(['admin', 'superadmin'])) {
+        if ($kost->user_id !== auth()->id() && ! auth()->user()->hasAnyRole(['admin', 'superadmin'])) {
             abort(403);
         }
 
@@ -237,4 +235,3 @@ class KostController extends Controller
         return redirect()->route('owner.kosts.index')->with('success', 'Iklan kos berhasil dihapus.');
     }
 }
-

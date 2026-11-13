@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -21,6 +22,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Superadmin bypass: Berikan izin penuh untuk semua permission check
+        Gate::before(function ($user, $ability) {
+            return $user->hasRole('superadmin') ? true : null;
+        });
+
         // Kustomisasi email reset password berbahasa Indonesia & ramah SMTP
         ResetPassword::toMailUsing(function (object $notifiable, string $token) {
             $resetUrl = url(route('password.reset', [
@@ -32,7 +38,7 @@ class AppServiceProvider extends ServiceProvider
 
             return (new MailMessage)
                 ->subject('Atur Ulang Kata Sandi Akun - SevenKost')
-                ->greeting('Halo, ' . ($notifiable->name ?? 'Pengguna SevenKost') . '!')
+                ->greeting('Halo, '.($notifiable->name ?? 'Pengguna SevenKost').'!')
                 ->line('Kami menerima permintaan pengaturan ulang kata sandi untuk akun SevenKost Anda.')
                 ->action('Atur Ulang Kata Sandi', $resetUrl)
                 ->line("Tautan reset kata sandi ini akan kedaluwarsa dalam waktu {$expireMinutes} menit.")
