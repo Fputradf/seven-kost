@@ -1037,6 +1037,10 @@
     }
 
     /* Hilangkan semua garis panjang pemisah pada header tabel, toolbar, filter & indikator */
+    .fi-ta-ctn .fi-ta-header,
+    .fi-ta-ctn .fi-ta-header-toolbar,
+    .fi-ta-ctn .fi-ta-header-ctn,
+    .fi-ta-ctn > .fi-ta-main > .fi-ta-header-ctn,
     .fi-ta-header-ctn,
     .fi-ta-header,
     .fi-ta-header-toolbar,
@@ -1047,7 +1051,9 @@
         background: transparent !important;
         border: none !important;
         border-top: none !important;
+        border-top-width: 0px !important;
         border-bottom: none !important;
+        border-bottom-width: 0px !important;
         border-left: none !important;
         border-right: none !important;
         box-shadow: none !important;

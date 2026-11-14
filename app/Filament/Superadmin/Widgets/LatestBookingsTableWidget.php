@@ -22,7 +22,6 @@ class LatestBookingsTableWidget extends BaseWidget
                 Booking::query()->latest()->limit(5)
             )
             ->heading('Pengajuan Sewa & Transaksi Booking Terbaru')
-            ->description('Daftar 5 aktivitas sewa kos terbaru yang diajukan oleh pengguna di platform')
             ->columns([
                 TextColumn::make('tenant_name')
                     ->label('Penyewa')
