@@ -8,7 +8,6 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\Textarea;
-use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -18,6 +17,8 @@ class KostsTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->defaultPaginationPageOption(10)
+            ->paginationPageOptions([10])
             ->columns([
                 TextColumn::make('name')
                     ->label('Nama Kos')
@@ -29,23 +30,13 @@ class KostsTable
                     ->label('Pemilik')
                     ->searchable(),
 
-                TextColumn::make('province.name')
-                    ->label('Provinsi')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-
                 TextColumn::make('regency.name')
                     ->label('Kab/Kota')
                     ->sortable(),
 
                 TextColumn::make('type')
                     ->label('Tipe')
-                    ->badge()
-                    ->colors([
-                        'info' => 'putra',
-                        'danger' => 'putri',
-                        'warning' => 'campur',
-                    ]),
+                    ->formatStateUsing(fn (?string $state): string => ucfirst((string) $state)),
 
                 TextColumn::make('price_start')
                     ->label('Mulai Dari')
@@ -61,10 +52,6 @@ class KostsTable
                         'rejected' => 'danger',
                         default => 'gray',
                     }),
-
-                IconColumn::make('is_featured')
-                    ->label('Unggulan')
-                    ->boolean(),
 
                 TextColumn::make('created_at')
                     ->label('Dibuat')
@@ -91,11 +78,11 @@ class KostsTable
                     ]),
             ])
             ->recordActions([
-                // Aksi Verifikasi & Beri Lencana
                 Action::make('verify')
                     ->label('Verifikasi')
-                    ->icon('heroicon-o-check-badge')
+                    ->button()
                     ->color('success')
+                    ->size('sm')
                     ->requiresConfirmation()
                     ->modalHeading('Verifikasi & Beri Lencana Resmi')
                     ->modalDescription('Apakah Anda yakin data kos ini valid dan siap diberi lencana terverifikasi?')
@@ -107,15 +94,15 @@ class KostsTable
                     })
                     ->visible(fn (Kost $record): bool => $record->verification_status !== 'verified'),
 
-                // Aksi Tolak Listing dengan Alasan
                 Action::make('reject')
                     ->label('Tolak')
-                    ->icon('heroicon-o-x-circle')
+                    ->button()
                     ->color('danger')
+                    ->size('sm')
                     ->form([
                         Textarea::make('rejection_reason')
                             ->label('Alasan Penolakan')
-                            ->placeholder('Jelaskan mengapa iklan ini ditolak (misal: foto buram, alamat tidak jelas)...')
+                            ->placeholder('Jelaskan mengapa iklan kos ini ditolak...')
                             ->required(),
                     ])
                     ->action(function (Kost $record, array $data) {
@@ -126,14 +113,11 @@ class KostsTable
                     })
                     ->visible(fn (Kost $record): bool => $record->verification_status !== 'rejected'),
 
-                // Aksi Jadikan Unggulan
-                Action::make('toggle_featured')
-                    ->label(fn (Kost $record): string => $record->is_featured ? 'Batal Unggulan' : 'Set Unggulan')
-                    ->icon('heroicon-o-star')
-                    ->color('warning')
-                    ->action(fn (Kost $record) => $record->update(['is_featured' => ! $record->is_featured])),
-
-                EditAction::make(),
+                EditAction::make()
+                    ->label('Edit')
+                    ->button()
+                    ->color('primary')
+                    ->size('sm'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

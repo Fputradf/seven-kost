@@ -19,11 +19,11 @@ class MarketplaceItemResource extends Resource
 {
     protected static ?string $model = MarketplaceItem::class;
 
-    protected static ?string $navigationLabel = 'Moderasi Marketplace';
+    protected static ?string $navigationLabel = 'Manajemen Marketplace';
 
-    protected static ?string $modelLabel = 'Barang Bekas';
+    protected static ?string $modelLabel = 'Barang Marketplace';
 
-    protected static ?string $pluralModelLabel = 'Moderasi Marketplace';
+    protected static ?string $pluralModelLabel = 'Manajemen Marketplace';
 
     protected static string|UnitEnum|null $navigationGroup = 'Moderasi & Konten';
 

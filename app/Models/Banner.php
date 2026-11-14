@@ -14,6 +14,8 @@ class Banner extends Model
         'title',
         'image_path',
         'target_url',
+        'user_id',
+        'advertiser_name',
         'regency_id',
         'starts_at',
         'ends_at',
@@ -28,9 +30,23 @@ class Banner extends Model
         'is_active' => 'boolean',
     ];
 
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function regency(): BelongsTo
     {
         return $this->belongsTo(Regency::class, 'regency_id');
+    }
+
+    public function getAdvertiserAttribute(): string
+    {
+        if ($this->user) {
+            return $this->user->name;
+        }
+
+        return $this->advertiser_name ?: 'Admin Seven Kost';
     }
 
     public function getImageUrlAttribute(): string

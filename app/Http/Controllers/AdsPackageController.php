@@ -80,6 +80,8 @@ class AdsPackageController extends Controller
             'title' => "[{$pkgName}] {$validated['brand_name']}",
             'image_path' => $imagePath,
             'target_url' => $validated['target_url'] ?? null,
+            'user_id' => auth()->id(),
+            'advertiser_name' => $validated['brand_name'],
             'regency_id' => null, // Nasional
             'starts_at' => now(),
             'ends_at' => now()->addDays($durationDays),

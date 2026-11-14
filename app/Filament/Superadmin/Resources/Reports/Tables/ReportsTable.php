@@ -7,7 +7,7 @@ use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Forms\Components\Textarea;
+use Filament\Notifications\Notification;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -17,11 +17,19 @@ class ReportsTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->defaultPaginationPageOption(10)
+            ->paginationPageOptions([10])
             ->columns([
                 TextColumn::make('kost.name')
                     ->label('Kos Dilaporkan')
                     ->searchable()
+                    ->sortable()
                     ->weight('bold'),
+
+                TextColumn::make('reporter.name')
+                    ->label('Pelapor')
+                    ->default('Pengunjung Anonim')
+                    ->searchable(),
 
                 TextColumn::make('reason')
                     ->label('Alasan Laporan')
@@ -29,11 +37,7 @@ class ReportsTable
 
                 TextColumn::make('details')
                     ->label('Rincian')
-                    ->limit(40),
-
-                TextColumn::make('reporter.name')
-                    ->label('Pelapor')
-                    ->default('Pengunjung Anonim'),
+                    ->limit(35),
 
                 TextColumn::make('status')
                     ->label('Status')
@@ -43,6 +47,13 @@ class ReportsTable
                         'reviewed' => 'info',
                         'rejected' => 'gray',
                         default => 'danger',
+                    })
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'pending' => 'Pending',
+                        'reviewed' => 'Sedang Ditinjau',
+                        'resolved' => 'Selesai',
+                        'rejected' => 'Ditolak',
+                        default => ucfirst($state),
                     }),
 
                 TextColumn::make('created_at')
@@ -52,8 +63,9 @@ class ReportsTable
             ])
             ->filters([
                 SelectFilter::make('status')
+                    ->label('Filter Status')
                     ->options([
-                        'pending' => 'Pending (Perlu Tindakan)',
+                        'pending' => 'Pending (Perlu Ditinjau)',
                         'reviewed' => 'Sedang Ditinjau',
                         'resolved' => 'Selesai Ditindaklanjuti',
                         'rejected' => 'Ditolak',
@@ -61,28 +73,50 @@ class ReportsTable
             ])
             ->recordActions([
                 Action::make('resolve')
-                    ->label('Tindaklanjuti')
-                    ->icon('heroicon-o-check-circle')
+                    ->label('Selesai')
+                    ->button()
                     ->color('success')
+                    ->size('sm')
                     ->requiresConfirmation()
-                    ->action(fn (Report $record) => $record->update(['status' => 'resolved'])),
+                    ->modalHeading('Tandai Laporan Selesai')
+                    ->modalDescription('Apakah laporan ini sudah selesai diinvestigasi dan ditindaklanjuti?')
+                    ->modalSubmitActionLabel('Ya, Selesai Ditindaklanjuti')
+                    ->action(function (Report $record): void {
+                        $record->update(['status' => 'resolved']);
 
-                Action::make('add_note')
-                    ->label('Beri Catatan')
-                    ->icon('heroicon-o-pencil-square')
-                    ->form([
-                        Textarea::make('admin_notes')
-                            ->label('Catatan Tim Moderasi')
-                            ->required(),
-                    ])
-                    ->action(function (Report $record, array $data) {
-                        $record->update([
-                            'admin_notes' => $data['admin_notes'],
-                            'status' => 'reviewed',
-                        ]);
-                    }),
+                        Notification::make()
+                            ->title('Laporan Ditandai Selesai')
+                            ->body('Status laporan berhasil diperbarui menjadi selesai.')
+                            ->success()
+                            ->send();
+                    })
+                    ->visible(fn (Report $record): bool => $record->status !== 'resolved'),
 
-                EditAction::make(),
+                Action::make('reject')
+                    ->label('Tolak')
+                    ->button()
+                    ->color('danger')
+                    ->size('sm')
+                    ->requiresConfirmation()
+                    ->modalHeading('Tolak Laporan')
+                    ->modalDescription('Apakah Anda yakin ingin menolak laporan ini (tidak terbukti / tidak valid)?')
+                    ->modalSubmitActionLabel('Ya, Tolak Laporan')
+                    ->action(function (Report $record): void {
+                        $record->update(['status' => 'rejected']);
+
+                        Notification::make()
+                            ->title('Laporan Ditolak')
+                            ->body('Status laporan berhasil diperbarui menjadi ditolak.')
+                            ->danger()
+                            ->send();
+                    })
+                    ->visible(fn (Report $record): bool => $record->status !== 'rejected'),
+
+                EditAction::make()
+                    ->label('Edit')
+                    ->button()
+                    ->color('primary')
+                    ->size('sm'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

@@ -8,6 +8,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\Textarea;
+use Filament\Notifications\Notification;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -18,6 +19,8 @@ class AdsPromotionsTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->defaultPaginationPageOption(10)
+            ->paginationPageOptions([10])
             ->columns([
                 TextColumn::make('kost.name')
                     ->label('Nama Kos')
@@ -27,8 +30,7 @@ class AdsPromotionsTable
 
                 TextColumn::make('kost.owner.name')
                     ->label('Pemilik Kos')
-                    ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->searchable(),
 
                 TextColumn::make('package.name')
                     ->label('Paket Iklan')
@@ -48,17 +50,35 @@ class AdsPromotionsTable
                         'rejected' => 'danger',
                         'expired' => 'gray',
                         default => 'gray',
+                    })
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'active' => 'Aktif',
+                        'pending' => 'Pending',
+                        'rejected' => 'Ditolak',
+                        'expired' => 'Kedaluwarsa',
+                        default => ucfirst($state),
                     }),
 
                 TextColumn::make('starts_at')
-                    ->label('Mulai')
-                    ->dateTime('d M Y H:i')
-                    ->sortable(),
+                    ->label('Periode Tayang')
+                    ->formatStateUsing(function (AdsPromotion $record): string {
+                        if (! $record->starts_at && ! $record->ends_at) {
+                            return 'Belum diatur';
+                        }
+                        $start = $record->starts_at ? $record->starts_at->translatedFormat('d M Y') : '-';
+                        $end = $record->ends_at ? $record->ends_at->translatedFormat('d M Y') : '-';
 
-                TextColumn::make('ends_at')
-                    ->label('Berakhir')
-                    ->dateTime('d M Y H:i')
-                    ->sortable(),
+                        return "{$start} - {$end}";
+                    })
+                    ->description(function (AdsPromotion $record): ?string {
+                        if ($record->status === 'active' && $record->ends_at) {
+                            $days = (int) now()->diffInDays($record->ends_at, false);
+
+                            return $days >= 0 ? "Sisa {$days} hari" : 'Telah berakhir';
+                        }
+
+                        return null;
+                    }),
 
                 ImageColumn::make('proof_of_payment')
                     ->label('Bukti Bayar')
@@ -74,7 +94,7 @@ class AdsPromotionsTable
                 SelectFilter::make('status')
                     ->label('Filter Status')
                     ->options([
-                        'pending' => 'Pending (Menunggu Verifikasi)',
+                        'pending' => 'Pending',
                         'active' => 'Aktif',
                         'expired' => 'Kedaluwarsa',
                         'rejected' => 'Ditolak',
@@ -82,12 +102,14 @@ class AdsPromotionsTable
             ])
             ->recordActions([
                 Action::make('approve')
-                    ->label('Aktifkan Iklan')
-                    ->icon('heroicon-o-check-circle')
+                    ->label('Setujui')
+                    ->button()
                     ->color('success')
+                    ->size('sm')
                     ->requiresConfirmation()
-                    ->modalHeading('Aktifkan Iklan Unggulan')
+                    ->modalHeading('Setujui & Aktifkan Iklan')
                     ->modalDescription('Apakah pembayaran sudah diverifikasi dan promosi kos ini ingin diaktifkan sekarang?')
+                    ->modalSubmitActionLabel('Ya, Setujui & Aktifkan')
                     ->action(function (AdsPromotion $record) {
                         $duration = $record->package?->duration_days ?? 7;
                         $now = now();
@@ -100,17 +122,26 @@ class AdsPromotionsTable
                         if ($record->kost) {
                             $record->kost->update(['is_featured' => true]);
                         }
+
+                        Notification::make()
+                            ->title('Iklan Berhasil Diaktifkan')
+                            ->body("Promosi untuk '{$record->kost?->name}' kini telah aktif tayang.")
+                            ->success()
+                            ->send();
                     })
                     ->visible(fn (AdsPromotion $record): bool => $record->status !== 'active'),
 
                 Action::make('reject')
                     ->label('Tolak')
-                    ->icon('heroicon-o-x-circle')
+                    ->button()
                     ->color('danger')
+                    ->size('sm')
+                    ->modalHeading('Tolak Pengajuan Iklan')
+                    ->modalSubmitActionLabel('Tolak Pengajuan')
                     ->form([
                         Textarea::make('admin_notes')
-                            ->label('Alasan Penolakan / Catatan')
-                            ->placeholder('Jelaskan alasan (misal bukti transfer tidak valid/belum masuk)...')
+                            ->label('Alasan Penolakan')
+                            ->placeholder('Jelaskan alasan penolakan (misal: bukti transfer tidak valid)...')
                             ->required(),
                     ])
                     ->action(function (AdsPromotion $record, array $data) {
@@ -130,10 +161,20 @@ class AdsPromotionsTable
                                 $record->kost->update(['is_featured' => false]);
                             }
                         }
+
+                        Notification::make()
+                            ->title('Pengajuan Iklan Ditolak')
+                            ->body("Pengajuan promosi untuk '{$record->kost?->name}' telah ditolak.")
+                            ->danger()
+                            ->send();
                     })
                     ->visible(fn (AdsPromotion $record): bool => $record->status !== 'rejected'),
 
-                EditAction::make(),
+                EditAction::make()
+                    ->label('Edit')
+                    ->button()
+                    ->color('primary')
+                    ->size('sm'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

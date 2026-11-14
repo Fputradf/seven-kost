@@ -18,11 +18,11 @@ class KostResource extends Resource
 {
     protected static ?string $model = Kost::class;
 
-    protected static ?string $navigationLabel = 'Moderasi & Verifikasi Kos';
+    protected static ?string $navigationLabel = 'Manajemen Kos';
 
     protected static ?string $modelLabel = 'Listing Kos';
 
-    protected static ?string $pluralModelLabel = 'Listing Kos';
+    protected static ?string $pluralModelLabel = 'Manajemen Kos';
 
     protected static string|\UnitEnum|null $navigationGroup = 'Moderasi & Konten';
 

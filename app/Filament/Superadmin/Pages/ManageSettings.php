@@ -173,10 +173,8 @@ class ManageSettings extends Page
                         ->tabs([
                             // TAB 1: IDENTITAS VISUAL & LOGO
                             Tab::make('Identitas & Logo')
-                                ->icon('heroicon-o-paint-brush')
                                 ->schema([
                                     Section::make('Identitas Brand')
-                                        ->icon('heroicon-o-sparkles')
                                         ->schema([
                                             Grid::make(['default' => 1, 'md' => 2])
                                                 ->schema([
@@ -197,7 +195,6 @@ class ManageSettings extends Page
                                         ]),
 
                                     Section::make('Logo & Favicon')
-                                        ->icon('heroicon-o-photo')
                                         ->schema([
                                             Grid::make(['default' => 1, 'sm' => 3])
                                                 ->schema([
@@ -236,34 +233,28 @@ class ManageSettings extends Page
 
                             // TAB 2: KONTAK & MEDIA SOSIAL
                             Tab::make('Kontak & Media Sosial')
-                                ->icon('heroicon-o-chat-bubble-left-right')
                                 ->schema([
                                     Section::make('Kontak Layanan')
-                                        ->icon('heroicon-o-phone')
                                         ->schema([
                                             Grid::make(['default' => 1, 'md' => 2])
                                                 ->schema([
                                                     TextInput::make('contact_email')
                                                         ->label('Email')
                                                         ->email()
-                                                        ->placeholder('support@sevenkos.com')
-                                                        ->prefixIcon('heroicon-o-envelope'),
+                                                        ->placeholder('support@sevenkos.com'),
 
                                                     TextInput::make('contact_phone')
                                                         ->label('WhatsApp / Telepon')
                                                         ->tel()
-                                                        ->placeholder('081234567890')
-                                                        ->prefixIcon('heroicon-o-phone'),
+                                                        ->placeholder('081234567890'),
                                                 ]),
 
                                             TextInput::make('contact_address')
                                                 ->label('Alamat Kantor')
-                                                ->placeholder('Jl. Contoh No. 123, Sleman, Yogyakarta')
-                                                ->prefixIcon('heroicon-o-map-pin'),
+                                                ->placeholder('Jl. Contoh No. 123, Sleman, Yogyakarta'),
                                         ]),
 
                                     Section::make('Media Sosial (Maks. 5)')
-                                        ->icon('heroicon-o-share')
                                         ->schema([
                                             Repeater::make('social_links')
                                                 ->label('Daftar Akun')
@@ -309,10 +300,8 @@ class ManageSettings extends Page
 
                             // TAB 3: TARIF LAYANAN, VIP & IKLAN BANNER
                             Tab::make('Tarif & Iklan')
-                                ->icon('heroicon-o-currency-dollar')
                                 ->schema([
                                     Section::make('Biaya Transaksi & CPC')
-                                        ->icon('heroicon-o-banknotes')
                                         ->schema([
                                             Grid::make(['default' => 1, 'md' => 2])
                                                 ->schema([
@@ -331,7 +320,6 @@ class ManageSettings extends Page
                                         ]),
 
                                     Section::make('Tarif Paket VIP Berlangganan Pemilik')
-                                        ->icon('heroicon-o-star')
                                         ->schema([
                                             Grid::make(['default' => 1, 'md' => 3])
                                                 ->schema([
@@ -356,7 +344,6 @@ class ManageSettings extends Page
                                         ]),
 
                                     Section::make('Tarif Paket Iklan Banner Beranda')
-                                        ->icon('heroicon-o-megaphone')
                                         ->schema([
                                             Grid::make(['default' => 1, 'md' => 3])
                                                 ->schema([
@@ -417,6 +404,11 @@ class ManageSettings extends Page
             // Jalankan auto-compress otomatis untuk berkas gambar yang diunggah
             if (in_array($key, ['app_logo', 'app_logo_dark', 'app_favicon'], true) && is_string($serializedValue) && $serializedValue !== '') {
                 $this->autoCompressImage($serializedValue);
+            }
+
+            // Sinkronkan berkas favicon ke direktori publik untuk kompatibilitas browser
+            if ($key === 'app_favicon' && is_string($serializedValue) && $serializedValue !== '') {
+                $this->syncPublicFavicon($serializedValue);
             }
 
             AppSetting::updateOrCreate(
@@ -539,6 +531,29 @@ class ManageSettings extends Page
             imagedestroy($target);
         } catch (Throwable $e) {
             // Log silently agar tidak memblokir penyimpanan jika ada format khusus
+            report($e);
+        }
+    }
+
+    /**
+     * Sinkronkan berkas favicon yang diunggah ke public/favicon.ico dan public/favicon.png
+     * agar browser yang meminta /favicon.ico langsung mendapatkan favicon terbaru.
+     */
+    protected function syncPublicFavicon(string $path): void
+    {
+        try {
+            $disk = Storage::disk('public');
+            if (! $disk->exists($path)) {
+                return;
+            }
+
+            $source = $disk->path($path);
+            if (file_exists($source) && is_file($source)) {
+                @copy($source, public_path('favicon.png'));
+                @copy($source, public_path('favicon.ico'));
+            }
+        } catch (Throwable $e) {
+            // Abaikan jika tidak memiliki izin tulis ke public root
             report($e);
         }
     }

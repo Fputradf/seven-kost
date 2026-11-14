@@ -17,9 +17,9 @@ class BannersTable
     {
         return $table
             ->columns([
-                ImageColumn::make('image_path')
+                ImageColumn::make('image_url')
                     ->label('Banner')
-                    ->disk('public'),
+                    ->height(36),
 
                 TextColumn::make('title')
                     ->label('Judul')

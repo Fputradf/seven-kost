@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
 
@@ -30,6 +31,80 @@ class RolePermissionSeeder extends Seeder
 
         foreach ($roles as $roleName) {
             Role::firstOrCreate(['name' => $roleName, 'guard_name' => 'web']);
+        }
+
+        // 1b. Buat Hak Akses (Permissions) Sistem Terstruktur
+        $permissions = [
+            // Modul Pengguna
+            'users.view',
+            'users.create',
+            'users.edit',
+            'users.delete',
+            'users.suspend',
+
+            // Modul Peran & Akses
+            'roles.view',
+            'roles.create',
+            'roles.edit',
+            'roles.delete',
+
+            // Modul Kos & Verifikasi
+            'kosts.view',
+            'kosts.create',
+            'kosts.edit',
+            'kosts.verify',
+            'kosts.delete',
+
+            // Modul Iklan & Paket Promosi
+            'ads.view',
+            'ads.create',
+            'ads.verify',
+            'ads.packages',
+
+            // Modul Banner
+            'banners.view',
+            'banners.manage',
+
+            // Modul Transaksi & Booking
+            'bookings.view',
+            'bookings.manage',
+
+            // Modul Marketplace Kos
+            'marketplace.view',
+            'marketplace.moderate',
+
+            // Modul Laporan & Moderasi
+            'reports.view',
+            'reports.resolve',
+
+            // Modul Pengaturan Platform
+            'settings.view',
+            'settings.edit',
+        ];
+
+        foreach ($permissions as $permissionName) {
+            Permission::firstOrCreate(['name' => $permissionName, 'guard_name' => 'web']);
+        }
+
+        // Berikan semua izin ke superadmin
+        $superadminRole = Role::where('name', 'superadmin')->first();
+        if ($superadminRole) {
+            $superadminRole->syncPermissions(Permission::all());
+        }
+
+        // Berikan izin operasional ke admin verifikator
+        $adminRole = Role::where('name', 'admin')->first();
+        if ($adminRole) {
+            $adminRole->syncPermissions([
+                'users.view', 'users.suspend',
+                'kosts.view', 'kosts.verify', 'kosts.edit',
+                'ads.view', 'ads.verify',
+                'banners.view', 'banners.manage',
+                'bookings.view', 'bookings.manage',
+                'marketplace.view', 'marketplace.moderate',
+                'reports.view', 'reports.resolve',
+                'settings.view',
+            ]);
         }
 
         // 2. Akun SUPERADMIN (Akses penuh Filament Admin Panel & Sistem)

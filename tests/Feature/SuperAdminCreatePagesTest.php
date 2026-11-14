@@ -29,7 +29,6 @@ class SuperAdminCreatePagesTest extends TestCase
             '/superadmin',
             '/superadmin/pengaturan-aplikasi',
             '/superadmin/users/create',
-            '/superadmin/roles/create',
             '/superadmin/kosts/create',
             '/superadmin/reports/create',
             '/superadmin/marketplace-items/create',

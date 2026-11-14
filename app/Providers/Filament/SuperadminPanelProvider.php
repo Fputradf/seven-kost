@@ -2,18 +2,20 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Superadmin\Pages\Dashboard;
+use App\Filament\Superadmin\Pages\EditProfile;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Navigation\MenuItem;
-use Filament\Pages\Dashboard;
+use Filament\Navigation\NavigationItem;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\Support\Enums\Width;
+use Filament\Tables\Table;
 use Filament\View\PanelsRenderHook;
-use Filament\Widgets\AccountWidget;
-use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
@@ -29,9 +31,13 @@ class SuperadminPanelProvider extends PanelProvider
             ->default()
             ->id('superadmin')
             ->path('superadmin')
+            ->spa()
             ->login()
+            ->profile(page: EditProfile::class, isSimple: false)
+            ->breadcrumbs(false)
+            ->maxContentWidth(Width::Full)
             ->darkMode(false)
-            ->font('Plus Jakarta Sans')
+            ->font('Geist')
             ->colors([
                 'primary' => Color::Blue,
                 'gray' => Color::Slate,
@@ -52,6 +58,14 @@ class SuperadminPanelProvider extends PanelProvider
                     ->url('/superadmin/pengaturan-aplikasi')
                     ->icon('heroicon-o-cog-6-tooth'),
             ])
+            ->navigationItems([
+                NavigationItem::make('Pengaturan Akun')
+                    ->group('Pengaturan Sistem')
+                    ->icon('heroicon-o-user-circle')
+                    ->url(fn (): string => filament()->getProfileUrl())
+                    ->isActiveWhen(fn (): bool => request()->routeIs('filament.superadmin.auth.profile'))
+                    ->sort(20),
+            ])
             ->renderHook(
                 PanelsRenderHook::HEAD_END,
                 fn () => view('filament.custom-theme'),
@@ -63,6 +77,14 @@ class SuperadminPanelProvider extends PanelProvider
             ->renderHook(
                 PanelsRenderHook::USER_MENU_BEFORE,
                 fn () => view('filament.superadmin.components.user-profile-header'),
+            )
+            ->renderHook(
+                PanelsRenderHook::SIDEBAR_FOOTER,
+                fn () => view('filament.superadmin.components.sidebar-footer'),
+            )
+            ->renderHook(
+                'tables::toolbar.start',
+                fn () => view('filament.superadmin.components.table-toolbar-title'),
             )
             ->navigationGroups([
                 'Moderasi & Konten',
@@ -77,10 +99,7 @@ class SuperadminPanelProvider extends PanelProvider
                 Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Superadmin/Widgets'), for: 'App\Filament\Superadmin\Widgets')
-            ->widgets([
-                AccountWidget::class,
-                FilamentInfoWidget::class,
-            ])
+            ->widgets([])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -95,5 +114,14 @@ class SuperadminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ]);
+    }
+
+    public function boot(): void
+    {
+        Table::configureUsing(function (Table $table): void {
+            $table
+                ->defaultPaginationPageOption(10)
+                ->paginationPageOptions([10]);
+        });
     }
 }
