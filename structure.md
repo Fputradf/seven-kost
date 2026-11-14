@@ -126,98 +126,97 @@
 │   │   └── 📁 Superadmin/
 │   │       ├── 📁 Pages/
 │   │       │   └── 📄 ManageSettings.php
-│   │       ├── 📁 Resources/
-│   │       │   ├── 📁 AdsPackages/
-│   │       │   │   ├── 📄 AdsPackageResource.php
-│   │       │   │   ├── 📁 Pages/
-│   │       │   │   │   ├── 📄 CreateAdsPackage.php
-│   │       │   │   │   ├── 📄 EditAdsPackage.php
-│   │       │   │   │   └── 📄 ListAdsPackages.php
-│   │       │   │   ├── 📁 Schemas/
-│   │       │   │   │   └── 📄 AdsPackageForm.php
-│   │       │   │   └── 📁 Tables/
-│   │       │   │       └── 📄 AdsPackagesTable.php
-│   │       │   ├── 📁 AdsPromotions/
-│   │       │   │   ├── 📄 AdsPromotionResource.php
-│   │       │   │   ├── 📁 Pages/
-│   │       │   │   │   ├── 📄 CreateAdsPromotion.php
-│   │       │   │   │   ├── 📄 EditAdsPromotion.php
-│   │       │   │   │   └── 📄 ListAdsPromotions.php
-│   │       │   │   ├── 📁 Schemas/
-│   │       │   │   │   └── 📄 AdsPromotionForm.php
-│   │       │   │   └── 📁 Tables/
-│   │       │   │       └── 📄 AdsPromotionsTable.php
-│   │       │   ├── 📁 Banners/
-│   │       │   │   ├── 📄 BannerResource.php
-│   │       │   │   ├── 📁 Pages/
-│   │       │   │   │   ├── 📄 CreateBanner.php
-│   │       │   │   │   ├── 📄 EditBanner.php
-│   │       │   │   │   └── 📄 ListBanners.php
-│   │       │   │   ├── 📁 Schemas/
-│   │       │   │   │   └── 📄 BannerForm.php
-│   │       │   │   └── 📁 Tables/
-│   │       │   │       └── 📄 BannersTable.php
-│   │       │   ├── 📁 Bookings/
-│   │       │   │   ├── 📄 BookingResource.php
-│   │       │   │   ├── 📁 Pages/
-│   │       │   │   │   ├── 📄 CreateBooking.php
-│   │       │   │   │   ├── 📄 EditBooking.php
-│   │       │   │   │   └── 📄 ListBookings.php
-│   │       │   │   ├── 📁 Schemas/
-│   │       │   │   │   └── 📄 BookingForm.php
-│   │       │   │   └── 📁 Tables/
-│   │       │   │       └── 📄 BookingsTable.php
-│   │       │   ├── 📁 Kosts/
-│   │       │   │   ├── 📄 KostResource.php
-│   │       │   │   ├── 📁 Pages/
-│   │       │   │   │   ├── 📄 CreateKost.php
-│   │       │   │   │   ├── 📄 EditKost.php
-│   │       │   │   │   └── 📄 ListKosts.php
-│   │       │   │   ├── 📁 Schemas/
-│   │       │   │   │   └── 📄 KostForm.php
-│   │       │   │   └── 📁 Tables/
-│   │       │   │       └── 📄 KostsTable.php
-│   │       │   ├── 📁 MarketplaceItems/
-│   │       │   │   ├── 📄 MarketplaceItemResource.php
-│   │       │   │   ├── 📁 Pages/
-│   │       │   │   │   ├── 📄 CreateMarketplaceItem.php
-│   │       │   │   │   ├── 📄 EditMarketplaceItem.php
-│   │       │   │   │   └── 📄 ListMarketplaceItems.php
-│   │       │   │   ├── 📁 Schemas/
-│   │       │   │   │   └── 📄 MarketplaceItemForm.php
-│   │       │   │   └── 📁 Tables/
-│   │       │   │       └── 📄 MarketplaceItemsTable.php
-│   │       │   ├── 📁 Reports/
-│   │       │   │   ├── 📁 Pages/
-│   │       │   │   │   ├── 📄 CreateReport.php
-│   │       │   │   │   ├── 📄 EditReport.php
-│   │       │   │   │   └── 📄 ListReports.php
-│   │       │   │   ├── 📄 ReportResource.php
-│   │       │   │   ├── 📁 Schemas/
-│   │       │   │   │   └── 📄 ReportForm.php
-│   │       │   │   └── 📁 Tables/
-│   │       │   │       └── 📄 ReportsTable.php
-│   │       │   ├── 📁 Roles/
-│   │       │   │   ├── 📁 Pages/
-│   │       │   │   │   ├── 📄 CreateRole.php
-│   │       │   │   │   ├── 📄 EditRole.php
-│   │       │   │   │   └── 📄 ListRoles.php
-│   │       │   │   ├── 📄 RoleResource.php
-│   │       │   │   ├── 📁 Schemas/
-│   │       │   │   │   └── 📄 RoleForm.php
-│   │       │   │   └── 📁 Tables/
-│   │       │   │       └── 📄 RolesTable.php
-│   │       │   └── 📁 Users/
-│   │       │       ├── 📁 Pages/
-│   │       │       │   ├── 📄 CreateUser.php
-│   │       │       │   ├── 📄 EditUser.php
-│   │       │       │   └── 📄 ListUsers.php
-│   │       │       ├── 📁 Schemas/
-│   │       │       │   └── 📄 UserForm.php
-│   │       │       ├── 📁 Tables/
-│   │       │       │   └── 📄 UsersTable.php
-│   │       │       └── 📄 UserResource.php
-│   │       └── 📁 Widgets/
+│   │       └── 📁 Resources/
+│   │           ├── 📁 AdsPackages/
+│   │           │   ├── 📄 AdsPackageResource.php
+│   │           │   ├── 📁 Pages/
+│   │           │   │   ├── 📄 CreateAdsPackage.php
+│   │           │   │   ├── 📄 EditAdsPackage.php
+│   │           │   │   └── 📄 ListAdsPackages.php
+│   │           │   ├── 📁 Schemas/
+│   │           │   │   └── 📄 AdsPackageForm.php
+│   │           │   └── 📁 Tables/
+│   │           │       └── 📄 AdsPackagesTable.php
+│   │           ├── 📁 AdsPromotions/
+│   │           │   ├── 📄 AdsPromotionResource.php
+│   │           │   ├── 📁 Pages/
+│   │           │   │   ├── 📄 CreateAdsPromotion.php
+│   │           │   │   ├── 📄 EditAdsPromotion.php
+│   │           │   │   └── 📄 ListAdsPromotions.php
+│   │           │   ├── 📁 Schemas/
+│   │           │   │   └── 📄 AdsPromotionForm.php
+│   │           │   └── 📁 Tables/
+│   │           │       └── 📄 AdsPromotionsTable.php
+│   │           ├── 📁 Banners/
+│   │           │   ├── 📄 BannerResource.php
+│   │           │   ├── 📁 Pages/
+│   │           │   │   ├── 📄 CreateBanner.php
+│   │           │   │   ├── 📄 EditBanner.php
+│   │           │   │   └── 📄 ListBanners.php
+│   │           │   ├── 📁 Schemas/
+│   │           │   │   └── 📄 BannerForm.php
+│   │           │   └── 📁 Tables/
+│   │           │       └── 📄 BannersTable.php
+│   │           ├── 📁 Bookings/
+│   │           │   ├── 📄 BookingResource.php
+│   │           │   ├── 📁 Pages/
+│   │           │   │   ├── 📄 CreateBooking.php
+│   │           │   │   ├── 📄 EditBooking.php
+│   │           │   │   └── 📄 ListBookings.php
+│   │           │   ├── 📁 Schemas/
+│   │           │   │   └── 📄 BookingForm.php
+│   │           │   └── 📁 Tables/
+│   │           │       └── 📄 BookingsTable.php
+│   │           ├── 📁 Kosts/
+│   │           │   ├── 📄 KostResource.php
+│   │           │   ├── 📁 Pages/
+│   │           │   │   ├── 📄 CreateKost.php
+│   │           │   │   ├── 📄 EditKost.php
+│   │           │   │   └── 📄 ListKosts.php
+│   │           │   ├── 📁 Schemas/
+│   │           │   │   └── 📄 KostForm.php
+│   │           │   └── 📁 Tables/
+│   │           │       └── 📄 KostsTable.php
+│   │           ├── 📁 MarketplaceItems/
+│   │           │   ├── 📄 MarketplaceItemResource.php
+│   │           │   ├── 📁 Pages/
+│   │           │   │   ├── 📄 CreateMarketplaceItem.php
+│   │           │   │   ├── 📄 EditMarketplaceItem.php
+│   │           │   │   └── 📄 ListMarketplaceItems.php
+│   │           │   ├── 📁 Schemas/
+│   │           │   │   └── 📄 MarketplaceItemForm.php
+│   │           │   └── 📁 Tables/
+│   │           │       └── 📄 MarketplaceItemsTable.php
+│   │           ├── 📁 Reports/
+│   │           │   ├── 📁 Pages/
+│   │           │   │   ├── 📄 CreateReport.php
+│   │           │   │   ├── 📄 EditReport.php
+│   │           │   │   └── 📄 ListReports.php
+│   │           │   ├── 📄 ReportResource.php
+│   │           │   ├── 📁 Schemas/
+│   │           │   │   └── 📄 ReportForm.php
+│   │           │   └── 📁 Tables/
+│   │           │       └── 📄 ReportsTable.php
+│   │           ├── 📁 Roles/
+│   │           │   ├── 📁 Pages/
+│   │           │   │   ├── 📄 CreateRole.php
+│   │           │   │   ├── 📄 EditRole.php
+│   │           │   │   └── 📄 ListRoles.php
+│   │           │   ├── 📄 RoleResource.php
+│   │           │   ├── 📁 Schemas/
+│   │           │   │   └── 📄 RoleForm.php
+│   │           │   └── 📁 Tables/
+│   │           │       └── 📄 RolesTable.php
+│   │           └── 📁 Users/
+│   │               ├── 📁 Pages/
+│   │               │   ├── 📄 CreateUser.php
+│   │               │   ├── 📄 EditUser.php
+│   │               │   └── 📄 ListUsers.php
+│   │               ├── 📁 Schemas/
+│   │               │   └── 📄 UserForm.php
+│   │               ├── 📁 Tables/
+│   │               │   └── 📄 UsersTable.php
+│   │               └── 📄 UserResource.php
 │   ├── 📄 helpers.php
 │   ├── 📁 Http/
 │   │   ├── 📁 Controllers/
@@ -614,23 +613,21 @@
 │   │   ├── 📄 .gitignore
 │   │   ├── 📁 private/
 │   │   │   ├── 📄 .gitignore
+│   │   │   ├── 📁 banners/
+│   │   │   │   └── 📄 FV9ypaPKIFErVdeGPaQWw1tCY5WxDz3BY5oFryK5.jpg
 │   │   │   └── 📁 livewire-tmp/
+│   │   │       ├── 📄 3cnjReSdnFycUlESfCMFXGmQetxyEF4XDuskGNos.jpg.json
 │   │   │       ├── 📄 8KqfcvWA9FoSkCr7pIc3GMcZ3D3jq4FJjyJEcDWo.png
 │   │   │       ├── 📄 8KqfcvWA9FoSkCr7pIc3GMcZ3D3jq4FJjyJEcDWo.png.json
 │   │   │       ├── 📄 9h1YpbAF0a8yrQRfveB5hVoF9KR2Y088lldld5kl.png
 │   │   │       ├── 📄 9h1YpbAF0a8yrQRfveB5hVoF9KR2Y088lldld5kl.png.json
 │   │   │       ├── 📄 ATKVdowscjcYTAnet6Io89SnZrMEaFiV9F4vNqNc.png.json
-│   │   │       ├── 📄 BsqakJQCe50Z3K3O1XoVwCQafYz9XuC9j9u415bM.png.json
 │   │   │       ├── 📄 eQ9Ml7B7Bjun7VpJl1wvn9UoKSbmXGNjQS84Z3ar.png.json
-│   │   │       ├── 📄 g8gaXe01HrSCDOpzfSlaEZf2lVqRmijG3eEs0BVV.png
-│   │   │       ├── 📄 g8gaXe01HrSCDOpzfSlaEZf2lVqRmijG3eEs0BVV.png.json
 │   │   │       ├── 📄 IxZCJWYnF8Nimhlq4JmNfKc6pIHAb965UfLOcmLr.jpg.json
-│   │   │       ├── 📄 iYFjSvBPBTGrEq8xhJUg6KrxNRZBxNvxmona5K9I.png.json
 │   │   │       ├── 📄 j3NLbnOkITjgrYqFhYgkb1WKfLqkF9DYscayeDPX.png.json
+│   │   │       ├── 📄 kQ3saUdaKg3dirM7OFMZfSiJXdzcgtXT0iYSGB2y.jpg.json
 │   │   │       ├── 📄 kWoKGqZ28IiMlKXGVPgTCEXrbWX8ziXaF9lXgODC.png.json
 │   │   │       ├── 📄 L39QGZwlaqo82gagmfgdWfFZjIMclZDOL4gOqjoV.png.json
-│   │   │       ├── 📄 LvVAE8jDsLKOdCo2244i3Kr2VOIXE38RLknYbNqQ.png
-│   │   │       ├── 📄 LvVAE8jDsLKOdCo2244i3Kr2VOIXE38RLknYbNqQ.png.json
 │   │   │       ├── 📄 mDoLwTrzQPYjURQYQ0fxjOjjmqPAbUwRkGQvYBiN.png.json
 │   │   │       ├── 📄 njAl1GBpiMmcJN2seb32ci8H8hE04liTZv3ETCTH.png.json
 │   │   │       ├── 📄 P6r5qulFfd3MLG2JUxS3xiiYcfNd2mJM3xTCAtLc.png.json
@@ -648,6 +645,8 @@
 │   │   │       └── 📄 y5BUNl0qMPJEg8QThy9hAbwUpPQIrc7cDp9PaPR1.png.json
 │   │   └── 📁 public/
 │   │       ├── 📄 .gitignore
+│   │       ├── 📁 avatars/
+│   │       │   └── 📄 Sd6o3KqUuro44JSYjINBYwNiMR9fI2QI1SFR761k.jpg
 │   │       ├── 📁 images/
 │   │       │   └── 📄 logo-seven-kost.png
 │   │       ├── 📁 kosts/
@@ -774,52 +773,16 @@
 │   │   │   ├── 📄 .gitignore
 │   │   │   └── 📁 disks/
 │   │   │       ├── 📁 public/
-│   │   │       │   └── 📁 settings/
-│   │   │       │       └── 📄 PGS9knl7I7SDpr5wucw7JnxlqAGunby0Y4Q7W3q0.png
+│   │   │       │   └── 📁 marketplace/
+│   │   │       │       └── 📄 zYh56awJKI0GYi14QVnlzHMntAdnBNW9hmzWTud2.jpg
 │   │   │       └── 📁 tmp-for-tests/
 │   │   │           └── 📁 livewire-tmp/
-│   │   │               └── 📄 oo0MLLhxcOHxW0dXMlqgMwZsmaywFRzr4gnD3L7q.png.json
+│   │   │               └── 📄 FSp1NlkleamquZjNB4nlrYNusASuMcBUrLsI0mdF.png.json
 │   │   └── 📁 views/
 │   │       ├── 📄 .gitignore
-│   │       ├── 📄 04ba5325d8c6e41ea64d29a4c8db1abe.php
-│   │       ├── 📄 05e8e8f2e70d3a8163a177ed1319ba65.php
-│   │       ├── 📄 0958d78e506587b101163adc8e6fe181.php
-│   │       ├── 📄 0b51b9c94d7dc367e1955c17a1c67fc1.php
-│   │       ├── 📄 0beda52c8c78d74c7c3ad3476056c542.php
-│   │       ├── 📄 1288003ed32b0676e6ccb14eb5942b70.php
-│   │       ├── 📄 139f55eeb4805572ebcdbda37fb1779c.php
-│   │       ├── 📄 1a9dfb9505693721783dd2cee36490d7.php
-│   │       ├── 📄 2ddee934a7465a57d2ea5305aed7eee4.php
-│   │       ├── 📄 2ee02bcc688336ed8ae38f8561a7271a.php
-│   │       ├── 📄 317c1424b0d1d1c416ed077531d3fb73.php
-│   │       ├── 📄 403e7c04b597a63092754724b892f5e7.php
-│   │       ├── 📄 4943bc92ebba41e8b0e508149542e0ad.blade.php
-│   │       ├── 📄 4cee62d5f42ded99b3b21065f9a1c1d5.php
-│   │       ├── 📄 533110d420b788f46bbcb225fd89f5d0.php
-│   │       ├── 📄 61e26aed2b463b1f2684633871801f0b.php
-│   │       ├── 📄 68bd94e7fa4f514ea9fcf1b9721d97f3.php
-│   │       ├── 📄 691fb930221663dd0e2e66f8d48829b8.php
-│   │       ├── 📄 6bd88363afa48b230bec7b39384ce4c2.php
-│   │       ├── 📄 75684a1558410e366a92eb1d198ec005.php
-│   │       ├── 📄 78e9ad314c36f8dec1220f77feb0f47e.php
-│   │       ├── 📄 795b96f095f3d8236d6dcfe04e0bab5b.php
-│   │       ├── 📄 7a63936b17e0a593f05fe65af6cbcc4f.php
-│   │       ├── 📄 84fd10794213dff83a609ff042e43844.php
-│   │       ├── 📄 8a12881e7d6398c0e1ec06be187fe619.php
-│   │       ├── 📄 8c21a2f71b6af7f84c29f4a313ea4381.php
-│   │       ├── 📄 94b808f49ea7393a2e105620ab1d039e.php
-│   │       ├── 📄 9a9267dd7fc33c8097d656c1aade69cd.php
-│   │       ├── 📄 9d3ab3a73f095965e6dd09e352bb4e0b.php
-│   │       ├── 📄 a168b0ebcff266df6b662fc4b6d06e88.blade.php
-│   │       ├── 📄 a54dcd512af35529b1c6a5a2a7b92324.php
-│   │       ├── 📄 aeabe2412206f678cc17b81a4e2264d0.php
-│   │       ├── 📄 ba830ff239fd0dcec6fc977069c000d8.php
-│   │       ├── 📄 d0f2125221701aca08ec14e6453e832d.php
-│   │       ├── 📄 d58518cd448ceb5defde1154e47c9d92.php
-│   │       ├── 📄 eea2247c5960730fd4c921f669c14a6f.php
-│   │       ├── 📄 eedcc631a1a232769f0ae834ecb598df.php
-│   │       ├── 📄 f13f0f9bdae90ae8597d05b0f1adafc8.php
-│   │       └── 📄 f7ae3b6788dec2445ff93b0168ca22cd.php
+│   │       ├── 📄 10cc2de385eefda6fe29790373a61698.php
+│   │       ├── 📄 7f17ffa9e82f46d1453f77cd9990c1f8.php
+│   │       └── 📄 8f112b95e7cba30e20e905f716fe6ef4.php
 │   └── 📁 logs/
 │       ├── 📄 .gitignore
 │       ├── 📄 browser.log
