@@ -2,12 +2,12 @@
 
 namespace App\Filament\Superadmin\Resources\Banners\Schemas;
 
-use App\Models\Regency;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
 class BannerForm
@@ -15,41 +15,46 @@ class BannerForm
     public static function configure(Schema $schema): Schema
     {
         return $schema
+            ->columns(1)
+            ->inlineLabel(false)
             ->components([
-                TextInput::make('title')
-                    ->label('Judul / Label Banner')
-                    ->placeholder('Contoh: Promo Ramadhan Kos Putri Jogja')
-                    ->required()
-                    ->maxLength(255),
+                Section::make('Informasi Banner Promosi')
+                    ->inlineLabel(false)
+                    ->columnSpanFull()
+                    ->schema([
+                        Grid::make(['default' => 1, 'sm' => 2])
+                            ->schema([
+                                TextInput::make('title')
+                                    ->label('Judul / Label Banner')
+                                    ->placeholder('Contoh: Promo Ramadhan Kos Putri Jogja')
+                                    ->required()
+                                    ->maxLength(255),
 
-                TextInput::make('target_url')
-                    ->label('Target URL (Opsional)')
-                    ->placeholder('https:// atau /cari?provinsi=...')
-                    ->maxLength(255),
+                                TextInput::make('target_url')
+                                    ->label('Target URL (Opsional)')
+                                    ->placeholder('https:// atau /cari?provinsi=...')
+                                    ->maxLength(255),
 
-                Select::make('regency_id')
-                    ->label('Target Wilayah Khusus (Opsional)')
-                    ->helperText('Kosongkan jika ingin tampil secara nasional di seluruh wilayah.')
-                    ->options(Regency::pluck('name', 'id'))
-                    ->searchable()
-                    ->nullable(),
+                                DateTimePicker::make('starts_at')
+                                    ->label('Mulai Tayang'),
 
-                FileUpload::make('image_path')
-                    ->label('Gambar Banner (Rasio 16:9 atau 21:9)')
-                    ->directory('banners')
-                    ->image()
-                    ->required()
-                    ->columnSpanFull(),
+                                DateTimePicker::make('ends_at')
+                                    ->label('Selesai Tayang'),
 
-                DateTimePicker::make('starts_at')
-                    ->label('Mulai Tayang'),
+                                Toggle::make('is_active')
+                                    ->label('Status Aktif Banner')
+                                    ->default(true)
+                                    ->inline(false)
+                                    ->columnSpanFull(),
 
-                DateTimePicker::make('ends_at')
-                    ->label('Selesai Tayang'),
-
-                Toggle::make('is_active')
-                    ->label('Status Aktif')
-                    ->default(true),
+                                FileUpload::make('image_path')
+                                    ->label('Gambar Banner (Rasio 16:9 atau 21:9)')
+                                    ->directory('banners')
+                                    ->image()
+                                    ->required()
+                                    ->columnSpanFull(),
+                            ]),
+                    ]),
             ]);
     }
 }

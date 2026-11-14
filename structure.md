@@ -125,98 +125,98 @@
 │   │   │           └── 📄 ReportsTable.php
 │   │   └── 📁 Superadmin/
 │   │       ├── 📁 Pages/
+│   │       │   ├── 📄 Dashboard.php
+│   │       │   ├── 📄 EditProfile.php
 │   │       │   └── 📄 ManageSettings.php
-│   │       └── 📁 Resources/
-│   │           ├── 📁 AdsPackages/
-│   │           │   ├── 📄 AdsPackageResource.php
-│   │           │   ├── 📁 Pages/
-│   │           │   │   ├── 📄 CreateAdsPackage.php
-│   │           │   │   ├── 📄 EditAdsPackage.php
-│   │           │   │   └── 📄 ListAdsPackages.php
-│   │           │   ├── 📁 Schemas/
-│   │           │   │   └── 📄 AdsPackageForm.php
-│   │           │   └── 📁 Tables/
-│   │           │       └── 📄 AdsPackagesTable.php
-│   │           ├── 📁 AdsPromotions/
-│   │           │   ├── 📄 AdsPromotionResource.php
-│   │           │   ├── 📁 Pages/
-│   │           │   │   ├── 📄 CreateAdsPromotion.php
-│   │           │   │   ├── 📄 EditAdsPromotion.php
-│   │           │   │   └── 📄 ListAdsPromotions.php
-│   │           │   ├── 📁 Schemas/
-│   │           │   │   └── 📄 AdsPromotionForm.php
-│   │           │   └── 📁 Tables/
-│   │           │       └── 📄 AdsPromotionsTable.php
-│   │           ├── 📁 Banners/
-│   │           │   ├── 📄 BannerResource.php
-│   │           │   ├── 📁 Pages/
-│   │           │   │   ├── 📄 CreateBanner.php
-│   │           │   │   ├── 📄 EditBanner.php
-│   │           │   │   └── 📄 ListBanners.php
-│   │           │   ├── 📁 Schemas/
-│   │           │   │   └── 📄 BannerForm.php
-│   │           │   └── 📁 Tables/
-│   │           │       └── 📄 BannersTable.php
-│   │           ├── 📁 Bookings/
-│   │           │   ├── 📄 BookingResource.php
-│   │           │   ├── 📁 Pages/
-│   │           │   │   ├── 📄 CreateBooking.php
-│   │           │   │   ├── 📄 EditBooking.php
-│   │           │   │   └── 📄 ListBookings.php
-│   │           │   ├── 📁 Schemas/
-│   │           │   │   └── 📄 BookingForm.php
-│   │           │   └── 📁 Tables/
-│   │           │       └── 📄 BookingsTable.php
-│   │           ├── 📁 Kosts/
-│   │           │   ├── 📄 KostResource.php
-│   │           │   ├── 📁 Pages/
-│   │           │   │   ├── 📄 CreateKost.php
-│   │           │   │   ├── 📄 EditKost.php
-│   │           │   │   └── 📄 ListKosts.php
-│   │           │   ├── 📁 Schemas/
-│   │           │   │   └── 📄 KostForm.php
-│   │           │   └── 📁 Tables/
-│   │           │       └── 📄 KostsTable.php
-│   │           ├── 📁 MarketplaceItems/
-│   │           │   ├── 📄 MarketplaceItemResource.php
-│   │           │   ├── 📁 Pages/
-│   │           │   │   ├── 📄 CreateMarketplaceItem.php
-│   │           │   │   ├── 📄 EditMarketplaceItem.php
-│   │           │   │   └── 📄 ListMarketplaceItems.php
-│   │           │   ├── 📁 Schemas/
-│   │           │   │   └── 📄 MarketplaceItemForm.php
-│   │           │   └── 📁 Tables/
-│   │           │       └── 📄 MarketplaceItemsTable.php
-│   │           ├── 📁 Reports/
-│   │           │   ├── 📁 Pages/
-│   │           │   │   ├── 📄 CreateReport.php
-│   │           │   │   ├── 📄 EditReport.php
-│   │           │   │   └── 📄 ListReports.php
-│   │           │   ├── 📄 ReportResource.php
-│   │           │   ├── 📁 Schemas/
-│   │           │   │   └── 📄 ReportForm.php
-│   │           │   └── 📁 Tables/
-│   │           │       └── 📄 ReportsTable.php
-│   │           ├── 📁 Roles/
-│   │           │   ├── 📁 Pages/
-│   │           │   │   ├── 📄 CreateRole.php
-│   │           │   │   ├── 📄 EditRole.php
-│   │           │   │   └── 📄 ListRoles.php
-│   │           │   ├── 📄 RoleResource.php
-│   │           │   ├── 📁 Schemas/
-│   │           │   │   └── 📄 RoleForm.php
-│   │           │   └── 📁 Tables/
-│   │           │       └── 📄 RolesTable.php
-│   │           └── 📁 Users/
-│   │               ├── 📁 Pages/
-│   │               │   ├── 📄 CreateUser.php
-│   │               │   ├── 📄 EditUser.php
-│   │               │   └── 📄 ListUsers.php
-│   │               ├── 📁 Schemas/
-│   │               │   └── 📄 UserForm.php
-│   │               ├── 📁 Tables/
-│   │               │   └── 📄 UsersTable.php
-│   │               └── 📄 UserResource.php
+│   │       ├── 📁 Resources/
+│   │       │   ├── 📁 AdsPackages/
+│   │       │   │   ├── 📄 AdsPackageResource.php
+│   │       │   │   ├── 📁 Pages/
+│   │       │   │   │   ├── 📄 CreateAdsPackage.php
+│   │       │   │   │   ├── 📄 EditAdsPackage.php
+│   │       │   │   │   └── 📄 ListAdsPackages.php
+│   │       │   │   ├── 📁 Schemas/
+│   │       │   │   │   └── 📄 AdsPackageForm.php
+│   │       │   │   └── 📁 Tables/
+│   │       │   │       └── 📄 AdsPackagesTable.php
+│   │       │   ├── 📁 AdsPromotions/
+│   │       │   │   ├── 📄 AdsPromotionResource.php
+│   │       │   │   ├── 📁 Pages/
+│   │       │   │   │   ├── 📄 CreateAdsPromotion.php
+│   │       │   │   │   ├── 📄 EditAdsPromotion.php
+│   │       │   │   │   └── 📄 ListAdsPromotions.php
+│   │       │   │   ├── 📁 Schemas/
+│   │       │   │   │   └── 📄 AdsPromotionForm.php
+│   │       │   │   └── 📁 Tables/
+│   │       │   │       └── 📄 AdsPromotionsTable.php
+│   │       │   ├── 📁 Banners/
+│   │       │   │   ├── 📄 BannerResource.php
+│   │       │   │   ├── 📁 Pages/
+│   │       │   │   │   ├── 📄 CreateBanner.php
+│   │       │   │   │   ├── 📄 EditBanner.php
+│   │       │   │   │   └── 📄 ListBanners.php
+│   │       │   │   ├── 📁 Schemas/
+│   │       │   │   │   └── 📄 BannerForm.php
+│   │       │   │   └── 📁 Tables/
+│   │       │   │       └── 📄 BannersTable.php
+│   │       │   ├── 📁 Bookings/
+│   │       │   │   ├── 📄 BookingResource.php
+│   │       │   │   ├── 📁 Pages/
+│   │       │   │   │   ├── 📄 CreateBooking.php
+│   │       │   │   │   ├── 📄 EditBooking.php
+│   │       │   │   │   └── 📄 ListBookings.php
+│   │       │   │   ├── 📁 Schemas/
+│   │       │   │   │   └── 📄 BookingForm.php
+│   │       │   │   └── 📁 Tables/
+│   │       │   │       └── 📄 BookingsTable.php
+│   │       │   ├── 📁 Kosts/
+│   │       │   │   ├── 📄 KostResource.php
+│   │       │   │   ├── 📁 Pages/
+│   │       │   │   │   ├── 📄 CreateKost.php
+│   │       │   │   │   ├── 📄 EditKost.php
+│   │       │   │   │   └── 📄 ListKosts.php
+│   │       │   │   ├── 📁 Schemas/
+│   │       │   │   │   └── 📄 KostForm.php
+│   │       │   │   └── 📁 Tables/
+│   │       │   │       └── 📄 KostsTable.php
+│   │       │   ├── 📁 MarketplaceItems/
+│   │       │   │   ├── 📄 MarketplaceItemResource.php
+│   │       │   │   ├── 📁 Pages/
+│   │       │   │   │   ├── 📄 CreateMarketplaceItem.php
+│   │       │   │   │   ├── 📄 EditMarketplaceItem.php
+│   │       │   │   │   └── 📄 ListMarketplaceItems.php
+│   │       │   │   ├── 📁 Schemas/
+│   │       │   │   │   └── 📄 MarketplaceItemForm.php
+│   │       │   │   └── 📁 Tables/
+│   │       │   │       └── 📄 MarketplaceItemsTable.php
+│   │       │   ├── 📁 Reports/
+│   │       │   │   ├── 📁 Pages/
+│   │       │   │   │   ├── 📄 CreateReport.php
+│   │       │   │   │   ├── 📄 EditReport.php
+│   │       │   │   │   └── 📄 ListReports.php
+│   │       │   │   ├── 📄 ReportResource.php
+│   │       │   │   ├── 📁 Schemas/
+│   │       │   │   │   └── 📄 ReportForm.php
+│   │       │   │   └── 📁 Tables/
+│   │       │   │       └── 📄 ReportsTable.php
+│   │       │   └── 📁 Users/
+│   │       │       ├── 📁 Pages/
+│   │       │       │   ├── 📄 CreateUser.php
+│   │       │       │   ├── 📄 EditUser.php
+│   │       │       │   └── 📄 ListUsers.php
+│   │       │       ├── 📁 Schemas/
+│   │       │       │   └── 📄 UserForm.php
+│   │       │       ├── 📁 Tables/
+│   │       │       │   └── 📄 UsersTable.php
+│   │       │       └── 📄 UserResource.php
+│   │       └── 📁 Widgets/
+│   │           ├── 📄 CommissionRevenueChart.php
+│   │           ├── 📄 KostBookingTrendChart.php
+│   │           ├── 📄 KostDistributionChart.php
+│   │           ├── 📄 LatestBookingsTableWidget.php
+│   │           ├── 📄 MarketplaceChart.php
+│   │           ├── 📄 PlatformAnalyticsChart.php
+│   │           └── 📄 PlatformStatsOverview.php
 │   ├── 📄 helpers.php
 │   ├── 📁 Http/
 │   │   ├── 📁 Controllers/
@@ -329,9 +329,11 @@
 │   │   ├── 📄 2026_11_12_143948_add_google_id_to_users_table.php
 │   │   ├── 📄 2026_11_12_151500_add_moderation_columns_to_users_table.php
 │   │   ├── 📄 2026_11_12_154000_create_app_settings_table.php
-│   │   └── 📄 2026_11_13_141557_add_cpc_tracking_to_ads_promotions_and_kosts_table.php
+│   │   ├── 📄 2026_11_13_141557_add_cpc_tracking_to_ads_promotions_and_kosts_table.php
+│   │   └── 📄 2026_11_13_192007_add_advertiser_to_banners_table.php
 │   └── 📁 seeders/
 │       ├── 📄 AdsPackageSeeder.php
+│       ├── 📄 DashboardDemoSeeder.php
 │       ├── 📄 DatabaseSeeder.php
 │       ├── 📄 FacilitySeeder.php
 │       ├── 📄 KostSeeder.php
@@ -561,10 +563,52 @@
 │       │   ├── 📁 pages/
 │       │   └── 📁 superadmin/
 │       │       ├── 📁 components/
+│       │       │   ├── 📄 sidebar-footer.blade.php
+│       │       │   ├── 📄 table-toolbar-title.blade.php
 │       │       │   ├── 📄 topbar-start.blade.php
 │       │       │   └── 📄 user-profile-header.blade.php
-│       │       └── 📁 pages/
-│       │           └── 📄 manage-settings.blade.php
+│       │       ├── 📁 pages/
+│       │       │   ├── 📄 dashboard.blade.php
+│       │       │   ├── 📄 edit-profile.blade.php
+│       │       │   └── 📄 manage-settings.blade.php
+│       │       ├── 📁 resources/
+│       │       │   ├── 📁 ads-promotions/
+│       │       │   │   └── 📁 pages/
+│       │       │   │       ├── 📄 create-ads-promotion.blade.php
+│       │       │   │       ├── 📄 edit-ads-promotion.blade.php
+│       │       │   │       └── 📄 list-ads-promotions.blade.php
+│       │       │   ├── 📁 banners/
+│       │       │   │   └── 📁 pages/
+│       │       │   │       ├── 📄 create-banner.blade.php
+│       │       │   │       ├── 📄 edit-banner.blade.php
+│       │       │   │       └── 📄 list-banners.blade.php
+│       │       │   ├── 📁 bookings/
+│       │       │   │   └── 📁 pages/
+│       │       │   │       ├── 📄 create-booking.blade.php
+│       │       │   │       ├── 📄 edit-booking.blade.php
+│       │       │   │       └── 📄 list-bookings.blade.php
+│       │       │   ├── 📁 kosts/
+│       │       │   │   └── 📁 pages/
+│       │       │   │       ├── 📄 create-kost.blade.php
+│       │       │   │       ├── 📄 edit-kost.blade.php
+│       │       │   │       └── 📄 list-kosts.blade.php
+│       │       │   ├── 📁 marketplace-items/
+│       │       │   │   └── 📁 pages/
+│       │       │   │       ├── 📄 create-marketplace-item.blade.php
+│       │       │   │       ├── 📄 edit-marketplace-item.blade.php
+│       │       │   │       └── 📄 list-marketplace-items.blade.php
+│       │       │   ├── 📁 reports/
+│       │       │   │   └── 📁 pages/
+│       │       │   │       ├── 📄 create-report.blade.php
+│       │       │   │       ├── 📄 edit-report.blade.php
+│       │       │   │       └── 📄 list-reports.blade.php
+│       │       │   └── 📁 users/
+│       │       │       └── 📁 pages/
+│       │       │           ├── 📄 create-user.blade.php
+│       │       │           ├── 📄 edit-user.blade.php
+│       │       │           └── 📄 list-users.blade.php
+│       │       └── 📁 widgets/
+│       │           └── 📄 platform-analytics-chart.blade.php
 │       ├── 📄 kost-detail.blade.php
 │       ├── 📄 layanan.blade.php
 │       ├── 📁 layouts/
@@ -783,10 +827,11 @@
 │   │       ├── 📄 10cc2de385eefda6fe29790373a61698.php
 │   │       ├── 📄 7f17ffa9e82f46d1453f77cd9990c1f8.php
 │   │       └── 📄 8f112b95e7cba30e20e905f716fe6ef4.php
-│   └── 📁 logs/
-│       ├── 📄 .gitignore
-│       ├── 📄 browser.log
-│       └── 📄 laravel.log
+│   ├── 📁 logs/
+│   │   ├── 📄 .gitignore
+│   │   ├── 📄 browser.log
+│   │   └── 📄 laravel.log
+│   └── 📄 test_dashboard.html
 ├── 📄 structure.md
 ├── 📄 tailwind.config.js
 ├── 📁 tests/
@@ -808,7 +853,9 @@
 │   │   ├── 📄 ProfileTest.php
 │   │   ├── 📄 ServiceTest.php
 │   │   ├── 📄 SuperAdminCreatePagesTest.php
+│   │   ├── 📄 SuperAdminDashboardTest.php
 │   │   ├── 📄 SuperAdminModerationTest.php
+│   │   ├── 📄 SuperAdminProfileTest.php
 │   │   └── 📄 SuperAdminSettingsTest.php
 │   ├── 📄 TestCase.php
 │   └── 📁 Unit/

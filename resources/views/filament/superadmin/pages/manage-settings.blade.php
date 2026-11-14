@@ -50,4 +50,22 @@
 
     {{-- Render Schema Form & Tabs --}}
     {{ $this->content }}
+
+    {{-- Container Tombol Simpan di Bawah Form --}}
+    <div 
+        class="form-actions-container"
+        style="display: flex; align-items: center; justify-content: flex-end; gap: 0.75rem; padding: 1rem 0; margin-top: 1rem; background: transparent; border: none;"
+    >
+        <button 
+            type="button" 
+            wire:click="save" 
+            wire:loading.attr="disabled"
+            class="btn-save-primary"
+            style="display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.65rem 1.5rem; border-radius: 0.75rem; background-color: #2563eb !important; color: #ffffff !important; font-size: 0.8125rem; font-weight: 700; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25); border: none; cursor: pointer; transition: all 0.15s ease;"
+        >
+            <svg wire:loading.remove wire:target="save" style="width: 1rem; height: 1rem; max-width: 1rem; max-height: 1rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+            <svg wire:loading wire:target="save" style="width: 1rem; height: 1rem; max-width: 1rem; max-height: 1rem; animation: spin 1s linear infinite;" fill="none" viewBox="0 0 24 24"><circle style="opacity: 0.25;" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path style="opacity: 0.75;" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
+            <span>Simpan Perubahan</span>
+        </button>
+    </div>
 </x-filament-panels::page>

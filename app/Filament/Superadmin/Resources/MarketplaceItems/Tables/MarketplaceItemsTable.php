@@ -7,7 +7,8 @@ use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Tables\Columns\IconColumn;
+use Filament\Notifications\Notification;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -17,7 +18,13 @@ class MarketplaceItemsTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->defaultPaginationPageOption(10)
+            ->paginationPageOptions([10])
             ->columns([
+                ImageColumn::make('primary_image_url')
+                    ->label('Foto')
+                    ->circular(),
+
                 TextColumn::make('title')
                     ->label('Nama Barang')
                     ->searchable()
@@ -31,7 +38,8 @@ class MarketplaceItemsTable
                 TextColumn::make('category')
                     ->label('Kategori')
                     ->badge()
-                    ->sortable(),
+                    ->color('info')
+                    ->formatStateUsing(fn (MarketplaceItem $record): string => $record->category_label),
 
                 TextColumn::make('price')
                     ->label('Harga')
@@ -41,18 +49,19 @@ class MarketplaceItemsTable
                 TextColumn::make('condition')
                     ->label('Kondisi')
                     ->badge()
-                    ->colors([
-                        'success' => 'like_new',
-                        'info' => 'good',
-                        'warning' => 'fair',
-                    ]),
+                    ->color(fn (string $state): string => match ($state) {
+                        'baru', 'bekas_seperti_baru' => 'success',
+                        'bekas_baik' => 'info',
+                        default => 'warning',
+                    })
+                    ->formatStateUsing(fn (MarketplaceItem $record): string => $record->condition_label),
 
                 TextColumn::make('city')
                     ->label('Kota')
                     ->searchable(),
 
                 TextColumn::make('status')
-                    ->label('Status')
+                    ->label('Status Moderasi')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'active' => 'success',
@@ -60,11 +69,14 @@ class MarketplaceItemsTable
                         'rejected' => 'danger',
                         'sold' => 'gray',
                         default => 'gray',
+                    })
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'active' => 'Aktif (Disetujui)',
+                        'pending' => 'Pending',
+                        'rejected' => 'Ditolak',
+                        'sold' => 'Terjual',
+                        default => ucfirst($state),
                     }),
-
-                IconColumn::make('is_featured')
-                    ->label('Unggulan')
-                    ->boolean(),
 
                 TextColumn::make('created_at')
                     ->label('Dibuat')
@@ -74,52 +86,72 @@ class MarketplaceItemsTable
             ])
             ->filters([
                 SelectFilter::make('status')
-                    ->label('Status Moderasi')
+                    ->label('Filter Status')
                     ->options([
-                        'pending' => 'Menunggu Review',
+                        'pending' => 'Pending (Menunggu Review)',
                         'active' => 'Aktif (Disetujui)',
                         'rejected' => 'Ditolak',
                         'sold' => 'Terjual',
                     ]),
 
                 SelectFilter::make('category')
-                    ->label('Kategori')
+                    ->label('Filter Kategori')
                     ->options([
-                        'furniture' => 'Furnitur',
-                        'electronic' => 'Elektronik',
-                        'kitchen' => 'Peralatan Dapur',
-                        'vehicle' => 'Kendaraan',
+                        'kasur' => 'Kasur',
+                        'kipas' => 'Kipas Angin',
+                        'rak' => 'Rak & Lemari',
+                        'perabot' => 'Perabot Kamar',
+                        'elektronik' => 'Elektronik Kecil',
+                        'buku' => 'Buku & Kuliah',
                         'other' => 'Lain-lain',
                     ]),
             ])
             ->recordActions([
                 Action::make('approve')
                     ->label('Setujui')
-                    ->icon('heroicon-o-check-circle')
+                    ->button()
                     ->color('success')
+                    ->size('sm')
                     ->requiresConfirmation()
-                    ->modalHeading('Setujui Iklan Barang')
-                    ->modalDescription('Apakah Anda yakin ingin menyetujui dan menayangkan barang ini di marketplace?')
-                    ->action(fn (MarketplaceItem $record) => $record->update(['status' => 'active']))
+                    ->modalHeading('Setujui Barang Marketplace')
+                    ->modalDescription('Apakah Anda yakin ingin menyetujui barang ini untuk tampil aktif di katalog Marketplace?')
+                    ->modalSubmitActionLabel('Ya, Setujui & Terbitkan')
+                    ->action(function (MarketplaceItem $record): void {
+                        $record->update(['status' => 'active']);
+
+                        Notification::make()
+                            ->title('Barang Berhasil Disetujui')
+                            ->body("Barang '{$record->title}' kini aktif tayang di marketplace.")
+                            ->success()
+                            ->send();
+                    })
                     ->visible(fn (MarketplaceItem $record): bool => $record->status !== 'active'),
 
                 Action::make('reject')
                     ->label('Tolak')
-                    ->icon('heroicon-o-x-circle')
+                    ->button()
                     ->color('danger')
+                    ->size('sm')
                     ->requiresConfirmation()
-                    ->modalHeading('Tolak Iklan Barang')
+                    ->modalHeading('Tolak Barang Marketplace')
                     ->modalDescription('Apakah Anda yakin ingin menolak penayangan barang ini di marketplace?')
-                    ->action(fn (MarketplaceItem $record) => $record->update(['status' => 'rejected']))
+                    ->modalSubmitActionLabel('Ya, Tolak')
+                    ->action(function (MarketplaceItem $record): void {
+                        $record->update(['status' => 'rejected']);
+
+                        Notification::make()
+                            ->title('Barang Ditolak')
+                            ->body("Barang '{$record->title}' telah ditolak.")
+                            ->danger()
+                            ->send();
+                    })
                     ->visible(fn (MarketplaceItem $record): bool => $record->status !== 'rejected'),
 
-                Action::make('toggle_featured')
-                    ->label(fn (MarketplaceItem $record): string => $record->is_featured ? 'Batal Unggulan' : 'Set Unggulan')
-                    ->icon('heroicon-o-star')
-                    ->color('warning')
-                    ->action(fn (MarketplaceItem $record) => $record->update(['is_featured' => ! $record->is_featured])),
-
-                EditAction::make(),
+                EditAction::make()
+                    ->label('Edit')
+                    ->button()
+                    ->color('primary')
+                    ->size('sm'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

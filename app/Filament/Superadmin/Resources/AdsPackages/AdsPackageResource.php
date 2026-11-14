@@ -19,6 +19,11 @@ class AdsPackageResource extends Resource
 {
     protected static ?string $model = AdsPackage::class;
 
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
+
     protected static ?string $navigationLabel = 'Tarif Paket Iklan';
 
     protected static ?string $modelLabel = 'Paket Iklan';

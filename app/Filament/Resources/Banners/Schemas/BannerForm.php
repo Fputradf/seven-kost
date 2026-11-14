@@ -29,7 +29,6 @@ class BannerForm
 
                 Select::make('regency_id')
                     ->label('Target Wilayah Khusus (Opsional)')
-                    ->helperText('Kosongkan jika ingin tampil secara nasional di seluruh wilayah.')
                     ->options(Regency::pluck('name', 'id'))
                     ->searchable()
                     ->nullable(),

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\MarketplaceItem;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Gate;
@@ -32,23 +33,18 @@ class SuperAdminModerationTest extends TestCase
             ->get('/superadmin');
 
         $response->assertSuccessful();
-        $response->assertSee('Moderasi &amp; Verifikasi Kos', false);
+        $response->assertSee('Manajemen Kos');
         $response->assertSee('Laporan Pelanggaran');
-        $response->assertSee('Moderasi Marketplace');
-        $response->assertSee('Promosi Iklan Kos');
+        $response->assertSee('Manajemen Marketplace');
+        $response->assertSee('Manajemen Iklan Kos');
         $response->assertSee('Banner Beranda');
-        $response->assertSee('Tarif Paket Iklan');
+        $response->assertDontSee('Tarif Paket Iklan');
         $response->assertSee('Data Pengajuan &amp; Sewa', false);
         $response->assertSee('Manajemen Pengguna');
-        $response->assertSee('Peran &amp; Hak Akses', false);
         $response->assertSee('Pengaturan Aplikasi');
 
         $this->actingAs($superadmin)
             ->get('/superadmin/users')
-            ->assertSuccessful();
-
-        $this->actingAs($superadmin)
-            ->get('/superadmin/roles')
             ->assertSuccessful();
 
         $this->actingAs($superadmin)
@@ -183,5 +179,35 @@ class SuperAdminModerationTest extends TestCase
         $response = $this->actingAs($superadmin)->get('/dashboard');
 
         $response->assertRedirect('/superadmin');
+    }
+
+    public function test_superadmin_can_access_edit_marketplace_item_page(): void
+    {
+        $superadmin = User::factory()->create([
+            'status' => 'active',
+        ]);
+        $superadmin->assignRole('superadmin');
+
+        $seller = User::factory()->create();
+        $item = MarketplaceItem::create([
+            'user_id' => $seller->id,
+            'title' => 'Kasur Busa 120x200 Premium',
+            'category' => 'kasur',
+            'price' => 450000,
+            'condition' => 'bekas_baik',
+            'city' => 'Depok',
+            'meetup_location' => 'Dekat Kampus UI',
+            'status' => 'active',
+            'description' => 'Kasur busa empuk dan mulus terawat.',
+        ]);
+
+        $response = $this->actingAs($superadmin)
+            ->get("/superadmin/marketplace-items/{$item->id}/edit");
+
+        $response->assertSuccessful();
+        $response->assertSee('Edit Barang Marketplace');
+        $response->assertSee('Informasi Barang Marketplace');
+        $response->assertSee('Kasur Busa 120x200 Premium');
+        $response->assertDontSee('Kelola data produk barang kos yang dijual');
     }
 }

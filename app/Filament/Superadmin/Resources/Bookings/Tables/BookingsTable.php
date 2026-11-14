@@ -18,18 +18,18 @@ class BookingsTable
                 TextColumn::make('tenant.name')
                     ->label('Penghuni')
                     ->searchable()
-                    ->weight('bold'),
-
-                TextColumn::make('tenant_phone')
-                    ->label('No. WA')
-                    ->searchable(),
+                    ->sortable()
+                    ->weight('bold')
+                    ->description(fn ($record): ?string => $record->tenant_phone ?: $record->tenant?->phone),
 
                 TextColumn::make('kost.name')
                     ->label('Kos')
-                    ->searchable(),
+                    ->searchable()
+                    ->limit(24),
 
                 TextColumn::make('room.name')
-                    ->label('Tipe Kamar'),
+                    ->label('Tipe Kamar')
+                    ->default('-'),
 
                 TextColumn::make('start_date')
                     ->label('Rencana Masuk')
@@ -48,30 +48,52 @@ class BookingsTable
                 TextColumn::make('status')
                     ->label('Status')
                     ->badge()
-                    ->colors([
-                        'warning' => 'pending',
-                        'success' => fn ($state) => in_array($state, ['approved', 'active']),
-                        'danger' => fn ($state) => in_array($state, ['rejected', 'cancelled']),
-                        'gray' => 'completed',
-                    ]),
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'pending' => 'Menunggu',
+                        'approved' => 'Disetujui',
+                        'rejected' => 'Ditolak',
+                        'active' => 'Aktif',
+                        'completed' => 'Selesai',
+                        'cancelled' => 'Dibatalkan',
+                        default => ucfirst($state),
+                    })
+                    ->color(fn (string $state): string => match ($state) {
+                        'pending' => 'warning',
+                        'approved', 'active' => 'success',
+                        'rejected', 'cancelled' => 'danger',
+                        'completed' => 'gray',
+                        default => 'gray',
+                    }),
             ])
             ->filters([
                 SelectFilter::make('status')
+                    ->label('Filter Status')
                     ->options([
-                        'pending' => 'Pending',
-                        'approved' => 'Approved',
-                        'rejected' => 'Rejected',
-                        'active' => 'Active',
-                        'completed' => 'Completed',
+                        'pending' => 'Menunggu Konfirmasi',
+                        'approved' => 'Disetujui',
+                        'active' => 'Sewa Aktif',
+                        'completed' => 'Selesai',
+                        'rejected' => 'Ditolak',
+                        'cancelled' => 'Dibatalkan',
                     ]),
             ])
             ->recordActions([
-                EditAction::make(),
+                EditAction::make()
+                    ->label('Edit')
+                    ->button()
+                    ->color('primary')
+                    ->size('sm'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('created_at', 'desc')
+            ->searchPlaceholder('Cari penghuni, kos...')
+            ->defaultPaginationPageOption(10)
+            ->paginationPageOptions([10])
+            ->emptyStateHeading('Tidak Ada Pengajuan Sewa')
+            ->emptyStateDescription('Belum ada data pengajuan atau transaksi sewa yang terdaftar.');
     }
 }

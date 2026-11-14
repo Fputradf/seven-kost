@@ -53,14 +53,17 @@ if (! function_exists('app_logo_url')) {
 
 if (! function_exists('app_favicon_url')) {
     /**
-     * Dapatkan URL favicon aplikasi dengan fallback ke logo.
+     * Dapatkan URL favicon aplikasi dengan fallback ke logo dan cache-busting otomatis.
      */
     function app_favicon_url(): string
     {
         $fav = setting('app_favicon') ?: setting('app_logo');
 
         if (! $fav) {
-            return asset('favicon.png');
+            $fallbackPath = public_path('favicon.png');
+            $v = file_exists($fallbackPath) ? filemtime($fallbackPath) : '1';
+
+            return asset('favicon.png').'?v='.$v;
         }
 
         if (str_starts_with($fav, 'http://') || str_starts_with($fav, 'https://')) {
@@ -68,10 +71,13 @@ if (! function_exists('app_favicon_url')) {
         }
 
         if (file_exists(public_path($fav))) {
-            return asset($fav);
+            return asset($fav).'?v='.filemtime(public_path($fav));
         }
 
-        return asset('storage/'.ltrim($fav, '/'));
+        $fullPath = public_path('storage/'.ltrim($fav, '/'));
+        $v = file_exists($fullPath) ? filemtime($fullPath) : '1';
+
+        return asset('storage/'.ltrim($fav, '/')).'?v='.$v;
     }
 }
 

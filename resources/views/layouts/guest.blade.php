@@ -10,8 +10,8 @@
     <title>{{ $title ?? (app_name() . ' - Platform Kos Terpercaya') }}</title>
 
     <!-- Favicon (Dinamis dari Pengaturan Aplikasi) -->
-    <link rel="icon" type="image/png" href="{{ app_favicon_url() }}">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ app_favicon_url() }}">
+    <link rel="icon" href="{{ app_favicon_url() }}">
+    <link rel="shortcut icon" href="{{ app_favicon_url() }}">
     <link rel="apple-touch-icon" href="{{ app_logo_url() }}">
 
     <!-- Fonts: Poppins (Font Populer, Bersahabat, Modern & Ramah Pengguna) -->

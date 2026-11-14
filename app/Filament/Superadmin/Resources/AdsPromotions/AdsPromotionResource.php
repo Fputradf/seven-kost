@@ -19,11 +19,11 @@ class AdsPromotionResource extends Resource
 {
     protected static ?string $model = AdsPromotion::class;
 
-    protected static ?string $navigationLabel = 'Promosi Iklan Kos';
+    protected static ?string $navigationLabel = 'Manajemen Iklan Kos';
 
-    protected static ?string $modelLabel = 'Promosi Iklan';
+    protected static ?string $modelLabel = 'Iklan Kos';
 
-    protected static ?string $pluralModelLabel = 'Promosi Iklan Kos';
+    protected static ?string $pluralModelLabel = 'Manajemen Iklan Kos';
 
     protected static string|UnitEnum|null $navigationGroup = 'Monetisasi & Iklan';
 
