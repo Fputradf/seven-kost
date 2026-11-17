@@ -40,6 +40,10 @@ class AuthenticatedSessionController extends Controller
             return redirect()->intended('/admin');
         }
 
+        if ($user && $user->hasRole('pemilik')) {
+            return redirect()->intended(route('owner.dashboard', absolute: false));
+        }
+
         return redirect()->intended(route('dashboard', absolute: false));
     }
 

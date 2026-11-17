@@ -6,6 +6,7 @@ use App\Models\AdsPackage;
 use App\Models\Kost;
 use App\Models\Province;
 use App\Models\Regency;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
@@ -84,13 +85,116 @@ class AdsPackageTest extends TestCase
 
         $response = $this->actingAs($owner)->post(route('ads.banner.order'), $payload);
 
-        $response->assertRedirect(route('ads.packages.index', ['tab' => 'banner']));
-        $response->assertSessionHas('success');
-
         $this->assertDatabaseHas('banners', [
             'title' => '[Banner 1 Bulan] Laundry Express Mahasiswa',
             'target_url' => 'https://laundryexpress.id',
             'is_active' => false,
+            'payment_status' => 'pending',
+            'payment_channel' => 'qris',
+        ]);
+
+        $this->assertDatabaseHas('transactions', [
+            'user_id' => $owner->id,
+            'type' => 'banner',
+            'status' => 'pending',
+            'payment_channel' => 'qris',
+        ]);
+
+        $response->assertSessionHas('success');
+        $response->assertStatus(302);
+        $this->assertStringContainsString('/pembayaran/checkout/', $response->headers->get('Location'));
+    }
+
+    public function test_authenticated_owner_can_order_vip_via_xendit_and_redirects_to_checkout(): void
+    {
+        $owner = User::factory()->create();
+
+        $response = $this->actingAs($owner)->post(route('ads.vip.order'), [
+            'vip_package_id' => '1_month',
+            'payment_channel' => 'bca_va',
+        ]);
+
+        $response->assertSessionHas('success');
+        $response->assertStatus(302);
+        $this->assertStringContainsString('/pembayaran/checkout/', $response->headers->get('Location'));
+
+        $this->assertDatabaseHas('transactions', [
+            'user_id' => $owner->id,
+            'type' => 'vip',
+            'item_id' => '1_month',
+            'amount' => 49000,
+            'payment_channel' => 'bca_va',
+            'status' => 'pending',
+        ]);
+    }
+
+    public function test_checkout_page_renders_transaction_details(): void
+    {
+        $owner = User::factory()->create();
+
+        $this->actingAs($owner)->post(route('ads.vip.order'), [
+            'vip_package_id' => '3_months',
+            'payment_channel' => 'qris',
+        ]);
+
+        $transaction = Transaction::where('user_id', $owner->id)->first();
+        $this->assertNotNull($transaction);
+
+        $response = $this->actingAs($owner)->get(route('payments.checkout', $transaction->reference_id));
+        $response->assertStatus(200);
+        $response->assertSee($transaction->reference_id);
+        $response->assertSee('Checkout Pembayaran Xendit');
+        $response->assertSee('QRIS');
+        $response->assertSee('Ringkasan Tagihan');
+    }
+
+    public function test_xendit_payment_simulation_activates_vip_and_redirects_to_success(): void
+    {
+        $owner = User::factory()->create();
+        $this->assertFalse($owner->isVip());
+
+        $this->actingAs($owner)->post(route('ads.vip.order'), [
+            'vip_package_id' => '1_month',
+            'payment_channel' => 'mandiri_va',
+        ]);
+
+        $transaction = Transaction::where('user_id', $owner->id)->first();
+
+        // Simulasi pembayaran lunas via sandbox/testing
+        $simulateResponse = $this->actingAs($owner)->post(route('payments.simulate', $transaction->reference_id));
+        $simulateResponse->assertRedirect(route('payments.success', $transaction->reference_id));
+
+        $transaction->refresh();
+        $this->assertEquals('paid', $transaction->status);
+        $this->assertNotNull($transaction->paid_at);
+
+        $owner->refresh();
+        $this->assertTrue($owner->isVip());
+        $this->assertNotNull($owner->vip_expires_at);
+
+        // Halaman success renders info sukses
+        $successResponse = $this->actingAs($owner)->get(route('payments.success', $transaction->reference_id));
+        $successResponse->assertStatus(200);
+        $successResponse->assertSee('Pembayaran Berhasil!');
+        $successResponse->assertSee('Akun Anda Kini Berstatus Pemilik VIP!');
+    }
+
+    public function test_payment_status_api_returns_json(): void
+    {
+        $owner = User::factory()->create();
+
+        $this->actingAs($owner)->post(route('ads.vip.order'), [
+            'vip_package_id' => '1_month',
+            'payment_channel' => 'qris',
+        ]);
+
+        $transaction = Transaction::where('user_id', $owner->id)->first();
+
+        $response = $this->getJson(route('payments.status', $transaction->reference_id));
+        $response->assertStatus(200);
+        $response->assertJson([
+            'status' => 'pending',
+            'is_paid' => false,
         ]);
     }
 

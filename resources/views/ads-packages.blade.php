@@ -736,27 +736,35 @@
                                     >
                                 </div>
 
-                                {{-- Saluran Pembayaran Xendit (Simulasi) --}}
+                                {{-- Saluran Pembayaran Xendit (Simulasi & Live) --}}
                                 <div class="md:col-span-2 space-y-2">
                                     <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
                                         Saluran Pembayaran Otomatis (Xendit Gateway)
                                     </label>
-                                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+                                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
                                         <label class="flex items-center gap-2 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer has-checked:border-blue-600 has-checked:bg-blue-50/50">
                                             <input type="radio" name="payment_channel" value="qris" checked class="text-blue-600 focus:ring-blue-500">
-                                            <span class="font-bold text-slate-800">QRIS Instan</span>
+                                            <span class="font-bold text-slate-800">📱 QRIS Instan</span>
                                         </label>
                                         <label class="flex items-center gap-2 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer has-checked:border-blue-600 has-checked:bg-blue-50/50">
                                             <input type="radio" name="payment_channel" value="bca_va" class="text-blue-600 focus:ring-blue-500">
-                                            <span class="font-bold text-slate-800">BCA Virtual Acc.</span>
+                                            <span class="font-bold text-slate-800">🏦 BCA Virtual Acc.</span>
                                         </label>
                                         <label class="flex items-center gap-2 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer has-checked:border-blue-600 has-checked:bg-blue-50/50">
                                             <input type="radio" name="payment_channel" value="mandiri_va" class="text-blue-600 focus:ring-blue-500">
-                                            <span class="font-bold text-slate-800">Mandiri VA</span>
+                                            <span class="font-bold text-slate-800">🏦 Mandiri VA</span>
+                                        </label>
+                                        <label class="flex items-center gap-2 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer has-checked:border-blue-600 has-checked:bg-blue-50/50">
+                                            <input type="radio" name="payment_channel" value="bri_va" class="text-blue-600 focus:ring-blue-500">
+                                            <span class="font-bold text-slate-800">🏦 BRI VA</span>
+                                        </label>
+                                        <label class="flex items-center gap-2 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer has-checked:border-blue-600 has-checked:bg-blue-50/50">
+                                            <input type="radio" name="payment_channel" value="bni_va" class="text-blue-600 focus:ring-blue-500">
+                                            <span class="font-bold text-slate-800">🏦 BNI VA</span>
                                         </label>
                                         <label class="flex items-center gap-2 p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer has-checked:border-blue-600 has-checked:bg-blue-50/50">
                                             <input type="radio" name="payment_channel" value="ewallet" class="text-blue-600 focus:ring-blue-500">
-                                            <span class="font-bold text-slate-800">GoPay / OVO</span>
+                                            <span class="font-bold text-slate-800">💳 GoPay / OVO / Dana</span>
                                         </label>
                                     </div>
                                 </div>
@@ -784,7 +792,7 @@
         </div>
 
         {{-- ========================================================================= --}}
-        {{-- MODAL BERLANGGANAN AKUN VIP PEMILIK                                       --}}
+        {{-- MODAL BERLANGGANAN AKUN VIP PEMILIK (XENDIT PAYMENT GATEWAY)              --}}
         {{-- ========================================================================= --}}
         @auth
             <div x-show="vipModalOpen" x-transition.opacity class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4" style="display: none;">
@@ -799,43 +807,65 @@
                         </button>
                     </div>
 
-                    <div class="p-4 rounded-2xl bg-blue-50/80 border border-blue-200/80 space-y-2 text-xs">
-                        <div class="font-bold text-slate-900 flex items-center justify-between">
-                            <span>Biaya Paket Berlangganan:</span>
-                            <strong class="text-base font-black text-blue-600" x-text="selectedVipPrice"></strong>
-                        </div>
-                        <p class="text-slate-600 leading-relaxed text-[11px]">
-                            Dengan berlangganan VIP, akun Anda mendapatkan kuota kos unlimited, prioritas pencarian, dan lencana VIP 👑 di aplikasi SevenKost.
-                        </p>
-                    </div>
+                    <form action="{{ route('ads.vip.order') }}" method="POST" class="space-y-4">
+                        @csrf
+                        <input type="hidden" name="vip_package_id" :value="selectedVipId">
 
-                    {{-- Petunjuk Pembayaran Otomatis & Manual --}}
-                    <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 text-xs text-slate-600 space-y-2">
-                        <span class="font-bold text-slate-900 block">Rekening Resmi SevenKost:</span>
-                        <div class="grid grid-cols-2 gap-2 text-[11px]">
-                            <div>
-                                <span class="text-slate-500 block">Bank BCA:</span>
-                                <strong class="text-slate-900 font-mono">123-456-7890</strong>
+                        <div class="p-4 rounded-2xl bg-blue-50/80 border border-blue-200/80 space-y-2 text-xs">
+                            <div class="font-bold text-slate-900 flex items-center justify-between">
+                                <span>Biaya Paket Berlangganan:</span>
+                                <strong class="text-base font-black text-blue-600" x-text="selectedVipPrice"></strong>
                             </div>
-                            <div>
-                                <span class="text-slate-500 block">Bank Mandiri:</span>
-                                <strong class="text-slate-900 font-mono">137-00-9876543-2</strong>
+                            <p class="text-slate-600 leading-relaxed text-[11px]">
+                                Pembayaran diproses otomatis oleh Xendit Payment Gateway. Akun Anda langsung aktif seketika setelah pembayaran berhasil diverifikasi.
+                            </p>
+                        </div>
+
+                        {{-- Saluran Pembayaran Xendit --}}
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
+                                Pilih Saluran Pembayaran
+                            </label>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-xs">
+                                <label class="flex items-center gap-2 p-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer has-checked:border-blue-600 has-checked:bg-blue-50/50">
+                                    <input type="radio" name="payment_channel" value="qris" checked class="text-blue-600 focus:ring-blue-500">
+                                    <span class="font-bold text-slate-800 text-[11px]">📱 QRIS Instan</span>
+                                </label>
+                                <label class="flex items-center gap-2 p-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer has-checked:border-blue-600 has-checked:bg-blue-50/50">
+                                    <input type="radio" name="payment_channel" value="bca_va" class="text-blue-600 focus:ring-blue-500">
+                                    <span class="font-bold text-slate-800 text-[11px]">🏦 BCA VA</span>
+                                </label>
+                                <label class="flex items-center gap-2 p-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer has-checked:border-blue-600 has-checked:bg-blue-50/50">
+                                    <input type="radio" name="payment_channel" value="mandiri_va" class="text-blue-600 focus:ring-blue-500">
+                                    <span class="font-bold text-slate-800 text-[11px]">🏦 Mandiri VA</span>
+                                </label>
+                                <label class="flex items-center gap-2 p-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer has-checked:border-blue-600 has-checked:bg-blue-50/50">
+                                    <input type="radio" name="payment_channel" value="bri_va" class="text-blue-600 focus:ring-blue-500">
+                                    <span class="font-bold text-slate-800 text-[11px]">🏦 BRI VA</span>
+                                </label>
+                                <label class="flex items-center gap-2 p-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer has-checked:border-blue-600 has-checked:bg-blue-50/50">
+                                    <input type="radio" name="payment_channel" value="bni_va" class="text-blue-600 focus:ring-blue-500">
+                                    <span class="font-bold text-slate-800 text-[11px]">🏦 BNI VA</span>
+                                </label>
+                                <label class="flex items-center gap-2 p-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer has-checked:border-blue-600 has-checked:bg-blue-50/50">
+                                    <input type="radio" name="payment_channel" value="ewallet" class="text-blue-600 focus:ring-blue-500">
+                                    <span class="font-bold text-slate-800 text-[11px]">💳 E-Wallet</span>
+                                </label>
                             </div>
                         </div>
-                        <span class="text-[10px] text-slate-500 block">a.n. Seven Kost Nusantara PT</span>
-                    </div>
 
-                    <div class="pt-2 flex gap-2">
-                        <button type="button" @click="vipModalOpen = false" class="flex-1 py-2.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50">
-                            Batal
-                        </button>
-                        <a 
-                            href="{{ route('owner.kosts.index') }}" 
-                            class="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-md shadow-blue-500/25 text-center"
-                        >
-                            Konfirmasi Upgrade VIP
-                        </a>
-                    </div>
+                        <div class="pt-3 flex gap-2">
+                            <button type="button" @click="vipModalOpen = false" class="flex-1 py-3 rounded-xl border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50 transition">
+                                Batal
+                            </button>
+                            <button 
+                                type="submit" 
+                                class="flex-1 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-black shadow-md shadow-blue-500/25 transition text-center"
+                            >
+                                Lanjut ke Pembayaran Xendit →
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         @endauth

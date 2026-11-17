@@ -21,6 +21,9 @@ class Banner extends Model
         'ends_at',
         'click_count',
         'is_active',
+        'payment_status',
+        'payment_channel',
+        'amount',
     ];
 
     protected $casts = [

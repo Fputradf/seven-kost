@@ -1,39 +1,38 @@
-<x-seven-layout title="Kelola Iklan Kos Saya - Seven Kost">
+<x-owner-layout title="Iklan Kos Saya">
 
-    {{-- Header --}}
-    <div class="bg-navy-950 text-white py-10 border-b border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6">
+
+        {{-- Header Card (Refined Sapphire Blue Gradient) --}}
+        <div class="rounded-2xl p-6 sm:p-7 text-white shadow-md shadow-blue-900/15 border border-blue-400/25" style="background: linear-gradient(135deg, #0f3d7c 0%, #1b5cb8 50%, #2563eb 100%);">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <span class="inline-block px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-semibold mb-2">
-                        Panel Pemilik Kos
-                    </span>
-                    <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
-                        Kelola Iklan Properti Kos
+                    <div class="flex items-center gap-2 text-xs text-blue-200 font-medium mb-2">
+                        <a href="{{ route('owner.dashboard') }}" class="hover:underline">Dashboard</a>
+                        <span>/</span>
+                        <span class="text-white font-semibold">Iklan Kos Saya</span>
+                    </div>
+                    <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white font-sans">
+                        Iklan Kos Saya
                     </h1>
-                    <p class="text-xs sm:text-sm text-slate-400 mt-1">
-                        Pantau status verifikasi, ketersediaan kamar, dan kelola listing kos Anda.
+                    <p class="text-xs sm:text-sm text-blue-100/90 mt-1">
+                        Pantau status verifikasi, perbarui ketersediaan kamar, dan tingkatkan visibilitas listing kos Anda.
                     </p>
                 </div>
 
-                <div>
-                    <x-seven-button :href="route('owner.kosts.create')" variant="primary" size="sm">
+                <div class="flex flex-wrap items-center gap-2.5">
+                    <a href="{{ route('owner.kosts.create') }}" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white hover:bg-blue-50 text-blue-700 text-xs font-semibold shadow-xs transition">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
-                        Pasang Iklan Kos Baru
-                    </x-seven-button>
+                        <span>Pasang Iklan Kos Baru</span>
+                    </a>
                 </div>
             </div>
         </div>
-    </div>
-
-    {{-- Content --}}
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         {{-- Flash Messages --}}
         @if(session('success'))
-            <div class="mb-6 rounded-2xl bg-emerald-50 border border-emerald-200 p-4 text-emerald-800 flex items-center justify-between">
-                <div class="flex items-center gap-2 text-xs sm:text-sm font-semibold">
-                    <svg class="w-5 h-5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                    {{ session('success') }}
+            <div class="rounded-2xl bg-emerald-50 border border-emerald-200/80 p-4 text-emerald-800 flex items-center justify-between shadow-xs">
+                <div class="flex items-center gap-2.5 text-xs sm:text-sm font-semibold">
+                    <svg class="w-5 h-5 text-emerald-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                    <span>{{ session('success') }}</span>
                 </div>
             </div>
         @endif
@@ -41,64 +40,110 @@
         @if($kosts->count() > 0)
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach($kosts as $kost)
-                    <div class="bg-white rounded-3xl border border-slate-200/80 p-5 shadow-xs flex flex-col justify-between hover:shadow-md transition">
+                    @php
+                        $coverUrl = $kost->primaryImage 
+                            ? asset('storage/' . $kost->primaryImage->file_path)
+                            : 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=600&q=80';
+
+                        $totalKamar = $kost->rooms->sum('total_rooms');
+                        $availKamar = $kost->rooms->sum('available_rooms');
+                        $occupiedKamar = max(0, $totalKamar - $availKamar);
+                        $kRate = $totalKamar > 0 ? round(($occupiedKamar / $totalKamar) * 100, 1) : 0;
+
+                        $statusBadge = match($kost->verification_status) {
+                            'verified' => ['bg' => 'bg-emerald-50 text-emerald-700 border-emerald-200', 'label' => 'Terverifikasi'],
+                            'pending' => ['bg' => 'bg-amber-50 text-amber-700 border-amber-200', 'label' => 'Menunggu Verifikasi'],
+                            'rejected' => ['bg' => 'bg-red-50 text-red-700 border-red-200', 'label' => 'Ditolak'],
+                            default => ['bg' => 'bg-slate-100 text-slate-600 border-slate-200', 'label' => 'Draft'],
+                        };
+                    @endphp
+                    <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden flex flex-col justify-between hover:border-slate-300 transition">
                         <div>
-                            {{-- Header Card --}}
-                            <div class="flex items-start justify-between gap-2 mb-3">
-                                <div>
-                                    <span class="text-xs text-slate-400 font-medium block">
-                                        {{ $kost->regency->name ?? '-' }}, {{ $kost->province->name ?? '-' }}
+                            {{-- Image header --}}
+                            <div class="relative h-44 w-full bg-slate-100 overflow-hidden">
+                                <img src="{{ $coverUrl }}" alt="{{ $kost->name }}" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent"></div>
+
+                                <div class="absolute top-3 left-3">
+                                    <span class="px-2.5 py-1 rounded-lg text-[10px] font-bold bg-white/95 text-slate-800 shadow-2xs capitalize">
+                                        Kos {{ $kost->type }}
                                     </span>
-                                    <h3 class="font-bold text-slate-900 text-base leading-snug line-clamp-1 mt-0.5">
+                                </div>
+
+                                <div class="absolute top-3 right-3">
+                                    <span class="px-2.5 py-1 rounded-lg text-[10px] font-bold border {{ $statusBadge['bg'] }} shadow-2xs">
+                                        {{ $statusBadge['label'] }}
+                                    </span>
+                                </div>
+
+                                <div class="absolute bottom-3 left-3 right-3 text-white">
+                                    <p class="text-[11px] text-white/80 font-medium truncate">
+                                        {{ $kost->regency->name ?? '-' }}, {{ $kost->province->name ?? '-' }}
+                                    </p>
+                                    <h3 class="text-sm font-extrabold text-white truncate">
                                         {{ $kost->name }}
                                     </h3>
                                 </div>
-
-                                {{-- Status Verification Badge --}}
-                                @php
-                                    $statusBadge = match($kost->verification_status) {
-                                        'verified' => ['bg' => 'bg-emerald-50 text-emerald-700 border-emerald-200', 'label' => 'Terverifikasi'],
-                                        'pending' => ['bg' => 'bg-amber-50 text-amber-700 border-amber-200', 'label' => 'Menunggu Review'],
-                                        'rejected' => ['bg' => 'bg-red-50 text-red-700 border-red-200', 'label' => 'Ditolak'],
-                                        default => ['bg' => 'bg-slate-100 text-slate-600 border-slate-200', 'label' => 'Draft'],
-                                    };
-                                @endphp
-                                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold border {{ $statusBadge['bg'] }} whitespace-nowrap">
-                                    {{ $statusBadge['label'] }}
-                                </span>
                             </div>
 
-                            {{-- Info Details --}}
-                            <div class="bg-slate-50 rounded-2xl p-3 my-3 space-y-1.5 text-xs text-slate-600">
-                                <div class="flex justify-between">
-                                    <span class="text-slate-400">Tipe:</span>
-                                    <span class="font-semibold uppercase text-slate-800">{{ $kost->type }}</span>
+                            {{-- Details --}}
+                            <div class="p-5 space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <span class="text-[10px] text-slate-400 block font-medium">Tarif Mulai</span>
+                                        <span class="text-sm font-extrabold text-blue-600 tabular-nums">
+                                            Rp {{ number_format($kost->price_start, 0, ',', '.') }}
+                                        </span>
+                                        <span class="text-[10px] text-slate-400">/{{ $kost->rent_type }}</span>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="text-[10px] text-slate-400 block font-medium">Tingkat Okupansi</span>
+                                        <span class="text-xs font-bold text-slate-800 tabular-nums">{{ $kRate }}%</span>
+                                    </div>
                                 </div>
-                                <div class="flex justify-between">
-                                    <span class="text-slate-400">Mulai Dari:</span>
-                                    <span class="font-extrabold text-blue-600">Rp {{ number_format($kost->price_start, 0, ',', '.') }}/bln</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-slate-400">Total Kamar:</span>
-                                    <span class="font-semibold text-slate-800">{{ $kost->rooms->sum('total_rooms') }} Kamar (Sisa {{ $kost->rooms->sum('available_rooms') }})</span>
-                                </div>
-                            </div>
 
-                            @if($kost->verification_status === 'rejected' && $kost->rejection_reason)
-                                <div class="p-2.5 rounded-xl bg-red-50 border border-red-100 text-[11px] text-red-700 mb-3">
-                                    <strong>Alasan Penolakan:</strong> {{ $kost->rejection_reason }}
+                                <div class="bg-slate-50/80 rounded-xl p-3 space-y-1.5 text-xs text-slate-600 border border-slate-100">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-slate-500">Kapasitas Unit:</span>
+                                        <span class="font-semibold text-slate-800 tabular-nums">{{ $totalKamar }} Kamar</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-slate-500">Unit Siap Huni:</span>
+                                        <span class="font-bold text-emerald-600 tabular-nums">{{ $availKamar }} Kosong</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-slate-500">Tipe Kamar:</span>
+                                        <span class="font-semibold text-slate-800 tabular-nums">{{ $kost->rooms->count() }} Tipe</span>
+                                    </div>
                                 </div>
-                            @endif
+
+                                @if($kost->verification_status === 'rejected' && $kost->rejection_reason)
+                                    <div class="p-3 rounded-xl bg-red-50 border border-red-200/80 text-[11px] text-red-700">
+                                        <strong class="font-bold block mb-0.5">Alasan Penolakan:</strong>
+                                        {{ $kost->rejection_reason }}
+                                    </div>
+                                @endif
+                            </div>
                         </div>
 
                         {{-- Action Buttons --}}
-                        <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
-                            <a href="{{ route('owner.kosts.edit', $kost) }}" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-700 transition">
-                                <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-                                Edit Iklan
-                            </a>
+                        <div class="p-4 bg-slate-50/80 border-t border-slate-100 flex items-center justify-between gap-2">
+                            <div class="flex items-center gap-1.5">
+                                <a href="{{ route('owner.rooms.index', $kost) }}" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-blue-50 text-blue-700 hover:bg-blue-100 text-xs font-bold transition">
+                                    Kelola Kamar
+                                </a>
+                                <a href="{{ route('owner.promosi.index') }}" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl border border-slate-200 hover:bg-slate-100 text-slate-700 text-xs font-semibold transition">
+                                    Promosi
+                                </a>
+                            </div>
 
                             <div class="flex items-center gap-1">
+                                <a href="{{ route('owner.kosts.edit', $kost) }}" class="p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-200/70 transition" title="Edit Iklan">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                                </a>
+                                <a href="{{ route('kost.detail', $kost->slug) }}" target="_blank" class="p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-200/70 transition" title="Lihat Halaman Publik">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                                </a>
                                 <form action="{{ route('owner.kosts.destroy', $kost) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus iklan kos ini?')">
                                     @csrf
                                     @method('DELETE')
@@ -113,14 +158,14 @@
             </div>
         @else
             {{-- Empty State --}}
-            <div class="bg-white rounded-3xl border border-slate-200/80 p-12 text-center max-w-md mx-auto shadow-xs space-y-4">
-                <div class="h-20 w-20 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center mx-auto">
-                    <svg class="h-10 w-10 stroke-[1.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <div class="bg-white rounded-2xl border border-slate-200/80 p-12 text-center max-w-md mx-auto shadow-xs space-y-4">
+                <div class="h-16 w-16 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center mx-auto">
+                    <svg class="h-8 w-8 stroke-[1.5]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
                         <polyline points="9 22 9 12 15 12 15 22"/>
                     </svg>
                 </div>
-                <h3 class="text-lg font-bold text-slate-900">Belum Ada Iklan Kos</h3>
+                <h3 class="text-base font-bold text-slate-900">Belum Ada Iklan Kos</h3>
                 <p class="text-xs text-slate-500 leading-relaxed">
                     Anda belum memasang iklan properti kos. Mulai sekarang untuk menjangkau calon penghuni di seluruh Indonesia.
                 </p>
@@ -133,5 +178,4 @@
         @endif
     </div>
 
-</x-seven-layout>
-
+</x-owner-layout>

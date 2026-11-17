@@ -1,4 +1,4 @@
-<x-seven-layout title="Pasang Iklan Kos Baru - Seven Kost">
+<x-owner-layout title="Pasang Iklan Kos Baru">
 
     @push('styles')
         {{-- Leaflet Map CSS --}}
@@ -11,23 +11,24 @@
         </style>
     @endpush
 
-    <div class="bg-navy-950 text-white py-10 border-b border-slate-800">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center gap-2 text-xs text-blue-400 font-semibold mb-2">
-                <a href="{{ route('owner.kosts.index') }}" class="hover:underline">Kelola Iklan Saya</a>
+    <div class="px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6">
+
+        {{-- Header Card (Refined Sapphire Blue Gradient) --}}
+        <div class="rounded-2xl p-6 sm:p-7 text-white shadow-md shadow-blue-900/15 border border-blue-400/25" style="background: linear-gradient(135deg, #0f3d7c 0%, #1b5cb8 50%, #2563eb 100%);">
+            <div class="flex items-center gap-2 text-xs text-blue-200 font-medium mb-2">
+                <a href="{{ route('owner.dashboard') }}" class="hover:underline">Dasbor Pemilik</a>
                 <span>/</span>
-                <span class="text-slate-300">Pasang Iklan Baru</span>
+                <a href="{{ route('owner.kosts.index') }}" class="hover:underline">Kelola Iklan</a>
+                <span>/</span>
+                <span class="text-white font-semibold">Pasang Iklan Baru</span>
             </div>
-            <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
+            <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white font-sans">
                 Formulir Pasang Iklan Kos Nasional
             </h1>
-            <p class="text-xs sm:text-sm text-slate-400 mt-1">
+            <p class="text-xs sm:text-sm text-blue-100/90 mt-1">
                 Lengkapi rincian kos Anda, pin lokasi di peta Leaflet, dan unggah foto properti.
             </p>
         </div>
-    </div>
-
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         {{-- Flash / Error Messages --}}
         @if (isset($errors) && $errors->any())
             <div class="mb-8 rounded-2xl bg-red-50 border border-red-200 p-4 text-red-800">
@@ -100,62 +101,115 @@
             @csrf
 
             {{-- 1. INFORMASI DASAR KOS --}}
-            <div class="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-xs space-y-6">
-                <div class="border-b border-slate-100 pb-4">
-                    <span class="text-xs font-bold text-blue-600 uppercase tracking-wider block mb-1">Bagian 1</span>
-                    <h2 class="text-lg font-bold text-slate-900">Informasi Dasar Kos</h2>
-                    <p class="text-xs text-slate-500">Nama dan klasifikasi jenis kos Anda.</p>
+            <div class="bg-white rounded-xl border border-slate-200/90 p-6 sm:p-7 shadow-xs">
+                <div class="border-b border-slate-100 pb-4 mb-5">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="inline-flex items-center justify-center w-5 h-5 rounded-md bg-blue-50 text-blue-700 text-xs font-semibold ring-1 ring-blue-600/20">1</span>
+                        <h2 class="text-base font-semibold text-slate-900 tracking-tight">Informasi Dasar Kos</h2>
+                    </div>
+                    <p class="text-xs text-slate-500 pl-7">Nama resmi dan klasifikasi jenis sewa properti kos Anda.</p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="md:col-span-2 space-y-1.5">
-                        <label class="block text-xs font-bold text-slate-700 uppercase">Nama Kos <span class="text-red-500">*</span></label>
-                        <input type="text" name="name" value="{{ old('name') }}" placeholder="Contoh: Kos Melati Residence Eksklusif" required class="w-full text-sm rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div class="md:col-span-2">
+                        <label for="name" class="block text-[13px] font-medium text-slate-700 mb-1">
+                            Nama Kos <span class="text-rose-500">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="name"
+                            name="name" 
+                            value="{{ old('name') }}" 
+                            placeholder="Contoh: Kos Melati Residence Eksklusif" 
+                            required 
+                            class="w-full text-sm rounded-lg border-slate-300 bg-white px-3.5 py-2 text-slate-900 placeholder:text-slate-400 shadow-2xs transition focus:border-blue-600 focus:outline-hidden focus:ring-2 focus:ring-blue-500/15"
+                        >
                     </div>
 
-                    <div class="space-y-1.5">
-                        <label class="block text-xs font-bold text-slate-700 uppercase">Tipe Kos <span class="text-red-500">*</span></label>
-                        <select name="type" required class="w-full text-sm rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5">
+                    <div>
+                        <label for="type" class="block text-[13px] font-medium text-slate-700 mb-1">
+                            Tipe Kos <span class="text-rose-500">*</span>
+                        </label>
+                        <select 
+                            id="type"
+                            name="type" 
+                            required 
+                            class="w-full text-sm rounded-lg border-slate-300 bg-white px-3.5 py-2 text-slate-900 shadow-2xs transition focus:border-blue-600 focus:outline-hidden focus:ring-2 focus:ring-blue-500/15 cursor-pointer"
+                        >
                             <option value="campur" {{ old('type') == 'campur' ? 'selected' : '' }}>Kos Campur</option>
                             <option value="putri" {{ old('type') == 'putri' ? 'selected' : '' }}>Khusus Putri</option>
                             <option value="putra" {{ old('type') == 'putra' ? 'selected' : '' }}>Khusus Putra</option>
                         </select>
                     </div>
 
-                    <div class="space-y-1.5">
-                        <label class="block text-xs font-bold text-slate-700 uppercase">Skema Periode Sewa <span class="text-red-500">*</span></label>
-                        <select name="rent_type" required class="w-full text-sm rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5">
+                    <div>
+                        <label for="rent_type" class="block text-[13px] font-medium text-slate-700 mb-1">
+                            Skema Periode Sewa <span class="text-rose-500">*</span>
+                        </label>
+                        <select 
+                            id="rent_type"
+                            name="rent_type" 
+                            required 
+                            class="w-full text-sm rounded-lg border-slate-300 bg-white px-3.5 py-2 text-slate-900 shadow-2xs transition focus:border-blue-600 focus:outline-hidden focus:ring-2 focus:ring-blue-500/15 cursor-pointer"
+                        >
                             <option value="bulanan" {{ old('rent_type') == 'bulanan' ? 'selected' : '' }}>Bulanan</option>
                             <option value="tahunan" {{ old('rent_type') == 'tahunan' ? 'selected' : '' }}>Tahunan</option>
                             <option value="harian" {{ old('rent_type') == 'harian' ? 'selected' : '' }}>Harian</option>
                         </select>
                     </div>
 
-                    <div class="md:col-span-2 space-y-1.5">
-                        <label class="block text-xs font-bold text-slate-700 uppercase">Deskripsi Kos</label>
-                        <textarea name="description" rows="3" placeholder="Ceritakan keunggulan kos, suasana lingkungan, dan kenyamanan hunian..." class="w-full text-sm rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 p-3">{{ old('description') }}</textarea>
+                    <div class="md:col-span-2">
+                        <label for="description" class="block text-[13px] font-medium text-slate-700 mb-1">
+                            Deskripsi Kos
+                        </label>
+                        <textarea 
+                            id="description"
+                            name="description" 
+                            rows="4" 
+                            placeholder="Ceritakan keunggulan kos, suasana lingkungan, dan kenyamanan hunian..." 
+                            class="w-full text-sm rounded-lg border-slate-300 bg-white px-3.5 py-2 text-slate-900 placeholder:text-slate-400 shadow-2xs transition focus:border-blue-600 focus:outline-hidden focus:ring-2 focus:ring-blue-500/15"
+                        >{{ old('description') }}</textarea>
                     </div>
 
-                    <div class="md:col-span-2 space-y-1.5">
-                        <label class="block text-xs font-bold text-slate-700 uppercase">Peraturan & Ketentuan Kos</label>
-                        <textarea name="rules" rows="2" placeholder="Contoh: Jam malam tamu pukul 23:00 WIB, dilarang merokok di dalam kamar..." class="w-full text-sm rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 p-3">{{ old('rules') }}</textarea>
+                    <div class="md:col-span-2">
+                        <label for="rules" class="block text-[13px] font-medium text-slate-700 mb-1">
+                            Peraturan & Tata Tertib Kos
+                        </label>
+                        <textarea 
+                            id="rules"
+                            name="rules" 
+                            rows="3" 
+                            placeholder="Contoh: Jam malam tamu pukul 23:00 WIB, dilarang merokok di dalam kamar..." 
+                            class="w-full text-sm rounded-lg border-slate-300 bg-white px-3.5 py-2 text-slate-900 placeholder:text-slate-400 shadow-2xs transition focus:border-blue-600 focus:outline-hidden focus:ring-2 focus:ring-blue-500/15"
+                        >{{ old('rules') }}</textarea>
                     </div>
                 </div>
             </div>
 
             {{-- 2. LOKASI KOS & PETA LEAFLET --}}
-            <div class="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-xs space-y-6">
-                <div class="border-b border-slate-100 pb-4">
-                    <span class="text-xs font-bold text-blue-600 uppercase tracking-wider block mb-1">Bagian 2</span>
-                    <h2 class="text-lg font-bold text-slate-900">Lokasi & Titik Peta Leaflet</h2>
-                    <p class="text-xs text-slate-500">Pilih wilayah administratif dan geser marker pin tepat di lokasi kos Anda.</p>
+            <div class="bg-white rounded-xl border border-slate-200/90 p-6 sm:p-7 shadow-xs">
+                <div class="border-b border-slate-100 pb-4 mb-5">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="inline-flex items-center justify-center w-5 h-5 rounded-md bg-blue-50 text-blue-700 text-xs font-semibold ring-1 ring-blue-600/20">2</span>
+                        <h2 class="text-base font-semibold text-slate-900 tracking-tight">Lokasi Administratif & Titik Peta</h2>
+                    </div>
+                    <p class="text-xs text-slate-500 pl-7">Tentukan wilayah provinsi, kabupaten/kota, dan pin posisi presisi pada peta digital.</p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                     {{-- Provinsi --}}
-                    <div class="space-y-1.5">
-                        <label class="block text-xs font-bold text-slate-700 uppercase">Provinsi <span class="text-red-500">*</span></label>
-                        <select name="province_id" x-model="provId" @change="onProvChange()" required class="w-full text-sm rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5">
+                    <div>
+                        <label for="province_id" class="block text-[13px] font-medium text-slate-700 mb-1">
+                            Provinsi <span class="text-rose-500">*</span>
+                        </label>
+                        <select 
+                            id="province_id"
+                            name="province_id" 
+                            x-model="provId" 
+                            @change="onProvChange()" 
+                            required 
+                            class="w-full text-sm rounded-lg border-slate-300 bg-white px-3.5 py-2 text-slate-900 shadow-2xs transition focus:border-blue-600 focus:outline-hidden focus:ring-2 focus:ring-blue-500/15 cursor-pointer"
+                        >
                             <option value="">-- Pilih Provinsi --</option>
                             @foreach($provinces as $prov)
                                 <option value="{{ $prov->id }}">{{ $prov->name }}</option>
@@ -164,10 +218,19 @@
                     </div>
 
                     {{-- Kabupaten / Kota --}}
-                    <div class="space-y-1.5">
-                        <label class="block text-xs font-bold text-slate-700 uppercase">Kabupaten / Kota <span class="text-red-500">*</span></label>
-                        <select name="regency_id" x-model="regId" :disabled="!provId || isLoading" required class="w-full text-sm rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5 disabled:opacity-50">
-                            <option value="" x-text="isLoading ? 'Memuat wilayah...' : '-- Pilih Kab/Kota --'"></option>
+                    <div>
+                        <label for="regency_id" class="block text-[13px] font-medium text-slate-700 mb-1">
+                            Kabupaten / Kota <span class="text-rose-500">*</span>
+                        </label>
+                        <select 
+                            id="regency_id"
+                            name="regency_id" 
+                            x-model="regId" 
+                            :disabled="!provId || isLoading" 
+                            required 
+                            class="w-full text-sm rounded-lg border-slate-300 bg-white px-3.5 py-2 text-slate-900 shadow-2xs transition focus:border-blue-600 focus:outline-hidden focus:ring-2 focus:ring-blue-500/15 disabled:bg-slate-50 disabled:text-slate-400 cursor-pointer"
+                        >
+                            <option value="" x-text="isLoading ? 'Memuat data wilayah...' : '-- Pilih Kab/Kota --'"></option>
                             <template x-for="reg in regencies" :key="reg.id">
                                 <option :value="reg.id" x-text="reg.name"></option>
                             </template>
@@ -175,38 +238,51 @@
                     </div>
 
                     {{-- Alamat Lengkap --}}
-                    <div class="md:col-span-2 space-y-1.5">
-                        <label class="block text-xs font-bold text-slate-700 uppercase">Alamat Lengkap & Patokan <span class="text-red-500">*</span></label>
-                        <textarea name="address" rows="2" placeholder="Nama jalan, nomor rumah, RT/RW, kelurahan, dan patokan dekat lokasi..." required class="w-full text-sm rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 p-3">{{ old('address') }}</textarea>
+                    <div class="md:col-span-2">
+                        <label for="address" class="block text-[13px] font-medium text-slate-700 mb-1">
+                            Alamat Lengkap & Patokan Akses <span class="text-rose-500">*</span>
+                        </label>
+                        <textarea 
+                            id="address"
+                            name="address" 
+                            rows="3" 
+                            placeholder="Tuliskan nama jalan, nomor bangunan, RT/RW, kelurahan/desa, serta patokan terdekat..." 
+                            required 
+                            class="w-full text-sm rounded-lg border-slate-300 bg-white px-3.5 py-2 text-slate-900 placeholder:text-slate-400 shadow-2xs transition focus:border-blue-600 focus:outline-hidden focus:ring-2 focus:ring-blue-500/15"
+                        >{{ old('address') }}</textarea>
                     </div>
 
                     {{-- PETA INTERAKTIF LEAFLET --}}
-                    <div class="md:col-span-2 space-y-3">
+                    <div class="md:col-span-2 space-y-2.5">
                         <div class="flex items-center justify-between">
-                            <label class="block text-xs font-bold text-slate-700 uppercase">
-                                📍 Pin Lokasi Kos di Peta
+                            <label class="block text-[13px] font-medium text-slate-700 mb-0">
+                                Penanda Titik Lokasi Peta
                             </label>
-                            <button type="button" id="btnDetectGps" class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-800 transition">
-                                <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 3.582 8 8 8h1v2a1 1 0 001.707.707L16.414 19H17c4.418 0 8-3.582 8-8 0-5.523-4.477-10-10-10z"/></svg>
-                                Gunakan GPS Saya
+                            <button 
+                                type="button" 
+                                id="btnDetectGps" 
+                                class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-slate-200 bg-white hover:bg-slate-50 text-xs font-medium text-slate-700 transition cursor-pointer shadow-2xs"
+                            >
+                                <svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 3.582 8 8 8h1v2a1 1 0 001.707.707L16.414 19H17c4.418 0 8-3.582 8-8 0-5.523-4.477-10-10-10z"/></svg>
+                                <span>Gunakan Lokasi Saat Ini</span>
                             </button>
                         </div>
 
                         {{-- Leaflet Map Container --}}
-                        <div id="mapPicker" class="h-80 w-full rounded-2xl border border-slate-200 shadow-inner overflow-hidden"></div>
-                        <p class="text-[11px] text-slate-400">
-                            💡 Klik pada peta atau geser (drag) penanda biru untuk menentukan letak koordinat kos yang tepat.
+                        <div id="mapPicker" class="h-72 w-full rounded-lg border border-slate-300 shadow-inner overflow-hidden"></div>
+                        <p class="text-[12px] text-slate-500">
+                            Klik pada peta atau geser pin penanda biru secara presisi ke letak bangunan kos Anda.
                         </p>
 
                         {{-- Koordinat Input Tersembunyi/Readonly --}}
                         <div class="grid grid-cols-2 gap-4 pt-1">
                             <div>
-                                <label class="block text-[11px] text-slate-400 font-semibold">Latitude</label>
-                                <input type="text" name="latitude" id="latInput" x-model="lat" readonly class="w-full text-xs bg-slate-50 rounded-xl border-slate-200 py-2 font-mono">
+                                <label for="latInput" class="block text-[11px] font-medium text-slate-500 mb-1">Koordinat Latitude</label>
+                                <input type="text" name="latitude" id="latInput" x-model="lat" readonly class="w-full text-xs bg-slate-50 text-slate-600 rounded-md border border-slate-200 py-1.5 px-3 font-mono">
                             </div>
                             <div>
-                                <label class="block text-[11px] text-slate-400 font-semibold">Longitude</label>
-                                <input type="text" name="longitude" id="lngInput" x-model="lng" readonly class="w-full text-xs bg-slate-50 rounded-xl border-slate-200 py-2 font-mono">
+                                <label for="lngInput" class="block text-[11px] font-medium text-slate-500 mb-1">Koordinat Longitude</label>
+                                <input type="text" name="longitude" id="lngInput" x-model="lng" readonly class="w-full text-xs bg-slate-50 text-slate-600 rounded-md border border-slate-200 py-1.5 px-3 font-mono">
                             </div>
                         </div>
                     </div>
@@ -214,30 +290,32 @@
             </div>
 
             {{-- 3. UNGGAH FOTO COVER & GALERI (Multi-Photo Upload + Live Preview) --}}
-            <div class="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-xs space-y-6">
-                <div class="border-b border-slate-100 pb-4">
-                    <span class="text-xs font-bold text-blue-600 uppercase tracking-wider block mb-1">Bagian 3</span>
-                    <h2 class="text-lg font-bold text-slate-900">Foto & Galeri Properti</h2>
-                    <p class="text-xs text-slate-500">Iklan dengan foto berkualitas 3x lebih cepat diminati calon penghuni.</p>
+            <div class="bg-white rounded-xl border border-slate-200/90 p-6 sm:p-7 shadow-xs">
+                <div class="border-b border-slate-100 pb-4 mb-5">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="inline-flex items-center justify-center w-5 h-5 rounded-md bg-blue-50 text-blue-700 text-xs font-semibold ring-1 ring-blue-600/20">3</span>
+                        <h2 class="text-base font-semibold text-slate-900 tracking-tight">Foto Sampul & Dokumentasi Galeri</h2>
+                    </div>
+                    <p class="text-xs text-slate-500 pl-7">Iklan dengan foto resolusi tajam dan terang mendapatkan perhatian pencari kos lebih cepat.</p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                     {{-- Foto Sampul Utama --}}
-                    <div class="space-y-3">
-                        <label class="block text-xs font-bold text-slate-700 uppercase">
-                            Foto Sampul Utama (Cover)
+                    <div>
+                        <label class="block text-[13px] font-medium text-slate-700 mb-1">
+                            Foto Sampul Utama (Cover) <span class="text-rose-500">*</span>
                         </label>
-                        <div class="border-2 border-dashed border-slate-200 rounded-2xl p-4 text-center hover:border-blue-500 transition relative bg-slate-50/50">
+                        <div class="border-2 border-dashed border-slate-300 rounded-lg p-4 text-center hover:border-blue-500 transition relative bg-slate-50/50 min-h-[160px] flex flex-col justify-center items-center">
                             <template x-if="coverPreview">
-                                <div class="relative aspect-video rounded-xl overflow-hidden mb-3">
+                                <div class="relative w-full aspect-video rounded-md overflow-hidden shadow-2xs">
                                     <img :src="coverPreview" class="w-full h-full object-cover">
                                 </div>
                             </template>
                             <template x-if="!coverPreview">
-                                <div class="py-6 flex flex-col items-center">
-                                    <svg class="w-10 h-10 text-slate-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                                    <span class="text-xs font-medium text-slate-600">Pilih foto utama kos</span>
-                                    <span class="text-[10px] text-slate-400 mt-1">PNG, JPG maksimal 3MB</span>
+                                <div class="py-3 flex flex-col items-center">
+                                    <svg class="w-9 h-9 text-slate-400 mb-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                    <span class="text-xs font-medium text-slate-700">Pilih Foto Utama Kos</span>
+                                    <span class="text-[11px] text-slate-400 mt-0.5">Format PNG atau JPG (maksimal 3MB)</span>
                                 </div>
                             </template>
                             <input type="file" name="cover_image" accept="image/*" @change="handleCoverPreview" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full">
@@ -245,15 +323,15 @@
                     </div>
 
                     {{-- Multi Galeri Foto --}}
-                    <div class="space-y-3">
-                        <label class="block text-xs font-bold text-slate-700 uppercase">
-                            Galeri Foto Kamar & Lingkungan (Maksimal 8 Foto)
+                    <div>
+                        <label class="block text-[13px] font-medium text-slate-700 mb-1">
+                            Galeri Foto Kamar & Fasilitas
                         </label>
-                        <div class="border-2 border-dashed border-slate-200 rounded-2xl p-4 text-center hover:border-blue-500 transition relative bg-slate-50/50">
-                            <div class="py-6 flex flex-col items-center">
-                                <svg class="w-10 h-10 text-blue-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v16m8-8H4"/></svg>
-                                <span class="text-xs font-medium text-slate-700">Pilih beberapa foto sekaligus</span>
-                                <span class="text-[10px] text-slate-400 mt-1">Kamar, kamar mandi, dapur, parkiran</span>
+                        <div class="border-2 border-dashed border-slate-300 rounded-lg p-4 text-center hover:border-blue-500 transition relative bg-slate-50/50 min-h-[160px] flex flex-col justify-center items-center">
+                            <div class="py-3 flex flex-col items-center">
+                                <svg class="w-9 h-9 text-blue-500 mb-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v16m8-8H4"/></svg>
+                                <span class="text-xs font-medium text-slate-700">Unggah Beberapa Foto Sekaligus</span>
+                                <span class="text-[11px] text-slate-400 mt-0.5">Interior kamar, kamar mandi, dapur, parkir (maks 8 foto)</span>
                             </div>
                             <input type="file" name="photos[]" multiple accept="image/*" @change="handleGalleryPreview" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full">
                         </div>
@@ -261,13 +339,13 @@
 
                     {{-- Preview List Galeri --}}
                     <template x-if="galleryPreviews.length > 0">
-                        <div class="md:col-span-2 pt-2">
-                            <span class="text-xs font-bold text-slate-700 block mb-2">Pratinjau Foto Galeri:</span>
+                        <div class="md:col-span-2 pt-1">
+                            <span class="text-[13px] font-medium text-slate-700 block mb-2">Pratinjau Foto Galeri:</span>
                             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
                                 <template x-for="(item, idx) in galleryPreviews" :key="idx">
-                                    <div class="relative aspect-square rounded-xl overflow-hidden border border-slate-200 bg-slate-100 shadow-xs">
+                                    <div class="relative aspect-square rounded-lg overflow-hidden border border-slate-200 bg-slate-100 shadow-2xs">
                                         <img :src="item.url" class="w-full h-full object-cover">
-                                        <span class="absolute bottom-1 right-1 px-1.5 py-0.5 rounded bg-black/60 text-white text-[9px] font-mono" x-text="item.size + ' MB'"></span>
+                                        <span class="absolute bottom-1 right-1 px-1.5 py-0.5 rounded bg-black/60 text-white text-[10px] font-mono tabular-nums" x-text="item.size + ' MB'"></span>
                                     </div>
                                 </template>
                             </div>
@@ -277,54 +355,100 @@
             </div>
 
             {{-- 4. TARIF & KAMAR AWAL --}}
-            <div class="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-xs space-y-6">
-                <div class="border-b border-slate-100 pb-4">
-                    <span class="text-xs font-bold text-blue-600 uppercase tracking-wider block mb-1">Bagian 4</span>
-                    <h2 class="text-lg font-bold text-slate-900">Tarif & Kamar Awal</h2>
+            <div class="bg-white rounded-xl border border-slate-200/90 p-6 sm:p-7 shadow-xs">
+                <div class="border-b border-slate-100 pb-4 mb-5">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="inline-flex items-center justify-center w-5 h-5 rounded-md bg-blue-50 text-blue-700 text-xs font-semibold ring-1 ring-blue-600/20">4</span>
+                        <h2 class="text-base font-semibold text-slate-900 tracking-tight">Tarif Sewa & Unit Kamar Pertama</h2>
+                    </div>
+                    <p class="text-xs text-slate-500 pl-7">Tentukan harga dasar bulanan dan jumlah kamar yang siap dipasarkan.</p>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="space-y-1.5">
-                        <label class="block text-xs font-bold text-slate-700 uppercase">Harga Sewa / Bulan (Rp) <span class="text-red-500">*</span></label>
-                        <input type="number" name="price_start" value="{{ old('price_start', 1000000) }}" min="100000" step="50000" required class="w-full text-sm font-semibold rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                    <div>
+                        <label for="price_start" class="block text-[13px] font-medium text-slate-700 mb-1">
+                            Tarif / Bulan (Rp) <span class="text-rose-500">*</span>
+                        </label>
+                        <input 
+                            type="number" 
+                            id="price_start"
+                            name="price_start" 
+                            value="{{ old('price_start', 1000000) }}" 
+                            min="100000" 
+                            step="50000" 
+                            required 
+                            class="w-full text-sm font-medium rounded-lg border-slate-300 bg-white px-3.5 py-2 text-slate-900 tabular-nums shadow-2xs transition focus:border-blue-600 focus:outline-hidden focus:ring-2 focus:ring-blue-500/15"
+                        >
                     </div>
 
-                    <div class="space-y-1.5">
-                        <label class="block text-xs font-bold text-slate-700 uppercase">Nama Tipe Kamar <span class="text-red-500">*</span></label>
-                        <input type="text" name="room_name" value="{{ old('room_name', 'Tipe Standar') }}" required class="w-full text-sm rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5">
+                    <div>
+                        <label for="room_name" class="block text-[13px] font-medium text-slate-700 mb-1">
+                            Nama Tipe Kamar <span class="text-rose-500">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="room_name"
+                            name="room_name" 
+                            value="{{ old('room_name', 'Tipe Standar') }}" 
+                            required 
+                            class="w-full text-sm rounded-lg border-slate-300 bg-white px-3.5 py-2 text-slate-900 shadow-2xs transition focus:border-blue-600 focus:outline-hidden focus:ring-2 focus:ring-blue-500/15"
+                        >
                     </div>
 
-                    <div class="space-y-1.5">
-                        <label class="block text-xs font-bold text-slate-700 uppercase">Total Kamar <span class="text-red-500">*</span></label>
-                        <input type="number" name="total_rooms" value="{{ old('total_rooms', 5) }}" min="1" required class="w-full text-sm rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5">
+                    <div>
+                        <label for="total_rooms" class="block text-[13px] font-medium text-slate-700 mb-1">
+                            Total Kapasitas Unit <span class="text-rose-500">*</span>
+                        </label>
+                        <input 
+                            type="number" 
+                            id="total_rooms"
+                            name="total_rooms" 
+                            value="{{ old('total_rooms', 5) }}" 
+                            min="1" 
+                            required 
+                            class="w-full text-sm rounded-lg border-slate-300 bg-white px-3.5 py-2 text-slate-900 tabular-nums shadow-2xs transition focus:border-blue-600 focus:outline-hidden focus:ring-2 focus:ring-blue-500/15"
+                        >
                     </div>
 
-                    <div class="space-y-1.5">
-                        <label class="block text-xs font-bold text-slate-700 uppercase">Kamar Kosong / Siap Huni <span class="text-red-500">*</span></label>
-                        <input type="number" name="available_rooms" value="{{ old('available_rooms', 2) }}" min="0" required class="w-full text-sm rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5">
+                    <div>
+                        <label for="available_rooms" class="block text-[13px] font-medium text-slate-700 mb-1">
+                            Unit Siap Huni <span class="text-rose-500">*</span>
+                        </label>
+                        <input 
+                            type="number" 
+                            id="available_rooms"
+                            name="available_rooms" 
+                            value="{{ old('available_rooms', 2) }}" 
+                            min="0" 
+                            required 
+                            class="w-full text-sm rounded-lg border-slate-300 bg-white px-3.5 py-2 text-slate-900 tabular-nums shadow-2xs transition focus:border-blue-600 focus:outline-hidden focus:ring-2 focus:ring-blue-500/15"
+                        >
                     </div>
                 </div>
             </div>
 
             {{-- 5. FASILITAS KOS --}}
-            <div class="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-xs space-y-6">
-                <div class="border-b border-slate-100 pb-4">
-                    <span class="text-xs font-bold text-blue-600 uppercase tracking-wider block mb-1">Bagian 5</span>
-                    <h2 class="text-lg font-bold text-slate-900">Fasilitas Properti</h2>
+            <div class="bg-white rounded-xl border border-slate-200/90 p-6 sm:p-7 shadow-xs">
+                <div class="border-b border-slate-100 pb-4 mb-5">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="inline-flex items-center justify-center w-5 h-5 rounded-md bg-blue-50 text-blue-700 text-xs font-semibold ring-1 ring-blue-600/20">5</span>
+                        <h2 class="text-base font-semibold text-slate-900 tracking-tight">Fasilitas Hunian & Kamar</h2>
+                    </div>
+                    <p class="text-xs text-slate-500 pl-7">Centang seluruh fasilitas yang tersedia dan dapat dinikmati oleh penyewa.</p>
                 </div>
 
-                <div class="space-y-6">
+                <div class="space-y-5">
                     @foreach($facilitiesByCategory as $category => $items)
-                        <div class="space-y-3">
-                            <h3 class="text-xs font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-2">
+                        <div>
+                            <h3 class="text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2.5 flex items-center gap-2">
                                 <span class="h-1.5 w-1.5 rounded-full bg-blue-600"></span>
                                 Fasilitas {{ ucfirst($category) }}
                             </h3>
-                            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
                                 @foreach($items as $facility)
-                                    <label class="flex items-center gap-2.5 p-3 rounded-xl border border-slate-100 bg-slate-50/70 hover:bg-white hover:border-blue-400 cursor-pointer transition select-none">
-                                        <input type="checkbox" name="facilities[]" value="{{ $facility->id }}" {{ in_array($facility->id, old('facilities', [])) ? 'checked' : '' }} class="rounded text-blue-600 focus:ring-blue-500">
-                                        <span class="text-xs font-medium text-slate-800">{{ $facility->name }}</span>
+                                    <label class="flex items-center gap-2.5 p-2.5 rounded-lg border border-slate-200/80 bg-slate-50/50 hover:bg-white hover:border-blue-400 cursor-pointer transition select-none">
+                                        <input type="checkbox" name="facilities[]" value="{{ $facility->id }}" {{ in_array($facility->id, old('facilities', [])) ? 'checked' : '' }} class="rounded text-blue-600 focus:ring-blue-500/20">
+                                        <span class="text-[13px] font-medium text-slate-800">{{ $facility->name }}</span>
                                     </label>
                                 @endforeach
                             </div>
@@ -334,16 +458,16 @@
             </div>
 
             {{-- 6. TOMBOL SIMPAN & SUBMIT --}}
-            <div class="bg-white rounded-3xl border border-slate-200/80 p-6 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div class="text-xs text-slate-500">
-                    * Status <strong>Pending</strong> akan otomatis masuk antrean verifikasi admin untuk mendapatkan Lencana Resmi.
-                </div>
+            <div class="bg-white rounded-xl border border-slate-200/90 p-5 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p class="text-xs text-slate-500">
+                    Iklan berstatus <strong>Pending</strong> akan otomatis masuk antrean verifikasi kurator Seven Kost.
+                </p>
 
-                <div class="flex items-center gap-3 w-full sm:w-auto">
-                    <button type="submit" name="action_type" value="draft" class="w-full sm:w-auto px-5 py-2.5 rounded-xl border-2 border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-50 transition">
-                        Simpan sebagai Draft
+                <div class="flex items-center gap-2.5 w-full sm:w-auto">
+                    <button type="submit" name="action_type" value="draft" class="w-full sm:w-auto px-4 py-2 rounded-lg border border-slate-300 text-[13px] font-medium text-slate-700 hover:bg-slate-50 transition cursor-pointer shadow-2xs">
+                        Simpan sebagai Draf
                     </button>
-                    <button type="submit" name="action_type" value="pending" class="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-bold shadow-md shadow-blue-500/25 transition">
+                    <button type="submit" name="action_type" value="pending" class="w-full sm:w-auto px-5 py-2 rounded-lg bg-blue-700 hover:bg-blue-800 text-white text-[13px] font-medium shadow-xs transition cursor-pointer">
                         Ajukan Iklan & Verifikasi
                     </button>
                 </div>
@@ -415,4 +539,6 @@
         </script>
     @endpush
 
-</x-seven-layout>
+    </div>
+
+</x-owner-layout>

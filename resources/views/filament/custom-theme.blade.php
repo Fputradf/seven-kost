@@ -130,17 +130,17 @@
             max-height: 100dvh !important;
             width: var(--sidebar-width, 15.5rem) !important;
             z-index: 40 !important;
-            background: linear-gradient(180deg, #091322 0%, #0d1e38 50%, #091322 100%) !important;
-            border-inline-end: 1px solid rgba(255, 255, 255, 0.08) !important;
+            background: linear-gradient(180deg, #0c2b54 0%, #144685 50%, #0a2243 100%) !important;
+            border-inline-end: 1px solid rgba(255, 255, 255, 0.1) !important;
             border-top: none !important;
-            box-shadow: 4px 0 24px rgba(9, 19, 34, 0.12) !important;
+            box-shadow: 4px 0 24px rgba(10, 34, 67, 0.18) !important;
         }
 
         /* Sidebar Header */
         .fi-sidebar-header-ctn {
             display: block !important;
             background: transparent !important;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
         }
 
         .fi-sidebar-header {
@@ -313,13 +313,13 @@
         }
 
         .fi-sidebar {
-            background: linear-gradient(180deg, #091322 0%, #0d1e38 50%, #091322 100%) !important;
+            background: linear-gradient(180deg, #0c2b54 0%, #144685 50%, #0a2243 100%) !important;
         }
 
         .fi-sidebar-header {
             display: flex !important;
             background: transparent !important;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
         }
     }
 
@@ -570,19 +570,19 @@
     }
 
     /* ==========================================================================
-       5. HEADER CARD GRADIENT MODERN (ANTI-SLOP: REFINED MIDNIGHT EXECUTIVE)
-       - Meniadakan orbs glow yang terasa generik / buatan AI
-       - Menghadirkan kedalaman navy eksekutif yang berwibawa & tajam
+       5. HEADER CARD GRADIENT MODERN (REFINED SAPPHIRE BLUE GRADIENT)
+       - Menghadirkan gradasi biru eksekutif yang modern, segar & berwibawa
+       - Kontras tinggi dengan teks putih & aksen ice-blue
        ========================================================================== */
     .seven-gradient-card {
         position: relative !important;
         overflow: hidden !important;
         border-radius: 0.875rem !important;
-        background: linear-gradient(135deg, #091322 0%, #0d1e38 50%, #112646 100%) !important;
+        background: linear-gradient(135deg, #0f3d7c 0%, #1b5cb8 50%, #2563eb 100%) !important;
         color: #ffffff !important;
         padding: 1.15rem 1.5rem !important;
-        box-shadow: 0 4px 20px -2px rgba(9, 19, 34, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
-        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        box-shadow: 0 4px 20px -2px rgba(15, 61, 124, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
         margin-bottom: 1rem !important;
     }
 
@@ -619,12 +619,12 @@
     }
 
     .seven-gradient-card h1 .highlight {
-        color: #38bdf8 !important;
+        color: #7dd3fc !important;
         font-weight: 600 !important;
     }
 
     .seven-gradient-card p {
-        color: #94a3b8 !important;
+        color: #dbeafe !important;
         font-family: 'Geist', 'Plus Jakarta Sans', sans-serif !important;
         font-size: 0.8125rem !important;
         line-height: 1.5 !important;
@@ -638,17 +638,15 @@
     .seven-gradient-card .status-pill {
         display: inline-flex !important;
         align-items: center !important;
-        gap: 0.35rem !important;
-        padding: 0.2rem 0.6rem !important;
-        border-radius: 6px !important;
-        font-family: 'Geist', 'Plus Jakarta Sans', sans-serif !important;
-        font-size: 0.7rem !important;
+        gap: 0.5rem !important;
+        padding: 0.35rem 0.75rem !important;
+        border-radius: 9999px !important;
+        background: rgba(255, 255, 255, 0.15) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        color: #ffffff !important;
+        font-size: 0.75rem !important;
         font-weight: 500 !important;
-        letter-spacing: -0.01em !important;
-        background: rgba(255, 255, 255, 0.07) !important;
-        color: #cbd5e1 !important;
-        border: 1px solid rgba(255, 255, 255, 0.12) !important;
-        backdrop-filter: none !important;
+        backdrop-filter: blur(4px) !important;
     }
 
     .seven-gradient-card .status-dot {

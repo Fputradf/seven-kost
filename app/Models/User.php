@@ -25,6 +25,7 @@ use Spatie\Permission\Traits\HasRoles;
     'google_id',
     'password',
     'status',
+    'vip_expires_at',
     'suspended_until',
     'moderation_reason',
     'moderated_at',
@@ -50,6 +51,34 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
     public function bookings(): HasMany
     {
         return $this->hasMany(Booking::class, 'user_id');
+    }
+
+    /**
+     * Iklan banner komersial yang dipesan oleh user.
+     */
+    public function banners(): HasMany
+    {
+        return $this->hasMany(Banner::class, 'user_id');
+    }
+
+    /**
+     * Riwayat transaksi pembayaran via payment gateway.
+     */
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class, 'user_id');
+    }
+
+    /**
+     * Cek apakah user memiliki status keanggotaan VIP aktif.
+     */
+    public function isVip(): bool
+    {
+        if ($this->hasAnyRole(['admin', 'superadmin'])) {
+            return true;
+        }
+
+        return $this->vip_expires_at && now()->lessThan($this->vip_expires_at);
     }
 
     /**
@@ -149,6 +178,7 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'vip_expires_at' => 'datetime',
             'suspended_until' => 'datetime',
             'moderated_at' => 'datetime',
         ];

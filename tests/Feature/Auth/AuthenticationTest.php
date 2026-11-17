@@ -4,6 +4,7 @@ namespace Tests\Feature\Auth;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class AuthenticationTest extends TestCase
@@ -50,5 +51,41 @@ class AuthenticationTest extends TestCase
 
         $this->assertGuest();
         $response->assertRedirect('/');
+    }
+
+    public function test_superadmin_redirected_to_superadmin_panel_after_login(): void
+    {
+        Role::firstOrCreate(['name' => 'superadmin', 'guard_name' => 'web']);
+        $user = User::factory()->create();
+        $user->assignRole('superadmin');
+
+        $response = $this->post('/login', [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+
+        $this->assertAuthenticated();
+        $response->assertRedirect('/superadmin');
+    }
+
+    public function test_pemilik_redirected_to_owner_dashboard_after_login(): void
+    {
+        Role::firstOrCreate(['name' => 'pemilik', 'guard_name' => 'web']);
+        $user = User::factory()->create();
+        $user->assignRole('pemilik');
+
+        $response = $this->post('/login', [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+
+        $this->assertAuthenticated();
+        $response->assertRedirect(route('owner.dashboard', absolute: false));
+    }
+
+    public function test_superadmin_and_admin_login_urls_redirect_to_unified_login_page(): void
+    {
+        $this->get('/superadmin/login')->assertRedirect('/login');
+        $this->get('/admin/login')->assertRedirect('/login');
     }
 }

@@ -90,6 +90,10 @@ class GoogleAuthController extends Controller
                 return redirect()->intended('/admin');
             }
 
+            if ($user->hasRole('pemilik')) {
+                return redirect()->intended(route('owner.dashboard', absolute: false));
+            }
+
             return redirect()->intended(route('dashboard', absolute: false));
         } catch (\Throwable $e) {
             Log::error('Google OAuth Error: '.$e->getMessage(), [

@@ -12,7 +12,7 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Inter', 'Plus Jakarta Sans', ...defaultTheme.fontFamily.sans],
+                sans: ['Geist', 'Inter', 'Plus Jakarta Sans', ...defaultTheme.fontFamily.sans],
             },
             colors: {
                 navy: {

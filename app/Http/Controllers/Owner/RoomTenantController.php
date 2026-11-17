@@ -43,9 +43,43 @@ class RoomTenantController extends Controller
             'room_size' => 'nullable|string|max:50',
         ]);
 
+        if ($validated['available_rooms'] > $validated['total_rooms']) {
+            return back()->withErrors(['available_rooms' => 'Jumlah kamar tersedia tidak boleh melebihi total unit kamar.'])->withInput();
+        }
+
         $kost->rooms()->create($validated);
 
         return back()->with('success', 'Tipe kamar baru berhasil ditambahkan.');
+    }
+
+    /**
+     * Perbarui data kamar kos.
+     */
+    public function updateRoom(Request $request, Kost $kost, Room $room): RedirectResponse
+    {
+        if ($kost->user_id !== auth()->id() && ! auth()->user()->hasAnyRole(['admin', 'superadmin'])) {
+            abort(403);
+        }
+
+        if ($room->kost_id !== $kost->id) {
+            abort(404);
+        }
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|min:100000',
+            'total_rooms' => 'required|integer|min:1',
+            'available_rooms' => 'required|integer|min:0',
+            'room_size' => 'nullable|string|max:50',
+        ]);
+
+        if ($validated['available_rooms'] > $validated['total_rooms']) {
+            return back()->withErrors(['available_rooms' => 'Jumlah kamar tersedia tidak boleh melebihi total unit kamar.'])->withInput();
+        }
+
+        $room->update($validated);
+
+        return back()->with('success', 'Data tipe kamar berhasil diperbarui.');
     }
 
     /**
@@ -57,6 +91,10 @@ class RoomTenantController extends Controller
             abort(403);
         }
 
+        if ($room->kost_id !== $kost->id) {
+            abort(404);
+        }
+
         $room->delete();
 
         return back()->with('success', 'Tipe kamar berhasil dihapus.');
@@ -65,16 +103,33 @@ class RoomTenantController extends Controller
     /**
      * Tampilkan daftar penyewa & pengajuan sewa di semua kos milik pemilik.
      */
-    public function tenants(): View
+    public function tenants(Request $request): View
     {
         $ownerKostIds = auth()->user()->kosts()->pluck('id');
+        $tab = $request->query('tab', 'all');
 
-        $bookings = Booking::with(['kost', 'room', 'tenant'])
-            ->whereIn('kost_id', $ownerKostIds)
-            ->latest()
-            ->get();
+        $query = Booking::with(['kost', 'room', 'tenant'])
+            ->whereIn('kost_id', $ownerKostIds);
 
-        return view('owner.tenants.index', compact('bookings'));
+        if ($tab === 'pending') {
+            $query->where('status', 'pending');
+        } elseif ($tab === 'active') {
+            $query->whereIn('status', ['approved', 'active']);
+        } elseif ($tab === 'history') {
+            $query->whereIn('status', ['completed', 'cancelled', 'rejected']);
+        }
+
+        $bookings = $query->latest()->get();
+
+        // Penghitung tab
+        $counts = [
+            'all' => Booking::whereIn('kost_id', $ownerKostIds)->count(),
+            'pending' => Booking::whereIn('kost_id', $ownerKostIds)->where('status', 'pending')->count(),
+            'active' => Booking::whereIn('kost_id', $ownerKostIds)->whereIn('status', ['approved', 'active'])->count(),
+            'history' => Booking::whereIn('kost_id', $ownerKostIds)->whereIn('status', ['completed', 'cancelled', 'rejected'])->count(),
+        ];
+
+        return view('owner.tenants.index', compact('bookings', 'tab', 'counts'));
     }
 
     /**
@@ -86,19 +141,33 @@ class RoomTenantController extends Controller
             abort(403);
         }
 
-        $request->validate([
+        $validated = $request->validate([
             'status' => 'required|in:approved,rejected,active,completed,cancelled',
+            'notes' => 'nullable|string|max:500',
         ]);
 
-        $newStatus = $request->input('status');
-        $booking->update(['status' => $newStatus]);
+        $oldStatus = $booking->status;
+        $newStatus = $validated['status'];
 
-        // Jika disetujui, kurangi 1 kamar yang tersedia
-        if ($newStatus === 'approved' && $booking->room->available_rooms > 0) {
-            $booking->room->decrement('available_rooms');
-        } elseif (in_array($newStatus, ['cancelled', 'completed', 'rejected'])) {
-            // Jika selesai atau batal, kembalikan ketersediaan kamar
-            $booking->room->increment('available_rooms');
+        $updateData = ['status' => $newStatus];
+        if (isset($validated['notes'])) {
+            $updateData['notes'] = $validated['notes'];
+        }
+
+        $booking->update($updateData);
+
+        // Sinkronisasi ketersediaan kamar yang akurat:
+        // 1. Jika disetujui (dan sebelumnya belum disetujui/aktif), kurangi 1 unit kamar siap huni
+        if ($newStatus === 'approved' && ! in_array($oldStatus, ['approved', 'active'])) {
+            if ($booking->room && $booking->room->available_rooms > 0) {
+                $booking->room->decrement('available_rooms');
+            }
+        }
+        // 2. Jika sebelumnya disetujui/aktif lalu dibatalkan, diselesaikan, atau ditolak, kembalikan ketersediaan kamar
+        elseif (in_array($newStatus, ['cancelled', 'completed', 'rejected']) && in_array($oldStatus, ['approved', 'active'])) {
+            if ($booking->room && $booking->room->available_rooms < $booking->room->total_rooms) {
+                $booking->room->increment('available_rooms');
+            }
         }
 
         return back()->with('success', 'Status pengajuan sewa berhasil diperbarui menjadi '.ucfirst($newStatus));

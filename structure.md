@@ -239,8 +239,12 @@
 │   │   │   ├── 📄 MapController.php
 │   │   │   ├── 📄 MarketplaceController.php
 │   │   │   ├── 📁 Owner/
+│   │   │   │   ├── 📄 ComplaintController.php
+│   │   │   │   ├── 📄 DashboardController.php
 │   │   │   │   ├── 📄 KostController.php
+│   │   │   │   ├── 📄 PromotionController.php
 │   │   │   │   └── 📄 RoomTenantController.php
+│   │   │   ├── 📄 PaymentController.php
 │   │   │   ├── 📄 ProfileController.php
 │   │   │   ├── 📄 ReportController.php
 │   │   │   ├── 📄 SearchController.php
@@ -269,16 +273,20 @@
 │   │   ├── 📄 Regency.php
 │   │   ├── 📄 Report.php
 │   │   ├── 📄 Room.php
+│   │   ├── 📄 Transaction.php
 │   │   └── 📄 User.php
 │   ├── 📁 Providers/
 │   │   ├── 📄 AppServiceProvider.php
 │   │   └── 📁 Filament/
 │   │       ├── 📄 AdminPanelProvider.php
 │   │       └── 📄 SuperadminPanelProvider.php
+│   ├── 📁 Services/
+│   │   └── 📄 XenditService.php
 │   └── 📁 View/
 │       └── 📁 Components/
 │           ├── 📄 AppLayout.php
 │           ├── 📄 GuestLayout.php
+│           ├── 📄 OwnerLayout.php
 │           └── 📄 SevenLayout.php
 ├── 📄 artisan
 ├── 📄 boost.json
@@ -330,7 +338,8 @@
 │   │   ├── 📄 2026_11_12_151500_add_moderation_columns_to_users_table.php
 │   │   ├── 📄 2026_11_12_154000_create_app_settings_table.php
 │   │   ├── 📄 2026_11_13_141557_add_cpc_tracking_to_ads_promotions_and_kosts_table.php
-│   │   └── 📄 2026_11_13_192007_add_advertiser_to_banners_table.php
+│   │   ├── 📄 2026_11_13_192007_add_advertiser_to_banners_table.php
+│   │   └── 📄 2026_11_16_131502_create_transactions_and_add_vip_to_users_table.php
 │   └── 📁 seeders/
 │       ├── 📄 AdsPackageSeeder.php
 │       ├── 📄 DashboardDemoSeeder.php
@@ -386,8 +395,8 @@
 │   ├── 📄 .htaccess
 │   ├── 📁 build/
 │   │   ├── 📁 assets/
-│   │   │   ├── 📄 app-BMzrTa01.css
-│   │   │   └── 📄 app-Dr67-uCa.js
+│   │   │   ├── 📄 app-Dr67-uCa.js
+│   │   │   └── 📄 app-K5YTttXO.css
 │   │   └── 📄 manifest.json
 │   ├── 📁 css/
 │   │   └── 📁 filament/
@@ -615,6 +624,7 @@
 │       │   ├── 📄 app.blade.php
 │       │   ├── 📄 guest.blade.php
 │       │   ├── 📄 navigation.blade.php
+│       │   ├── 📄 owner.blade.php
 │       │   └── 📄 seven.blade.php
 │       ├── 📄 map-search.blade.php
 │       ├── 📁 marketplace/
@@ -622,14 +632,22 @@
 │       │   ├── 📄 index.blade.php
 │       │   └── 📄 show.blade.php
 │       ├── 📁 owner/
+│       │   ├── 📁 complaints/
+│       │   │   └── 📄 index.blade.php
+│       │   ├── 📄 dashboard.blade.php
 │       │   ├── 📁 kosts/
 │       │   │   ├── 📄 create.blade.php
 │       │   │   ├── 📄 edit.blade.php
+│       │   │   └── 📄 index.blade.php
+│       │   ├── 📁 promosi/
 │       │   │   └── 📄 index.blade.php
 │       │   ├── 📁 rooms/
 │       │   │   └── 📄 index.blade.php
 │       │   └── 📁 tenants/
 │       │       └── 📄 index.blade.php
+│       ├── 📁 payments/
+│       │   ├── 📄 checkout.blade.php
+│       │   └── 📄 success.blade.php
 │       ├── 📄 privacy-policy.blade.php
 │       ├── 📁 profile/
 │       │   ├── 📄 edit.blade.php
@@ -817,30 +835,51 @@
 │   │   │   ├── 📄 .gitignore
 │   │   │   └── 📁 disks/
 │   │   │       ├── 📁 public/
-│   │   │       │   └── 📁 marketplace/
-│   │   │       │       └── 📄 zYh56awJKI0GYi14QVnlzHMntAdnBNW9hmzWTud2.jpg
+│   │   │       │   └── 📁 banners/
+│   │   │       │       └── 📄 V8Z3fDPXrc3yzY0zIhFEDQETOa9Sri1USAmLE8XT.jpg
 │   │   │       └── 📁 tmp-for-tests/
 │   │   │           └── 📁 livewire-tmp/
-│   │   │               └── 📄 FSp1NlkleamquZjNB4nlrYNusASuMcBUrLsI0mdF.png.json
+│   │   │               └── 📄 oTKYFE57bvc0Ckvu206rmvaY8Ey8fvI5zfoMPDcG.png.json
 │   │   └── 📁 views/
 │   │       ├── 📄 .gitignore
+│   │       ├── 📄 008723780204bd85b91517c69d1d8606.php
+│   │       ├── 📄 014f72a8fc260e1e5115ec90214a8f8c.php
 │   │       ├── 📄 04ba5325d8c6e41ea64d29a4c8db1abe.php
 │   │       ├── 📄 05c6b602830180a792d66867358f5d80.php
 │   │       ├── 📄 05e8e8f2e70d3a8163a177ed1319ba65.php
+│   │       ├── 📄 06453edcfd39f4f50da614ba51c334d6.php
+│   │       ├── 📄 06525a6a093ac6cf6e23a13d606695cf.php
 │   │       ├── 📄 0958d78e506587b101163adc8e6fe181.php
+│   │       ├── 📄 0b51b9c94d7dc367e1955c17a1c67fc1.php
 │   │       ├── 📄 0bab502f8d80ae71f605015f73c7eb92.php
 │   │       ├── 📄 0beda52c8c78d74c7c3ad3476056c542.php
+│   │       ├── 📄 0c113b5c45d1fa62135004ebec938c33.php
 │   │       ├── 📄 10cc2de385eefda6fe29790373a61698.php
+│   │       ├── 📄 1288003ed32b0676e6ccb14eb5942b70.php
+│   │       ├── 📄 13368702eb2b786144c0877078da3ade.php
+│   │       ├── 📄 139f55eeb4805572ebcdbda37fb1779c.php
+│   │       ├── 📄 1807d3741cafbb28190875a2bc68cd8a.php
 │   │       ├── 📄 19710a6e1cd3e5021c6848448cd18c97.php
+│   │       ├── 📄 1a9dfb9505693721783dd2cee36490d7.php
+│   │       ├── 📄 21ce1a07eb531ce18af400f0e82b442f.php
+│   │       ├── 📄 236072e513ac5947d40185bda632a33b.php
 │   │       ├── 📄 24a38d7e82bc760f9e72571099a2d46f.php
 │   │       ├── 📄 2b252b6773be2bab6484ee9c67bfe3ec.php
+│   │       ├── 📄 2b4525a05eac0b808486def8581bc872.php
 │   │       ├── 📄 2d0e1389d826814bb1985f80aea29d81.php
+│   │       ├── 📄 2d92d3751b0350164cfc9cd4199c93a9.php
 │   │       ├── 📄 2dc93586bb85e5b2f06429df25a15811.php
 │   │       ├── 📄 2ddee934a7465a57d2ea5305aed7eee4.php
+│   │       ├── 📄 2de56e5e85dbfdf6300acb3f8eecd464.php
 │   │       ├── 📄 2ee02bcc688336ed8ae38f8561a7271a.php
+│   │       ├── 📄 306c1b7844ed35df52d05c6fa377b411.php
 │   │       ├── 📄 317c1424b0d1d1c416ed077531d3fb73.php
+│   │       ├── 📄 3250b76407007457f397559cf1fba22b.php
 │   │       ├── 📄 35d6c3f06dbc1948fdc7a34cf6b9a8e3.php
+│   │       ├── 📄 3663a565db9f674cb2a8d33176098870.php
+│   │       ├── 📄 36a67b7aae46cb5f2a60857996f4483f.php
 │   │       ├── 📄 3912d4b4606bfbd9437285eabb7eec55.php
+│   │       ├── 📄 3d453ac3027de318344bd556b7e39b91.php
 │   │       ├── 📄 403e7c04b597a63092754724b892f5e7.php
 │   │       ├── 📄 47ad8940c38f5d31a8da9d4eb7f3c149.php
 │   │       ├── 📄 486de72dbd4b945f20c3910b1ee5c1a1.php
@@ -848,14 +887,23 @@
 │   │       ├── 📄 4cee62d5f42ded99b3b21065f9a1c1d5.php
 │   │       ├── 📄 4d155c1c02b7d655be2898fc0881cfaf.php
 │   │       ├── 📄 4e38c939921182c3837fd2144d216779.php
+│   │       ├── 📄 50c54807ccdfa7d10abc2523a7c2041a.php
 │   │       ├── 📄 533110d420b788f46bbcb225fd89f5d0.php
+│   │       ├── 📄 5b784ebe25cc943f6a4b9a853917de95.php
+│   │       ├── 📄 5df34508c3b81b2704b6439892e3b444.php
+│   │       ├── 📄 5e0ebabc54928ab25cdd47f972c96e42.php
+│   │       ├── 📄 61e26aed2b463b1f2684633871801f0b.php
 │   │       ├── 📄 61e7d4e6e1a02c31c29c846b8cf94b5a.php
+│   │       ├── 📄 62db2057226c2d111a77e867c595ee8f.php
 │   │       ├── 📄 656d743aed3752b0fb108ec3425010f0.php
 │   │       ├── 📄 66bcf106e03c2aabc3cf40e191891450.php
 │   │       ├── 📄 67870d1f56e96b42a0bdd07d26245400.php
+│   │       ├── 📄 68bd94e7fa4f514ea9fcf1b9721d97f3.php
 │   │       ├── 📄 691fb930221663dd0e2e66f8d48829b8.php
 │   │       ├── 📄 6af5ae2f8f18e8e1c6aa27804d2e6744.php
 │   │       ├── 📄 6bd88363afa48b230bec7b39384ce4c2.php
+│   │       ├── 📄 6c00b85a2d558fbfe61c4c20af3b2449.php
+│   │       ├── 📄 6f812d570b33db8d46c9ce443b23154f.php
 │   │       ├── 📄 75684a1558410e366a92eb1d198ec005.php
 │   │       ├── 📄 76cd014533ad621d74a6183fd7b5157c.php
 │   │       ├── 📄 779240919d683d672b14a93c9f3f3d5e.php
@@ -864,15 +912,26 @@
 │   │       ├── 📄 795b96f095f3d8236d6dcfe04e0bab5b.php
 │   │       ├── 📄 7a63936b17e0a593f05fe65af6cbcc4f.php
 │   │       ├── 📄 7f17ffa9e82f46d1453f77cd9990c1f8.php
+│   │       ├── 📄 80ee7f4f789bc5d65dd80de372b327b9.php
+│   │       ├── 📄 82cb0751e0f9a883cbf4387c1e28643a.php
+│   │       ├── 📄 84d80e328a56ccfae00b47772cb9af8d.php
+│   │       ├── 📄 84fd10794213dff83a609ff042e43844.php
 │   │       ├── 📄 874fbc92070c0e295b3ffe7dffc8b899.php
+│   │       ├── 📄 877eae2646cde6bfd897c022dcc12502.php
 │   │       ├── 📄 8a12881e7d6398c0e1ec06be187fe619.php
+│   │       ├── 📄 8b5b0ff625fcb7312c308aaf818908d2.php
 │   │       ├── 📄 8c21a2f71b6af7f84c29f4a313ea4381.php
 │   │       ├── 📄 8f112b95e7cba30e20e905f716fe6ef4.php
 │   │       ├── 📄 90577f90e58b9cbc7013b43824068ed2.php
+│   │       ├── 📄 93166af4e8ac6a51278753e016cf57e3.php
 │   │       ├── 📄 94b808f49ea7393a2e105620ab1d039e.php
+│   │       ├── 📄 9573ffb70b0f586470714eb4227e17c8.php
+│   │       ├── 📄 9644caa35071308b97dd7f89d52e34c2.php
+│   │       ├── 📄 988220688adde84be38ebf4aa14c0fd1.php
 │   │       ├── 📄 9a9267dd7fc33c8097d656c1aade69cd.php
 │   │       ├── 📄 9b1ef8f7219f8272fdb2b8b755099d12.php
 │   │       ├── 📄 9c5a674b6c5fa09f1e5cdc7e02bf4239.php
+│   │       ├── 📄 9d3ab3a73f095965e6dd09e352bb4e0b.php
 │   │       ├── 📄 a168b0ebcff266df6b662fc4b6d06e88.blade.php
 │   │       ├── 📄 a54dcd512af35529b1c6a5a2a7b92324.php
 │   │       ├── 📄 a74904c20d29885030a73e6e34141a69.php
@@ -880,24 +939,54 @@
 │   │       ├── 📄 ab239636ed3f96a5d3459d784309f692.php
 │   │       ├── 📄 ad9fad10d7f0e0112a2f40541d91dcd8.php
 │   │       ├── 📄 aeabe2412206f678cc17b81a4e2264d0.php
+│   │       ├── 📄 af99aa6b333cd5341c59d6eedee202f6.php
+│   │       ├── 📄 b3ea7eb9ad8f4517140939b3a26dc82b.php
 │   │       ├── 📄 b4a8823d03bedd4e2fcf3e5c98c03b7b.php
 │   │       ├── 📄 b51949703191bd480397fe704ec75880.php
+│   │       ├── 📄 b68e6a31ee76443f03c7fdc54fef1278.php
 │   │       ├── 📄 b7c4a40ea7608f4cb2d25ba42921e6ec.php
 │   │       ├── 📄 b8787c8b0dac8503c7636db40cd94355.php
+│   │       ├── 📄 ba6ddb7d9c0c3ae83408c3cdbc9ac356.php
+│   │       ├── 📄 ba9748c3c8f2c139eb64a3f732e0124f.php
 │   │       ├── 📄 bc67ea11187bb07ce9e5cd6768ec48bd.php
+│   │       ├── 📄 bd64ee7c5c491216aeb0b0749c906818.php
 │   │       ├── 📄 c5d176e483a767c2a9f0703a2ff713ca.php
+│   │       ├── 📄 c921e6d779d7d3e3dbdb2a09b2a298c1.php
+│   │       ├── 📄 c96567d61d612823c09f1fb54e352fac.php
 │   │       ├── 📄 c974825975ab40adc2d9584fbe61f692.php
 │   │       ├── 📄 cbbf46fda4233f4add6a581f3534ae7c.php
 │   │       ├── 📄 ce431606dba78fca689a50c211f88d99.php
 │   │       ├── 📄 cf1649e914926609b5be69d7af4a9395.php
 │   │       ├── 📄 cfe31f2949d56134d272c1258c291364.php
 │   │       ├── 📄 d0f2125221701aca08ec14e6453e832d.php
+│   │       ├── 📄 d10147b08a6e1d816c0ea0722ed87bf0.php
+│   │       ├── 📄 d1a7887c90a319470cfbf13eb666f346.php
+│   │       ├── 📄 d234e85c38fe2850cb0b1cf457e6fc8c.php
+│   │       ├── 📄 d51192fc9cf0016eee18ef3dd2e126af.php
+│   │       ├── 📄 d525209119bc62f5d80d13fe2bd482bd.php
 │   │       ├── 📄 d58518cd448ceb5defde1154e47c9d92.php
+│   │       ├── 📄 d842e2867dc7c868640b7324649b705f.php
+│   │       ├── 📄 dee2446b7a6e97462da9f6ae447d8d5c.php
 │   │       ├── 📄 dfc14ea59c3b39b16aafd7bc47f360c6.php
+│   │       ├── 📄 e19b815a6b78676976300a3dbf9ff567.php
 │   │       ├── 📄 e558a1672e6eaa4fbcc450638c380c8c.php
+│   │       ├── 📄 eaac4a9ef0769d66c54ba768b2dbe495.php
+│   │       ├── 📄 ed193cae1b30170d712ec1bd55dcfb10.php
+│   │       ├── 📄 ee6bc2f249879b0f7166ff8554d0ba4e.php
+│   │       ├── 📄 eea2247c5960730fd4c921f669c14a6f.php
 │   │       ├── 📄 eedcc631a1a232769f0ae834ecb598df.php
+│   │       ├── 📄 f13f0f9bdae90ae8597d05b0f1adafc8.php
+│   │       ├── 📄 f5683d1403b9a018eb9244b3774579dc.php
+│   │       ├── 📄 f7ae3b6788dec2445ff93b0168ca22cd.php
+│   │       ├── 📄 f7b6289ae11b16d06751d820f1d84fe4.php
+│   │       ├── 📄 f809f3eaf7071d6d127133c1fbaf6f01.php
+│   │       ├── 📄 faddb8c13d503aa66f7d3c7a3bb049fe.php
+│   │       ├── 📄 fbb2a5ce1b02a7c6747a134829b322ab.php
 │   │       ├── 📄 fc54ac1cf78b5a4adfc79f63af69d642.php
-│   │       └── 📄 fe42aa54a969d2a4ac1f0de43e8337ad.php
+│   │       ├── 📄 fc936bc3bc9adc0efa3af6e09a7aad70.php
+│   │       ├── 📄 fe42aa54a969d2a4ac1f0de43e8337ad.php
+│   │       ├── 📄 ffe847a00699cd7a895b145a84e2ee4c.php
+│   │       └── 📄 fff619efe9f7d6c3e4baddb90df8d228.php
 │   └── 📁 logs/
 │       ├── 📄 .gitignore
 │       ├── 📄 browser.log
@@ -920,6 +1009,7 @@
 │   │   ├── 📄 HelpFaqTest.php
 │   │   ├── 📄 KostDetailTest.php
 │   │   ├── 📄 MarketplaceTest.php
+│   │   ├── 📄 OwnerDashboardTest.php
 │   │   ├── 📄 ProfileTest.php
 │   │   ├── 📄 ServiceTest.php
 │   │   ├── 📄 SuperAdminCreatePagesTest.php

@@ -275,3 +275,32 @@ if (! function_exists('app_banner_packages')) {
         return $defaults;
     }
 }
+
+if (! function_exists('format_wa_url')) {
+    /**
+     * Format tautan chat WhatsApp langsung dengan nomor normalisasi dan pesan pembuka.
+     */
+    function format_wa_url(?string $phone, string $message = ''): string
+    {
+        if (empty($phone)) {
+            return '#';
+        }
+
+        // Hilangkan semua karakter non-angka
+        $clean = preg_replace('/[^0-9]/', '', $phone);
+
+        // Ubah awalan 0 atau tanpa 62 menjadi format internasional Indonesia
+        if (str_starts_with($clean, '0')) {
+            $clean = '62'.substr($clean, 1);
+        } elseif (str_starts_with($clean, '8')) {
+            $clean = '62'.$clean;
+        }
+
+        $url = 'https://wa.me/'.$clean;
+        if (! empty($message)) {
+            $url .= '?text='.rawurlencode($message);
+        }
+
+        return $url;
+    }
+}

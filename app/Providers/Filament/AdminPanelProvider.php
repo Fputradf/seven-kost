@@ -27,7 +27,6 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->id('admin')
             ->path('admin')
-            ->login()
             ->font('Plus Jakarta Sans')
             ->colors([
                 'primary' => Color::Blue,

@@ -32,7 +32,6 @@ class SuperadminPanelProvider extends PanelProvider
             ->id('superadmin')
             ->path('superadmin')
             ->spa()
-            ->login()
             ->profile(page: EditProfile::class, isSimple: false)
             ->breadcrumbs(false)
             ->maxContentWidth(Width::Full)

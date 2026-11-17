@@ -1,3 +1,89 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ==========================================================================
+   SEVEN KOST - CORE TYPOGRAPHY & FORM SYSTEM (MATCHING SUPERADMIN EXECUTIVE THEME)
+   - Font: Geist (Modern, Sleek, Fluid & Geometric Sans)
+   - Letter Spacing: Negative tracking (-0.012em / -0.025em) for fluid elegance
+   - Inputs & Controls: Identical to Super Admin custom theme (anti AI-slop)
+   ========================================================================== */
+
+@layer base {
+    body, button, input, optgroup, select, textarea, table, thead, tbody, tr, th, td {
+        font-family: 'Geist', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        letter-spacing: -0.012em;
+        line-height: 1.55;
+    }
+
+    /* Headings: Sleek, punchy negative tracking for modern high-end feel */
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Geist', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-weight: 600;
+        letter-spacing: -0.025em;
+        color: #0f172a;
+    }
+
+    /* Form Labels: Understated, clean, easy to scan (13px, Medium 500, Slate-700) */
+    label,
+    .form-label {
+        font-family: 'Geist', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        letter-spacing: -0.01em;
+        font-weight: 500;
+        font-size: 0.8125rem;
+        color: #334155;
+        line-height: 1.5;
+        margin-bottom: 0.35rem;
+        display: block;
+    }
+
+    /* Inputs, Selects, and Textareas */
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    input[type="url"],
+    input[type="tel"],
+    input[type="search"],
+    select,
+    textarea,
+    .form-input {
+        font-family: 'Geist', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        letter-spacing: -0.008em;
+        line-height: 1.5;
+        font-size: 0.875rem;
+        color: #0f172a;
+        background-color: #ffffff;
+        border: 1px solid #cbd5e1;
+        border-radius: 0.5rem;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+        padding: 0.55rem 0.875rem;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus,
+    input[type="number"]:focus,
+    input[type="url"]:focus,
+    input[type="tel"]:focus,
+    input[type="search"]:focus,
+    select:focus,
+    textarea:focus,
+    .form-input:focus {
+        border-color: #2563eb;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    /* Form Helper Text */
+    .form-helper {
+        font-family: 'Geist', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        letter-spacing: -0.005em;
+        line-height: 1.5;
+        color: #64748b;
+        font-size: 0.775rem;
+        margin-top: 0.35rem;
+    }
+}
+
