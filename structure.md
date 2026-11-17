@@ -61,7 +61,6 @@
 ├── 📄 AGENTS.md
 ├── 📁 app/
 │   ├── 📁 Filament/
-│   │   ├── 📁 Pages/
 │   │   ├── 📁 Resources/
 │   │   │   ├── 📁 AdsPackages/
 │   │   │   │   ├── 📄 AdsPackageResource.php
@@ -569,7 +568,6 @@
 │       ├── 📁 filament/
 │       │   ├── 📄 brand.blade.php
 │       │   ├── 📄 custom-theme.blade.php
-│       │   ├── 📁 pages/
 │       │   └── 📁 superadmin/
 │       │       ├── 📁 components/
 │       │       │   ├── 📄 sidebar-footer.blade.php
@@ -661,10 +659,6 @@
 │       ├── 📁 tenant/
 │       │   └── 📄 bookings.blade.php
 │       ├── 📄 terms-and-conditions.blade.php
-│       ├── 📁 vendor/
-│       │   └── 📁 filament-panels/
-│       │       └── 📁 components/
-│       │           └── 📁 layout/
 │       └── 📄 welcome.blade.php
 ├── 📁 routes/
 │   ├── 📄 auth.php
