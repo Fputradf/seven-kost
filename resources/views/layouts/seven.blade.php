@@ -24,6 +24,7 @@
     <!-- Favicon (Dinamis dari Pengaturan Aplikasi & Fallback) -->
     <link rel="icon" href="{{ app_favicon_url() }}">
     <link rel="shortcut icon" href="{{ app_favicon_url() }}">
+    <link rel="alternate icon" href="{{ asset('favicon.ico') }}">
     <link rel="apple-touch-icon" href="{{ app_logo_url() }}">
 
     <!-- Fonts: Geist, Inter & Plus Jakarta Sans (Modern, Clean & Ultra Legible) -->

@@ -1,11 +1,13 @@
 <x-seven-layout title="Cari & Filter Kos - Seven Kost">
 
-    {{-- Top Search & Header Bar --}}
-    <div class="bg-navy-950 text-white border-b border-slate-800 py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    {{-- Main Container (Header Card Gradient + Sidebar Filter + Listing) --}}
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6 sm:space-y-8" x-data="{ mobileFilterOpen: false }">
+
+        {{-- Header Card Gradient (Sesuai Standar Form & Portal) --}}
+        <div class="rounded-2xl p-6 sm:p-7 text-white shadow-md shadow-blue-900/15 border border-blue-400/25" style="background: linear-gradient(135deg, #091e3a 0%, #0f3d7c 50%, #1d4ed8 100%);">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
+                    <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white font-sans">
                         @if($selectedRegencyName)
                             Kos di {{ $selectedRegencyName }}
                         @elseif($selectedProvinceName)
@@ -14,26 +16,21 @@
                             Jelajah Kos Seluruh Indonesia
                         @endif
                     </h1>
-                    <p class="text-xs sm:text-sm text-slate-400 mt-1">
-                        Menampilkan <span class="text-blue-400 font-bold">{{ $totalCount }}</span> kos sesuai kriteria pencarian Anda
-                    </p>
                 </div>
 
                 {{-- Fast Search Input & Map Button --}}
                 <div class="flex items-center gap-2">
-                    <a href="{{ url('/peta') }}" class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-semibold text-white border border-white/15 transition shadow-sm">
-                        <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <a href="{{ url('/peta') }}" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-white/25 hover:bg-white/15 text-white text-xs font-semibold transition">
+                        <svg class="w-4 h-4 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
                         </svg>
-                        Buka Mode Peta
+                        <span>Buka Mode Peta</span>
                     </a>
                 </div>
             </div>
         </div>
-    </div>
 
-    {{-- Main Container (Sidebar Filter + Listing) --}}
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" x-data="{ mobileFilterOpen: false }">
+        {{-- Layout Filter + Listing --}}
         <div class="flex flex-col lg:flex-row gap-8 items-start">
 
             {{-- 1. DESKTOP FILTER SIDEBAR --}}
@@ -110,15 +107,15 @@
                                     <span>Semua Tipe</span>
                                 </label>
                                 <label class="flex items-center gap-2 text-xs font-medium text-slate-700 cursor-pointer">
-                                    <input type="radio" name="tipe" value="putri" {{ $selectedType === 'putri' ? 'checked' : '' }} class="text-rose-600 focus:ring-rose-500">
+                                    <input type="radio" name="tipe" value="putri" {{ $selectedType === 'putri' ? 'checked' : '' }} class="text-blue-600 focus:ring-blue-500">
                                     <span>Khusus Putri</span>
                                 </label>
                                 <label class="flex items-center gap-2 text-xs font-medium text-slate-700 cursor-pointer">
-                                    <input type="radio" name="tipe" value="putra" {{ $selectedType === 'putra' ? 'checked' : '' }} class="text-sky-600 focus:ring-sky-500">
+                                    <input type="radio" name="tipe" value="putra" {{ $selectedType === 'putra' ? 'checked' : '' }} class="text-blue-600 focus:ring-blue-500">
                                     <span>Khusus Putra</span>
                                 </label>
                                 <label class="flex items-center gap-2 text-xs font-medium text-slate-700 cursor-pointer">
-                                    <input type="radio" name="tipe" value="campur" {{ $selectedType === 'campur' ? 'checked' : '' }} class="text-purple-600 focus:ring-purple-500">
+                                    <input type="radio" name="tipe" value="campur" {{ $selectedType === 'campur' ? 'checked' : '' }} class="text-blue-600 focus:ring-blue-500">
                                     <span>Kos Campur</span>
                                 </label>
                             </div>
@@ -207,44 +204,56 @@
 
                         <label for="sortSelector" class="text-xs text-slate-500 font-medium whitespace-nowrap">Urutkan:</label>
                         <select id="sortSelector" name="sort" onchange="this.form.submit()" class="text-xs font-semibold rounded-xl border-slate-200 bg-slate-50 focus:bg-white focus:border-blue-500 focus:ring-blue-500 py-1.5 pr-8">
-                            <option value="unggulan" {{ $sort === 'unggulan' ? 'selected' : '' }}>🌟 Rekomendasi / Unggulan</option>
-                            <option value="termurah" {{ $sort === 'termurah' ? 'selected' : '' }}>💵 Harga Termurah</option>
-                            <option value="termahal" {{ $sort === 'termahal' ? 'selected' : '' }}>💎 Harga Tertinggi</option>
-                            <option value="terbaru" {{ $sort === 'terbaru' ? 'selected' : '' }}>⚡ Paling Baru</option>
+                            <option value="unggulan" {{ $sort === 'unggulan' ? 'selected' : '' }}>Rekomendasi</option>
+                            <option value="termurah" {{ $sort === 'termurah' ? 'selected' : '' }}>Harga Termurah</option>
+                            <option value="termahal" {{ $sort === 'termahal' ? 'selected' : '' }}>Harga Tertinggi</option>
+                            <option value="terbaru" {{ $sort === 'terbaru' ? 'selected' : '' }}>Paling Baru</option>
                         </select>
                     </form>
                 </div>
 
-                {{-- Active Filter Badges / Pills --}}
+                {{-- Active Filter Badges / Pills (Neutral / Monochrome Style) --}}
                 @if($selectedProvinceName || $selectedRegencyName || $selectedType || $minPrice || $maxPrice || !empty($selectedFacilities))
                     <div class="flex items-center gap-2 flex-wrap mb-6">
                         <span class="text-xs text-slate-400 font-medium">Filter Aktif:</span>
 
                         @if($selectedProvinceName)
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/80 text-xs font-semibold text-blue-700">
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 border border-slate-200/80 text-xs font-semibold text-slate-700">
                                 Prov: {{ $selectedProvinceName }}
                             </span>
                         @endif
 
                         @if($selectedRegencyName)
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/80 text-xs font-semibold text-blue-700">
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 border border-slate-200/80 text-xs font-semibold text-slate-700">
                                 {{ $selectedRegencyName }}
                             </span>
                         @endif
 
                         @if($selectedType)
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-50 border border-purple-200/80 text-xs font-semibold text-purple-700 uppercase">
-                                Tipe: {{ $selectedType }}
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 border border-slate-200/80 text-xs font-semibold text-slate-700">
+                                Tipe: {{ ucfirst($selectedType) }}
+                            </span>
+                        @endif
+
+                        @if($minPrice)
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 border border-slate-200/80 text-xs font-semibold text-slate-700">
+                                Min: Rp {{ number_format($minPrice, 0, ',', '.') }}
                             </span>
                         @endif
 
                         @if($maxPrice)
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-xs font-semibold text-emerald-700">
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 border border-slate-200/80 text-xs font-semibold text-slate-700">
                                 Maks: Rp {{ number_format($maxPrice, 0, ',', '.') }}
                             </span>
                         @endif
 
-                        <a href="{{ url('/cari') }}" class="text-xs text-red-500 hover:text-red-700 font-semibold underline ml-1">
+                        @foreach($selectedFacilities as $f)
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 border border-slate-200/80 text-xs font-semibold text-slate-700 capitalize">
+                                {{ $f }}
+                            </span>
+                        @endforeach
+
+                        <a href="{{ url('/cari') }}" class="text-xs text-slate-500 hover:text-slate-800 font-semibold underline ml-1">
                             Hapus Semua
                         </a>
                     </div>

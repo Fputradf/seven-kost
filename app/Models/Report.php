@@ -13,6 +13,8 @@ class Report extends Model
     protected $fillable = [
         'user_id',
         'kost_id',
+        'room_id',
+        'category',
         'reason',
         'details',
         'status',
@@ -27,5 +29,10 @@ class Report extends Model
     public function kost(): BelongsTo
     {
         return $this->belongsTo(Kost::class, 'kost_id');
+    }
+
+    public function room(): BelongsTo
+    {
+        return $this->belongsTo(Room::class, 'room_id');
     }
 }

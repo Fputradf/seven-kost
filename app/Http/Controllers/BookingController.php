@@ -18,7 +18,7 @@ class BookingController extends Controller
     public function myBookings(): View
     {
         $bookings = auth()->user()->bookings()
-            ->with(['kost.province', 'kost.regency', 'kost.owner', 'room'])
+            ->with(['kost.province', 'kost.regency', 'kost.owner', 'kost.primaryImage', 'kost.images', 'room'])
             ->latest()
             ->get();
 

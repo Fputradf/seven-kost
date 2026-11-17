@@ -71,7 +71,7 @@
             activeImageModal: null,
             activeImageIndex: 0,
             allPhotos: {{ json_encode($galleryPhotos) }},
-            isBookmarked: false,
+            isBookmarked: {{ (auth()->check() && auth()->user()->wishlists()->where('kost_id', $kost->id)->exists()) ? 'true' : 'false' }},
             shareCopied: false,
             bookingModalOpen: false, 
             reportModalOpen: false,
@@ -154,13 +154,28 @@
 
                     {{-- Bookmark Button --}}
                     <button 
-                        @click="isBookmarked = !isBookmarked" 
+                        @click="
+                            @auth
+                                fetch('{{ route('tenant.wishlists.toggle', $kost->id) }}', {
+                                    method: 'POST',
+                                    headers: {
+                                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                        'Accept': 'application/json'
+                                    }
+                                })
+                                .then(res => res.json())
+                                .then(data => { if (data.success) isBookmarked = data.is_favorited; })
+                                .catch(err => console.error(err));
+                            @else
+                                window.location.href = '{{ route('login') }}';
+                            @endauth
+                        " 
                         type="button" 
-                        class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-semibold transition active:scale-95 shadow-xs"
-                        :class="isBookmarked ? 'bg-blue-50 border-blue-200 text-blue-600' : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300'"
+                        class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-semibold transition active:scale-95 shadow-xs cursor-pointer"
+                        :class="isBookmarked ? 'bg-rose-50 border-rose-200 text-rose-600' : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300'"
                     >
-                        <svg class="w-3.5 h-3.5 transition-transform" :class="isBookmarked ? 'fill-blue-600 stroke-blue-600 scale-110' : 'fill-none stroke-current'" viewBox="0 0 24 24" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                        <svg class="w-3.5 h-3.5 transition-transform" :class="isBookmarked ? 'fill-rose-600 stroke-rose-600 scale-110' : 'fill-none stroke-current'" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
                         </svg>
                         <span x-text="isBookmarked ? 'Tersimpan' : 'Simpan'">Simpan</span>
                     </button>

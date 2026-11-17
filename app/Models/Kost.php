@@ -134,4 +134,37 @@ class Kost extends Model
     {
         return $this->hasOne(KostImage::class, 'kost_id')->where('is_primary', true);
     }
+
+    /**
+     * URL Foto utama atau fallback cover kos.
+     */
+    public function getPrimaryImageUrlAttribute(): string
+    {
+        $img = $this->primaryImage ?? $this->images->first();
+        if ($img && ! empty($img->file_path)) {
+            if (str_starts_with($img->file_path, 'http')) {
+                return $img->file_path;
+            }
+
+            return asset('storage/'.$img->file_path);
+        }
+
+        return asset('images/frontend/cta-kost-room.jpg');
+    }
+
+    /**
+     * Data wishlist untuk kos ini.
+     */
+    public function wishlists(): HasMany
+    {
+        return $this->hasMany(Wishlist::class, 'kost_id');
+    }
+
+    /**
+     * Pengguna yang memfavoritkan kos ini.
+     */
+    public function favoritedBy(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'wishlists', 'kost_id', 'user_id')->withTimestamps();
+    }
 }
