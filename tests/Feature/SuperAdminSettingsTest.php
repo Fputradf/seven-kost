@@ -278,4 +278,30 @@ class SuperAdminSettingsTest extends TestCase
         $this->assertStringContainsString('images/custom-light-logo.png', app_logo_url('light'));
         $this->assertStringContainsString('images/custom-dark-logo.png', app_logo_url('dark'));
     }
+
+    public function test_superadmin_can_configure_rental_and_late_fee_settings(): void
+    {
+        $superadmin = User::factory()->create(['status' => 'active']);
+        $superadmin->assignRole('superadmin');
+
+        Livewire::actingAs($superadmin)
+            ->test(ManageSettings::class)
+            ->set('data.app_name', 'Seven Kost')
+            ->set('data.rent_bill_notice_days', 10)
+            ->set('data.late_fee_enabled', true)
+            ->set('data.late_fee_grace_days', 2)
+            ->set('data.late_fee_daily_amount', 25000)
+            ->call('save')
+            ->assertHasNoErrors();
+
+        $this->assertEquals(10, (int) AppSetting::where('key', 'rent_bill_notice_days')->value('value'));
+        $this->assertEquals('1', AppSetting::where('key', 'late_fee_enabled')->value('value'));
+        $this->assertEquals(2, (int) AppSetting::where('key', 'late_fee_grace_days')->value('value'));
+        $this->assertEquals(25000, (int) AppSetting::where('key', 'late_fee_daily_amount')->value('value'));
+
+        $this->assertEquals(10, setting('rent_bill_notice_days'));
+        $this->assertTrue(setting('late_fee_enabled'));
+        $this->assertEquals(2, setting('late_fee_grace_days'));
+        $this->assertEquals(25000, setting('late_fee_daily_amount'));
+    }
 }

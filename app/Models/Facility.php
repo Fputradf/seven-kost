@@ -23,4 +23,12 @@ class Facility extends Model
     {
         return $this->belongsToMany(Kost::class, 'kost_facilities', 'facility_id', 'kost_id');
     }
+
+    /**
+     * Relasi ke Kamar yang memiliki fasilitas ini.
+     */
+    public function rooms(): BelongsToMany
+    {
+        return $this->belongsToMany(Room::class, 'room_facilities', 'facility_id', 'room_id');
+    }
 }

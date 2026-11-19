@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -22,6 +23,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Paksa HTTPS saat diakses melalui tunnel ngrok agar asset & Vite tidak terblokir Mixed Content
+        if (str_contains(request()->getHost(), 'ngrok') || request()->header('x-forwarded-proto') === 'https') {
+            URL::forceScheme('https');
+        }
+
         // Superadmin bypass: Berikan izin penuh untuk semua permission check
         Gate::before(function ($user, $ability) {
             return $user->hasRole('superadmin') ? true : null;

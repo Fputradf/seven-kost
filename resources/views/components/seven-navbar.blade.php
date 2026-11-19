@@ -27,10 +27,12 @@
                 <a href="{{ url('/') }}" class="flex items-center gap-2.5 group focus:outline-none">
                     <img src="{{ app_logo_url('light') }}" 
                          x-show="scrolled"
+                         {!! $enableTransparent ? 'style="display: none;"' : '' !!}
                          alt="{{ app_name() }} Logo" 
                          class="h-9 w-9 sm:h-10 sm:w-10 object-contain group-hover:scale-105 transition-transform drop-shadow-sm">
                     <img src="{{ app_logo_url('dark') }}" 
                          x-show="!scrolled"
+                         {!! !$enableTransparent ? 'style="display: none;"' : '' !!}
                          alt="{{ app_name() }} Logo" 
                          class="h-9 w-9 sm:h-10 sm:w-10 object-contain group-hover:scale-105 transition-transform drop-shadow-sm">
                     <span class="text-xl sm:text-2xl font-black tracking-tight transition-colors"
@@ -324,6 +326,24 @@
              ? 'bg-white border-slate-100 text-slate-800' 
              : 'bg-[#0A192F]/98 backdrop-blur-xl border-white/10 text-white'"
          style="display: none;">
+        
+        {{-- Mobile Drawer Brand Header dengan Logo --}}
+        <div class="flex items-center gap-2.5 pb-2.5 border-b"
+             :class="scrolled ? 'border-slate-100' : 'border-white/10'">
+            <img src="{{ app_logo_url('light') }}" 
+                 x-show="scrolled"
+                 alt="{{ app_name() }} Logo" 
+                 class="h-7 w-7 object-contain drop-shadow-xs">
+            <img src="{{ app_logo_url('dark') }}" 
+                 x-show="!scrolled"
+                 alt="{{ app_name() }} Logo" 
+                 class="h-7 w-7 object-contain drop-shadow-xs">
+            <span class="text-base font-black tracking-tight"
+                  :class="scrolled ? 'text-slate-900' : 'text-white'">
+                {{ app_name() }}
+            </span>
+        </div>
+
         <div class="space-y-1 text-sm font-bold pt-1">
             @if(Auth::check() && Auth::user()->hasRole('penghuni'))
                 {{-- Menu Khusus Penghuni --}}

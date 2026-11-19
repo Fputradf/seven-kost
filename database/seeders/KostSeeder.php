@@ -74,6 +74,7 @@ class KostSeeder extends Seeder
         $malang = Regency::firstOrCreate(['id' => '3573'], ['province_id' => $jatim->id, 'name' => 'Kota Malang', 'type' => 'Kota']);
 
         $allFacilities = Facility::all();
+        $roomFacilities = Facility::where('category', 'kamar')->get();
 
         // 4. Data Kos & Ragam Tipe Kamar
         $kostList = [
@@ -403,7 +404,7 @@ class KostSeeder extends Seeder
 
             // Buat Kamar-kamar untuk tiap kos
             foreach ($roomsData as $r) {
-                Room::updateOrCreate(
+                $room = Room::updateOrCreate(
                     ['kost_id' => $kost->id, 'name' => $r['name']],
                     [
                         'price' => $r['price'],
@@ -412,6 +413,59 @@ class KostSeeder extends Seeder
                         'room_size' => $r['room_size'],
                     ]
                 );
+
+                if ($room->facilities()->count() === 0 && $roomFacilities->count() > 0) {
+                    $lowerName = strtolower($r['name']);
+                    $assignedFacIds = [];
+
+                    // Always basic room facilities
+                    $basicNames = ['Kasur / Springbed', 'Lemari Pakaian', 'Meja & Kursi Belajar'];
+                    foreach ($basicNames as $bName) {
+                        $f = $roomFacilities->firstWhere('name', $bName);
+                        if ($f) {
+                            $assignedFacIds[] = $f->id;
+                        }
+                    }
+
+                    // AC
+                    if (str_contains($lowerName, 'ac') || str_contains($lowerName, 'deluxe') || str_contains($lowerName, 'vip') || str_contains($lowerName, 'suite') || $r['price'] >= 1500000) {
+                        $f = $roomFacilities->firstWhere('name', 'AC');
+                        if ($f) {
+                            $assignedFacIds[] = $f->id;
+                        }
+                    }
+
+                    // Kamar mandi dalam & Water heater
+                    if (str_contains($lowerName, 'dalam') || str_contains($lowerName, 'deluxe') || str_contains($lowerName, 'vip') || str_contains($lowerName, 'suite')) {
+                        $f = $roomFacilities->firstWhere('name', 'Kamar Mandi Dalam');
+                        if ($f) {
+                            $assignedFacIds[] = $f->id;
+                        }
+                        $f2 = $roomFacilities->firstWhere('name', 'Kloset Duduk');
+                        if ($f2) {
+                            $assignedFacIds[] = $f2->id;
+                        }
+                        if (str_contains($lowerName, 'vip') || str_contains($lowerName, 'suite') || $r['price'] >= 2000000) {
+                            $f3 = $roomFacilities->firstWhere('name', 'Water Heater');
+                            if ($f3) {
+                                $assignedFacIds[] = $f3->id;
+                            }
+                            $f4 = $roomFacilities->firstWhere('name', 'Smart Lock');
+                            if ($f4) {
+                                $assignedFacIds[] = $f4->id;
+                            }
+                        }
+                    } else {
+                        $f = $roomFacilities->firstWhere('name', 'Jendela Luar');
+                        if ($f) {
+                            $assignedFacIds[] = $f->id;
+                        }
+                    }
+
+                    if (! empty($assignedFacIds)) {
+                        $room->facilities()->sync(array_unique($assignedFacIds));
+                    }
+                }
             }
 
             // Pasang Foto Kos

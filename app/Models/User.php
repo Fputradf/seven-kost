@@ -27,6 +27,7 @@ use Spatie\Permission\Traits\HasRoles;
     'password',
     'status',
     'vip_expires_at',
+    'wallet_balance',
     'suspended_until',
     'moderation_reason',
     'moderated_at',
@@ -92,6 +93,70 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
     public function reports(): HasMany
     {
         return $this->hasMany(Report::class, 'user_id');
+    }
+
+    /**
+     * Riwayat transaksi dompet (wallet transactions).
+     */
+    public function walletTransactions(): HasMany
+    {
+        return $this->hasMany(WalletTransaction::class, 'user_id');
+    }
+
+    /**
+     * Cek apakah saldo dompet mencukupi nominal tertentu.
+     */
+    public function hasSufficientBalance(float $amount): bool
+    {
+        return (float) $this->wallet_balance >= $amount;
+    }
+
+    /**
+     * Tambahkan saldo ke dompet pengguna dan catat transaksi.
+     */
+    public function creditWallet(float $amount, string $referenceId, string $description, ?string $paymentMethod = null, ?string $notes = null): WalletTransaction
+    {
+        $before = (float) $this->wallet_balance;
+        $after = $before + $amount;
+
+        $this->update(['wallet_balance' => $after]);
+
+        return $this->walletTransactions()->create([
+            'reference_id' => $referenceId,
+            'type' => 'topup',
+            'amount' => $amount,
+            'balance_before' => $before,
+            'balance_after' => $after,
+            'status' => 'success',
+            'description' => $description,
+            'payment_method' => $paymentMethod,
+            'notes' => $notes,
+        ]);
+    }
+
+    /**
+     * Kurangi saldo dompet pengguna untuk pembayaran atau penarikan.
+     */
+    public function debitWallet(float $amount, string $referenceId, string $type, string $description, ?string $paymentMethod = null, ?string $bankName = null, ?string $accountNumber = null, ?string $accountHolder = null, string $status = 'success'): WalletTransaction
+    {
+        $before = (float) $this->wallet_balance;
+        $after = max(0, $before - $amount);
+
+        $this->update(['wallet_balance' => $after]);
+
+        return $this->walletTransactions()->create([
+            'reference_id' => $referenceId,
+            'type' => $type,
+            'amount' => $amount,
+            'balance_before' => $before,
+            'balance_after' => $after,
+            'status' => $status,
+            'description' => $description,
+            'payment_method' => $paymentMethod,
+            'bank_name' => $bankName,
+            'account_number' => $accountNumber,
+            'account_holder' => $accountHolder,
+        ]);
     }
 
     /**
@@ -182,6 +247,14 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
      */
     public function getFilamentAvatarUrl(): ?string
     {
+        return $this->avatar_url;
+    }
+
+    /**
+     * Accessor untuk URL Avatar.
+     */
+    public function getAvatarUrlAttribute(): ?string
+    {
         if ($this->avatar) {
             if (str_starts_with($this->avatar, 'http://') || str_starts_with($this->avatar, 'https://')) {
                 return $this->avatar;
@@ -204,6 +277,7 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'vip_expires_at' => 'datetime',
+            'wallet_balance' => 'decimal:2',
             'suspended_until' => 'datetime',
             'moderated_at' => 'datetime',
         ];

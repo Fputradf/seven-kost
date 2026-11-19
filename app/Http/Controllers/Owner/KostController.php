@@ -108,7 +108,7 @@ class KostController extends Controller
             }
 
             // 3. Buat Kamar Awal
-            Room::create([
+            $initialRoom = Room::create([
                 'kost_id' => $kost->id,
                 'name' => $validated['room_name'],
                 'price' => $validated['price_start'],
@@ -116,6 +116,15 @@ class KostController extends Controller
                 'available_rooms' => $validated['available_rooms'],
                 'room_size' => $validated['room_size'] ?? '3x4 m',
             ]);
+
+            if (! empty($validated['facilities'])) {
+                $roomFacilityIds = Facility::whereIn('id', $validated['facilities'])
+                    ->where('category', 'kamar')
+                    ->pluck('id');
+                if ($roomFacilityIds->isNotEmpty()) {
+                    $initialRoom->facilities()->sync($roomFacilityIds);
+                }
+            }
 
             // 4. Unggah Foto Cover jika ada
             $order = 0;

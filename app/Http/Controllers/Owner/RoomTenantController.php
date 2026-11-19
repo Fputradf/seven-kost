@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Owner;
 
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
+use App\Models\Facility;
 use App\Models\Kost;
 use App\Models\Room;
 use Illuminate\Http\RedirectResponse;
@@ -21,9 +22,10 @@ class RoomTenantController extends Controller
             abort(403);
         }
 
-        $rooms = $kost->rooms()->latest()->get();
+        $rooms = $kost->rooms()->with('facilities')->latest()->get();
+        $roomFacilities = Facility::where('category', 'kamar')->get();
 
-        return view('owner.rooms.index', compact('kost', 'rooms'));
+        return view('owner.rooms.index', compact('kost', 'rooms', 'roomFacilities'));
     }
 
     /**
@@ -41,15 +43,27 @@ class RoomTenantController extends Controller
             'total_rooms' => 'required|integer|min:1',
             'available_rooms' => 'required|integer|min:0',
             'room_size' => 'nullable|string|max:50',
+            'facilities' => 'nullable|array',
+            'facilities.*' => 'exists:facilities,id',
         ]);
 
         if ($validated['available_rooms'] > $validated['total_rooms']) {
             return back()->withErrors(['available_rooms' => 'Jumlah kamar tersedia tidak boleh melebihi total unit kamar.'])->withInput();
         }
 
-        $kost->rooms()->create($validated);
+        $room = $kost->rooms()->create([
+            'name' => $validated['name'],
+            'price' => $validated['price'],
+            'total_rooms' => $validated['total_rooms'],
+            'available_rooms' => $validated['available_rooms'],
+            'room_size' => $validated['room_size'] ?? null,
+        ]);
 
-        return back()->with('success', 'Tipe kamar baru berhasil ditambahkan.');
+        if (! empty($validated['facilities'])) {
+            $room->facilities()->sync($validated['facilities']);
+        }
+
+        return back()->with('success', 'Tipe kamar baru beserta fasilitas berhasil ditambahkan.');
     }
 
     /**
@@ -71,15 +85,25 @@ class RoomTenantController extends Controller
             'total_rooms' => 'required|integer|min:1',
             'available_rooms' => 'required|integer|min:0',
             'room_size' => 'nullable|string|max:50',
+            'facilities' => 'nullable|array',
+            'facilities.*' => 'exists:facilities,id',
         ]);
 
         if ($validated['available_rooms'] > $validated['total_rooms']) {
             return back()->withErrors(['available_rooms' => 'Jumlah kamar tersedia tidak boleh melebihi total unit kamar.'])->withInput();
         }
 
-        $room->update($validated);
+        $room->update([
+            'name' => $validated['name'],
+            'price' => $validated['price'],
+            'total_rooms' => $validated['total_rooms'],
+            'available_rooms' => $validated['available_rooms'],
+            'room_size' => $validated['room_size'] ?? null,
+        ]);
 
-        return back()->with('success', 'Data tipe kamar berhasil diperbarui.');
+        $room->facilities()->sync($validated['facilities'] ?? []);
+
+        return back()->with('success', 'Data tipe kamar dan fasilitas berhasil diperbarui.');
     }
 
     /**
@@ -113,8 +137,10 @@ class RoomTenantController extends Controller
 
         if ($tab === 'pending') {
             $query->where('status', 'pending');
+        } elseif ($tab === 'approved') {
+            $query->where('status', 'approved');
         } elseif ($tab === 'active') {
-            $query->whereIn('status', ['approved', 'active']);
+            $query->where('status', 'active');
         } elseif ($tab === 'history') {
             $query->whereIn('status', ['completed', 'cancelled', 'rejected']);
         }
@@ -125,7 +151,8 @@ class RoomTenantController extends Controller
         $counts = [
             'all' => Booking::whereIn('kost_id', $ownerKostIds)->count(),
             'pending' => Booking::whereIn('kost_id', $ownerKostIds)->where('status', 'pending')->count(),
-            'active' => Booking::whereIn('kost_id', $ownerKostIds)->whereIn('status', ['approved', 'active'])->count(),
+            'approved' => Booking::whereIn('kost_id', $ownerKostIds)->where('status', 'approved')->count(),
+            'active' => Booking::whereIn('kost_id', $ownerKostIds)->where('status', 'active')->count(),
             'history' => Booking::whereIn('kost_id', $ownerKostIds)->whereIn('status', ['completed', 'cancelled', 'rejected'])->count(),
         ];
 

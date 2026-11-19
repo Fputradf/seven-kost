@@ -525,109 +525,109 @@
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
             {{-- Card 1: Marketplace Barang Kos --}}
-            <div id="marketplace" class="group/market relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-100/80 via-sky-50/60 to-white p-4 sm:p-5 md:p-6 border border-blue-200/70 shadow-sm hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between">
+            <div id="marketplace" class="group/market relative overflow-hidden rounded-2xl text-white p-5 sm:p-6 border border-blue-400/25 shadow-md shadow-blue-900/15 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between" style="background: linear-gradient(135deg, #091e3a 0%, #0f3d7c 50%, #1d4ed8 100%);">
                 {{-- Decorative Subtle Background Glow --}}
-                <div class="absolute -right-8 -bottom-8 w-40 h-40 bg-blue-300/20 rounded-full blur-2xl pointer-events-none group-hover/market:scale-110 transition-transform duration-500"></div>
+                <div class="absolute -right-8 -bottom-8 w-40 h-40 bg-blue-400/15 rounded-full blur-2xl pointer-events-none group-hover/market:scale-110 transition-transform duration-500"></div>
 
                 <div class="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-3.5 sm:gap-6">
                     {{-- Text Info --}}
                     <div class="flex-1 min-w-0 space-y-2 text-center sm:text-left">
-                        <div class="flex items-center justify-center sm:justify-start gap-2 text-blue-800 font-black text-base sm:text-lg">
-                            <svg class="w-5 h-5 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="flex items-center justify-center sm:justify-start gap-2 text-white font-black text-base sm:text-lg">
+                            <svg class="w-5 h-5 text-sky-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
                             </svg>
                             <span>Marketplace Barang Kos</span>
                         </div>
 
-                        <p class="text-xs text-slate-600 leading-relaxed">
+                        <p class="text-xs text-white leading-relaxed font-normal">
                             Lengkapi kamar kosmu dengan kasur, meja belajar, rak, hingga elektronik hemat & berkualitas tanpa ribet.
                         </p>
 
-                        <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2 sm:gap-3 text-[11px] sm:text-xs font-semibold text-slate-600">
+                        <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2 sm:gap-3 text-[11px] sm:text-xs font-semibold text-white">
                             <span class="inline-flex items-center gap-1">
-                                <svg class="w-3.5 h-3.5 text-blue-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                                <svg class="w-3.5 h-3.5 text-emerald-300" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
                                 100% COD (Bayar di Tempat)
                             </span>
-                            <span>•</span>
+                            <span class="text-white/40">•</span>
                             <span class="inline-flex items-center gap-1">
-                                <svg class="w-3.5 h-3.5 text-blue-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                                <svg class="w-3.5 h-3.5 text-emerald-300" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
                                 Titik Temu Kos & Kampus
                             </span>
                         </div>
 
-                        <div class="pt-1">
-                            <a href="{{ route('marketplace.index') }}" class="group/btn inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md shadow-blue-500/20 transition-all transform hover:scale-105 active:scale-95">
+                        <div class="pt-1.5">
+                            <a href="{{ route('marketplace.index') }}" class="group/btn inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-bold shadow-md transition-all transform hover:scale-105 active:scale-95 border border-white/20">
                                 <span>Buka Marketplace</span>
-                                <svg class="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                                <svg class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                             </a>
                         </div>
                     </div>
 
                     {{-- Image Container (Compact on mobile) --}}
-                    <div class="w-full sm:w-40 md:w-44 h-28 sm:h-32 rounded-xl overflow-hidden shadow-xs border border-white ring-1 ring-blue-100 flex-shrink-0 relative group-hover/market:scale-103 transition-transform duration-300">
+                    <div class="w-full sm:w-40 md:w-44 h-28 sm:h-32 rounded-xl overflow-hidden shadow-md border border-white/30 ring-1 ring-white/20 flex-shrink-0 relative group-hover/market:scale-103 transition-transform duration-300">
                         <img src="{{ asset('images/frontend/marketplace-hd.jpg') }}" alt="Marketplace Barang Kos SevenKost" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-blue-950/30 via-transparent to-transparent"></div>
-                        <div class="absolute bottom-1 left-1 right-1 text-center text-[10px] font-bold text-white bg-black/50 backdrop-blur-xs py-0.5 px-1 rounded-md">
+                        <div class="absolute inset-0 bg-gradient-to-t from-blue-950/60 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-1.5 left-1.5 right-1.5 text-center text-xs font-semibold text-white bg-black/60 backdrop-blur-xs py-0.5 px-1.5 rounded-md">
                             Pilihan Hemat Anak Kos
                         </div>
                     </div>
                 </div>
             </div>
 
-            {{-- Card 2: Layanan Mitra (Translucent / Frosted Glass Style) --}}
-            <div id="layanan" class="group/service relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-100/70 via-sky-50/40 to-blue-50/20 backdrop-blur-md p-4 sm:p-5 md:p-6 border border-blue-200/70 shadow-sm hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between">
+            {{-- Card 2: Layanan Mitra --}}
+            <div id="layanan" class="group/service relative overflow-hidden rounded-2xl text-white p-5 sm:p-6 border border-blue-400/25 shadow-md shadow-blue-900/15 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between" style="background: linear-gradient(135deg, #091e3a 0%, #0f3d7c 50%, #1d4ed8 100%);">
                 {{-- Decorative Subtle Background Glow --}}
-                <div class="absolute -right-8 -bottom-8 w-40 h-40 bg-blue-300/20 rounded-full blur-2xl pointer-events-none group-hover/service:scale-110 transition-transform duration-500"></div>
+                <div class="absolute -right-8 -bottom-8 w-40 h-40 bg-blue-400/15 rounded-full blur-2xl pointer-events-none group-hover/service:scale-110 transition-transform duration-500"></div>
 
                 <div class="space-y-2.5 relative z-10">
                     <div class="flex items-center justify-between gap-2">
-                        <div class="flex items-center gap-2 text-blue-800 font-black text-base sm:text-lg">
-                            <svg class="w-5 h-5 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="flex items-center gap-2 text-white font-bold text-base sm:text-lg">
+                            <svg class="w-5 h-5 text-sky-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                             </svg>
                             <span>Layanan Mitra</span>
                         </div>
-                        <div class="inline-flex items-center gap-1.5 px-2 py-0.5 bg-emerald-500/10 text-emerald-800 border border-emerald-500/20 text-[10px] font-bold shadow-2xs backdrop-blur-xs">
-                            <span class="w-1.5 h-1.5 bg-emerald-500 animate-ping inline-block"></span>
-                            2 Layanan Tersedia
+                        <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-white/10 text-white border border-white/20 text-xs font-semibold shadow-2xs backdrop-blur-xs rounded-full">
+                            <span class="w-2 h-2 bg-emerald-400 rounded-full animate-ping inline-block"></span>
+                            <span>Tersedia Hari Ini</span>
                         </div>
                     </div>
 
-                    <p class="text-xs text-slate-600 leading-relaxed">
+                    <p class="text-xs sm:text-sm text-white leading-relaxed font-normal">
                         Layanan harian cuci pakaian & kebersihan kamar langsung ke kosmu agar hidup makin praktis.
                     </p>
 
-                    {{-- 3 Service Sub-Cards (Tetap Transparan & Tanpa Animasi Interaktif Putih) --}}
-                    <div class="pt-1 grid grid-cols-3 gap-2">
+                    {{-- 3 Service Sub-Cards (Clean White Text) --}}
+                    <div class="pt-1 grid grid-cols-3 gap-2 sm:gap-2.5">
                         {{-- 1. Laundry --}}
-                        <a href="{{ route('services.index') }}#laundry" class="bg-white/30 backdrop-blur-md rounded-xl p-2 border border-white/50 shadow-2xs text-center flex flex-col items-center transition-opacity hover:opacity-90">
-                            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg overflow-hidden mb-1 relative ring-1 ring-emerald-400/50 shadow-2xs">
+                        <a href="{{ route('services.index') }}#laundry" class="bg-white/10 backdrop-blur-md rounded-xl p-2.5 border border-white/20 shadow-2xs text-center flex flex-col items-center transition-all hover:bg-white/20">
+                            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg overflow-hidden mb-1.5 relative ring-1 ring-white/30 shadow-2xs">
                                 <img src="{{ asset('images/frontend/service-laundry.jpg') }}" alt="Layanan Laundry Kos" class="w-full h-full object-cover">
                             </div>
-                            <span class="text-[11px] sm:text-xs font-black text-slate-800 leading-tight">Laundry</span>
+                            <span class="text-xs sm:text-sm font-semibold text-white leading-tight">Laundry</span>
                         </a>
 
                         {{-- 2. Kebersihan --}}
-                        <a href="{{ route('services.index') }}#cleaning" class="bg-white/30 backdrop-blur-md rounded-xl p-2 border border-white/50 shadow-2xs text-center flex flex-col items-center transition-opacity hover:opacity-90">
-                            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg overflow-hidden mb-1 relative ring-1 ring-emerald-400/50 shadow-2xs">
+                        <a href="{{ route('services.index') }}#cleaning" class="bg-white/10 backdrop-blur-md rounded-xl p-2.5 border border-white/20 shadow-2xs text-center flex flex-col items-center transition-all hover:bg-white/20">
+                            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg overflow-hidden mb-1.5 relative ring-1 ring-white/30 shadow-2xs">
                                 <img src="{{ asset('images/frontend/service-cleaning.jpg') }}" alt="Layanan Kebersihan Kos" class="w-full h-full object-cover">
                             </div>
-                            <span class="text-[11px] sm:text-xs font-black text-slate-800 leading-tight">Kebersihan</span>
+                            <span class="text-xs sm:text-sm font-semibold text-white leading-tight">Kebersihan</span>
                         </a>
 
                         {{-- 3. Katering --}}
-                        <a href="{{ route('services.index') }}#catering" class="bg-white/20 backdrop-blur-md rounded-xl p-2 border border-white/40 shadow-2xs text-center flex flex-col items-center opacity-85 hover:opacity-100 transition-opacity">
-                            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg overflow-hidden mb-1 relative ring-1 ring-amber-300/80 filter grayscale-30">
+                        <a href="{{ route('services.index') }}#catering" class="bg-white/10 backdrop-blur-md rounded-xl p-2.5 border border-white/20 shadow-2xs text-center flex flex-col items-center transition-all hover:bg-white/20">
+                            <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg overflow-hidden mb-1.5 relative ring-1 ring-white/30 shadow-2xs">
                                 <img src="{{ asset('images/frontend/service-catering.jpg') }}" alt="Layanan Katering Kos" class="w-full h-full object-cover">
                             </div>
-                            <span class="text-[11px] sm:text-xs font-bold text-slate-700 leading-tight">Katering "Segera"</span>
+                            <span class="text-xs sm:text-sm font-semibold text-white leading-tight">Katering</span>
                         </a>
                     </div>
 
-                    <div class="pt-1 flex items-center justify-between">
-                        <a href="{{ route('services.index') }}" class="inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-md shadow-blue-500/20 transition-all">
-                            <span>Pesan Layanan</span>
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    <div class="pt-1.5">
+                        <a href="{{ route('services.index') }}" class="group/btn inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-bold shadow-md transition-all transform hover:scale-105 active:scale-95 border border-white/20">
+                            <span>Jelajahi Semua Layanan</span>
+                            <svg class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </a>
                     </div>
                 </div>
@@ -661,16 +661,16 @@
 
                 {{-- Center Text Content & Perks --}}
                 <div class="space-y-3 text-center md:text-left flex-1">
-                    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight leading-tight">
+                    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight leading-tight text-white !text-white">
                         Pasang Iklan Kosmu <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 to-sky-300 animate-pulse">Sekarang!</span>
                     </h2>
 
-                    <p class="text-xs sm:text-base text-blue-100 max-w-xl leading-relaxed">
+                    <p class="text-xs sm:text-base text-white max-w-xl leading-relaxed">
                         Jangkau ribuan calon penyewa mahasiswa & pekerja kantoran tanpa biaya perantara.
                     </p>
 
                     {{-- Highlight Perks --}}
-                    <div class="pt-1 flex flex-wrap items-center justify-center md:justify-start gap-2.5 text-xs font-semibold text-blue-100">
+                    <div class="pt-1 flex flex-wrap items-center justify-center md:justify-start gap-2.5 text-xs font-semibold text-white">
                         <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/10 backdrop-blur-xs border border-white/15">
                             <svg class="w-3.5 h-3.5 text-emerald-300" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
                             Listing Langsung Tayang

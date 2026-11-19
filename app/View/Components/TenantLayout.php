@@ -9,6 +9,8 @@ class TenantLayout extends Component
 {
     public function __construct(
         public ?string $title = null,
+        public ?string $backUrl = null,
+        public bool $hideBottomNav = false,
     ) {}
 
     /**

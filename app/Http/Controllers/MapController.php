@@ -11,9 +11,25 @@ use Illuminate\View\View;
 class MapController extends Controller
 {
     /**
-     * Tampilkan halaman Peta Pencarian Nasional (Leaflet + Marker Cluster).
+     * Tampilkan halaman Peta Pencarian Nasional (Leaflet + Marker Cluster) untuk publik/web.
      */
     public function index(Request $request): View
+    {
+        return view('map-search', $this->getMapData($request, false));
+    }
+
+    /**
+     * Tampilkan halaman Peta Pencarian khusus penghuni (tampilan mobile).
+     */
+    public function tenantIndex(Request $request): View
+    {
+        return view('tenant.map', $this->getMapData($request, true));
+    }
+
+    /**
+     * Dapatkan parameter data peta pencarian kos.
+     */
+    private function getMapData(Request $request, bool $isTenant = false): array
     {
         $provinces = Province::orderBy('name')->get(['id', 'name']);
 
@@ -44,7 +60,7 @@ class MapController extends Controller
             $query->where('type', $selectedType);
         }
 
-        $kosts = $query->get()->map(function ($k) {
+        $kosts = $query->get()->map(function ($k) use ($isTenant) {
             return [
                 'id' => $k->id,
                 'name' => $k->name,
@@ -57,17 +73,17 @@ class MapController extends Controller
                 'city' => $k->regency->name ?? '',
                 'address' => $k->address,
                 'image' => $k->primaryImage ? asset('storage/'.$k->primaryImage->file_path) : 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=600&q=80',
-                'url' => route('kost.detail', $k->slug),
+                'url' => $isTenant ? route('tenant.kost.detail', $k->slug) : route('kost.detail', $k->slug),
             ];
         });
 
-        return view('map-search', compact(
+        return compact(
             'provinces',
             'regencies',
             'kosts',
             'selectedProvinceId',
             'selectedRegencyId',
             'selectedType'
-        ));
+        );
     }
 }

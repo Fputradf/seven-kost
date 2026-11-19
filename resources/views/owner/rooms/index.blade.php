@@ -43,6 +43,7 @@
                     total_rooms: 1,
                     available_rooms: 0,
                     room_size: '',
+                    facilities: [],
                     actionUrl: ''
                 },
                 openEdit(room, url) {
@@ -52,6 +53,7 @@
                     this.editForm.total_rooms = room.total_rooms;
                     this.editForm.available_rooms = room.available_rooms;
                     this.editForm.room_size = room.room_size || '';
+                    this.editForm.facilities = room.facilities ? room.facilities.map(f => f.id) : [];
                     this.editForm.actionUrl = url;
                     this.showEditModal = true;
                 }
@@ -124,6 +126,17 @@
                                 Total Kapasitas: <strong class="text-slate-800 tabular-nums">{{ $room->total_rooms }} kamar</strong> &bull; 
                                 Tersedia Siap Huni: <strong class="text-emerald-600 tabular-nums font-bold">{{ $room->available_rooms }} kamar</strong>
                             </p>
+
+                            @if($room->facilities->isNotEmpty())
+                                <div class="flex items-center gap-1.5 flex-wrap pt-1">
+                                    @foreach($room->facilities as $fac)
+                                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold bg-blue-50/80 text-blue-700 border border-blue-100">
+                                            <svg class="w-2.5 h-2.5 text-blue-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                            {{ $fac->name }}
+                                        </span>
+                                    @endforeach
+                                </div>
+                            @endif
                         </div>
 
                         <div class="flex items-center gap-4 sm:gap-6 sm:self-center">
@@ -253,6 +266,21 @@
                         >
                     </div>
 
+                    <div>
+                        <label class="block text-[13px] font-medium text-slate-700 mb-1.5">
+                            Fasilitas Khusus Tipe Kamar Ini
+                        </label>
+                        <div class="grid grid-cols-2 gap-2 p-3 bg-slate-50/80 rounded-xl border border-slate-200/90 max-h-44 overflow-y-auto">
+                            @foreach($roomFacilities as $rf)
+                                <label class="flex items-center gap-2 p-1.5 rounded-lg hover:bg-white text-xs text-slate-700 cursor-pointer transition select-none">
+                                    <input type="checkbox" name="facilities[]" value="{{ $rf->id }}" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500">
+                                    <span class="truncate">{{ $rf->name }}</span>
+                                </label>
+                            @endforeach
+                        </div>
+                        <p class="text-[11px] text-slate-400 mt-1">Centang fasilitas yang tersedia di dalam unit kamar ini.</p>
+                    </div>
+
                     <div class="pt-2.5 flex items-center gap-2.5">
                         <button type="button" @click="showAddModal = false" class="flex-1 py-2 rounded-lg border border-slate-300 text-[13px] font-medium text-slate-700 hover:bg-slate-50 transition cursor-pointer shadow-2xs">
                             Batal
@@ -350,6 +378,21 @@
                             placeholder="Contoh: 3 x 4 meter" 
                             class="w-full text-sm rounded-lg border-slate-300 bg-white px-3.5 py-2 text-slate-900 placeholder:text-slate-400 shadow-2xs transition focus:border-blue-600 focus:outline-hidden focus:ring-2 focus:ring-blue-500/15"
                         >
+                    </div>
+
+                    <div>
+                        <label class="block text-[13px] font-medium text-slate-700 mb-1.5">
+                            Fasilitas Khusus Tipe Kamar Ini
+                        </label>
+                        <div class="grid grid-cols-2 gap-2 p-3 bg-slate-50/80 rounded-xl border border-slate-200/90 max-h-44 overflow-y-auto">
+                            @foreach($roomFacilities as $rf)
+                                <label class="flex items-center gap-2 p-1.5 rounded-lg hover:bg-white text-xs text-slate-700 cursor-pointer transition select-none">
+                                    <input type="checkbox" name="facilities[]" :value="{{ $rf->id }}" x-model="editForm.facilities" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500">
+                                    <span class="truncate">{{ $rf->name }}</span>
+                                </label>
+                            @endforeach
+                        </div>
+                        <p class="text-[11px] text-slate-400 mt-1">Centang fasilitas yang tersedia di dalam unit kamar ini.</p>
                     </div>
 
                     <div class="pt-2.5 flex items-center gap-2.5">

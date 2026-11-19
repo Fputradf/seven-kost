@@ -12,11 +12,27 @@ class KostDetailController extends Controller
      */
     public function show(string $slug): View
     {
+        return view('kost-detail', $this->getKostDetailData($slug));
+    }
+
+    /**
+     * Tampilkan detail kos khusus portal mobile penghuni berdasarkan slug.
+     */
+    public function tenantShow(string $slug): View
+    {
+        return view('tenant.kost-detail', $this->getKostDetailData($slug));
+    }
+
+    /**
+     * Ambil data detail kos, klik iklan, dan rekomendasi kos serupa.
+     */
+    private function getKostDetailData(string $slug): array
+    {
         $kost = Kost::with([
             'province',
             'regency',
             'facilities',
-            'rooms',
+            'rooms.facilities',
             'images',
             'owner',
         ])->where('slug', $slug)->firstOrFail();
@@ -43,7 +59,7 @@ class KostDetailController extends Controller
         }
 
         // Rekomendasi kos lain di wilayah yang sama
-        $similarKosts = Kost::with(['province', 'regency', 'facilities', 'rooms', 'primaryImage'])
+        $similarKosts = Kost::with(['province', 'regency', 'facilities', 'rooms.facilities', 'primaryImage'])
             ->where('id', '!=', $kost->id)
             ->where(function ($q) use ($kost) {
                 $q->where('regency_id', $kost->regency_id)
@@ -53,6 +69,6 @@ class KostDetailController extends Controller
             ->take(3)
             ->get();
 
-        return view('kost-detail', compact('kost', 'similarKosts'));
+        return compact('kost', 'similarKosts');
     }
 }

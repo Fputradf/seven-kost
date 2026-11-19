@@ -67,9 +67,9 @@
         }"
         class="pb-20"
     >
-        {{-- 1. HERO SECTION (SEARCH & HEADER) --}}
+        {{-- 1. HERO SECTION (SEARCH & HEADER - 100% WHITE TEXT) --}}
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-5 pb-2">
-            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#031d44] via-[#05377a] to-[#0a66c2] text-white p-4 sm:p-5 md:p-6 shadow-md shadow-blue-950/15 border border-white/15">
+            <div class="relative overflow-hidden rounded-2xl text-white p-4 sm:p-5 md:p-6 shadow-md shadow-blue-900/15 border border-blue-400/25" style="background: linear-gradient(135deg, #091e3a 0%, #0f3d7c 50%, #1d4ed8 100%);">
                 {{-- Decorative background glow --}}
                 <div class="absolute -right-6 -bottom-6 w-36 h-36 bg-blue-400/15 rounded-full blur-xl pointer-events-none"></div>
                 <div class="absolute -top-6 right-1/4 w-28 h-28 bg-sky-300/15 rounded-full blur-lg pointer-events-none"></div>
@@ -79,11 +79,11 @@
                         Pusat Bantuan & Tanya Jawab Resmi
                     </div>
 
-                    <h1 class="text-xl sm:text-2xl font-bold tracking-tight leading-tight">
+                    <h1 class="text-xl sm:text-2xl font-bold tracking-tight leading-tight text-white">
                         Ada yang Bisa Kami <span class="text-sky-300">Bantu?</span>
                     </h1>
 
-                    <p class="text-xs sm:text-sm text-slate-200 leading-relaxed font-normal">
+                    <p class="text-xs sm:text-sm text-blue-100 leading-relaxed font-normal">
                         Temukan petunjuk lengkap cara memesan kos, transaksi jual beli aman di marketplace, pemesanan layanan harian, hingga pemasangan iklan properti & banner.
                     </p>
 

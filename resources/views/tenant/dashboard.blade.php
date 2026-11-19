@@ -1,89 +1,243 @@
-<x-tenant-layout title="Dashboard">
+<x-tenant-layout title="Portal Penghuni">
 
-    <div class="space-y-6 sm:space-y-8">
+    <div class="space-y-4">
 
-        {{-- 1. Hero Header Card (White text judul, tanpa text helper) --}}
-        <div class="rounded-2xl p-6 sm:p-7 text-white shadow-md shadow-blue-900/15 border border-blue-400/25" style="background: linear-gradient(135deg, #091e3a 0%, #0f3d7c 50%, #1d4ed8 100%);">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div>
-                    <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white font-sans">
-                        Halo, {{ $user->name }}
-                    </h1>
+        {{-- 1. USER GREETING HEADER CARD (DENGAN FOTO PROFIL RESMI & SINKRONISASI LENGKAP) --}}
+        <div class="relative overflow-hidden rounded-2xl text-white p-4 sm:p-5 shadow-md shadow-blue-900/15 border border-blue-400/25" style="background: linear-gradient(135deg, #091e3a 0%, #0f3d7c 50%, #1d4ed8 100%);">
+            <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-blue-400/20 rounded-full blur-xl pointer-events-none"></div>
+
+            <div class="relative z-10 flex items-center justify-between gap-3">
+                <a href="{{ route('profile.edit') }}" class="flex items-center gap-3 truncate group">
+                    {{-- User Avatar / Photo --}}
+                    @if($user->avatar_url)
+                        <img src="{{ $user->avatar_url }}" alt="{{ $user->name }}" class="w-12 h-12 rounded-2xl object-cover ring-2 ring-white/40 shadow-2xs shrink-0 group-hover:scale-105 transition-transform">
+                    @else
+                        <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md text-white flex items-center justify-center font-black text-lg border border-white/30 shrink-0 shadow-2xs group-hover:scale-105 transition-transform">
+                            {{ strtoupper(substr($user->name, 0, 1)) }}
+                        </div>
+                    @endif
+
+                    <div class="truncate">
+                        <span class="text-[10px] font-bold text-sky-200 uppercase tracking-wider block">Selamat Datang</span>
+                        <h2 class="text-base sm:text-lg font-black text-white !text-white truncate">
+                            Halo, {{ $user->name }}
+                        </h2>
+                        <span class="inline-flex items-center gap-1 text-[11px] text-white/90 font-medium">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                            <span>Penghuni Terdaftar</span>
+                        </span>
+                    </div>
+                </a>
+
+                <a href="{{ route('tenant.search') }}" class="shrink-0 px-3 py-1.5 rounded-xl bg-white/20 hover:bg-white/30 text-white text-xs font-bold transition border border-white/30 backdrop-blur-md active:scale-95 flex items-center gap-1">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    <span>Cari Kos</span>
+                </a>
+            </div>
+        </div>
+
+        {{-- 2. DOMPET DIGITAL SEVENKOST (SINKRONISASI SALDO, TOP UP & TARIK SALDO) --}}
+        <div class="rounded-2xl bg-white border border-slate-200/90 p-4 shadow-2xs space-y-3">
+            <div class="flex items-center justify-between gap-3">
+                <div class="flex items-center gap-3 min-w-0">
+                    <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 border border-blue-100 shadow-2xs">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+                    </div>
+                    <div class="truncate">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Saldo Dompet SevenKost</span>
+                        <strong class="text-base sm:text-lg font-black text-slate-900 block truncate">
+                            Rp {{ number_format($user->wallet_balance ?? 0, 0, ',', '.') }}
+                        </strong>
+                    </div>
                 </div>
 
-                {{-- Action Shortcuts --}}
-                <div class="flex flex-wrap items-center gap-2.5">
-                    <a href="{{ route('search') }}" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-white/25 hover:bg-white/15 text-white text-xs font-semibold transition">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                        <span>Cari Kos Baru</span>
+                <div class="flex items-center gap-1.5 shrink-0">
+                    <a href="{{ route('tenant.wallet.index') }}" class="px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs transition shadow-xs active:scale-95">
+                        + Top Up
                     </a>
-                    <a href="{{ route('tenant.complaints.create') }}" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-white/25 hover:bg-white/15 text-white text-xs font-semibold transition">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                        <span>Lapor Kendala</span>
+                    <a href="{{ route('tenant.wallet.index') }}" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition border border-slate-200 active:scale-95">
+                        Tarik Saldo
                     </a>
                 </div>
             </div>
         </div>
 
-        {{-- Flash message --}}
+        {{-- Flash Notification --}}
         @if(session('success'))
-            <div class="rounded-2xl bg-emerald-50 border border-emerald-200/80 p-4 text-emerald-800 flex items-center gap-3 text-xs sm:text-sm font-semibold shadow-xs">
-                <svg class="w-5 h-5 text-emerald-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+            <div class="rounded-xl bg-emerald-50 border border-emerald-200 p-3 text-emerald-800 flex items-center gap-2.5 text-xs font-semibold shadow-2xs">
+                <svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
                 <span>{{ session('success') }}</span>
             </div>
         @endif
 
-        {{-- 2. Status Kamar Aktif --}}
-        @if($activeBooking)
-            <div class="relative overflow-hidden rounded-2xl bg-white border border-blue-200/80 p-6 sm:p-7 shadow-xs">
-                <div class="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl pointer-events-none"></div>
+        @if(session('error'))
+            <div class="rounded-xl bg-rose-50 border border-rose-200 p-3 text-rose-800 flex items-center gap-2.5 text-xs font-semibold shadow-2xs">
+                <svg class="w-4 h-4 text-rose-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg>
+                <span>{{ session('error') }}</span>
+            </div>
+        @endif
 
-                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
-                    <div class="space-y-3">
-                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-bold">
-                            <svg class="w-4 h-4 text-slate-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                            <span>Hunian Kos Aktif</span>
-                        </div>
+        {{-- 3. CARD TAGIHAN SEWA AWAL (STATUS = APPROVED / MENUNGGU PEMBAYARAN) --}}
+        @if($activeBooking && $activeBooking->status === 'approved' && $initialBill)
+            <div class="rounded-2xl bg-amber-50/90 border border-amber-300 p-4 shadow-sm space-y-3">
+                <div class="flex items-center justify-between gap-2">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300 text-xs font-black uppercase tracking-wider">
+                        <span class="w-2 h-2 rounded-full bg-amber-600 animate-ping"></span>
+                        Disetujui Pemilik &bull; Menunggu Pembayaran
+                    </span>
+                </div>
 
-                        <div>
-                            <h2 class="text-xl sm:text-2xl font-black text-slate-900 leading-snug">
-                                <a href="{{ route('kost.detail', $activeBooking->kost->slug) }}" class="hover:text-blue-600 transition">
-                                    {{ $activeBooking->kost->name }}
-                                </a>
-                            </h2>
-                            <p class="text-xs sm:text-sm text-slate-500 flex items-center gap-1.5 mt-1">
-                                <svg class="w-4 h-4 text-slate-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                                {{ $activeBooking->kost->address ?? ($activeBooking->kost->regency->name . ', ' . $activeBooking->kost->province->name) }}
-                            </p>
-                        </div>
-
-                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-                            <div class="rounded-xl bg-slate-50 border border-slate-100 p-3">
-                                <span class="text-[11px] text-slate-400 font-medium block">Tipe / Unit Kamar</span>
-                                <strong class="text-xs sm:text-sm text-slate-800 font-bold block mt-0.5">{{ $activeBooking->room->name ?? 'Standar' }}</strong>
-                            </div>
-                            <div class="rounded-xl bg-slate-50 border border-slate-100 p-3">
-                                <span class="text-[11px] text-slate-400 font-medium block">Tanggal Masuk</span>
-                                <strong class="text-xs sm:text-sm text-slate-800 font-bold block mt-0.5">{{ $activeBooking->start_date->format('d M Y') }}</strong>
-                            </div>
-                            <div class="rounded-xl bg-slate-50 border border-slate-100 p-3">
-                                <span class="text-[11px] text-slate-400 font-medium block">Jatuh Tempo Sewa</span>
-                                <strong class="text-xs sm:text-sm text-slate-800 font-bold block mt-0.5">{{ $activeBooking->end_date->format('d M Y') }}</strong>
-                            </div>
-                            <div class="rounded-xl bg-slate-50 border border-slate-100 p-3">
-                                <span class="text-[11px] text-slate-500 font-medium block">Sisa Masa Sewa</span>
-                                @php
-                                    $daysRemaining = max(0, (int) now()->diffInDays($activeBooking->end_date, false));
-                                @endphp
-                                <strong class="text-xs sm:text-sm text-slate-900 font-black block mt-0.5">
-                                    {{ $daysRemaining }} Hari Lagi
-                                </strong>
-                            </div>
-                        </div>
+                <div class="flex items-center justify-between gap-3 bg-white p-3 rounded-xl border border-amber-200">
+                    <div class="min-w-0 flex-1 truncate">
+                        <h4 class="text-xs font-black text-slate-900 truncate">{{ $activeBooking->kost->name }}</h4>
+                        <p class="text-[11px] text-slate-500">Kamar: {{ $activeBooking->room->name ?? '-' }} ({{ $activeBooking->duration_months }} Bulan)</p>
                     </div>
+                    <div class="text-right shrink-0">
+                        <span class="text-[10px] text-slate-400 block font-bold">Total Biaya Sewa</span>
+                        <strong class="text-sm font-black text-blue-700">Rp {{ number_format($initialBill['total_amount'], 0, ',', '.') }}</strong>
+                    </div>
+                </div>
 
-                    {{-- Action Card with Owner --}}
-                    <div class="flex-shrink-0 flex flex-col sm:flex-row lg:flex-col gap-3 justify-center">
+                {{-- Action Buttons Pembayaran Sewa Awal --}}
+                <div class="space-y-2 pt-1">
+                    @if($user->wallet_balance >= $initialBill['total_amount'])
+                        <form action="{{ route('tenant.bookings.pay-wallet', $activeBooking) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="w-full py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-xs transition active:scale-95 cursor-pointer flex items-center justify-center gap-2">
+                                <svg class="w-4 h-4 text-emerald-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+                                <span>Bayar via Saldo Dompet (Rp {{ number_format($initialBill['total_amount'], 0, ',', '.') }})</span>
+                            </button>
+                        </form>
+                    @endif
+
+                    <form action="{{ route('tenant.bookings.pay', $activeBooking) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="w-full py-2.5 px-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs shadow-xs transition active:scale-95 cursor-pointer flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                            <span>Bayar Sekarang (Transfer / E-Wallet - Xendit)</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        @endif
+
+        {{-- 4. CARD TAGIHAN PERPANJANGAN SEWA OTOMATIS (AKTIF H-7 / LEWAT JATUH TEMPO) --}}
+        @if($activeBooking && $activeBooking->status === 'active' && $renewalBill)
+            @php
+                $isOverdue = $activeBooking->isOverdue();
+            @endphp
+            <div class="rounded-2xl {{ $isOverdue ? 'bg-rose-50/95 border-rose-300' : 'bg-amber-50/95 border-amber-300' }} border p-4 shadow-sm space-y-3">
+                <div class="flex items-center justify-between gap-2">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full {{ $isOverdue ? 'bg-rose-100 text-rose-800 border-rose-300' : 'bg-amber-100 text-amber-900 border-amber-300' }} border text-[10px] font-black uppercase tracking-wider">
+                        <span class="w-2 h-2 rounded-full {{ $isOverdue ? 'bg-rose-600 animate-ping' : 'bg-amber-600' }}"></span>
+                        {{ $isOverdue ? '⚠️ Tagihan Lewat Jatuh Tempo' : '🔔 Tagihan Perpanjangan Sewa (H-7)' }}
+                    </span>
+
+                    <span class="text-xs font-bold {{ $isOverdue ? 'text-rose-700' : 'text-amber-800' }}">
+                        {{ $isOverdue ? 'Terlambat ' . $renewalBill['overdue_days'] . ' Hari' : 'Jatuh Tempo: ' . ($activeBooking->end_date?->format('d M Y') ?? '-') }}
+                    </span>
+                </div>
+
+                {{-- Breakdown Rincian Tagihan --}}
+                <div class="bg-white rounded-xl p-3 border border-slate-200/90 text-xs space-y-1.5">
+                    <div class="flex justify-between text-slate-600">
+                        <span>Sewa Kamar (1 Bulan):</span>
+                        <span class="font-bold text-slate-800">Rp {{ number_format($renewalBill['room_price'], 0, ',', '.') }}</span>
+                    </div>
+                    <div class="flex justify-between text-slate-600">
+                        <span>Biaya Administrasi:</span>
+                        <span class="font-bold text-slate-800">Rp {{ number_format($renewalBill['fee_booking_tenant'], 0, ',', '.') }}</span>
+                    </div>
+                    @if($renewalBill['late_fee'] > 0)
+                        <div class="flex justify-between text-rose-600 font-bold pt-1 border-t border-rose-100">
+                            <span>Denda Keterlambatan ({{ $renewalBill['late_fee_days'] }} Hari):</span>
+                            <span>+ Rp {{ number_format($renewalBill['late_fee'], 0, ',', '.') }}</span>
+                        </div>
+                    @endif
+                    <div class="flex justify-between items-center text-slate-900 font-black pt-2 border-t border-slate-100 text-sm">
+                        <span>Total Tagihan:</span>
+                        <span class="text-blue-700 font-black text-base">Rp {{ number_format($renewalBill['grand_total'], 0, ',', '.') }}</span>
+                    </div>
+                </div>
+
+                {{-- Tombol Pembayaran Perpanjangan --}}
+                <div class="space-y-2">
+                    @if($user->wallet_balance >= $renewalBill['grand_total'])
+                        <form action="{{ route('tenant.bookings.renew-wallet', $activeBooking) }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="duration_months" value="1">
+                            <button type="submit" class="w-full py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-xs transition active:scale-95 cursor-pointer flex items-center justify-center gap-2">
+                                <svg class="w-4 h-4 text-emerald-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+                                <span>Bayar via Saldo Dompet (Rp {{ number_format($renewalBill['grand_total'], 0, ',', '.') }})</span>
+                            </button>
+                        </form>
+                    @endif
+
+                    <form action="{{ route('tenant.bookings.renew', $activeBooking) }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="duration_months" value="1">
+                        <button type="submit" class="w-full py-2.5 px-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs shadow-xs transition active:scale-95 cursor-pointer flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                            <span>Bayar & Perpanjang Sewa via Gateway</span>
+                        </button>
+                    </form>
+
+                    {{-- Tombol Tidak Ingin Perpanjang / Check-Out --}}
+                    <div class="pt-1.5 text-center">
+                        <form action="{{ route('tenant.bookings.terminate', $activeBooking) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin tidak ingin memperpanjang sewa dan akan check-out? Seluruh tagihan perpanjangan otomatis berikutnya akan dihentikan.')">
+                            @csrf
+                            <button type="submit" class="text-xs font-bold text-rose-600 hover:text-rose-800 underline transition cursor-pointer">
+                                Tidak Memperpanjang? Akhiri Sewa & Check-Out Kamar &rarr;
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @endif
+
+        {{-- 5. STATUS KAMAR HUNIAN AKTIF --}}
+        @if($activeBooking && $activeBooking->status === 'active')
+            <div class="rounded-2xl bg-white border border-blue-200/90 p-4 shadow-sm space-y-3 relative overflow-hidden">
+                <div class="flex items-center justify-between gap-2">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/80 text-xs font-bold">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        Hunian Kos Aktif
+                    </span>
+
+                    @php
+                        $daysRemaining = max(0, (int) now()->diffInDays($activeBooking->end_date, false));
+                    @endphp
+                    <span class="text-xs font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-lg border border-blue-100">
+                        {{ $daysRemaining }} Hari Lagi
+                    </span>
+                </div>
+
+                <div class="flex items-start gap-3">
+                    <a href="{{ route('tenant.bookings.show', $activeBooking) }}" class="w-16 h-16 rounded-xl bg-slate-100 overflow-hidden shrink-0 border border-slate-200 block group">
+                        <img src="{{ $activeBooking->kost->primary_image_url }}" alt="{{ $activeBooking->kost->name }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                    </a>
+                    <div class="truncate flex-1">
+                        <h3 class="text-base sm:text-lg font-black text-slate-900 truncate">
+                            <a href="{{ route('tenant.bookings.show', $activeBooking) }}" class="hover:text-blue-600 transition">
+                                {{ $activeBooking->kost->name }}
+                            </a>
+                        </h3>
+                        <p class="text-xs sm:text-sm text-slate-600 font-medium truncate mt-0.5">
+                            {{ $activeBooking->room->name ?? 'Standard' }} &bull; {{ $activeBooking->kost->regency?->name ?? 'Kota' }}
+                        </p>
+                        <p class="text-xs text-slate-500 mt-1">
+                            Sampai: <strong class="text-slate-800 font-bold">{{ $activeBooking->end_date?->format('d M Y') ?? '-' }}</strong>
+                        </p>
+                    </div>
+                </div>
+
+                {{-- Action Buttons for Active Room --}}
+                <div class="pt-2 border-t border-slate-100 space-y-2">
+                    <div class="grid grid-cols-3 gap-1.5">
+                        <a href="{{ route('tenant.bookings.show', $activeBooking) }}" class="inline-flex items-center justify-center gap-1 py-2 px-1.5 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-xs border border-blue-200 transition active:scale-95 text-center">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                            <span>Detail</span>
+                        </a>
                         @php
                             $rawOwnerPhone = $activeBooking->kost->owner->phone ?? '081234567890';
                             $cleanOwnerPhone = preg_replace('/[^0-9]/', '', $rawOwnerPhone);
@@ -93,257 +247,105 @@
                             $waText = urlencode("Halo bapak/ibu {$activeBooking->kost->owner->name}, saya {$user->name} penghuni kamar {$activeBooking->room->name} kos {$activeBooking->kost->name}.");
                             $waLink = "https://wa.me/{$cleanOwnerPhone}?text={$waText}";
                         @endphp
-
-                        <a href="{{ $waLink }}" target="_blank" class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-xs transition">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-                            <span>Chat Pemilik via WhatsApp</span>
+                        <a href="{{ $waLink }}" target="_blank" class="inline-flex items-center justify-center gap-1 py-2 px-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs transition active:scale-95 text-center">
+                            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+                            <span>Tanya Pemilik</span>
                         </a>
-
-                        <a href="{{ route('tenant.complaints.create', ['kost_id' => $activeBooking->kost_id]) }}" class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs transition">
-                            <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                            <span>Lapor Kerusakan Kamar</span>
+                        <a href="{{ route('tenant.complaints.create') }}" class="inline-flex items-center justify-center gap-1 py-2 px-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 font-bold text-xs border border-amber-200 transition active:scale-95 text-center">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                            <span>Lapor</span>
                         </a>
                     </div>
+
+                    {{-- Tombol Akhiri Sewa (Tepat di Bawah Button Tanya Pemilik) --}}
+                    <form action="{{ route('tenant.bookings.terminate', $activeBooking) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin mengakhiri sewa dan check-out dari kamar ini? Seluruh tagihan perpanjangan otomatis berikutnya akan dihentikan.')" class="w-full">
+                        @csrf
+                        <button type="submit" class="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold text-xs border border-rose-200 transition active:scale-95 text-center cursor-pointer">
+                            <svg class="w-3.5 h-3.5 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                            <span>Akhiri Sewa & Check-Out Kamar</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        @elseif(!$activeBooking || $activeBooking->status !== 'approved')
+            {{-- Empty State Active Stay --}}
+            <div class="rounded-2xl bg-white border border-slate-200/90 p-4 text-center space-y-2 shadow-2xs">
+                <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mx-auto">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                </div>
+                <h3 class="text-sm font-bold text-slate-800">Belum Ada Kamar Aktif</h3>
+                <p class="text-xs text-slate-500 max-w-xs mx-auto">
+                    Temukan kamar kos impian Anda dan ajukan sewa langsung dengan proses mudah dan aman.
+                </p>
+                <div class="pt-1">
+                    <a href="{{ route('tenant.search') }}" class="inline-flex items-center gap-1.5 py-2 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs transition active:scale-95">
+                        <span>Cari & Sewa Kos</span>
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    </a>
                 </div>
             </div>
         @endif
 
-        {{-- 3. Ringkasan Metrik (3 Quick Cards tanpa text helper) --}}
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
-            {{-- Card 1: Booking --}}
-            <a href="{{ route('tenant.bookings.index') }}" class="group bg-white rounded-2xl border border-slate-200/80 p-5 shadow-xs hover:shadow-md hover:border-slate-300 transition flex items-center justify-between">
-                <div class="space-y-1">
-                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Riwayat Booking</span>
-                    <span class="text-2xl sm:text-3xl font-black text-slate-900 block tabular-nums">
-                        {{ $stats['total_bookings'] }}
-                    </span>
-                </div>
-                <div class="w-12 h-12 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center flex-shrink-0 group-hover:bg-slate-200 transition">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-                </div>
-            </a>
-
-            {{-- Card 2: Wishlist --}}
-            <a href="{{ route('tenant.wishlists.index') }}" class="group bg-white rounded-2xl border border-slate-200/80 p-5 shadow-xs hover:shadow-md hover:border-slate-300 transition flex items-center justify-between">
-                <div class="space-y-1">
-                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Kos Favorit</span>
-                    <span class="text-2xl sm:text-3xl font-black text-slate-900 block tabular-nums">
-                        {{ $stats['total_wishlists'] }}
-                    </span>
-                </div>
-                <div class="w-12 h-12 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center flex-shrink-0 group-hover:bg-slate-200 transition">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
-                </div>
-            </a>
-
-            {{-- Card 3: Keluhan --}}
-            <a href="{{ route('tenant.complaints.index') }}" class="group bg-white rounded-2xl border border-slate-200/80 p-5 shadow-xs hover:shadow-md hover:border-slate-300 transition flex items-center justify-between">
-                <div class="space-y-1">
-                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Keluhan Fasilitas</span>
-                    <span class="text-2xl sm:text-3xl font-black text-slate-900 block tabular-nums">
-                        {{ $stats['total_complaints'] }}
-                    </span>
-                </div>
-                <div class="w-12 h-12 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center flex-shrink-0 group-hover:bg-slate-200 transition">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-                </div>
-            </a>
-        </div>
-
-        {{-- 4. Grid Dua Kolom: Booking Terbaru & Keluhan Terakhir --}}
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
-            {{-- Kolom Kiri: Riwayat Pengajuan Sewa --}}
-            <div class="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-xs flex flex-col justify-between">
-                <div>
-                    <div class="flex items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-100">
-                        <div class="flex items-center gap-2">
-                            <div class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-                            </div>
-                            <h3 class="font-bold text-slate-900 text-base">Booking Sewa Terkini</h3>
-                        </div>
-                        <a href="{{ route('tenant.bookings.index') }}" class="text-xs font-bold text-slate-700 hover:underline">
-                            Lihat Semua
-                        </a>
+        {{-- 6. MENU PINTASAN APLIKASI (QUICK APP TILES) --}}
+        <div>
+            <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 px-1">Menu Utama</h3>
+            <div class="grid grid-cols-4 gap-2 text-center">
+                {{-- Tile 1: Kos Saya --}}
+                <a href="{{ route('tenant.bookings.index') }}" class="bg-white rounded-2xl p-3 border border-slate-200/80 shadow-2xs flex flex-col items-center gap-1.5 transition active:scale-95 hover:border-blue-300">
+                    <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
                     </div>
+                    <span class="text-[11px] font-bold text-slate-700 leading-tight">Kos Saya</span>
+                </a>
 
-                    @if($recentBookings->count() > 0)
-                        <div class="divide-y divide-slate-100">
-                            @foreach($recentBookings as $booking)
-                                @php
-                                    $statusBadge = match($booking->status) {
-                                        'approved', 'active' => ['bg' => 'bg-emerald-50 text-emerald-700 border-emerald-200', 'label' => 'Disetujui'],
-                                        'rejected' => ['bg' => 'bg-red-50 text-red-700 border-red-200', 'label' => 'Ditolak'],
-                                        'cancelled' => ['bg' => 'bg-slate-100 text-slate-500 border-slate-200', 'label' => 'Batal'],
-                                        default => ['bg' => 'bg-amber-50 text-amber-700 border-amber-200', 'label' => 'Menunggu'],
-                                    };
-                                @endphp
-                                <div class="py-3.5 flex items-center justify-between gap-3">
-                                    <div class="min-w-0">
-                                        <h4 class="font-bold text-xs sm:text-sm text-slate-900 truncate">
-                                            <a href="{{ route('kost.detail', $booking->kost->slug) }}" class="hover:text-blue-600 transition">
-                                                {{ $booking->kost->name }}
-                                            </a>
-                                        </h4>
-                                        <p class="text-[11px] text-slate-500 mt-0.5">
-                                            {{ $booking->room->name ?? 'Tipe Kamar' }} &bull; {{ $booking->duration_months }} Bulan &bull; Masuk: {{ $booking->start_date->format('d M Y') }}
-                                        </p>
-                                    </div>
-
-                                    <div class="flex items-center gap-2 flex-shrink-0">
-                                        <span class="px-2.5 py-1 rounded-md text-[10px] font-bold border {{ $statusBadge['bg'] }}">
-                                            {{ $statusBadge['label'] }}
-                                        </span>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    @else
-                        <div class="text-center py-8">
-                            <p class="text-xs text-slate-400">Belum ada pengajuan sewa kos.</p>
-                            <a href="{{ route('search') }}" class="mt-2 inline-block text-xs font-bold text-slate-700 hover:underline">
-                                Mulai cari kos &rarr;
-                            </a>
-                        </div>
-                    @endif
-                </div>
-
-                <div class="pt-4 border-t border-slate-100 mt-4">
-                    <a href="{{ route('tenant.bookings.index') }}" class="w-full inline-flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 font-bold text-xs transition">
-                        <span>Kelola Semua Booking & Sewa</span>
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                    </a>
-                </div>
-            </div>
-
-            {{-- Kolom Kanan: Tiket Pengaduan & Keluhan Kamar --}}
-            <div class="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-xs flex flex-col justify-between">
-                <div>
-                    <div class="flex items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-100">
-                        <div class="flex items-center gap-2">
-                            <div class="w-8 h-8 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-                            </div>
-                            <h3 class="font-bold text-slate-900 text-base">Keluhan & Perbaikan Fasilitas</h3>
-                        </div>
-                        <a href="{{ route('tenant.complaints.index') }}" class="text-xs font-bold text-slate-700 hover:underline">
-                            Lihat Semua
-                        </a>
+                {{-- Tile 2: Dompet --}}
+                <a href="{{ route('tenant.wallet.index') }}" class="bg-white rounded-2xl p-3 border border-slate-200/80 shadow-2xs flex flex-col items-center gap-1.5 transition active:scale-95 hover:border-blue-300">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
                     </div>
+                    <span class="text-[11px] font-bold text-slate-700 leading-tight">Dompet</span>
+                </a>
 
-                    @if($recentComplaints->count() > 0)
-                        <div class="divide-y divide-slate-100">
-                            @foreach($recentComplaints as $complaint)
-                                @php
-                                    $complaintBadge = match($complaint->status) {
-                                        'resolved' => ['bg' => 'bg-emerald-50 text-emerald-700 border-emerald-200', 'label' => 'Selesai Diperbaiki'],
-                                        'reviewed' => ['bg' => 'bg-blue-50 text-blue-700 border-blue-200', 'label' => 'Sedang Ditangani'],
-                                        'rejected' => ['bg' => 'bg-red-50 text-red-700 border-red-200', 'label' => 'Ditolak'],
-                                        default => ['bg' => 'bg-amber-50 text-amber-700 border-amber-200', 'label' => 'Menunggu Respon'],
-                                    };
-                                @endphp
-                                <div class="py-3.5 flex items-start justify-between gap-3">
-                                    <div class="min-w-0">
-                                        <h4 class="font-bold text-xs sm:text-sm text-slate-900 truncate">
-                                            {{ $complaint->reason }}
-                                        </h4>
-                                        <p class="text-[11px] text-slate-500 mt-0.5 line-clamp-1">
-                                            {{ $complaint->kost->name ?? 'Kos' }} &bull; {{ $complaint->created_at->diffForHumans() }}
-                                        </p>
-                                        @if($complaint->admin_notes)
-                                            <p class="mt-1 text-[11px] text-slate-700 bg-slate-50 p-1.5 rounded-lg border border-slate-200">
-                                                <strong>Pemilik:</strong> {{ $complaint->admin_notes }}
-                                            </p>
-                                        @endif
-                                    </div>
+                {{-- Tile 3: Favorit --}}
+                <a href="{{ route('tenant.wishlists.index') }}" class="bg-white rounded-2xl p-3 border border-slate-200/80 shadow-2xs flex flex-col items-center gap-1.5 transition active:scale-95 hover:border-blue-300">
+                    <div class="w-10 h-10 rounded-xl bg-rose-50 text-rose-500 flex items-center justify-center font-bold">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"/></svg>
+                    </div>
+                    <span class="text-[11px] font-bold text-slate-700 leading-tight">Favorit</span>
+                </a>
 
-                                    <div class="flex-shrink-0">
-                                        <span class="px-2 py-0.5 rounded text-[10px] font-bold border {{ $complaintBadge['bg'] }}">
-                                            {{ $complaintBadge['label'] }}
-                                        </span>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    @else
-                        <div class="text-center py-8">
-                            <p class="text-xs text-slate-400">Tidak ada kendala fasilitas saat ini.</p>
-                        </div>
-                    @endif
-                </div>
-
-                <div class="pt-4 border-t border-slate-100 mt-4 flex items-center gap-2">
-                    <a href="{{ route('tenant.complaints.create') }}" class="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition">
-                        <span>+ Lapor Kendala Baru</span>
-                    </a>
-                    <a href="{{ route('tenant.complaints.index') }}" class="inline-flex items-center justify-center py-2.5 px-3.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-600 font-bold text-xs transition">
-                        <span>Semua Tiket</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        {{-- 5. Bagian Kos Favorit (Wishlist Preview tanpa helper text) --}}
-        <div class="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-7 shadow-xs space-y-6">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-100">
-                <h3 class="font-extrabold text-slate-900 text-lg">Kos Impian & Favorit Saya</h3>
-                <a href="{{ route('tenant.wishlists.index') }}" class="inline-flex items-center gap-1 text-xs font-bold text-slate-700 hover:underline self-start sm:self-center">
-                    <span>Lihat Semua Favorit ({{ $stats['total_wishlists'] }})</span>
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                {{-- Tile 4: Keluhan --}}
+                <a href="{{ route('tenant.complaints.index') }}" class="bg-white rounded-2xl p-3 border border-slate-200/80 shadow-2xs flex flex-col items-center gap-1.5 transition active:scale-95 hover:border-blue-300">
+                    <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+                    </div>
+                    <span class="text-[11px] font-bold text-slate-700 leading-tight">Keluhan</span>
                 </a>
             </div>
+        </div>
 
-            @if($favoriteKosts->count() > 0)
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    @foreach($favoriteKosts as $kost)
-                        <x-kost-card 
-                            :title="$kost->name"
-                            :slug="$kost->slug"
-                            :type="$kost->type"
-                            :city="$kost->regency->name ?? ''"
-                            :province="$kost->province->name ?? ''"
-                            :price="$kost->price_start"
-                            :rentType="$kost->rent_type"
-                            :image="$kost->primaryImage?->file_path ? asset('storage/' . $kost->primaryImage->file_path) : null"
-                            :isVerified="$kost->verification_status === 'verified'"
-                            :isFeatured="(bool) $kost->is_featured"
-                            :availableRooms="$kost->rooms->sum('available_rooms')"
-                            :facilities="$kost->facilities->pluck('name')->toArray()"
-                        />
+        {{-- 7. KOS FAVORIT SAYA (PREVIEW CEPAT) --}}
+        @if($favoriteKosts->isNotEmpty())
+            <div class="space-y-2">
+                <div class="flex items-center justify-between px-1">
+                    <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider">Kos Favorit Saya</h3>
+                    <a href="{{ route('tenant.wishlists.index') }}" class="text-xs font-bold text-blue-600 hover:text-blue-700">Lihat Semua &rarr;</a>
+                </div>
+
+                <div class="space-y-2.5">
+                    @foreach($favoriteKosts as $fav)
+                        <a href="{{ route('tenant.kost.detail', $fav->slug) }}" class="p-2.5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs flex items-center gap-3 transition active:scale-98 hover:border-blue-300">
+                            <img src="{{ $fav->primary_image_url }}" alt="{{ $fav->name }}" class="w-14 h-14 rounded-xl object-cover shrink-0">
+                            <div class="min-w-0 flex-1 truncate">
+                                <h4 class="text-xs font-black text-slate-900 truncate">{{ $fav->name }}</h4>
+                                <p class="text-[10px] text-slate-500 truncate">{{ $fav->regency?->name ?? 'Indonesia' }} &bull; Kos {{ ucfirst($fav->type) }}</p>
+                                <span class="text-xs font-extrabold text-blue-600 mt-0.5 block">Rp {{ number_format($fav->price_start, 0, ',', '.') }} / bln</span>
+                            </div>
+                        </a>
                     @endforeach
                 </div>
-            @else
-                <div class="text-center py-10">
-                    <div class="w-12 h-12 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center mx-auto mb-3">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
-                    </div>
-                    <h4 class="font-bold text-slate-800 text-sm">Belum Ada Kos Favorit</h4>
-                    <a href="{{ route('search') }}" class="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition shadow-xs">
-                        <span>Eksplorasi Kos Sekarang</span>
-                    </a>
-                </div>
-            @endif
-        </div>
-
-        {{-- 6. Komunitas & Marketplace Anak Kos Banner --}}
-        <div class="rounded-2xl p-6 sm:p-7 text-white relative overflow-hidden shadow-md shadow-navy-950/20" style="background: linear-gradient(135deg, #091e3a 0%, #1e3a8a 60%, #3b82f6 100%);">
-            <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div>
-                    <h3 class="text-xl sm:text-2xl font-black tracking-tight text-white">
-                        Punya Barang Kos yang Mau Dijual atau Dioper?
-                    </h3>
-                </div>
-
-                <div class="flex items-center gap-3 flex-wrap">
-                    <a href="{{ route('marketplace.index') }}" class="px-4 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 border border-white/20 text-white font-bold text-xs transition">
-                        <span>Lihat Marketplace</span>
-                    </a>
-                    <a href="{{ route('marketplace.create') }}" class="px-4 py-2.5 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-bold text-xs shadow-xs transition">
-                        <span>+ Jual Barang Kos</span>
-                    </a>
-                </div>
             </div>
-        </div>
+        @endif
 
     </div>
 

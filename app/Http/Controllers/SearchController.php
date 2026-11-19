@@ -11,9 +11,25 @@ use Illuminate\View\View;
 class SearchController extends Controller
 {
     /**
-     * Tampilkan halaman hasil pencarian kos dengan filter.
+     * Tampilkan halaman hasil pencarian kos dengan filter (publik / web).
      */
     public function index(Request $request): View
+    {
+        return view('search', $this->getSearchData($request));
+    }
+
+    /**
+     * Tampilkan halaman hasil pencarian kos khusus penghuni (portal mobile).
+     */
+    public function tenantIndex(Request $request): View
+    {
+        return view('tenant.search', $this->getSearchData($request));
+    }
+
+    /**
+     * Dapatkan parameter dan data koleksi kos hasil filter.
+     */
+    private function getSearchData(Request $request): array
     {
         $provinces = Province::orderBy('name')->get(['id', 'name']);
 
@@ -27,7 +43,7 @@ class SearchController extends Controller
         $selectedFacilities = (array) $request->query('fasilitas', []);
         $sort = $request->query('sort', 'unggulan'); // unggulan, termurah, termahal, terbaru
 
-        // Kabupaten untuk sidebar jika provinsi dipilih
+        // Kabupaten untuk filter jika provinsi dipilih
         $regencies = [];
         if ($selectedProvinceId) {
             $regencies = Regency::where('province_id', $selectedProvinceId)
@@ -84,8 +100,10 @@ class SearchController extends Controller
 
         $dbKosts = $query->get();
 
+        $userFavoriteIds = auth()->check() ? auth()->user()->wishlists()->pluck('kost_id')->toArray() : [];
+
         // Transformasi ke format konsisten untuk komponen Blade
-        $kosts = $dbKosts->map(function ($k) {
+        $kosts = $dbKosts->map(function ($k) use ($userFavoriteIds) {
             return [
                 'id' => $k->id,
                 'title' => $k->name,
@@ -100,6 +118,7 @@ class SearchController extends Controller
                 'availableRooms' => $k->rooms->sum('available_rooms'),
                 'facilities' => $k->facilities->pluck('name')->toArray(),
                 'image' => $k->primaryImage ? asset('storage/'.$k->primaryImage->file_path) : null,
+                'isFavorited' => in_array($k->id, $userFavoriteIds),
             ];
         });
 
@@ -109,7 +128,7 @@ class SearchController extends Controller
         $selectedProvinceName = $selectedProvinceId ? Province::find($selectedProvinceId)?->name : null;
         $selectedRegencyName = $selectedRegencyId ? Regency::find($selectedRegencyId)?->name : null;
 
-        return view('search', compact(
+        return compact(
             'provinces',
             'regencies',
             'kosts',
@@ -124,6 +143,6 @@ class SearchController extends Controller
             'maxPrice',
             'selectedFacilities',
             'sort'
-        ));
+        );
     }
 }

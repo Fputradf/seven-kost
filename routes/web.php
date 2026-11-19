@@ -18,6 +18,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\Tenant\ComplaintController as TenantComplaintController;
 use App\Http\Controllers\Tenant\DashboardController as TenantDashboardController;
+use App\Http\Controllers\Tenant\WalletController as TenantWalletController;
 use App\Http\Controllers\Tenant\WishlistController as TenantWishlistController;
 use App\Http\Controllers\WilayahController;
 use Illuminate\Support\Facades\Route;
@@ -90,9 +91,29 @@ Route::middleware('auth')->group(function () {
 
     // Portal Penghuni (Dashboard, Booking, Wishlist, Keluhan Fasilitas)
     Route::get('/penghuni/dashboard', [TenantDashboardController::class, 'index'])->name('tenant.dashboard');
+    Route::get('/penghuni/cari', [SearchController::class, 'tenantIndex'])->name('tenant.search');
+    Route::get('/penghuni/peta', [MapController::class, 'tenantIndex'])->name('tenant.map');
+    Route::get('/penghuni/kos/{slug}', [KostDetailController::class, 'tenantShow'])->name('tenant.kost.detail');
     Route::get('/penghuni/booking-saya', [BookingController::class, 'myBookings'])->name('tenant.bookings.index');
+    Route::get('/penghuni/booking/{booking}', [BookingController::class, 'show'])->name('tenant.bookings.show');
+    Route::post('/penghuni/booking/{booking}/bayar', [BookingController::class, 'pay'])->name('tenant.bookings.pay');
+    Route::post('/penghuni/booking/{booking}/bayar-dompet', [BookingController::class, 'payWithWallet'])->name('tenant.bookings.pay-wallet');
+    Route::post('/penghuni/booking/{booking}/perpanjang', [BookingController::class, 'renew'])->name('tenant.bookings.renew');
+    Route::post('/penghuni/booking/{booking}/perpanjang-dompet', [BookingController::class, 'renewWithWallet'])->name('tenant.bookings.renew-wallet');
+    Route::get('/penghuni/pembayaran/{referenceId}', [BookingController::class, 'paymentCheckout'])->name('tenant.bookings.payment');
+    Route::get('/penghuni/pembayaran/{referenceId}/sukses', [BookingController::class, 'paymentSuccess'])->name('tenant.bookings.payment-success');
+    Route::post('/penghuni/pembayaran/{referenceId}/simulasi', [BookingController::class, 'paymentSimulate'])->name('tenant.bookings.simulate-payment');
     Route::post('/kos/{kost}/booking', [BookingController::class, 'store'])->name('tenant.bookings.store');
     Route::delete('/penghuni/booking/{booking}/batal', [BookingController::class, 'cancel'])->name('tenant.bookings.cancel');
+    Route::post('/penghuni/booking/{booking}/akhiri-sewa', [BookingController::class, 'terminateLease'])->name('tenant.bookings.terminate');
+
+    // Dompet Digital Penghuni (Top Up, Pembayaran & Tarik Saldo / Withdrawal)
+    Route::get('/penghuni/dompet', [TenantWalletController::class, 'index'])->name('tenant.wallet.index');
+    Route::post('/penghuni/dompet/topup', [TenantWalletController::class, 'topup'])->name('tenant.wallet.topup');
+    Route::get('/penghuni/dompet/pembayaran/{referenceId}', [TenantWalletController::class, 'paymentCheckout'])->name('tenant.wallet.payment');
+    Route::get('/penghuni/dompet/pembayaran/{referenceId}/sukses', [TenantWalletController::class, 'paymentSuccess'])->name('tenant.wallet.payment-success');
+    Route::post('/penghuni/dompet/pembayaran/{referenceId}/simulasi', [TenantWalletController::class, 'paymentSimulate'])->name('tenant.wallet.simulate-payment');
+    Route::post('/penghuni/dompet/tarik', [TenantWalletController::class, 'withdraw'])->name('tenant.wallet.withdraw');
 
     // Wishlist / Favorit Kos Penghuni
     Route::get('/penghuni/favorit', [TenantWishlistController::class, 'index'])->name('tenant.wishlists.index');

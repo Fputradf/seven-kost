@@ -63,6 +63,24 @@
         if (str_starts_with($cleanPhone, '0')) {
             $cleanPhone = '62' . substr($cleanPhone, 1);
         }
+
+        $roomsMap = $kost->rooms->mapWithKeys(function ($room) {
+            return [$room->id => [
+                'id' => $room->id,
+                'name' => $room->name,
+                'price' => (float)$room->price,
+                'room_size' => $room->room_size ?: '3x4 m',
+                'available_rooms' => $room->available_rooms,
+                'facilities' => $room->facilities->map(fn($f) => [
+                    'id' => $f->id,
+                    'name' => $f->name,
+                    'icon' => $f->icon,
+                    'category' => $f->category,
+                ])->values()->all(),
+            ]];
+        });
+
+        $sharedKostFacs = $kost->facilities->where('category', '!=', 'kamar');
     @endphp
 
     {{-- Root Container dengan Alpine State --}}
@@ -73,14 +91,20 @@
             allPhotos: {{ json_encode($galleryPhotos) }},
             isBookmarked: {{ (auth()->check() && auth()->user()->wishlists()->where('kost_id', $kost->id)->exists()) ? 'true' : 'false' }},
             shareCopied: false,
-            bookingModalOpen: false, 
+            bookingModalOpen: {{ $errors->any() ? 'true' : 'false' }}, 
             reportModalOpen: false,
+            isForOther: {{ old('is_for_other') ? 'true' : 'false' }},
             selectedRoomId: {{ $defaultRoomId }},
             selectedRoomName: '{{ addslashes($defaultRoomName) }}',
             selectedRoomPrice: {{ $defaultRoomPrice }},
             selectedRoomSize: '{{ addslashes($defaultRoomSize) }}',
             selectedRoomAvailable: {{ $defaultRoomAvailable }},
             durationMonths: 1,
+            roomsMap: {{ Js::from($roomsMap) }},
+
+            get selectedRoomFacilities() {
+                return (this.roomsMap && this.roomsMap[this.selectedRoomId]) ? this.roomsMap[this.selectedRoomId].facilities : [];
+            },
 
             openLightbox(index) {
                 this.activeImageIndex = index;
@@ -390,11 +414,11 @@
 
                                         <div class="space-y-1.5">
                                             <div class="flex items-center gap-2 flex-wrap">
-                                                <h3 class="font-extrabold text-sm sm:text-base text-slate-900">{{ $room->name }}</h3>
-                                                <span class="px-2 py-0.5 rounded-md text-[11px] font-semibold bg-slate-100 text-slate-700">
+                                                <h3 class="font-extrabold text-base sm:text-lg text-slate-900">{{ $room->name }}</h3>
+                                                <span class="px-2 py-0.5 rounded-md text-xs font-semibold bg-slate-100 text-slate-700">
                                                     {{ $roomSize }}
                                                 </span>
-                                                <span x-show="selectedRoomId === {{ $room->id }}" class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-blue-600 text-white">
+                                                <span x-show="selectedRoomId === {{ $room->id }}" class="px-2 py-0.5 rounded-md text-xs font-bold bg-blue-600 text-white">
                                                     Dipilih
                                                 </span>
                                             </div>
@@ -410,6 +434,18 @@
                                                     <span class="text-rose-600 font-bold">Kamar Penuh</span>
                                                 @endif
                                             </p>
+
+                                            {{-- Room Specific Facilities --}}
+                                            @if($room->facilities->isNotEmpty())
+                                                <div class="flex items-center gap-1.5 flex-wrap pt-1.5">
+                                                    @foreach($room->facilities as $fac)
+                                                        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg text-xs font-semibold bg-slate-50 text-slate-700 border border-slate-200/80">
+                                                            <svg class="w-3 h-3 text-blue-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                                            {{ $fac->name }}
+                                                        </span>
+                                                    @endforeach
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
 
@@ -437,23 +473,22 @@
                     {{-- FASILITAS PROPERTI (CATEGORIZED WITH THEMATIC ICONS) --}}
                     <div class="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-xs space-y-6">
                         <div>
-                            <h2 class="text-lg sm:text-xl font-bold text-slate-900">Fasilitas Lengkap Kos</h2>
-                            <p class="text-xs text-slate-500 mt-0.5">Kelengkapan fasilitas yang disediakan untuk kenyamanan penghuni.</p>
+                            <h2 class="text-lg sm:text-xl font-bold text-slate-900">Fasilitas Bersama & Lokasi Sekitar</h2>
+                            <p class="text-xs text-slate-500 mt-0.5">Kelengkapan fasilitas umum bangunan kos serta kemudahan akses di lingkungan sekitar.</p>
                         </div>
 
-                        @php
-                            $groupedFacs = $kost->facilities->groupBy('category');
-                        @endphp
+                        <div class="space-y-6">
+                            @php
+                                $groupedShared = $sharedKostFacs->groupBy('category');
+                            @endphp
 
-                        @if($groupedFacs->count() > 0)
-                            <div class="space-y-6">
-                                @foreach($groupedFacs as $cat => $items)
+                            @if($groupedShared->count() > 0)
+                                @foreach($groupedShared as $cat => $items)
                                     <div class="space-y-3">
                                         <div class="flex items-center gap-2">
-                                            <span class="h-2 w-2 rounded-full bg-blue-600"></span>
+                                            <span class="h-2 w-2 rounded-full {{ $cat === 'sekitar' ? 'bg-amber-500' : 'bg-emerald-600' }}"></span>
                                             <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider">
-                                                @if($cat === 'kamar') Fasilitas Kamar Tidur
-                                                @elseif($cat === 'umum') Fasilitas Bersama / Publik
+                                                @if($cat === 'umum') Fasilitas Bersama / Publik Properti
                                                 @elseif($cat === 'sekitar') Akses & Lokasi Sekitar
                                                 @else Fasilitas {{ ucfirst($cat) }}
                                                 @endif
@@ -465,29 +500,21 @@
                                             @foreach($items as $fac)
                                                 <div class="flex items-center gap-2.5 p-3 rounded-2xl bg-slate-50/80 hover:bg-white border border-slate-100 hover:border-slate-200 hover:shadow-xs transition text-xs font-medium text-slate-800">
                                                     {{-- Facility Icon --}}
-                                                    <div class="h-7 w-7 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0">
+                                                    <div class="h-7 w-7 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center flex-shrink-0">
                                                         @if(str_contains(strtolower($fac->name), 'wifi'))
-                                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"/></svg>
-                                                        @elseif(str_contains(strtolower($fac->name), 'ac'))
-                                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                                                        @elseif(str_contains(strtolower($fac->name), 'mandi') || str_contains(strtolower($fac->name), 'bath') || str_contains(strtolower($fac->name), 'shower'))
-                                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-                                                        @elseif(str_contains(strtolower($fac->name), 'kasur') || str_contains(strtolower($fac->name), 'bed'))
-                                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                                                        @elseif(str_contains(strtolower($fac->name), 'lemari'))
-                                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+                                                            <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"/></svg>
                                                         @elseif(str_contains(strtolower($fac->name), 'parkir') || str_contains(strtolower($fac->name), 'motor') || str_contains(strtolower($fac->name), 'mobil'))
-                                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"/></svg>
+                                                            <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"/></svg>
                                                         @elseif(str_contains(strtolower($fac->name), 'cctv') || str_contains(strtolower($fac->name), 'security') || str_contains(strtolower($fac->name), 'keamanan'))
-                                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                                                            <svg class="w-4 h-4 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                                                         @elseif(str_contains(strtolower($fac->name), 'dapur') || str_contains(strtolower($fac->name), 'kulkas') || str_contains(strtolower($fac->name), 'dispenser'))
-                                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                                                            <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
                                                         @elseif(str_contains(strtolower($fac->name), 'cuci') || str_contains(strtolower($fac->name), 'laundry'))
-                                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><circle cx="12" cy="13" r="4"/><path d="M12 9v1"/></svg>
+                                                            <svg class="w-4 h-4 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><circle cx="12" cy="13" r="4"/><path d="M12 9v1"/></svg>
                                                         @elseif(str_contains(strtolower($fac->name), '24') || str_contains(strtolower($fac->name), 'jam'))
-                                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                                            <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                                                         @else
-                                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                                            <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                                                         @endif
                                                     </div>
                                                     <span class="truncate">{{ $fac->name }}</span>
@@ -496,12 +523,12 @@
                                         </div>
                                     </div>
                                 @endforeach
-                            </div>
-                        @else
-                            <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100 text-center text-xs text-slate-500">
-                                Fasilitas standar hunian kos nyaman tersedia. Hubungi pemilik untuk pertanyaan fasilitas tambahan.
-                            </div>
-                        @endif
+                            @else
+                                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100 text-center text-xs text-slate-500">
+                                    Fasilitas standar hunian kos nyaman tersedia. Hubungi pemilik untuk pertanyaan fasilitas tambahan.
+                                </div>
+                            @endif
+                        </div>
                     </div>
 
                     {{-- DESKRIPSI & TATA TERTIB KOS --}}
@@ -583,8 +610,8 @@
                                 </span>
                                 <span class="text-xs font-semibold text-slate-400">/ bulan</span>
                             </div>
-                            <p class="text-[11px] text-slate-500 pt-0.5">
-                                Tipe Kamar: <strong class="text-slate-800" x-text="selectedRoomName"></strong>
+                            <p class="text-xs text-slate-500 pt-0.5">
+                                Tipe Kamar: <strong class="text-slate-900 font-bold" x-text="selectedRoomName"></strong>
                             </p>
                         </div>
 
@@ -723,6 +750,7 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         @foreach($similarKosts as $sKost)
                             <x-kost-card 
+                                :id="$sKost->id"
                                 :title="$sKost->name"
                                 :slug="$sKost->slug"
                                 :type="$sKost->type"
@@ -744,12 +772,12 @@
         </div>
 
         {{-- 4. MOBILE STICKY BOTTOM BAR --}}
-        <div class="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 px-4 py-3 shadow-[0_-4px_20px_rgba(0,0,0,0.06)]">
+        <div class="lg:hidden fixed bottom-0 inset-x-0 z-50 bg-white/95 backdrop-blur-md border-t border-slate-200 px-4 py-3 shadow-[0_-4px_25px_rgba(0,0,0,0.1)]">
             <div class="flex items-center justify-between gap-3">
                 <div>
-                    <span class="text-[10px] text-slate-400 font-medium block" x-text="selectedRoomName"></span>
+                    <span class="text-xs text-slate-600 font-bold block truncate max-w-[150px]" x-text="selectedRoomName"></span>
                     <div class="flex items-baseline gap-1">
-                        <span class="text-lg font-black text-blue-600" x-text="'Rp ' + Number(selectedRoomPrice).toLocaleString('id-ID')"></span>
+                        <span class="text-base sm:text-lg font-black text-blue-600" x-text="'Rp ' + Number(selectedRoomPrice).toLocaleString('id-ID')"></span>
                         <span class="text-[10px] text-slate-500">/ bln</span>
                     </div>
                 </div>
@@ -759,27 +787,29 @@
                     <a 
                         :href="getDynamicWaUrl()" 
                         target="_blank" 
-                        class="px-3.5 py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-xs shadow-md shadow-emerald-500/20 flex items-center gap-1.5"
+                        class="p-2.5 rounded-xl border border-emerald-300 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 font-bold text-xs transition active:scale-95 flex items-center justify-center shadow-xs"
+                        title="Tanya Pemilik via WhatsApp"
                     >
                         <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.007c.106.005.249-.04.39.299.144.35.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.174.086.275.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.145.39-.086s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824z"/></svg>
-                        <span>WA</span>
                     </a>
 
-                    {{-- Booking Quick Button --}}
+                    {{-- Booking / Checkout Quick Button --}}
                     @auth
                         <button 
                             @click="bookingModalOpen = true" 
                             type="button" 
-                            class="px-4 py-2.5 rounded-xl bg-navy-950 text-white font-bold text-xs shadow-md shadow-navy-950/20"
+                            class="px-4.5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-xs shadow-md shadow-blue-500/25 transition active:scale-95 flex items-center gap-1.5"
                         >
-                            Booking
+                            <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                            <span>Checkout Sewa</span>
                         </button>
                     @else
                         <a 
                             href="{{ route('login') }}" 
-                            class="px-4 py-2.5 rounded-xl bg-navy-950 text-white font-bold text-xs shadow-md shadow-navy-950/20"
+                            class="px-4.5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-xs shadow-md shadow-blue-500/25 transition active:scale-95 flex items-center gap-1.5"
                         >
-                            Booking
+                            <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                            <span>Checkout Sewa</span>
                         </a>
                     @endauth
                 </div>
@@ -854,27 +884,42 @@
             </div>
         </div>
 
-        {{-- 6. BOOKING MODAL --}}
+        {{-- 6. BOOKING MODAL (CHECKOUT PENGHUNI DENGAN SCROLL & VALIDASI LENGKAP) --}}
         @auth
             <div 
                 x-show="bookingModalOpen" 
                 x-transition.opacity 
-                class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4" 
+                class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 overflow-y-auto" 
                 style="display: none;"
             >
                 <div 
                     @click.outside="bookingModalOpen = false" 
-                    class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl space-y-6 text-slate-800 animate-in fade-in zoom-in-95 duration-200"
+                    class="bg-white rounded-3xl max-w-lg w-full p-5 sm:p-7 shadow-2xl space-y-4 text-slate-800 animate-in fade-in zoom-in-95 duration-200 my-auto max-h-[90vh] overflow-y-auto"
                 >
-                    <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+                    <div class="flex items-center justify-between pb-3 border-b border-slate-100">
                         <div>
                             <span class="text-xs font-bold text-blue-600 uppercase tracking-wide">Pengajuan Sewa</span>
                             <h3 class="text-lg font-black text-slate-900 mt-0.5">Booking {{ $kost->name }}</h3>
                         </div>
-                        <button @click="bookingModalOpen = false" class="text-slate-400 hover:text-slate-700">
+                        <button @click="bookingModalOpen = false" class="text-slate-400 hover:text-slate-700 p-1 rounded-lg hover:bg-slate-100 transition">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                         </button>
                     </div>
+
+                    {{-- Notifikasi Error Validasi Form --}}
+                    @if ($errors->any())
+                        <div class="p-3 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 text-xs space-y-1">
+                            <div class="font-bold flex items-center gap-1.5 text-rose-900">
+                                <svg class="w-4 h-4 text-rose-600 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg>
+                                <span>Periksa Kembali Data Pengajuan:</span>
+                            </div>
+                            <ul class="list-disc list-inside space-y-0.5 text-[11px] text-rose-700">
+                                @foreach ($errors->all() as $err)
+                                    <li>{{ $err }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 
                     <form action="{{ route('tenant.bookings.store', $kost) }}" method="POST" class="space-y-4">
                         @csrf
@@ -898,8 +943,8 @@
                                     <option 
                                         value="{{ $rm->id }}" 
                                         data-price="{{ $rm->price }}" 
-                                        data-name="{{ $rm->name }}"
-                                        data-size="{{ $rm->room_size ?: '3x4 m' }}"
+                                        data-name="{{ $rm->name }}" 
+                                        data-size="{{ $rm->room_size ?: '3x4 m' }}" 
                                         {{ $rm->available_rooms <= 0 ? 'disabled' : '' }}
                                     >
                                         {{ $rm->name }} (Rp {{ number_format($rm->price, 0, ',', '.') }}/bln) - {{ $rm->available_rooms > 0 ? "Sisa {$rm->available_rooms} kamar" : 'Penuh' }}
@@ -908,11 +953,88 @@
                             </select>
                         </div>
 
-                        {{-- Tanggal Masuk & Durasi --}}
-                        <div class="grid grid-cols-2 gap-3">
+                        {{-- Penerima / Penghuni Kamar --}}
+                        <div class="space-y-2.5 p-3 sm:p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80">
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wide">Pemesanan Kamar Untuk:</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <label 
+                                    class="flex items-center gap-2 p-2.5 rounded-xl border cursor-pointer text-xs font-bold transition select-none"
+                                    :class="!isForOther ? 'bg-blue-50 border-blue-300 text-blue-700 shadow-2xs' : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-100'"
+                                >
+                                    <input type="radio" name="booking_for" value="myself" class="text-blue-600 focus:ring-blue-500" @change="isForOther = false" checked>
+                                    <span>Diri Sendiri</span>
+                                </label>
+                                <label 
+                                    class="flex items-center gap-2 p-2.5 rounded-xl border cursor-pointer text-xs font-bold transition select-none"
+                                    :class="isForOther ? 'bg-blue-50 border-blue-300 text-blue-700 shadow-2xs' : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-100'"
+                                >
+                                    <input type="radio" name="booking_for" value="other" class="text-blue-600 focus:ring-blue-500" @change="isForOther = true">
+                                    <span>Orang Lain</span>
+                                </label>
+                            </div>
+                            <input type="hidden" name="is_for_other" :value="isForOther ? '1' : '0'">
+
+                            {{-- Input Khusus Orang Lain --}}
+                            <div x-show="isForOther" x-transition class="space-y-2.5 pt-2 border-t border-slate-200/70" style="display: none;">
+                                <div class="text-xs text-blue-800 font-medium bg-blue-50 px-3 py-2 rounded-xl border border-blue-100 leading-relaxed">
+                                    Pemilik kos dan mitra layanan terdekat akan berkoordinasi langsung dengan nama & kontak penghuni kamar berikut:
+                                </div>
+                                <div class="space-y-1">
+                                    <div class="flex items-center justify-between">
+                                        <label class="block text-xs font-bold text-slate-700 uppercase">Nama Lengkap Penghuni <span class="text-rose-500">*</span></label>
+                                        <span class="text-[10px] text-slate-400 font-medium">Maks. 50 karakter</span>
+                                    </div>
+                                    <input 
+                                        type="text" 
+                                        name="tenant_name" 
+                                        maxlength="50"
+                                        value="{{ old('tenant_name') }}"
+                                        placeholder="Contoh: Budi Santoso (Maks. 50 karakter)" 
+                                        :required="isForOther" 
+                                        class="w-full text-xs font-semibold rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5"
+                                    >
+                                </div>
+                                <div class="space-y-1">
+                                    <div class="flex items-center justify-between">
+                                        <label class="block text-xs font-bold text-slate-700 uppercase">Nomor WhatsApp Penghuni <span class="text-rose-500">*</span></label>
+                                        <span class="text-[10px] text-slate-400 font-medium">9 - 15 digit</span>
+                                    </div>
+                                    <input 
+                                        type="tel" 
+                                        name="tenant_phone" 
+                                        maxlength="16"
+                                        minlength="9"
+                                        inputmode="numeric"
+                                        value="{{ old('tenant_phone') }}"
+                                        oninput="this.value = this.value.replace(/[^0-9+]/g, '')"
+                                        placeholder="Contoh: 081234567890" 
+                                        :required="isForOther" 
+                                        class="w-full text-xs font-semibold rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5"
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Tanggal Masuk & Durasi (Tanggal masuk dibatasi maks 7 hari ke depan) --}}
+                        @php
+                            $minEntryDate = now()->toDateString();
+                            $maxEntryDate = now()->addDays(7)->toDateString();
+                        @endphp
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div class="space-y-1">
-                                <label class="block text-xs font-bold text-slate-700 uppercase">Tanggal Masuk</label>
-                                <input type="date" name="start_date" value="{{ date('Y-m-d') }}" min="{{ date('Y-m-d') }}" required class="w-full text-xs rounded-xl border-slate-200 py-2 font-medium">
+                                <div class="flex items-center justify-between">
+                                    <label class="block text-xs font-bold text-slate-700 uppercase">Tanggal Masuk</label>
+                                    <span class="text-[10px] text-blue-600 font-bold">Maks. 7 hari ke depan</span>
+                                </div>
+                                <input 
+                                    type="date" 
+                                    name="start_date" 
+                                    value="{{ old('start_date', $minEntryDate) }}" 
+                                    min="{{ $minEntryDate }}" 
+                                    max="{{ $maxEntryDate }}" 
+                                    required 
+                                    class="w-full text-xs rounded-xl border-slate-200 py-2 font-medium"
+                                >
                             </div>
                             <div class="space-y-1">
                                 <label class="block text-xs font-bold text-slate-700 uppercase">Durasi Sewa</label>
@@ -928,7 +1050,7 @@
                         {{-- Catatan Tambahan --}}
                         <div class="space-y-1">
                             <label class="block text-xs font-bold text-slate-700 uppercase">Catatan ke Pemilik (Opsional)</label>
-                            <textarea name="notes" rows="2" placeholder="Contoh: Bawa kendaraan motor, rencana mulai masuk jam 10 pagi..." class="w-full text-xs rounded-xl border-slate-200 p-2.5"></textarea>
+                            <textarea name="notes" rows="2" maxlength="500" placeholder="Contoh: Bawa kendaraan motor, rencana mulai masuk jam 10 pagi..." class="w-full text-xs rounded-xl border-slate-200 p-2.5">{{ old('notes') }}</textarea>
                         </div>
 
                         {{-- Ringkasan Biaya --}}

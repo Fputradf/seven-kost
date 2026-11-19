@@ -3,8 +3,10 @@
 namespace App\Services;
 
 use App\Models\Banner;
+use App\Models\Booking;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Models\WalletTransaction;
 use Exception;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -33,36 +35,47 @@ class XenditService
         $amount = (int) $transaction->amount;
         $description = $transaction->title;
 
-        // Tentukan metode pembayaran yang diizinkan sesuai channel
-        $paymentMethods = match ($transaction->payment_channel) {
-            'qris' => ['QRIS'],
-            'bca_va' => ['BCA'],
-            'mandiri_va' => ['MANDIRI'],
-            'bri_va' => ['BRI'],
-            'bni_va' => ['BNI'],
-            'ewallet' => ['OVO', 'DANA', 'SHOPEEPAY', 'LINKAJA'],
-            default => ['QRIS', 'BCA', 'MANDIRI', 'BRI', 'BNI', 'OVO', 'DANA'],
-        };
+        $successRedirectUrl = $transaction->type === 'booking'
+            ? route('tenant.bookings.payment-success', $externalId)
+            : route('payments.success', $externalId);
+
+        $failureRedirectUrl = $transaction->type === 'booking'
+            ? route('tenant.bookings.payment', $externalId)
+            : route('payments.checkout', $externalId);
+
+        $payload = [
+            'external_id' => $externalId,
+            'amount' => $amount,
+            'description' => $description,
+            'payer_email' => $customer['email'] ?? $transaction->user?->email,
+            'customer' => [
+                'given_names' => $customer['name'] ?? $transaction->user?->name ?? 'Pelanggan SevenKost',
+                'email' => $customer['email'] ?? $transaction->user?->email,
+                'mobile_number' => $customer['phone'] ?? $transaction->user?->phone,
+            ],
+            'success_redirect_url' => $successRedirectUrl,
+            'failure_redirect_url' => $failureRedirectUrl,
+        ];
+
+        // Untuk booking / channel all, jangan batasi payment_methods agar pengguna bebas memilih di Xendit Sandbox
+        if ($transaction->type !== 'booking' && ! empty($transaction->payment_channel) && ! in_array($transaction->payment_channel, ['all', 'default'])) {
+            $payload['payment_methods'] = match ($transaction->payment_channel) {
+                'qris' => ['QRIS'],
+                'bca_va' => ['BCA'],
+                'mandiri_va' => ['MANDIRI'],
+                'bri_va' => ['BRI'],
+                'bni_va' => ['BNI'],
+                'ewallet' => ['OVO', 'DANA', 'SHOPEEPAY', 'LINKAJA'],
+                default => ['QRIS', 'BCA', 'MANDIRI', 'BRI', 'BNI', 'OVO', 'DANA'],
+            };
+        }
 
         // Jika API Key Xendit tersedia, panggil Endpoint resmi Xendit Invoice v2
         if (! empty($this->secretKey) && ! str_starts_with($this->secretKey, 'mock_')) {
             try {
                 $response = Http::withBasicAuth($this->secretKey, '')
                     ->timeout(15)
-                    ->post('https://api.xendit.co/v2/invoices', [
-                        'external_id' => $externalId,
-                        'amount' => $amount,
-                        'description' => $description,
-                        'payer_email' => $customer['email'] ?? $transaction->user?->email,
-                        'customer' => [
-                            'given_names' => $customer['name'] ?? $transaction->user?->name ?? 'Pelanggan SevenKost',
-                            'email' => $customer['email'] ?? $transaction->user?->email,
-                            'mobile_number' => $customer['phone'] ?? $transaction->user?->phone,
-                        ],
-                        'payment_methods' => $paymentMethods,
-                        'success_redirect_url' => route('payments.success', $externalId),
-                        'failure_redirect_url' => route('payments.checkout', $externalId),
-                    ]);
+                    ->post('https://api.xendit.co/v2/invoices', $payload);
 
                 if ($response->successful()) {
                     $data = $response->json();
@@ -90,7 +103,11 @@ class XenditService
 
         // Fallback Simulasi Gateway Cerdas (Localhost / Sandbox Offline)
         $simulatedId = 'xnd_inv_'.uniqid();
-        $checkoutUrl = route('payments.checkout', $externalId);
+        $checkoutUrl = in_array($transaction->type, ['booking', 'renewal'], true)
+            ? route('tenant.bookings.payment', $externalId)
+            : ($transaction->type === 'topup'
+                ? route('tenant.wallet.payment', $externalId)
+                : route('payments.checkout', $externalId));
 
         $transaction->update([
             'xendit_invoice_id' => $simulatedId,
@@ -163,7 +180,109 @@ class XenditService
             }
         }
 
+        // 3. Aktivasi Hunian Kamar Kos setelah Pembayaran Lunas
+        if ($transaction->type === 'booking') {
+            $bookingId = (int) $transaction->item_id;
+            $booking = Booking::find($bookingId);
+            if ($booking && in_array($booking->status, ['approved', 'pending'])) {
+                $booking->update([
+                    'status' => 'active',
+                ]);
+            }
+        }
+
+        // 4. Perpanjangan Masa Sewa Kamar Kos (Renewal)
+        if ($transaction->type === 'renewal') {
+            $bookingId = (int) $transaction->item_id;
+            $booking = Booking::find($bookingId);
+            if ($booking) {
+                $payload = $transaction->payload ?? [];
+                $additionalMonths = (int) ($payload['duration_months'] ?? 1);
+                $currentEnd = $booking->end_date ?? now();
+                $newEndDate = $currentEnd->copy()->addMonths($additionalMonths);
+
+                $booking->update([
+                    'end_date' => $newEndDate,
+                    'duration_months' => $booking->duration_months + $additionalMonths,
+                    'status' => 'active',
+                ]);
+            }
+        }
+
+        // 5. Top Up Saldo Dompet Digital Penghuni (Wallet)
+        if ($transaction->type === 'topup') {
+            $user = $transaction->user;
+            if ($user) {
+                $existing = WalletTransaction::where('reference_id', $transaction->reference_id)->first();
+                if (! $existing || ! $existing->isSuccess()) {
+                    if ($existing) {
+                        $before = (float) $user->wallet_balance;
+                        $after = $before + (float) $transaction->amount;
+                        $user->update(['wallet_balance' => $after]);
+                        $existing->update([
+                            'status' => 'success',
+                            'balance_before' => $before,
+                            'balance_after' => $after,
+                        ]);
+                    } else {
+                        $user->creditWallet(
+                            (float) $transaction->amount,
+                            $transaction->reference_id,
+                            'Top Up Saldo Dompet via '.($transaction->getChannelLabelAttribute() ?: 'Xendit'),
+                            $transaction->payment_channel
+                        );
+                    }
+                }
+            }
+        }
+
         return true;
+    }
+
+    /**
+     * Cek dan sinkronisasikan status invoice langsung ke API Xendit.
+     * Sangat penting untuk lingkungan localhost di mana webhook eksternal tidak dapat menjangkau server lokal.
+     */
+    public function checkInvoiceStatus(Transaction $transaction): Transaction
+    {
+        if ($transaction->isPaid()) {
+            return $transaction;
+        }
+
+        if (empty($transaction->xendit_invoice_id) || str_starts_with($transaction->xendit_invoice_id, 'xnd_inv_')) {
+            return $transaction;
+        }
+
+        if (empty($this->secretKey) || str_starts_with($this->secretKey, 'mock_')) {
+            return $transaction;
+        }
+
+        try {
+            $response = Http::withBasicAuth($this->secretKey, '')
+                ->timeout(8)
+                ->get("https://api.xendit.co/v2/invoices/{$transaction->xendit_invoice_id}");
+
+            if ($response->successful()) {
+                $data = $response->json();
+                $status = strtoupper($data['status'] ?? '');
+
+                if (in_array($status, ['PAID', 'SETTLED'], true)) {
+                    if (! empty($data['payment_channel'])) {
+                        $transaction->update(['payment_channel' => $data['payment_channel']]);
+                    }
+                    $this->markTransactionAsPaid($transaction, $data['id'] ?? null);
+                } elseif (in_array($status, ['EXPIRED', 'FAILED'], true)) {
+                    $transaction->update(['status' => strtolower($status)]);
+                }
+            }
+        } catch (\Throwable $e) {
+            Log::warning('Failed checking Xendit invoice status: '.$e->getMessage(), [
+                'transaction_id' => $transaction->id,
+                'xendit_invoice_id' => $transaction->xendit_invoice_id,
+            ]);
+        }
+
+        return $transaction->fresh();
     }
 
     /**

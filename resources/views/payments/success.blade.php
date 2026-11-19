@@ -97,6 +97,38 @@
                     </a>
                 </div>
 
+            @elseif($transaction->type === 'booking')
+                @php
+                    $bookingId = (int) $transaction->item_id;
+                    $booking = \App\Models\Booking::find($bookingId);
+                @endphp
+                <div class="p-5 rounded-2xl bg-emerald-50 border border-emerald-200 text-left space-y-2">
+                    <div class="flex items-center gap-2 text-emerald-900 font-extrabold text-sm">
+                        <span class="text-lg">🏡</span>
+                        <span>Sewa Kamar Kos Berhasil &amp; Hunian Telah Aktif!</span>
+                    </div>
+                    <p class="text-xs text-emerald-800 leading-relaxed">
+                        Selamat! Pembayaran sewa kamar Anda telah diverifikasi lunas oleh payment gateway. Kamar kos resmi menjadi milik hunian Anda sesuai periode sewa.
+                    </p>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                    @if($booking)
+                        <a 
+                            href="{{ route('tenant.bookings.show', $booking) }}" 
+                            class="flex-1 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs shadow-md shadow-emerald-500/25 transition text-center"
+                        >
+                            Lihat Detail Kamar Saya →
+                        </a>
+                    @endif
+                    <a 
+                        href="{{ route('tenant.bookings.index') }}" 
+                        class="flex-1 py-3 px-4 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold text-xs transition text-center"
+                    >
+                        Riwayat Booking &amp; Sewa
+                    </a>
+                </div>
+
             @else
                 <div class="p-5 rounded-2xl bg-blue-50/80 border border-blue-200 text-left space-y-2">
                     <div class="flex items-center gap-2 text-blue-900 font-extrabold text-sm">

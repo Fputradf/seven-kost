@@ -103,6 +103,12 @@ class ManageSettings extends Page
         $settings['banner_price_90'] ??= 650000;
         $settings['banner_price_365'] ??= 1990000;
 
+        // Inisialisasi default aturan sewa, tagihan berkala & denda
+        $settings['rent_bill_notice_days'] ??= 7;
+        $settings['late_fee_enabled'] ??= true;
+        $settings['late_fee_grace_days'] ??= 1;
+        $settings['late_fee_daily_amount'] ??= 20000;
+
         $this->content->fill($settings);
     }
 
@@ -367,6 +373,53 @@ class ManageSettings extends Page
                                                 ]),
                                         ]),
                                 ]),
+
+                            // TAB 4: ATURAN SEWA, TAGIHAN & DENDA
+                            Tab::make('Sewa & Denda')
+                                ->schema([
+                                    Section::make('Tagihan Sewa Berkala & Notifikasi Jatuh Tempo')
+                                        ->description('Atur jadwal penerbitan tagihan berkala sebelum masa sewa penghuni berakhir.')
+                                        ->schema([
+                                            Grid::make(['default' => 1, 'md' => 2])
+                                                ->schema([
+                                                    TextInput::make('rent_bill_notice_days')
+                                                        ->label('Penerbitan Tagihan Sebelum Jatuh Tempo')
+                                                        ->numeric()
+                                                        ->suffix('Hari Sebelum Habis')
+                                                        ->helperText('Contoh: Isi 7 agar tagihan periode berikutnya aktif pada H-7 sebelum masa sewa habis.')
+                                                        ->required()
+                                                        ->placeholder('7'),
+                                                ]),
+                                        ]),
+
+                                    Section::make('Aturan Denda Keterlambatan Pembayaran')
+                                        ->description('Konfigurasi denda harian otomatis apabila penghuni melewati batas waktu jatuh tempo sewa.')
+                                        ->schema([
+                                            Toggle::make('late_fee_enabled')
+                                                ->label('Aktifkan Perhitungan Denda Keterlambatan')
+                                                ->helperText('Jika dinonaktifkan, penghuni tidak akan dikenakan denda meskipun melewati tanggal jatuh tempo.')
+                                                ->default(true),
+
+                                            Grid::make(['default' => 1, 'md' => 2])
+                                                ->schema([
+                                                    TextInput::make('late_fee_grace_days')
+                                                        ->label('Masa Tenggang Keterlambatan (Grace Period)')
+                                                        ->numeric()
+                                                        ->suffix('Hari Toleransi')
+                                                        ->helperText('Contoh: 1 hari berarti denda mulai dihitung setelah H+1 sewa habis.')
+                                                        ->required()
+                                                        ->placeholder('1'),
+
+                                                    TextInput::make('late_fee_daily_amount')
+                                                        ->label('Nominal Denda Harian')
+                                                        ->numeric()
+                                                        ->prefix('Rp')
+                                                        ->helperText('Nominal denda yang ditambahkan setiap hari keterlambatan melewati masa tenggang.')
+                                                        ->required()
+                                                        ->placeholder('20000'),
+                                                ]),
+                                        ]),
+                                ]),
                         ]),
                 ]),
             ]);
@@ -395,6 +448,14 @@ class ManageSettings extends Page
                         );
                     }
                 }
+            } elseif ($key === 'late_fee_enabled') {
+                $type = 'boolean';
+                $group = 'rental';
+                $serializedValue = $value ? '1' : '0';
+            } elseif (in_array($key, ['rent_bill_notice_days', 'late_fee_grace_days', 'late_fee_daily_amount'], true)) {
+                $type = 'number';
+                $group = 'rental';
+                $serializedValue = (string) $value;
             } elseif (is_array($value)) {
                 $serializedValue = count($value) > 0 ? (string) reset($value) : null;
             } else {
@@ -429,10 +490,14 @@ class ManageSettings extends Page
         Cache::forget('app_setting_social_links');
         Cache::forget('app_vip_packages');
         Cache::forget('app_banner_packages');
+        Cache::forget('app_setting_rent_bill_notice_days');
+        Cache::forget('app_setting_late_fee_enabled');
+        Cache::forget('app_setting_late_fee_grace_days');
+        Cache::forget('app_setting_late_fee_daily_amount');
 
         Notification::make()
             ->title('Pengaturan Berhasil Disimpan')
-            ->body('Seluruh konfigurasi identitas, logo, kontak, 5 media sosial resmi, dan tarif telah berhasil diperbarui.')
+            ->body('Seluruh konfigurasi identitas, logo, kontak, media sosial resmi, tarif, serta aturan sewa dan denda telah berhasil diperbarui.')
             ->success()
             ->send();
     }

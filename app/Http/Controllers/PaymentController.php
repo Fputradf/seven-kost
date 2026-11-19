@@ -14,9 +14,11 @@ class PaymentController extends Controller
     /**
      * Tampilkan halaman checkout invoice pembayaran Xendit.
      */
-    public function checkout(string $referenceId): View|RedirectResponse
+    public function checkout(string $referenceId, XenditService $xenditService): View|RedirectResponse
     {
         $transaction = Transaction::where('reference_id', $referenceId)->firstOrFail();
+
+        $xenditService->checkInvoiceStatus($transaction);
 
         if ($transaction->isPaid()) {
             return redirect()->route('payments.success', $referenceId);
@@ -67,9 +69,11 @@ class PaymentController extends Controller
     /**
      * Halaman konfirmasi pembayaran berhasil.
      */
-    public function success(string $referenceId): View
+    public function success(string $referenceId, XenditService $xenditService): View
     {
         $transaction = Transaction::where('reference_id', $referenceId)->firstOrFail();
+
+        $xenditService->checkInvoiceStatus($transaction);
 
         return view('payments.success', compact('transaction'));
     }
@@ -88,13 +92,15 @@ class PaymentController extends Controller
     /**
      * Endpoint API status transaksi untuk polling status di checkout.
      */
-    public function status(string $referenceId): JsonResponse
+    public function status(string $referenceId, XenditService $xenditService): JsonResponse
     {
         $transaction = Transaction::where('reference_id', $referenceId)->first();
 
         if (! $transaction) {
             return response()->json(['error' => 'Not found'], 404);
         }
+
+        $xenditService->checkInvoiceStatus($transaction);
 
         return response()->json([
             'status' => $transaction->status,

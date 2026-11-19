@@ -29,11 +29,13 @@ class WishlistController extends Controller
     /**
      * Toggle simpan / hapus kos dari wishlist.
      */
-    public function toggle(Request $request, Kost $kost): JsonResponse|RedirectResponse
+    public function toggle(Request $request, string|Kost $kost): JsonResponse|RedirectResponse
     {
+        $kostModel = $kost instanceof Kost ? $kost : (is_numeric($kost) ? Kost::findOrFail($kost) : Kost::where('slug', $kost)->firstOrFail());
+
         $user = auth()->user();
         $existing = Wishlist::where('user_id', $user->id)
-            ->where('kost_id', $kost->id)
+            ->where('kost_id', $kostModel->id)
             ->first();
 
         if ($existing) {
@@ -43,7 +45,7 @@ class WishlistController extends Controller
         } else {
             Wishlist::create([
                 'user_id' => $user->id,
-                'kost_id' => $kost->id,
+                'kost_id' => $kostModel->id,
             ]);
             $isFavorited = true;
             $message = 'Kos berhasil ditambahkan ke daftar favorit!';

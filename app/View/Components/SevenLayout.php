@@ -13,6 +13,8 @@ class SevenLayout extends Component
         public bool $transparentNavbar = false,
         public ?string $robots = null,
         public ?string $canonical = null,
+        public ?string $backUrl = null,
+        public bool $hideBottomNav = false,
     ) {}
 
     /**

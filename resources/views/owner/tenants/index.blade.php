@@ -49,8 +49,8 @@
             </div>
         @endif
 
-        {{-- 2. Ringkasan Metrik Kompak (4 Quick Stat Cards) --}}
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+        {{-- 2. Ringkasan Metrik Kompak (5 Quick Stat Cards) --}}
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
             <div class="bg-white rounded-xl border border-slate-200/80 p-3.5 sm:p-4 shadow-xs">
                 <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Total Pengajuan</span>
                 <span class="text-xl sm:text-2xl font-black text-slate-900 mt-0.5 block tabular-nums">
@@ -60,7 +60,7 @@
 
             <div class="bg-white rounded-xl border border-slate-200/80 p-3.5 sm:p-4 shadow-xs">
                 <div class="flex items-center justify-between">
-                    <span class="text-[11px] font-bold text-amber-700 uppercase tracking-wider block">Menunggu Konfirmasi</span>
+                    <span class="text-[11px] font-bold text-amber-700 uppercase tracking-wider block">Konfirmasi</span>
                     @if(($counts['pending'] ?? 0) > 0)
                         <span class="w-2 h-2 rounded-full bg-amber-500 animate-ping"></span>
                     @endif
@@ -71,13 +71,20 @@
             </div>
 
             <div class="bg-white rounded-xl border border-slate-200/80 p-3.5 sm:p-4 shadow-xs">
-                <span class="text-[11px] font-bold text-emerald-700 uppercase tracking-wider block">Sedang Menyewa</span>
+                <span class="text-[11px] font-bold text-blue-700 uppercase tracking-wider block">Menunggu Bayar</span>
+                <span class="text-xl sm:text-2xl font-black text-blue-600 mt-0.5 block tabular-nums">
+                    {{ $counts['approved'] ?? 0 }}
+                </span>
+            </div>
+
+            <div class="bg-white rounded-xl border border-slate-200/80 p-3.5 sm:p-4 shadow-xs">
+                <span class="text-[11px] font-bold text-emerald-700 uppercase tracking-wider block">Hunian Aktif</span>
                 <span class="text-xl sm:text-2xl font-black text-emerald-600 mt-0.5 block tabular-nums">
                     {{ $counts['active'] ?? 0 }}
                 </span>
             </div>
 
-            <div class="bg-white rounded-xl border border-slate-200/80 p-3.5 sm:p-4 shadow-xs">
+            <div class="bg-white rounded-xl border border-slate-200/80 p-3.5 sm:p-4 shadow-xs col-span-2 sm:col-span-1">
                 <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Riwayat Selesai</span>
                 <span class="text-xl sm:text-2xl font-black text-slate-700 mt-0.5 block tabular-nums">
                     {{ $counts['history'] ?? 0 }}
@@ -109,10 +116,20 @@
                 </a>
 
                 <a 
+                    href="{{ route('owner.tenants.index', ['tab' => 'approved']) }}" 
+                    class="px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 {{ ($tab ?? '') === 'approved' ? 'bg-blue-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900' }}"
+                >
+                    <span>Menunggu Bayar</span>
+                    <span class="px-1.5 py-0.5 rounded-md text-[10px] font-black {{ ($tab ?? '') === 'approved' ? 'bg-white text-blue-700' : 'bg-blue-100 text-blue-800' }}">
+                        {{ $counts['approved'] ?? 0 }}
+                    </span>
+                </a>
+
+                <a 
                     href="{{ route('owner.tenants.index', ['tab' => 'active']) }}" 
                     class="px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 {{ ($tab ?? '') === 'active' ? 'bg-emerald-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900' }}"
                 >
-                    <span>Sedang Menyewa</span>
+                    <span>Hunian Aktif</span>
                     <span class="px-1.5 py-0.5 rounded-md text-[10px] font-black {{ ($tab ?? '') === 'active' ? 'bg-white text-emerald-700' : 'bg-emerald-100 text-emerald-800' }}">
                         {{ $counts['active'] ?? 0 }}
                     </span>
@@ -156,7 +173,8 @@
                         @forelse($bookings as $booking)
                             @php
                                 $statusConfig = match($booking->status) {
-                                    'approved', 'active' => ['bg' => 'bg-emerald-50 text-emerald-700 border-emerald-200', 'dot' => 'bg-emerald-500', 'label' => 'Sedang Menyewa'],
+                                    'approved' => ['bg' => 'bg-blue-50 text-blue-700 border-blue-200', 'dot' => 'bg-blue-500', 'label' => 'Menunggu Bayar'],
+                                    'active' => ['bg' => 'bg-emerald-50 text-emerald-700 border-emerald-200', 'dot' => 'bg-emerald-500', 'label' => 'Hunian Aktif (Lunas)'],
                                     'rejected' => ['bg' => 'bg-rose-50 text-rose-700 border-rose-200', 'dot' => 'bg-rose-500', 'label' => 'Ditolak'],
                                     'completed' => ['bg' => 'bg-slate-100 text-slate-700 border-slate-200', 'dot' => 'bg-slate-400', 'label' => 'Selesai Sewa'],
                                     'cancelled' => ['bg' => 'bg-slate-100 text-slate-500 border-slate-200', 'dot' => 'bg-slate-400', 'label' => 'Dibatalkan'],
@@ -164,7 +182,8 @@
                                 };
 
                                 $waMessage = match($booking->status) {
-                                    'approved', 'active' => "Halo {$booking->tenant_name}, kami dari pengelola {$booking->kost->name}. Kami ingin mengonfirmasi terkait sewa kamar {$booking->room->name}.",
+                                    'approved' => "Halo {$booking->tenant_name}, pengajuan sewa Anda untuk kamar {$booking->room->name} di {$booking->kost->name} telah disetujui. Silakan lakukan pembayaran melalui portal aplikasi Seven Kost.",
+                                    'active' => "Halo {$booking->tenant_name}, kami dari pengelola {$booking->kost->name}. Kami ingin mengonfirmasi terkait sewa kamar {$booking->room->name}.",
                                     'rejected' => "Halo {$booking->tenant_name}, mohon maaf pengajuan sewa kamar di {$booking->kost->name} belum dapat kami setujui saat ini.",
                                     default => "Halo {$booking->tenant_name}, kami telah menerima permohonan booking sewa Anda untuk kamar {$booking->room->name} di {$booking->kost->name}."
                                 };
@@ -247,7 +266,11 @@
                                                 >
                                                     Tolak
                                                 </button>
-                                            @elseif(in_array($booking->status, ['approved', 'active']))
+                                            @elseif($booking->status === 'approved')
+                                                <span class="text-[11px] font-semibold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-xl border border-blue-200/70 shadow-2xs">
+                                                    Menunggu Bayar
+                                                </span>
+                                            @elseif($booking->status === 'active')
                                                 <form action="{{ route('owner.bookings.updateStatus', $booking) }}" method="POST" onsubmit="return confirm('Tandai sewa kamar ini telah selesai? Unit kamar akan otomatis bertambah ke status tersedia.')">
                                                     @csrf
                                                     @method('PATCH')

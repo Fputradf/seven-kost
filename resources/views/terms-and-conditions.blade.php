@@ -20,8 +20,8 @@
     {{-- Main Container (Compact Width max-w-3xl) --}}
     <div class="max-w-3xl mx-auto px-4 sm:px-6 py-5 sm:py-6 space-y-4">
         
-        {{-- Hero Header Card (Compact SevenKost Blue Style) --}}
-        <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#031d44] via-[#05377a] to-[#0a66c2] text-white p-4 sm:p-5 shadow-sm border border-white/15">
+        {{-- Hero Header Card (Signature Sapphire Blue Gradient, 100% White Text) --}}
+        <div class="relative overflow-hidden rounded-2xl text-white p-4 sm:p-5 shadow-md shadow-blue-900/15 border border-blue-400/25" style="background: linear-gradient(135deg, #091e3a 0%, #0f3d7c 50%, #1d4ed8 100%);">
             <div class="relative z-10 space-y-1.5">
                 <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[11px] font-medium text-blue-100">
                     <svg class="w-3 h-3 text-sky-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
