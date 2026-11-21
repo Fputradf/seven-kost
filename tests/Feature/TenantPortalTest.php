@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\AppSetting;
 use App\Models\Booking;
 use App\Models\Kost;
+use App\Models\MarketplaceItem;
 use App\Models\Province;
 use App\Models\Regency;
 use App\Models\Room;
@@ -579,21 +580,19 @@ class TenantPortalTest extends TestCase
         $this->assertEquals($initialEndDate->copy()->addMonth()->format('Y-m-d'), $booking->fresh()->end_date->format('Y-m-d'));
     }
 
-    public function test_tenant_header_has_hamburger_menu_and_essential_bottom_tabs(): void
+    public function test_tenant_header_has_notification_bell_and_essential_bottom_tabs(): void
     {
         $tenant = $this->getOrCreateTenantUser();
 
         $response = $this->actingAs($tenant)->get(route('tenant.dashboard'));
         $response->assertStatus(200);
 
-        // Header icon garis 3 (hamburger)
-        $response->assertSee('Menu Semua Fitur');
+        // Header icon lonceng notifikasi & tagihan
+        $response->assertSee('aria-label="Notifikasi & Tagihan"', false);
+        $response->assertSee('Tagihan &amp; Riwayat', false);
 
-        // Drawer menu semua fitur
-        $response->assertSee('Semua Fitur Utama');
-        $response->assertSee('Dompet & Saldo (Top Up / Tarik)', false);
-        $response->assertSee('Peta Interaktif Kos');
-        $response->assertSee('Marketplace Anak Kos');
+        // Sidebar drawer tidak menampilkan card saldo dompet lagi
+        $response->assertDontSee('Buka Dompet &rarr;', false);
 
         // Bottom navbar tab penting
         $response->assertSee('Beranda');
@@ -601,6 +600,39 @@ class TenantPortalTest extends TestCase
         $response->assertSee('Kos Saya');
         $response->assertSee('Dompet');
         $response->assertSee('Akun');
+    }
+
+    public function test_tenant_wallet_displays_pending_topups_limited_to_three_and_uses_white_card(): void
+    {
+        $tenant = $this->getOrCreateTenantUser();
+        Transaction::where('user_id', $tenant->id)->where('type', 'topup')->delete();
+
+        // Buat 5 transaksi top up pending
+        for ($i = 1; $i <= 5; $i++) {
+            Transaction::create([
+                'user_id' => $tenant->id,
+                'item_id' => (string) $tenant->id,
+                'title' => 'Top Up Saldo Test',
+                'amount' => 50000 * $i,
+                'type' => 'topup',
+                'status' => 'pending',
+                'payment_method' => 'xendit',
+                'reference_id' => 'TOPUP-LIMIT-TEST-'.$i.'-'.uniqid(),
+            ]);
+        }
+
+        $response = $this->actingAs($tenant)->get(route('tenant.wallet.index'));
+        $response->assertStatus(200);
+
+        // Card harus memakai warna putih (bg-white), bukan kuning (bg-amber-50)
+        $response->assertSee('bg-white border border-slate-200 p-4 shadow-2xs space-y-3', false);
+        $response->assertDontSee('bg-amber-50 border border-amber-300', false);
+
+        // Badge menampilkan total permintaan (5 Permintaan)
+        $response->assertSee('5 Permintaan');
+
+        // Tampil catatan transaksi pending lainnya karena lebih dari 3
+        $response->assertSee('transaksi pending lainnya di Tagihan');
     }
 
     public function test_tenant_profile_renders_mobile_tenant_layout_and_can_update_phone(): void
@@ -683,6 +715,7 @@ class TenantPortalTest extends TestCase
     public function test_tenant_dashboard_displays_wallet_and_due_renewal_bill(): void
     {
         $tenant = $this->getOrCreateTenantUser();
+        Booking::where('user_id', $tenant->id)->delete();
         $tenant->update(['wallet_balance' => 250000]);
 
         $kost = $this->getOrCreateTestKost();
@@ -704,6 +737,11 @@ class TenantPortalTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee('250.000');
         $response->assertSee('Tagihan Perpanjangan Sewa (H-7)');
+
+        // Card hunian aktif & card tagihan tidak memiliki garis warna (border-blue-400 / ring-blue / border-amber)
+        $response->assertDontSee('border-2 border-blue-400', false);
+        $response->assertDontSee('ring-4 ring-blue-50', false);
+        $response->assertDontSee('border-2 border-amber-400', false);
     }
 
     public function test_tenant_can_terminate_lease_checkout(): void
@@ -732,5 +770,104 @@ class TenantPortalTest extends TestCase
         $this->assertEquals('completed', $booking->fresh()->status);
         $this->assertEquals($initialAvailable + 1, $room->fresh()->available_rooms);
         $this->assertStringContainsString('Selesai masa studi', $booking->fresh()->notes);
+    }
+
+    public function test_tenant_can_access_mobile_marketplace_index(): void
+    {
+        $tenant = $this->getOrCreateTenantUser();
+
+        $response = $this->actingAs($tenant)->get(route('tenant.marketplace.index'));
+        $response->assertStatus(200);
+        $response->assertSee('Marketplace Anak Kos');
+        $response->assertSee('100% COD');
+
+        // Accessing default /marketplace also loads mobile tenant layout for tenant user
+        $pubResponse = $this->actingAs($tenant)->get(route('marketplace.index'));
+        $pubResponse->assertStatus(200);
+        $pubResponse->assertSee('Marketplace Anak Kos');
+    }
+
+    public function test_tenant_can_access_mobile_marketplace_create(): void
+    {
+        $tenant = $this->getOrCreateTenantUser();
+
+        $response = $this->actingAs($tenant)->get(route('tenant.marketplace.create'));
+        $response->assertStatus(200);
+        $response->assertSee('Jual Perlengkapan Kos Anda');
+        $response->assertSee('Foto Barang');
+        $response->assertSee('Titik Temu COD');
+    }
+
+    public function test_tenant_can_access_mobile_marketplace_show(): void
+    {
+        $tenant = $this->getOrCreateTenantUser();
+
+        $item = MarketplaceItem::create([
+            'user_id' => $tenant->id,
+            'title' => 'Kipas Angin Dinding Cosmos',
+            'slug' => 'kipas-angin-dinding-cosmos-'.uniqid(),
+            'category' => 'kipas',
+            'price' => 120000,
+            'condition' => 'bekas_baik',
+            'meetup_location' => 'Lobby Kos Melati',
+            'city' => 'Jakarta Selatan',
+            'description' => 'Kipas angin dinding masih mulus dan angin kencang.',
+            'status' => 'active',
+            'views_count' => 5,
+        ]);
+
+        $response = $this->actingAs($tenant)->get(route('tenant.marketplace.show', $item->slug));
+        $response->assertStatus(200);
+        $response->assertSee('Kipas Angin Dinding Cosmos');
+        $response->assertSee('120.000');
+        $response->assertSee('Lobby Kos Melati');
+        $response->assertSee('Hubungi Penjual (COD)');
+    }
+
+    public function test_tenant_can_access_mobile_help_and_faq(): void
+    {
+        $tenant = $this->getOrCreateTenantUser();
+
+        // 1. Direct tenant route
+        $response = $this->actingAs($tenant)->get(route('tenant.help'));
+        $response->assertStatus(200);
+        $response->assertSee('Pusat Bantuan & FAQ');
+        $response->assertSee('Chat WA CS');
+        $response->assertSee('Live Support');
+        $response->assertSee('perpanjangan sewa otomatis');
+
+        // 2. Accessing /bantuan while logged in as tenant also shows mobile view
+        $pubResponse = $this->actingAs($tenant)->get(route('help'));
+        $pubResponse->assertStatus(200);
+        $pubResponse->assertSee('Pusat Bantuan & FAQ');
+        $pubResponse->assertSee('Live Support');
+    }
+
+    public function test_tenant_dashboard_displays_recent_service_orders_card(): void
+    {
+        $tenant = $this->getOrCreateTenantUser();
+
+        Transaction::create([
+            'user_id' => $tenant->id,
+            'reference_id' => 'SRV-DASH-'.uniqid(),
+            'type' => 'service',
+            'item_id' => 'laundry',
+            'title' => 'Seven Laundry Kos: Laundry Kiloan Reguler',
+            'amount' => 28000,
+            'payment_channel' => 'all',
+            'status' => 'pending',
+            'payload' => [
+                'package_name' => 'Laundry Kiloan Reguler',
+                'order_date' => now()->addDay()->toDateString(),
+                'order_time' => '14:00',
+            ],
+        ]);
+
+        $response = $this->actingAs($tenant)->get(route('tenant.dashboard'));
+        $response->assertStatus(200);
+        $response->assertSee('Pesanan Layanan Kamar');
+        $response->assertSee('Menunggu Bayar');
+        $response->assertSee('Rp 28.000', false);
+        $response->assertSee(route('services.index', ['tab' => 'orders']));
     }
 }

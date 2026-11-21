@@ -109,6 +109,23 @@ class ManageSettings extends Page
         $settings['late_fee_grace_days'] ??= 1;
         $settings['late_fee_daily_amount'] ??= 20000;
 
+        // Inisialisasi default biaya antar-jemput layanan mitra
+        $settings['service_delivery_base_fee'] ??= 5000;
+        $settings['service_delivery_base_km'] ??= 2.0;
+        $settings['service_delivery_per_km'] ??= 2000;
+        $settings['service_max_distance_km'] ??= 5.0;
+
+        // Inisialisasi default gateway & metode pembayaran (Xendit & Manual QR/Transfer)
+        $settings['payment_xendit_enabled'] ??= false;
+        $settings['payment_manual_enabled'] ??= true;
+        if (empty($settings['payment_manual_banks']) || ! is_array($settings['payment_manual_banks'])) {
+            $settings['payment_manual_banks'] = [
+                ['bank_name' => 'BCA', 'account_number' => '8730829102', 'account_holder' => 'PT Seven Kost Indonesia', 'is_active' => true],
+                ['bank_name' => 'Bank Mandiri', 'account_number' => '1370019283741', 'account_holder' => 'PT Seven Kost Indonesia', 'is_active' => true],
+            ];
+        }
+        $settings['payment_manual_instructions'] ??= 'Silakan lakukan transfer tepat sesuai nominal yang tertera. Setelah transfer berhasil, unggah foto bukti transfer (screenshot m-banking/struk ATM) pada formulir konfirmasi.';
+
         $this->content->fill($settings);
     }
 
@@ -372,6 +389,46 @@ class ManageSettings extends Page
                                                         ->placeholder('1990000'),
                                                 ]),
                                         ]),
+
+                                    Section::make('Biaya Pengiriman & Antar-Jemput Layanan Mitra')
+                                        ->description('Konfigurasi tarif pengiriman dan antar-jemput mitra layanan ke kamar kos penghuni berbasis jarak tempuh.')
+                                        ->schema([
+                                            Grid::make(['default' => 1, 'md' => 4])
+                                                ->schema([
+                                                    TextInput::make('service_delivery_base_fee')
+                                                        ->label('Tarif Dasar Pengiriman')
+                                                        ->numeric()
+                                                        ->prefix('Rp')
+                                                        ->required()
+                                                        ->placeholder('5000')
+                                                        ->helperText('Tarif minimum antar-jemput dalam radius dasar.'),
+
+                                                    TextInput::make('service_delivery_base_km')
+                                                        ->label('Radius Jarak Dasar')
+                                                        ->numeric()
+                                                        ->suffix('km')
+                                                        ->required()
+                                                        ->placeholder('2.0')
+                                                        ->helperText('Batas jarak berlaku tarif dasar.'),
+
+                                                    TextInput::make('service_delivery_per_km')
+                                                        ->label('Tarif Tambahan per Km')
+                                                        ->numeric()
+                                                        ->prefix('Rp')
+                                                        ->suffix('/ km')
+                                                        ->required()
+                                                        ->placeholder('2000')
+                                                        ->helperText('Biaya tambahan per km di atas radius dasar.'),
+
+                                                    TextInput::make('service_max_distance_km')
+                                                        ->label('Batas Maksimal Radius')
+                                                        ->numeric()
+                                                        ->suffix('km')
+                                                        ->required()
+                                                        ->placeholder('5.0')
+                                                        ->helperText('Radius maksimal mitra yang dapat melayani.'),
+                                                ]),
+                                        ]),
                                 ]),
 
                             // TAB 4: ATURAN SEWA, TAGIHAN & DENDA
@@ -420,6 +477,82 @@ class ManageSettings extends Page
                                                 ]),
                                         ]),
                                 ]),
+
+                            // TAB 5: GATEWAY & REKENING PEMBAYARAN
+                            Tab::make('Gateway Pembayaran')
+                                ->schema([
+                                    Section::make('Xendit Payment Gateway (Online Otomatis)')
+                                        ->description('Status aktivasi gateway Xendit. Nonaktifkan (OFF) jika akun Xendit masih dalam proses verifikasi atau aktivasi perizinan.')
+                                        ->schema([
+                                            Toggle::make('payment_xendit_enabled')
+                                                ->label('Aktifkan Xendit Payment Gateway')
+                                                ->helperText('Jika OFF, sistem otomatis beralih 100% ke Transfer Bank Manual & Scan QRIS dengan konfirmasi bukti transfer.')
+                                                ->default(false),
+                                        ]),
+
+                                    Section::make('Pembayaran Manual (Transfer Bank & Scan QRIS)')
+                                        ->description('Konfigurasi transfer rekening bank manual dan barcode QRIS resmi platform/owner.')
+                                        ->schema([
+                                            Toggle::make('payment_manual_enabled')
+                                                ->label('Aktifkan Pembayaran Manual (Transfer Bank & QRIS)')
+                                                ->helperText('Izinkan penghuni membayar via transfer rekening atau barcode QRIS.')
+                                                ->default(true),
+
+                                            FileUpload::make('payment_manual_qr_image')
+                                                ->label('Foto / Barcode QRIS Resmi')
+                                                ->helperText('Unggah gambar QRIS (PNG/JPG/WEBP). Barcode ini akan langsung tampil di halaman pembayaran penghuni.')
+                                                ->image()
+                                                ->directory('settings/payments')
+                                                ->disk('public')
+                                                ->visibility('public')
+                                                ->maxSize(2048)
+                                                ->imagePreviewHeight('180'),
+
+                                            Repeater::make('payment_manual_banks')
+                                                ->label('Daftar Rekening Bank Tujuan Transfer')
+                                                ->maxItems(5)
+                                                ->collapsible()
+                                                ->cloneable()
+                                                ->addActionLabel('+ Tambah Rekening Bank')
+                                                ->itemLabel(fn (array $state): ?string => isset($state['bank_name'])
+                                                    ? ($state['bank_name'].' - '.($state['account_number'] ?? ''))
+                                                    : null
+                                                )
+                                                ->schema([
+                                                    Grid::make(['default' => 1, 'md' => 12])
+                                                        ->schema([
+                                                            TextInput::make('bank_name')
+                                                                ->label('Nama Bank')
+                                                                ->placeholder('Contoh: BCA, Mandiri, BRI, BNI')
+                                                                ->required()
+                                                                ->columnSpan(['default' => 12, 'md' => 3]),
+
+                                                            TextInput::make('account_number')
+                                                                ->label('Nomor Rekening')
+                                                                ->placeholder('Contoh: 8730829102')
+                                                                ->required()
+                                                                ->columnSpan(['default' => 12, 'md' => 4]),
+
+                                                            TextInput::make('account_holder')
+                                                                ->label('Atas Nama Pemilik')
+                                                                ->placeholder('Contoh: PT Seven Kost Indonesia')
+                                                                ->required()
+                                                                ->columnSpan(['default' => 12, 'md' => 3]),
+
+                                                            Toggle::make('is_active')
+                                                                ->label('Aktif')
+                                                                ->default(true)
+                                                                ->inline(false)
+                                                                ->columnSpan(['default' => 12, 'md' => 2]),
+                                                        ]),
+                                                ]),
+
+                                            Textarea::make('payment_manual_instructions')
+                                                ->label('Petunjuk Pembayaran Manual')
+                                                ->rows(3)
+                                                ->placeholder('Silakan lakukan transfer atau scan QRIS sesuai nominal yang tertera...'),
+                                        ]),
+                                ]),
                         ]),
                 ]),
             ]);
@@ -448,22 +581,34 @@ class ManageSettings extends Page
                         );
                     }
                 }
-            } elseif ($key === 'late_fee_enabled') {
+            } elseif (in_array($key, ['late_fee_enabled', 'payment_xendit_enabled', 'payment_manual_enabled'], true)) {
                 $type = 'boolean';
-                $group = 'rental';
+                $group = str_starts_with($key, 'payment_') ? 'payment' : 'rental';
                 $serializedValue = $value ? '1' : '0';
-            } elseif (in_array($key, ['rent_bill_notice_days', 'late_fee_grace_days', 'late_fee_daily_amount'], true)) {
+            } elseif ($key === 'payment_manual_banks') {
+                $type = 'json';
+                $group = 'payment';
+                $banksArray = is_array($value) ? array_values(array_slice($value, 0, 5)) : [];
+                $serializedValue = json_encode($banksArray);
+            } elseif (in_array($key, [
+                'rent_bill_notice_days', 'late_fee_grace_days', 'late_fee_daily_amount',
+                'fee_booking_tenant', 'ad_cpc_fee', 'vip_price_1_month', 'vip_price_3_months', 'vip_price_1_year',
+                'banner_price_30', 'banner_price_90', 'banner_price_365',
+                'service_delivery_base_fee', 'service_delivery_base_km', 'service_delivery_per_km', 'service_max_distance_km',
+            ], true)) {
                 $type = 'number';
-                $group = 'rental';
+                $group = str_starts_with($key, 'service_') ? 'services' : (str_starts_with($key, 'late_') || str_starts_with($key, 'rent_') ? 'rental' : 'pricing');
                 $serializedValue = (string) $value;
             } elseif (is_array($value)) {
                 $serializedValue = count($value) > 0 ? (string) reset($value) : null;
             } else {
+                $type = 'string';
+                $group = str_starts_with($key, 'payment_') ? 'payment' : 'general';
                 $serializedValue = $value;
             }
 
             // Jalankan auto-compress otomatis untuk berkas gambar yang diunggah
-            if (in_array($key, ['app_logo', 'app_logo_dark', 'app_favicon'], true) && is_string($serializedValue) && $serializedValue !== '') {
+            if (in_array($key, ['app_logo', 'app_logo_dark', 'app_favicon', 'payment_manual_qr_image'], true) && is_string($serializedValue) && $serializedValue !== '') {
                 $this->autoCompressImage($serializedValue);
             }
 
@@ -494,10 +639,19 @@ class ManageSettings extends Page
         Cache::forget('app_setting_late_fee_enabled');
         Cache::forget('app_setting_late_fee_grace_days');
         Cache::forget('app_setting_late_fee_daily_amount');
+        Cache::forget('app_setting_service_delivery_base_fee');
+        Cache::forget('app_setting_service_delivery_base_km');
+        Cache::forget('app_setting_service_delivery_per_km');
+        Cache::forget('app_setting_service_max_distance_km');
+        Cache::forget('app_setting_payment_xendit_enabled');
+        Cache::forget('app_setting_payment_manual_enabled');
+        Cache::forget('app_setting_payment_manual_qr_image');
+        Cache::forget('app_setting_payment_manual_banks');
+        Cache::forget('app_setting_payment_manual_instructions');
 
         Notification::make()
             ->title('Pengaturan Berhasil Disimpan')
-            ->body('Seluruh konfigurasi identitas, logo, kontak, media sosial resmi, tarif, serta aturan sewa dan denda telah berhasil diperbarui.')
+            ->body('Seluruh konfigurasi identitas, logo, kontak, tarif, sewa & denda, serta gateway & rekening pembayaran berhasil diperbarui.')
             ->success()
             ->send();
     }

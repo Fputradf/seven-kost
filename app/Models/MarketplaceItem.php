@@ -93,6 +93,28 @@ class MarketplaceItem extends Model
         };
     }
 
+    public function getStatusLabelAttribute(): string
+    {
+        return match ($this->status) {
+            'pending' => 'Menunggu Persetujuan',
+            'active' => 'Aktif (Disetujui)',
+            'rejected' => 'Ditolak',
+            'sold' => 'Terjual',
+            default => ucfirst($this->status),
+        };
+    }
+
+    public function getStatusColorAttribute(): string
+    {
+        return match ($this->status) {
+            'pending' => 'amber',
+            'active' => 'emerald',
+            'rejected' => 'rose',
+            'sold' => 'slate',
+            default => 'slate',
+        };
+    }
+
     public function getPrimaryImageUrlAttribute(): string
     {
         $primary = $this->images->firstWhere('is_primary', true) ?? $this->images->first();

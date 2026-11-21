@@ -3,11 +3,11 @@
     {{-- Root Container with Alpine.js State --}}
     <div 
         x-data="{
+            mainTab: '{{ request('tab') === 'orders' ? 'orders' : 'catalog' }}',
             activeCategory: 'all',
             orderModalOpen: false,
             alertNotTenant: false,
             alertNoActiveStay: false,
-            orderSuccess: false,
             hasActiveStay: {{ $hasActiveBooking ? 'true' : 'false' }},
             activeBookingsCount: {{ $activeBookings->count() }},
             selectedBookingId: {{ $activeBooking?->id ?? 'null' }},
@@ -16,16 +16,21 @@
             selectedPackageName: 'Laundry Kiloan Reguler (2-3 Hari)',
             selectedPackagePrice: 7000,
             selectedPackageUnit: '/kg',
-            selectedPartnerName: '{{ addslashes($services[0]['local_partner']['partner_name'] ?? '') }}',
-            kostAddress: '{{ addslashes($tenantAddress ?? '') }}',
-            roomNumber: '{{ addslashes($tenantRoomName ?? '') }}',
-            occupantName: '{{ addslashes($tenantOccupantName ?? (auth()->user()?->name ?? '')) }}',
-            occupantPhone: '{{ addslashes($tenantOccupantPhone ?? (auth()->user()?->phone ?? '')) }}',
-            orderDate: '{{ date('Y-m-d') }}',
+            selectedPartnerName: @js($services[0]['local_partner']['partner_name'] ?? ''),
+            quantity: 1,
+            paymentMethod: 'xendit',
+            userWalletBalance: {{ auth()->check() ? (float) auth()->user()->wallet_balance : 0 }},
+            kostAddress: @js($tenantAddress ?? ''),
+            roomNumber: @js($tenantRoomName ?? ''),
+            occupantName: @js($tenantOccupantName ?? (auth()->user()?->name ?? '')),
+            occupantPhone: @js($tenantOccupantPhone ?? (auth()->user()?->phone ?? '')),
+            orderDate: @js(date('Y-m-d')),
             orderTime: '10:00',
             orderNotes: '',
 
-            openOrderModal(serviceId, serviceName, defaultPkgName, defaultPrice, defaultUnit, partnerName = '') {
+            selectedDistanceKm: 1.4,
+
+            openOrderModal(serviceId, serviceName, defaultPkgName, defaultPrice, defaultUnit, partnerName = '', distanceKm = 1.4) {
                 if (!this.hasActiveStay) {
                     this.alertNoActiveStay = true;
                     return;
@@ -33,29 +38,77 @@
                 this.selectedService = serviceId;
                 this.selectedServiceName = serviceName;
                 this.selectedPackageName = defaultPkgName;
-                this.selectedPackagePrice = defaultPrice;
+                this.selectedPackagePrice = Number(defaultPrice);
                 this.selectedPackageUnit = defaultUnit;
                 this.selectedPartnerName = partnerName;
-                this.orderSuccess = false;
+                this.selectedDistanceKm = Number(distanceKm) || 1.4;
+                this.quantity = 1;
+                this.paymentMethod = 'xendit';
                 this.orderModalOpen = true;
             },
 
-            submitOrder() {
-                this.orderSuccess = true;
-                setTimeout(() => {
-                    this.orderModalOpen = false;
-                    this.orderSuccess = false;
-                }, 2500);
-            }
+            onPackageChange(event) {
+                const opt = event.target.selectedOptions[0];
+                if (opt) {
+                    this.selectedPackageName = opt.value;
+                    this.selectedPackagePrice = Number(opt.dataset.price);
+                    this.selectedPackageUnit = opt.dataset.unit;
+                }
+            },
+
+            deliveryConfig: {{ \Illuminate\Support\Js::from($deliveryConfig ?? [
+                'base_fee' => 5000,
+                'base_km' => 2.0,
+                'per_km' => 2000,
+                'max_km' => 5.0,
+            ]) }},
+
+            get deliveryFee() {
+                const dist = Number(this.selectedDistanceKm) || 0;
+                const baseFee = Number(this.deliveryConfig.base_fee) || 5000;
+                const baseKm = Number(this.deliveryConfig.base_km) || 2.0;
+                const perKm = Number(this.deliveryConfig.per_km) || 2000;
+
+                if (dist <= baseKm) {
+                    return baseFee;
+                }
+                return baseFee + Math.ceil(dist - baseKm) * perKm;
+            },
+
+            get subtotalOrderPrice() {
+                return Number(this.selectedPackagePrice) * Math.max(1, Number(this.quantity));
+            },
+
+            get totalOrderPrice() {
+                return this.subtotalOrderPrice + this.deliveryFee;
+            },
+
+            alertOutOfRange: false,
+            selectedOutOfRangeDistance: 0,
+            selectedOutOfRangeService: ''
         }"
-        @keydown.escape.window="orderModalOpen = false; alertNotTenant = false; alertNoActiveStay = false"
+        @keydown.escape.window="orderModalOpen = false; alertNotTenant = false; alertNoActiveStay = false; alertOutOfRange = false"
         class="pb-20"
     >
+
+        @if(session('error'))
+            <div class="p-3 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-semibold flex items-center gap-2 shadow-2xs">
+                <svg class="w-4 h-4 text-rose-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span>{{ session('error') }}</span>
+            </div>
+        @endif
+
+        @if(session('success'))
+            <div class="p-3 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold flex items-center gap-2 shadow-2xs">
+                <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span>{{ session('success') }}</span>
+            </div>
+        @endif
 
         {{-- COMPACT MOBILE LOCATION / STAY BAR (TRUE MOBILE SIZE) --}}
         <div class="pt-0.5">
             @if($hasActiveBooking)
-                <div class="p-3 rounded-2xl bg-white border border-emerald-200/90 shadow-2xs space-y-1.5">
+                <div class="p-3 rounded-2xl bg-white border border-emerald-200/90 shadow-2xs space-y-2">
                     <div class="flex items-center justify-between gap-2">
                         <div class="flex items-center gap-2 truncate">
                             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
@@ -64,27 +117,44 @@
                             </span>
                         </div>
                         <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full shrink-0">
-                            Kamar Aktif Terverifikasi
+                            Kamar Aktif
                         </span>
                     </div>
 
-                    <div class="flex items-center justify-between text-[11px] text-slate-500 pt-1 border-t border-slate-100">
+                    <div class="flex items-center justify-between text-[11px] text-slate-500 pt-1 border-t border-slate-100 gap-2">
                         <div class="truncate">
-                            Penghuni: <strong class="text-slate-700">{{ $tenantOccupantName }}</strong> &bull; <span class="text-emerald-600 font-medium">Mitra Siap Melayani Hari Ini</span>
+                            Penghuni: <strong class="text-slate-700">{{ $tenantOccupantName }}</strong>
                         </div>
-                        @if($activeBookings->count() > 1)
-                            <div class="flex items-center gap-1 shrink-0 ml-2">
-                                <span class="text-[10px] font-semibold text-slate-500">Pilih Kamar Tujuan Layanan:</span>
+                        @if(isset($hasOutOfRangeService) && $hasOutOfRangeService)
+                            <span class="text-[10px] font-bold text-rose-700 bg-rose-50 border border-rose-200 px-2 py-0.5 rounded-full shrink-0 flex items-center gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+                                Di Luar Jangkauan (> 5 km)
+                            </span>
+                        @else
+                            <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full shrink-0 flex items-center gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                Mitra Siap Melayani Hari Ini
+                            </span>
+                        @endif
+                    </div>
+
+                    {{-- PILIHAN KAMAR TUJUAN LAYANAN (RESPONSIF MOBILE - SCROLLABLE & TIDAK MELEBIHI PAGE) --}}
+                    @if($activeBookings->count() > 1)
+                        <div class="pt-2 border-t border-slate-100 space-y-1">
+                            <span class="text-[10px] font-bold text-slate-600 uppercase tracking-wider block">
+                                Pilih Kamar Tujuan Layanan:
+                            </span>
+                            <div class="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none w-full min-w-0">
                                 @foreach($activeBookings as $bOption)
                                     @php $isSelected = $activeBooking && $activeBooking->id === $bOption->id; @endphp
                                     <a href="{{ route('services.index', ['kamar_id' => $bOption->id]) }}" 
-                                       class="px-2 py-0.5 rounded text-[10px] font-bold transition {{ $isSelected ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200' }}">
-                                        {{ $bOption->kost->name }}
+                                       class="px-2.5 py-1 rounded-xl text-[11px] font-bold transition shrink-0 whitespace-nowrap max-w-[180px] sm:max-w-xs truncate {{ $isSelected ? 'bg-blue-600 text-white shadow-xs' : 'bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200' }}">
+                                        {{ $bOption->kost->name }} ({{ $bOption->room?->name ?? 'Kamar' }})
                                     </a>
                                 @endforeach
                             </div>
-                        @endif
-                    </div>
+                        </div>
+                    @endif
                 </div>
             @else
                 <div class="p-3 rounded-2xl bg-white border border-blue-200/90 shadow-2xs space-y-1.5 text-xs">
@@ -115,8 +185,159 @@
             @endif
         </div>
 
-        {{-- 2. CATEGORY FILTER TABS --}}
-        <div class="pt-2">
+        {{-- MAIN TAB SWITCHER (KATALOG LAYANAN vs PESANAN SAYA) --}}
+        @php $isOrdersTab = request('tab') === 'orders'; @endphp
+        <div class="grid grid-cols-2 p-1 bg-slate-200/80 rounded-2xl gap-1 text-xs font-bold">
+            <a 
+                href="{{ route('services.index', ['tab' => 'catalog']) }}"
+                class="py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer text-center {{ !$isOrdersTab ? 'bg-white text-blue-700 shadow-xs' : 'text-slate-600 hover:text-slate-900' }}"
+            >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                <span>Katalog Layanan</span>
+            </a>
+
+            <a 
+                href="{{ route('services.index', ['tab' => 'orders']) }}"
+                class="py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer text-center {{ $isOrdersTab ? 'bg-white text-blue-700 shadow-xs' : 'text-slate-600 hover:text-slate-900' }}"
+            >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                <span>Pesanan Saya</span>
+                @if(isset($serviceOrders) && $serviceOrders->count() > 0)
+                    <span class="px-1.5 py-0.5 rounded-full text-[10px] font-black bg-blue-600 text-white">
+                        {{ $serviceOrders->count() }}
+                    </span>
+                @endif
+            </a>
+        </div>
+
+        @if($isOrdersTab)
+            {{-- TAB VIEW 2: PESANAN SAYA (RIWAYAT & STATUS LAYANAN) --}}
+            <div class="space-y-3">
+                <div class="flex items-center justify-between px-1">
+                    <div>
+                        <h3 class="text-sm font-extrabold text-slate-900">Riwayat & Status Pesanan</h3>
+                        <p class="text-[11px] text-slate-500">Pantau proses pengerjaan layanan mitra langsung ke kamar kos Anda.</p>
+                    </div>
+                    <span class="text-[11px] font-bold text-slate-500">
+                        {{ isset($serviceOrders) ? $serviceOrders->count() : 0 }} Pesanan
+                    </span>
+                </div>
+
+                @if(isset($serviceOrders) && $serviceOrders->isNotEmpty())
+                    <div class="space-y-3">
+                        @foreach($serviceOrders as $ord)
+                            @php
+                                $ordPayload = $ord->payload ?? [];
+                                $isPaid = $ord->isPaid();
+                            @endphp
+                            <div class="bg-white rounded-2xl border border-slate-200/90 p-4 shadow-2xs space-y-3">
+                                <div class="flex items-center justify-between gap-2 pb-2 border-b border-slate-100">
+                                    <div>
+                                        <span class="text-[10px] font-mono text-slate-400 block font-semibold">
+                                            #{{ $ord->reference_id }}
+                                        </span>
+                                        <span class="text-[11px] text-slate-500">
+                                            {{ $ord->created_at?->format('d M Y, H:i') }}
+                                        </span>
+                                    </div>
+                                    <div>
+                                        @if($isPaid)
+                                            <span class="px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-200 inline-flex items-center gap-1">
+                                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse"></span>
+                                                Diproses Mitra
+                                            </span>
+                                        @else
+                                            <span class="px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-amber-100 text-amber-800 border border-amber-200 inline-flex items-center gap-1">
+                                                <span class="w-1.5 h-1.5 rounded-full bg-amber-600"></span>
+                                                Menunggu Bayar
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start justify-between gap-2">
+                                    <div class="min-w-0 flex-1">
+                                        <h4 class="text-sm font-black text-slate-900">{{ $ordPayload['service_title'] ?? $ord->title }}</h4>
+                                        <p class="text-xs text-blue-600 font-bold mt-0.5">
+                                            {{ $ordPayload['package_name'] ?? '-' }} &bull; {{ $ordPayload['quantity'] ?? 1 }} {{ $ordPayload['package_unit'] ?? '' }}
+                                        </p>
+                                    </div>
+                                    <div class="text-right shrink-0">
+                                        <span class="text-[10px] text-slate-400 font-bold block">Total Biaya</span>
+                                        <strong class="text-sm sm:text-base font-black text-slate-900">
+                                            Rp {{ number_format($ord->amount, 0, ',', '.') }}
+                                        </strong>
+                                    </div>
+                                </div>
+
+                                <div class="bg-slate-50 rounded-xl p-2.5 text-xs text-slate-600 space-y-1">
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-slate-500">Kamar Tujuan:</span>
+                                        <strong class="text-slate-800">{{ $ordPayload['room_number'] ?? '-' }}</strong>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-slate-500">Jadwal Kedatangan:</span>
+                                        <span class="font-bold text-slate-800">{{ $ordPayload['order_date'] ?? '-' }} ({{ $ordPayload['order_time'] ?? '-' }} WIB)</span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-slate-500">Mitra:</span>
+                                        <span class="font-medium text-slate-800">{{ $ordPayload['partner_name'] ?? 'Mitra Resmi SevenKost' }}</span>
+                                    </div>
+                                    @if(!empty($ordPayload['order_notes']))
+                                        <div class="pt-1 text-[11px] text-slate-500 italic border-t border-slate-200/60">
+                                            Catatan: "{{ $ordPayload['order_notes'] }}"
+                                        </div>
+                                    @endif
+                                </div>
+
+                                @if(!$isPaid)
+                                    <div class="pt-1 flex gap-2">
+                                        <a 
+                                            href="{{ route('tenant.services.payment', $ord->reference_id) }}" 
+                                            class="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs text-center shadow-xs transition active:scale-95 block"
+                                        >
+                                            Bayar Sekarang
+                                        </a>
+                                    </div>
+                                @else
+                                    <div class="pt-1">
+                                        <a 
+                                            href="{{ route('tenant.services.tracking', $ord->reference_id) }}" 
+                                            class="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs text-center shadow-xs transition active:scale-95 block"
+                                        >
+                                            Lacak Pesanan
+                                        </a>
+                                    </div>
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
+                @else
+                    <div class="bg-white rounded-2xl border border-slate-200/90 p-8 text-center space-y-3 shadow-2xs">
+                        <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mx-auto shadow-xs">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                        </div>
+                        <div class="space-y-1">
+                            <h4 class="text-sm font-bold text-slate-800">Belum Ada Pesanan Layanan</h4>
+                            <p class="text-xs text-slate-500 max-w-xs mx-auto">
+                                Anda belum pernah memesan layanan kebutuhan kos. Pilih layanan di tab katalog untuk memesan langsung ke kamar Anda.
+                            </p>
+                        </div>
+                        <a 
+                            href="{{ route('services.index', ['tab' => 'catalog']) }}" 
+                            class="inline-flex items-center gap-1.5 py-2 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs transition active:scale-95 cursor-pointer"
+                        >
+                            <span>Buka Katalog Layanan</span>
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        </a>
+                    </div>
+                @endif
+            </div>
+        @else
+            {{-- TAB VIEW 1: KATALOG LAYANAN --}}
+            <div class="space-y-4">
+            {{-- 2. CATEGORY FILTER TABS --}}
+            <div class="pt-1">
             <div class="bg-white rounded-2xl p-2 shadow-2xs border border-slate-200/80 flex items-center gap-1.5 overflow-x-auto scrollbar-none">
                 <button 
                     @click="activeCategory = 'all'" 
@@ -336,71 +557,146 @@
                             </div>
                         </div>
 
-                        {{-- Pilihan Paket Menu / Layanan (Compact Rows) --}}
+                        {{-- Pilihan Paket Menu / Layanan (Interactive Selectable Rows) --}}
                         <div class="pt-2 border-t border-slate-100 space-y-1.5">
-                            <div class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Pilihan Paket:</div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Pilihan Paket:</span>
+                                @if($isAvail && ($svc['is_in_range'] ?? true))
+                                    <span class="text-[10px] text-blue-600 font-bold">Pilih Paket</span>
+                                @endif
+                            </div>
                             <div class="space-y-1.5">
-                                @foreach(array_slice($svc['packages'], 0, 3) as $pkg)
-                                    <div class="flex items-center justify-between p-2 rounded-xl bg-slate-50 border border-slate-100 text-xs">
-                                        <span class="font-medium text-slate-800 truncate">{{ $pkg['name'] }}</span>
-                                        <strong class="text-blue-600 font-bold shrink-0 ml-2">Rp {{ number_format($pkg['price'], 0, ',', '.') }}</strong>
-                                    </div>
+                                @foreach($svc['packages'] as $pkg)
+                                    @php
+                                        $isInRange = $svc['is_in_range'] ?? true;
+                                    @endphp
+                                    @if($isAvail && $isInRange)
+                                        @auth
+                                            @if(auth()->user()->hasRole('penghuni'))
+                                                <button 
+                                                    type="button"
+                                                    @click="openOrderModal(
+                                                        '{{ $svc['id'] }}', 
+                                                        '{{ addslashes($svc['title']) }}', 
+                                                        '{{ addslashes($pkg['name']) }}', 
+                                                        {{ $pkg['price'] }}, 
+                                                        '{{ addslashes($pkg['unit']) }}',
+                                                        '{{ addslashes($svc['local_partner']['partner_name'] ?? '') }}',
+                                                        {{ $svc['distance_km'] ?? 1.4 }}
+                                                    )"
+                                                    class="w-full flex items-center justify-between p-2 rounded-xl bg-slate-50 hover:bg-blue-50/80 hover:border-blue-300 border border-slate-100 text-xs transition active:scale-98 text-left group cursor-pointer"
+                                                >
+                                                    <span class="font-medium text-slate-800 group-hover:text-blue-900 truncate">{{ $pkg['name'] }}</span>
+                                                    <div class="flex items-center gap-1.5 shrink-0 ml-2">
+                                                        <strong class="text-blue-600 font-bold">Rp {{ number_format($pkg['price'], 0, ',', '.') }}</strong>
+                                                        <span class="text-[10px] text-slate-400 group-hover:text-blue-600 font-bold">&rarr;</span>
+                                                    </div>
+                                                </button>
+                                            @else
+                                                <button 
+                                                    type="button"
+                                                    @click="alertNotTenant = true"
+                                                    class="w-full flex items-center justify-between p-2 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-100 text-xs text-left"
+                                                >
+                                                    <span class="font-medium text-slate-800 truncate">{{ $pkg['name'] }}</span>
+                                                    <strong class="text-blue-600 font-bold shrink-0 ml-2">Rp {{ number_format($pkg['price'], 0, ',', '.') }}</strong>
+                                                </button>
+                                            @endif
+                                        @else
+                                            <a 
+                                                href="{{ route('login') }}"
+                                                class="w-full flex items-center justify-between p-2 rounded-xl bg-slate-50 hover:bg-blue-50/80 hover:border-blue-300 border border-slate-100 text-xs text-left"
+                                            >
+                                                <span class="font-medium text-slate-800 truncate">{{ $pkg['name'] }}</span>
+                                                <strong class="text-blue-600 font-bold shrink-0 ml-2">Rp {{ number_format($pkg['price'], 0, ',', '.') }}</strong>
+                                            </a>
+                                        @endauth
+                                    @else
+                                        <div class="flex items-center justify-between p-2 rounded-xl bg-slate-50/70 border border-slate-100 text-xs opacity-75">
+                                            <span class="font-medium text-slate-600 truncate">{{ $pkg['name'] }}</span>
+                                            <strong class="text-slate-500 font-bold shrink-0 ml-2">Rp {{ number_format($pkg['price'], 0, ',', '.') }}</strong>
+                                        </div>
+                                    @endif
                                 @endforeach
                             </div>
                         </div>
 
                         {{-- Mitra Lokal Sekitar Kos --}}
                         @if(isset($svc['local_partner']))
-                            <div class="p-2.5 rounded-xl bg-blue-50/70 border border-blue-100/90 flex items-center justify-between text-[11px] gap-2">
-                                <span class="font-bold text-blue-950 flex items-center gap-1.5 truncate">
-                                    <svg class="w-3.5 h-3.5 text-blue-600 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
-                                    <span class="truncate">{{ $svc['local_partner']['partner_name'] }}</span>
-                                </span>
-                                <span class="text-blue-700 font-semibold text-[10px] shrink-0 bg-blue-100/80 px-1.5 py-0.5 rounded">
-                                    {{ $svc['local_partner']['distance_approx'] }}
-                                </span>
-                            </div>
+                            @if(!($svc['is_in_range'] ?? true))
+                                <div class="p-2.5 rounded-xl bg-rose-50/90 border border-rose-200/90 flex items-center justify-between text-[11px] gap-2">
+                                    <span class="font-bold text-rose-950 flex items-center gap-1.5 truncate">
+                                        <svg class="w-3.5 h-3.5 text-rose-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                                        <span class="truncate">{{ $svc['local_partner']['partner_name'] }}</span>
+                                    </span>
+                                    <span class="text-rose-700 font-bold text-[10px] shrink-0 bg-rose-100/90 px-2 py-0.5 rounded-md">
+                                        Di Luar Jangkauan ({{ $svc['local_partner']['distance_approx'] }})
+                                    </span>
+                                </div>
+                            @else
+                                <div class="p-2.5 rounded-xl bg-blue-50/70 border border-blue-100/90 flex items-center justify-between text-[11px] gap-2">
+                                    <span class="font-bold text-blue-950 flex items-center gap-1.5 truncate">
+                                        <svg class="w-3.5 h-3.5 text-blue-600 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+                                        <span class="truncate">{{ $svc['local_partner']['partner_name'] }}</span>
+                                    </span>
+                                    <span class="text-blue-700 font-semibold text-[10px] shrink-0 bg-blue-100/80 px-1.5 py-0.5 rounded">
+                                        {{ $svc['local_partner']['distance_approx'] }}
+                                    </span>
+                                </div>
+                            @endif
                         @endif
 
                         {{-- Tombol Pesan Sekarang --}}
                         <div class="pt-1">
                             @if($isAvail)
-                                @auth
-                                    @if(auth()->user()->hasRole('penghuni'))
-                                        <button 
-                                            @click="openOrderModal(
-                                                '{{ $svc['id'] }}', 
-                                                '{{ addslashes($svc['title']) }}', 
-                                                '{{ addslashes($svc['packages'][0]['name']) }}', 
-                                                {{ $svc['packages'][0]['price'] }}, 
-                                                '{{ addslashes($svc['packages'][0]['unit']) }}',
-                                                '{{ addslashes($svc['local_partner']['partner_name'] ?? '') }}'
-                                            )" 
-                                            type="button" 
-                                            class="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-bold shadow-md shadow-blue-500/20 transition active:scale-98 flex items-center justify-center gap-1.5"
-                                        >
-                                            <span>Pesan Sekarang</span>
-                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                                        </button>
-                                    @else
-                                        <button 
-                                            @click="alertNotTenant = true" 
-                                            type="button" 
-                                            class="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-bold shadow-md shadow-blue-500/20 transition active:scale-98 flex items-center justify-center gap-1.5"
-                                        >
-                                            <span>Pesan Sekarang</span>
-                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                                        </button>
-                                    @endif
-                                @else
-                                    <a 
-                                        href="{{ route('login') }}" 
-                                        class="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-bold shadow-md shadow-blue-500/20 transition active:scale-98 flex items-center justify-center gap-1.5"
+                                @if(!($svc['is_in_range'] ?? true))
+                                    <button 
+                                        @click="alertOutOfRange = true; selectedOutOfRangeDistance = '{{ $svc['local_partner']['distance_approx'] ?? ($svc['distance_km'] . ' km') }}'; selectedOutOfRangeService = '{{ addslashes($svc['title']) }}'" 
+                                        type="button" 
+                                        class="w-full py-2.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200/90 text-xs sm:text-sm font-bold shadow-2xs transition active:scale-98 flex items-center justify-center gap-1.5"
                                     >
-                                        <span>Pesan Sekarang</span>
-                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                                    </a>
-                                @endauth
+                                        <svg class="w-4 h-4 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+                                        <span>Di Luar Jangkauan (> 5 km)</span>
+                                    </button>
+                                @else
+                                    @auth
+                                        @if(auth()->user()->hasRole('penghuni'))
+                                            <button 
+                                                @click="openOrderModal(
+                                                    '{{ $svc['id'] }}', 
+                                                    '{{ addslashes($svc['title']) }}', 
+                                                    '{{ addslashes($svc['packages'][0]['name']) }}', 
+                                                    {{ $svc['packages'][0]['price'] }}, 
+                                                    '{{ addslashes($svc['packages'][0]['unit']) }}',
+                                                    '{{ addslashes($svc['local_partner']['partner_name'] ?? '') }}',
+                                                    {{ $svc['distance_km'] ?? 1.4 }}
+                                                )" 
+                                                type="button" 
+                                                class="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-bold shadow-md shadow-blue-500/20 transition active:scale-98 flex items-center justify-center gap-1.5"
+                                            >
+                                                <span>Pesan Sekarang</span>
+                                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                            </button>
+                                        @else
+                                            <button 
+                                                @click="alertNotTenant = true" 
+                                                type="button" 
+                                                class="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-bold shadow-md shadow-blue-500/20 transition active:scale-98 flex items-center justify-center gap-1.5"
+                                            >
+                                                <span>Pesan Sekarang</span>
+                                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                            </button>
+                                        @endif
+                                    @else
+                                        <a 
+                                            href="{{ route('login') }}" 
+                                            class="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-bold shadow-md shadow-blue-500/20 transition active:scale-98 flex items-center justify-center gap-1.5"
+                                        >
+                                            <span>Pesan Sekarang</span>
+                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                        </a>
+                                    @endauth
+                                @endif
                             @else
                                 <button 
                                     type="button" 
@@ -415,170 +711,7 @@
                 @endforeach
             </div>
         </div>
-
-        {{-- 4. ALUR & CARA KERJA PEMESANAN (HOW IT WORKS) - INTERAKTIF & ANIMATED --}}
-        <div 
-            x-data="{
-                activeStep: 1,
-                autoPlay: true,
-                timer: null,
-                init() {
-                    this.timer = setInterval(() => {
-                        if (this.autoPlay) {
-                            this.activeStep = this.activeStep >= 4 ? 1 : this.activeStep + 1;
-                        }
-                    }, 4000);
-                },
-                setStep(num) {
-                    this.activeStep = num;
-                    this.autoPlay = false;
-                }
-            }"
-            class="space-y-3 pt-6 border-t border-slate-200/80"
-        >
-            <div class="text-center space-y-1">
-                <div class="text-xs font-bold text-blue-600 uppercase tracking-wider">Proses Cepat & Praktis</div>
-                <h2 class="text-lg sm:text-xl font-extrabold text-slate-900">Bagaimana Cara Pesan Layanan?</h2>
-                <p class="text-xs text-slate-600">4 langkah mudah untuk menikmati layanan langsung ke kamar kosmu.</p>
-            </div>
-
-            <div class="space-y-2 relative z-10">
-                {{-- Step 1 --}}
-                <div 
-                    @click="setStep(1)"
-                    class="cursor-pointer rounded-2xl p-3 border transition-all duration-200 flex items-start gap-3"
-                    :class="activeStep === 1 
-                        ? 'bg-white border-blue-500 shadow-md ring-1 ring-blue-500/20' 
-                        : 'bg-white border-slate-200/80 shadow-2xs hover:bg-slate-50'"
-                >
-                    <div 
-                        class="w-9 h-9 rounded-xl font-bold text-sm flex items-center justify-center shrink-0 transition-all duration-200"
-                        :class="activeStep === 1 
-                            ? 'bg-blue-600 text-white shadow-xs' 
-                            : 'bg-blue-50 text-blue-600'"
-                    >
-                        1
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="flex items-center justify-between">
-                            <h3 class="font-bold text-xs sm:text-sm text-slate-900">Pilih Layanan & Paket</h3>
-                            <span class="text-[10px] font-bold uppercase tracking-wider" :class="activeStep === 1 ? 'text-blue-600' : 'text-slate-400'">Langkah 1</span>
-                        </div>
-                        <p class="text-[11px] text-slate-500 leading-snug mt-0.5">
-                            Tentukan kebutuhanmu, mulai dari laundry kiloan, deep clean kamar mandi, katering, atau servis AC.
-                        </p>
-                    </div>
-                </div>
-
-                {{-- Step 2 --}}
-                <div 
-                    @click="setStep(2)"
-                    class="cursor-pointer rounded-2xl p-3 border transition-all duration-200 flex items-start gap-3"
-                    :class="activeStep === 2 
-                        ? 'bg-white border-blue-500 shadow-md ring-1 ring-blue-500/20' 
-                        : 'bg-white border-slate-200/80 shadow-2xs hover:bg-slate-50'"
-                >
-                    <div 
-                        class="w-9 h-9 rounded-xl font-bold text-sm flex items-center justify-center shrink-0 transition-all duration-200"
-                        :class="activeStep === 2 
-                            ? 'bg-blue-600 text-white shadow-xs' 
-                            : 'bg-blue-50 text-blue-600'"
-                    >
-                        2
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="flex items-center justify-between">
-                            <h3 class="font-bold text-xs sm:text-sm text-slate-900">Atur Jadwal & Kamar</h3>
-                            <span class="text-[10px] font-bold uppercase tracking-wider" :class="activeStep === 2 ? 'text-blue-600' : 'text-slate-400'">Langkah 2</span>
-                        </div>
-                        <p class="text-[11px] text-slate-500 leading-snug mt-0.5">
-                            Isi alamat kos, nomor kamar, dan pilih jam kunjungan yang paling nyaman untuk Anda.
-                        </p>
-                    </div>
-                </div>
-
-                {{-- Step 3 --}}
-                <div 
-                    @click="setStep(3)"
-                    class="cursor-pointer rounded-2xl p-3 border transition-all duration-200 flex items-start gap-3"
-                    :class="activeStep === 3 
-                        ? 'bg-white border-blue-500 shadow-md ring-1 ring-blue-500/20' 
-                        : 'bg-white border-slate-200/80 shadow-2xs hover:bg-slate-50'"
-                >
-                    <div 
-                        class="w-9 h-9 rounded-xl font-bold text-sm flex items-center justify-center shrink-0 transition-all duration-200"
-                        :class="activeStep === 3 
-                            ? 'bg-blue-600 text-white shadow-xs' 
-                            : 'bg-blue-50 text-blue-600'"
-                    >
-                        3
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="flex items-center justify-between">
-                            <h3 class="font-bold text-xs sm:text-sm text-slate-900">Mitra Tiba di Kos</h3>
-                            <span class="text-[10px] font-bold uppercase tracking-wider" :class="activeStep === 3 ? 'text-blue-600' : 'text-slate-400'">Langkah 3</span>
-                        </div>
-                        <p class="text-[11px] text-slate-500 leading-snug mt-0.5">
-                            Mitra terverifikasi SevenKost tiba sesuai jadwal membawa peralatan lengkap dan seragam resmi.
-                        </p>
-                    </div>
-                </div>
-
-                {{-- Step 4 --}}
-                <div 
-                    @click="setStep(4)"
-                    class="cursor-pointer rounded-2xl p-3 border transition-all duration-200 flex items-start gap-3"
-                    :class="activeStep === 4 
-                        ? 'bg-white border-emerald-500 shadow-md ring-1 ring-emerald-500/20' 
-                        : 'bg-white border-slate-200/80 shadow-2xs hover:bg-slate-50'"
-                >
-                    <div 
-                        class="w-9 h-9 rounded-xl font-bold text-sm flex items-center justify-center shrink-0 transition-all duration-200"
-                        :class="activeStep === 4 
-                            ? 'bg-emerald-600 text-white shadow-xs' 
-                            : 'bg-emerald-50 text-emerald-600'"
-                    >
-                        4
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <div class="flex items-center justify-between">
-                            <h3 class="font-bold text-xs sm:text-sm text-slate-900">Selesai & Bayar Aman</h3>
-                            <span class="text-[10px] font-bold uppercase tracking-wider" :class="activeStep === 4 ? 'text-emerald-600' : 'text-slate-400'">Langkah 4</span>
-                        </div>
-                        <p class="text-[11px] text-slate-500 leading-snug mt-0.5">
-                            Periksa hasil pengerjaan. Pembayaran fleksibel dapat dilakukan via transfer QRIS atau tunai langsung.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {{-- 5. MITRA REGISTRATION CALLOUT (SIGNATURE SAPPHIRE GRADIENT, 100% WHITE TEXT) --}}
-        <div class="pt-2">
-            <div class="relative overflow-hidden rounded-2xl text-white p-4 sm:p-5 shadow-md shadow-blue-900/15 border border-blue-400/25" style="background: linear-gradient(135deg, #091e3a 0%, #0f3d7c 50%, #1d4ed8 100%);">
-                <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <div class="space-y-1 max-w-xl">
-                        <h3 class="text-base sm:text-lg font-bold text-white !text-white" style="color: #ffffff !important;">
-                            Punya Usaha Laundry, Katering, atau Kebersihan?
-                        </h3>
-                        <p class="text-xs sm:text-sm text-white leading-relaxed font-normal">
-                            Gabung jadi Mitra Resmi SevenKost dan dapatkan pesanan langsung dari ribuan penghuni kos aktif di sekitarmu.
-                        </p>
-                    </div>
-
-                    <a 
-                        href="https://wa.me/6281234567890?text=Halo%20Admin%20SevenKost%2C%20saya%20tertarik%20mendaftar%20menjadi%20Mitra%20Layanan%20di%20SevenKost." 
-                        target="_blank" 
-                        class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs sm:text-sm shadow-md shadow-blue-950/30 transition border border-white/20 active:scale-95 flex-shrink-0"
-                    >
-                        <span>Daftar Jadi Mitra</span>
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        {{-- 7. ORDER MODAL INTERAKTIF (KHUSUS PENGHUNI KOS TERDAFTAR) --}}
+        @endif
         @auth
             @if(auth()->user()->hasRole('penghuni'))
                 <div 
@@ -591,69 +724,122 @@
                         @click.outside="orderModalOpen = false" 
                         class="bg-white rounded-3xl max-w-md w-full p-4 sm:p-5 shadow-2xl space-y-4 text-slate-800 animate-in fade-in zoom-in-95 duration-200 relative overflow-y-auto max-h-[90vh]"
                     >
-                        {{-- Notifikasi Sukses Pemesanan --}}
-                        <div 
-                            x-show="orderSuccess" 
-                            x-transition 
-                            class="absolute inset-0 bg-white/95 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center space-y-3 z-20"
-                            style="display: none;"
-                        >
-                            <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center shadow-xs">
-                                <svg class="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                            </div>
-                            <h4 class="text-lg sm:text-xl font-bold text-slate-900">Pesanan Berhasil Dikirim!</h4>
-                            <p class="text-xs sm:text-sm text-slate-600 max-w-xs leading-relaxed">
-                                Jadwal kunjungan telah diteruskan ke mitra SevenKost terdekat. Mitra akan segera menuju ke kamar kos Anda sesuai jadwal.
-                            </p>
-                        </div>
-
                         <div class="flex items-center justify-between pb-3 border-b border-slate-100">
                             <div>
-                                <span class="text-xs font-bold text-blue-600 uppercase tracking-wider">Form Pemesanan Layanan</span>
-                                <h3 class="text-lg sm:text-xl font-bold text-slate-900 mt-0.5" x-text="selectedServiceName"></h3>
+                                <h3 class="text-base sm:text-lg font-bold text-slate-900" x-text="selectedServiceName"></h3>
                             </div>
-                            <button @click="orderModalOpen = false" class="text-slate-400 hover:text-slate-700">
+                            <button @click="orderModalOpen = false" class="text-slate-400 hover:text-slate-700 cursor-pointer">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                             </button>
                         </div>
 
-                        <form @submit.prevent="submitOrder()" class="space-y-4">
-                            {{-- Detail Pilihan Paket --}}
-                            <div class="p-3.5 sm:p-4 rounded-2xl bg-blue-50/70 border border-blue-100 flex items-center justify-between gap-3">
-                                <div>
-                                    <span class="text-xs text-slate-500 font-medium block">Paket Terpilih:</span>
-                                    <strong class="text-sm sm:text-base font-bold text-slate-900" x-text="selectedPackageName"></strong>
+                        <form method="POST" action="{{ route('services.order') }}" class="space-y-4">
+                            @csrf
+                            <input type="hidden" name="service_id" :value="selectedService">
+                            <input type="hidden" name="package_price" :value="selectedPackagePrice">
+                            <input type="hidden" name="package_unit" :value="selectedPackageUnit">
+                            <input type="hidden" name="partner_name" :value="selectedPartnerName">
+                            <input type="hidden" name="booking_id" :value="selectedBookingId">
+                            <input type="hidden" name="distance_km" :value="selectedDistanceKm">
+
+                            {{-- Pilihan Paket Layanan (Dropdown Dinamis) --}}
+                            <div class="space-y-1.5">
+                                <label class="block text-xs font-bold text-slate-700">
+                                    Paket Layanan <span class="text-rose-500">*</span>
+                                </label>
+                                @foreach($services as $sItem)
+                                    <div x-show="selectedService === '{{ $sItem['id'] }}'">
+                                        <select 
+                                            name="package_name"
+                                            :disabled="selectedService !== '{{ $sItem['id'] }}'"
+                                            @change="onPackageChange($event)"
+                                            class="w-full max-w-full text-xs sm:text-sm font-bold text-slate-900 rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5 sm:py-3 bg-white"
+                                        >
+                                            @foreach($sItem['packages'] as $pItem)
+                                                <option 
+                                                    value="{{ $pItem['name'] }}" 
+                                                    data-price="{{ $pItem['price'] }}" 
+                                                    data-unit="{{ $pItem['unit'] }}"
+                                                    :selected="selectedPackageName === '{{ addslashes($pItem['name']) }}'"
+                                                >
+                                                    {{ $pItem['name'] }} — Rp {{ number_format($pItem['price'], 0, ',', '.') }} {{ $pItem['unit'] }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @endforeach
+                            </div>
+
+                            {{-- Jumlah Unit / Kuantitas & Rincian Biaya --}}
+                            <div class="p-3.5 sm:p-4 rounded-2xl bg-blue-50/70 border border-blue-100 space-y-2.5">
+                                <div class="flex items-center justify-between gap-3">
+                                    <div>
+                                        <span class="text-[11px] text-slate-500 font-bold uppercase block">Jumlah:</span>
+                                        <div class="flex items-center gap-2 mt-1">
+                                            <button 
+                                                type="button" 
+                                                @click="quantity = Math.max(1, quantity - 1)" 
+                                                class="w-7 h-7 rounded-lg bg-white border border-slate-200 text-slate-700 font-bold hover:bg-slate-100 flex items-center justify-center text-sm shadow-xs active:scale-95 cursor-pointer"
+                                            >-</button>
+                                            <input 
+                                                type="number" 
+                                                name="quantity"
+                                                x-model.number="quantity" 
+                                                min="1" 
+                                                max="50"
+                                                class="w-14 text-center font-black text-slate-900 text-sm py-1 border border-slate-200 rounded-lg bg-white"
+                                            >
+                                            <button 
+                                                type="button" 
+                                                @click="quantity = quantity + 1" 
+                                                class="w-7 h-7 rounded-lg bg-white border border-slate-200 text-slate-700 font-bold hover:bg-slate-100 flex items-center justify-center text-sm shadow-xs active:scale-95 cursor-pointer"
+                                            >+</button>
+                                            <span class="text-xs text-slate-600 font-bold" x-text="selectedPackageUnit"></span>
+                                        </div>
+                                    </div>
+                                    <div class="text-right shrink-0">
+                                        <span class="text-xs text-slate-500 font-semibold block">Subtotal:</span>
+                                        <strong class="text-sm sm:text-base font-bold text-slate-800 block" x-text="'Rp ' + subtotalOrderPrice.toLocaleString('id-ID')"></strong>
+                                    </div>
                                 </div>
-                                <div class="text-right shrink-0">
-                                    <span class="text-base sm:text-lg font-black text-blue-600" x-text="'Rp ' + Number(selectedPackagePrice).toLocaleString('id-ID')"></span>
-                                    <span class="text-xs text-slate-500 block" x-text="selectedPackageUnit"></span>
+
+                                <div class="pt-2 border-t border-blue-200/60 flex items-center justify-between text-xs">
+                                    <span class="text-slate-600 font-medium">Biaya Antar-Jemput:</span>
+                                    <span 
+                                        class="font-bold text-slate-800" 
+                                        x-text="'Rp ' + deliveryFee.toLocaleString('id-ID') + ' (' + selectedDistanceKm + ' km)'"
+                                    ></span>
+                                </div>
+
+                                <div class="pt-1.5 border-t border-blue-200/60 flex items-center justify-between">
+                                    <span class="text-xs font-bold text-slate-800">Total Tagihan:</span>
+                                    <strong class="text-base sm:text-lg font-black text-blue-600" x-text="'Rp ' + totalOrderPrice.toLocaleString('id-ID')"></strong>
                                 </div>
                             </div>
 
                             {{-- Mitra Pelaksana --}}
                             <template x-if="selectedPartnerName">
-                                <div class="px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-between text-xs">
-                                    <span class="text-slate-500 font-medium">Mitra Pelaksana Terdekat:</span>
-                                    <span class="font-bold text-blue-900 flex items-center gap-1.5 truncate">
-                                        <svg class="w-3.5 h-3.5 text-blue-600 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
-                                        <span x-text="selectedPartnerName" class="truncate"></span>
-                                    </span>
+                                <div class="px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-between text-xs">
+                                    <span class="text-slate-500 font-medium">Mitra:</span>
+                                    <span class="font-bold text-slate-800 truncate" x-text="selectedPartnerName"></span>
                                 </div>
                             </template>
 
                             @if($activeBookings->count() > 1)
                                 {{-- Pemilihan Kamar Aktif Jika Multi-Kamar --}}
                                 <div class="space-y-1.5">
-                                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Kamar Kos Tujuan Layanan <span class="text-rose-500">*</span></label>
+                                    <label class="block text-xs font-bold text-slate-700">Kamar Tujuan <span class="text-rose-500">*</span></label>
                                     <select 
+                                        name="selected_kamar_id"
                                         @change="
                                             let selOpt = $event.target.selectedOptions[0];
+                                            selectedBookingId = selOpt.value;
                                             kostAddress = selOpt.dataset.address;
                                             roomNumber = selOpt.dataset.room;
                                             occupantName = selOpt.dataset.occupant;
                                             occupantPhone = selOpt.dataset.phone;
                                         "
-                                        class="w-full text-xs sm:text-sm font-semibold rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5 sm:py-3 bg-white"
+                                        class="w-full max-w-full truncate text-xs sm:text-sm font-semibold rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5 sm:py-3 bg-white"
                                     >
                                         @foreach($activeBookings as $bItem)
                                             @php
@@ -672,7 +858,7 @@
                                                 data-phone="{{ $bOccPhone }}"
                                                 {{ ($activeBooking && $activeBooking->id === $bItem->id) ? 'selected' : '' }}
                                             >
-                                                {{ $bKostName }} ({{ $bRoomName }}) - {{ $bReg }} [Penghuni: {{ $bOccName }}]
+                                                {{ $bKostName }} ({{ $bRoomName }}) - {{ $bReg }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -681,19 +867,12 @@
 
                             {{-- Alamat Kos & No Kamar --}}
                             <div class="space-y-1.5">
-                                <div class="flex items-center justify-between">
-                                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Nama Kos & Alamat Lengkap <span class="text-rose-500">*</span></label>
-                                    @if($hasActiveBooking)
-                                        <span class="text-xs text-emerald-600 font-semibold flex items-center gap-1">
-                                            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                                            Data Kamar Aktif
-                                        </span>
-                                    @endif
-                                </div>
+                                <label class="block text-xs font-bold text-slate-700">Alamat Kos <span class="text-rose-500">*</span></label>
                                 <input 
                                     type="text" 
+                                    name="kost_address"
                                     x-model="kostAddress" 
-                                    placeholder="Contoh: Seven Kost Melati Residence, Jl. Fatmawati No. 45" 
+                                    placeholder="Alamat lengkap kos" 
                                     required 
                                     class="w-full text-sm font-medium rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5 sm:py-3"
                                 >
@@ -701,18 +880,19 @@
 
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                                 <div class="space-y-1.5">
-                                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Nomor Kamar <span class="text-rose-500">*</span></label>
+                                    <label class="block text-xs font-bold text-slate-700">Nomor Kamar <span class="text-rose-500">*</span></label>
                                     <input 
                                         type="text" 
+                                        name="room_number"
                                         x-model="roomNumber" 
-                                        placeholder="Contoh: Kamar 204 (Lt. 2)" 
+                                        placeholder="Nomor kamar" 
                                         required 
                                         class="w-full text-sm font-medium rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5 sm:py-3"
                                     >
                                 </div>
                                 <div class="space-y-1.5">
-                                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Waktu Kunjungan</label>
-                                    <select x-model="orderTime" class="w-full text-sm font-medium rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5 sm:py-3 bg-white">
+                                    <label class="block text-xs font-bold text-slate-700">Waktu Kunjungan</label>
+                                    <select name="order_time" x-model="orderTime" class="w-full text-sm font-medium rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5 sm:py-3 bg-white">
                                         <option value="09:00">Pagi (09:00 WIB)</option>
                                         <option value="11:30">Siang (11:30 WIB)</option>
                                         <option value="14:00">Siang (14:00 WIB)</option>
@@ -725,21 +905,23 @@
                             {{-- Kontak Penghuni di Lokasi Kamar --}}
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                                 <div class="space-y-1.5">
-                                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Nama Penghuni di Kamar <span class="text-rose-500">*</span></label>
+                                    <label class="block text-xs font-bold text-slate-700">Nama Penghuni <span class="text-rose-500">*</span></label>
                                     <input 
                                         type="text" 
+                                        name="occupant_name"
                                         x-model="occupantName" 
-                                        placeholder="Nama yang menyambut di kamar" 
+                                        placeholder="Nama lengkap" 
                                         required 
                                         class="w-full text-sm font-medium rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5 sm:py-3"
                                     >
                                 </div>
                                 <div class="space-y-1.5">
-                                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">No. WhatsApp Penghuni <span class="text-rose-500">*</span></label>
+                                    <label class="block text-xs font-bold text-slate-700">Nomor WhatsApp <span class="text-rose-500">*</span></label>
                                     <input 
                                         type="tel" 
+                                        name="occupant_phone"
                                         x-model="occupantPhone" 
-                                        placeholder="081234567890" 
+                                        placeholder="Nomor WhatsApp" 
                                         required 
                                         class="w-full text-sm font-medium rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5 sm:py-3"
                                     >
@@ -747,9 +929,10 @@
                             </div>
 
                             <div class="space-y-1.5">
-                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Tanggal Layanan</label>
+                                <label class="block text-xs font-bold text-slate-700">Tanggal Layanan</label>
                                 <input 
                                     type="date" 
+                                    name="order_date"
                                     x-model="orderDate" 
                                     min="{{ date('Y-m-d') }}" 
                                     class="w-full text-sm font-medium rounded-xl border-slate-200 focus:border-blue-500 focus:ring-blue-500 py-2.5 sm:py-3"
@@ -757,29 +940,93 @@
                             </div>
 
                             <div class="space-y-1.5">
-                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">Catatan Tambahan (Opsional)</label>
+                                <label class="block text-xs font-bold text-slate-700">Catatan (Opsional)</label>
                                 <textarea 
+                                    name="order_notes"
                                     x-model="orderNotes" 
                                     rows="2" 
-                                    placeholder="Contoh: Mohon ketuk kamar dulu, ada pakaian jas butuh dry clean..." 
-                                    class="w-full text-sm rounded-xl border-slate-200 p-3 leading-relaxed"
+                                    placeholder="Catatan untuk mitra" 
+                                    class="w-full text-sm rounded-xl border-slate-200 p-2.5 leading-relaxed"
                                 ></textarea>
                             </div>
 
-                            {{-- Tombol Konfirmasi Pesanan --}}
+                            {{-- PILIHAN METODE PEMBAYARAN --}}
+                            <div class="space-y-2 pt-2 border-t border-slate-100">
+                                <label class="block text-xs font-bold text-slate-700">
+                                    Metode Pembayaran <span class="text-rose-500">*</span>
+                                </label>
+
+                                <div class="space-y-2">
+                                    {{-- Option 1: Xendit --}}
+                                    <label 
+                                        class="flex items-center gap-3 p-3 rounded-2xl border transition cursor-pointer"
+                                        :class="paymentMethod === 'xendit' 
+                                            ? 'bg-blue-50/70 border-blue-500 ring-1 ring-blue-500/20' 
+                                            : 'bg-white border-slate-200 hover:bg-slate-50'"
+                                    >
+                                        <input 
+                                            type="radio" 
+                                            name="payment_method" 
+                                            value="xendit" 
+                                            x-model="paymentMethod" 
+                                            class="text-blue-600 focus:ring-blue-500"
+                                        >
+                                        <div class="flex-1 min-w-0">
+                                            <strong class="text-xs sm:text-sm font-bold text-slate-900 block">
+                                                {!! ($isXenditActive ?? false) ? 'Transfer Bank & QRIS (Otomatis Xendit)' : 'Transfer Bank & QRIS (Manual)' !!}
+                                            </strong>
+                                        </div>
+                                    </label>
+
+                                    {{-- Option 2: Saldo Dompet --}}
+                                    <label 
+                                        class="flex items-center gap-3 p-3 rounded-2xl border transition cursor-pointer"
+                                        :class="paymentMethod === 'wallet' 
+                                            ? 'bg-blue-50/70 border-blue-500 ring-1 ring-blue-500/20' 
+                                            : 'bg-white border-slate-200 hover:bg-slate-50'"
+                                    >
+                                        <input 
+                                            type="radio" 
+                                            name="payment_method" 
+                                            value="wallet" 
+                                            x-model="paymentMethod" 
+                                            class="text-blue-600 focus:ring-blue-500"
+                                        >
+                                        <div class="flex-1 min-w-0 flex items-center justify-between">
+                                            <strong class="text-xs sm:text-sm font-bold text-slate-900">
+                                                Saldo Dompet
+                                            </strong>
+                                            <span 
+                                                class="text-[11px] font-bold"
+                                                :class="userWalletBalance >= totalOrderPrice ? 'text-slate-600' : 'text-rose-600'"
+                                                x-text="'Rp ' + userWalletBalance.toLocaleString('id-ID')"
+                                            ></span>
+                                        </div>
+                                    </label>
+                                    <template x-if="userWalletBalance < totalOrderPrice && paymentMethod === 'wallet'">
+                                        <p class="text-[11px] font-bold text-rose-600 px-1">
+                                            Saldo tidak mencukupi (kurang Rp <span x-text="(totalOrderPrice - userWalletBalance).toLocaleString('id-ID')"></span>).
+                                        </p>
+                                    </template>
+                                </div>
+                            </div>
+
+                            {{-- Tombol Konfirmasi Pesanan & Pembayaran --}}
                             <div class="pt-2 flex flex-col sm:flex-row gap-3">
                                 <button 
                                     type="button" 
                                     @click="orderModalOpen = false" 
-                                    class="w-full sm:w-auto px-6 py-3 rounded-xl border border-slate-200 text-sm font-semibold text-slate-600 hover:bg-slate-50 transition"
+                                    class="w-full sm:w-auto px-5 py-3 rounded-xl border border-slate-200 text-sm font-semibold text-slate-600 hover:bg-slate-50 transition cursor-pointer"
                                 >
                                     Batal
                                 </button>
                                 <button 
                                     type="submit" 
-                                    class="w-full sm:flex-1 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold shadow-md shadow-blue-500/20 text-center transition"
+                                    :disabled="paymentMethod === 'wallet' && userWalletBalance < totalOrderPrice"
+                                    :class="paymentMethod === 'wallet' && userWalletBalance < totalOrderPrice ? 'opacity-50 cursor-not-allowed bg-slate-400' : 'bg-blue-600 hover:bg-blue-700 active:scale-98 cursor-pointer'"
+                                    class="w-full sm:flex-1 py-3 rounded-xl text-white text-xs sm:text-sm font-bold shadow-md shadow-blue-500/20 text-center transition"
                                 >
-                                    Konfirmasi & Pesan Layanan
+                                    <span x-text="paymentMethod === 'wallet' ? 'Bayar Sekarang' : 'Lanjut ke Pembayaran'"></span>
                                 </button>
                             </div>
                         </form>
@@ -853,6 +1100,44 @@
                         Tutup
                     </button>
                 </div>
+            </div>
+        </div>
+
+        {{-- MODAL PERINGATAN DI LUAR JANGKAUAN (> 5 KM) --}}
+        <div 
+            x-show="alertOutOfRange" 
+            x-transition.opacity 
+            class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4" 
+            style="display: none;"
+        >
+            <div 
+                @click.outside="alertOutOfRange = false" 
+                class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-7 text-center space-y-4 shadow-2xl animate-in fade-in zoom-in-95 duration-200"
+            >
+                <div class="w-14 h-14 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center mx-auto shadow-xs border border-rose-200">
+                    <svg class="w-7 h-7 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                </div>
+                <div>
+                    <span class="inline-block text-[11px] font-bold text-rose-600 uppercase tracking-wider bg-rose-50 border border-rose-200 px-2.5 py-0.5 rounded-full mb-1">
+                        Radius Maksimal 5.0 KM
+                    </span>
+                    <h3 class="text-base sm:text-lg font-bold text-slate-900">Lokasi Kos di Luar Jangkauan</h3>
+                    <p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+                        Mitra terdekat untuk layanan <strong class="text-slate-900" x-text="selectedOutOfRangeService"></strong> berjarak <strong class="text-rose-600" x-text="selectedOutOfRangeDistance"></strong> dari kos Anda. Saat ini layanan hanya dapat dipesan dalam radius operasional maksimal <strong>5.0 km</strong> demi menjaga kualitas dan kecepatan respon.
+                    </p>
+                </div>
+                <div class="p-3 bg-slate-50 rounded-xl border border-slate-200/80 text-[11px] text-slate-500 text-left space-y-1">
+                    <div class="font-bold text-slate-700">Informasi:</div>
+                    <div>• Jarak kos melebihi batas 5.0 km dari titik operasional mitra regional.</div>
+                    <div>• Anda dapat berkoordinasi langsung dengan pengelola kos untuk rekomendasi vendor sekitar kos.</div>
+                </div>
+                <button 
+                    type="button" 
+                    @click="alertOutOfRange = false" 
+                    class="w-full py-3 rounded-xl bg-slate-900 hover:bg-black text-white font-bold text-sm shadow-md transition"
+                >
+                    Saya Mengerti
+                </button>
             </div>
         </div>
 

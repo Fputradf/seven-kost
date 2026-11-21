@@ -65,6 +65,57 @@
             </div>
         @endif
 
+        {{-- TOP UP PENDING ALERT / KEMBALI KE MENU PEMBAYARAN --}}
+        @if(isset($activePendingTopups) && $activePendingTopups->isNotEmpty())
+            <div class="rounded-2xl bg-white border border-slate-200 p-4 shadow-2xs space-y-3">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                        Top Up Menunggu Pembayaran
+                    </span>
+                    <span class="text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full">
+                        {{ $activePendingTopups->count() }} Permintaan
+                    </span>
+                </div>
+
+                <div class="space-y-2">
+                    @foreach($activePendingTopups->take(3) as $pendingTopup)
+                        <div class="bg-slate-50/70 p-3 rounded-xl border border-slate-200 flex items-center justify-between gap-2 shadow-2xs hover:border-blue-200 transition">
+                            <div class="space-y-0.5 min-w-0 flex-1">
+                                <span class="text-[10px] font-mono text-slate-400 block font-semibold">#{{ $pendingTopup->reference_id }}</span>
+                                <strong class="text-sm font-black text-blue-700 block">
+                                    Rp {{ number_format($pendingTopup->amount, 0, ',', '.') }}
+                                </strong>
+                                <span class="text-[10px] text-slate-500 block">
+                                    Batas bayar: <span class="font-bold text-slate-700">{{ $pendingTopup->formatted_expires_at }}</span>
+                                </span>
+                            </div>
+                            <div class="flex items-center gap-1.5 shrink-0">
+                                <form action="{{ route('tenant.bills.cancel', $pendingTopup->reference_id) }}" method="POST" onsubmit="return confirm('Batalkan pengajuan top up ini?');">
+                                    @csrf
+                                    <button type="submit" class="py-1.5 px-2.5 rounded-lg text-[11px] font-bold text-slate-500 hover:text-rose-600 hover:bg-rose-50 border border-slate-200 transition cursor-pointer">
+                                        Batal
+                                    </button>
+                                </form>
+                                <a href="{{ route('tenant.wallet.payment', $pendingTopup->reference_id) }}" class="py-1.5 px-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs transition active:scale-95 flex items-center gap-1">
+                                    <span>Bayar</span>
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                @if($activePendingTopups->count() > 3)
+                    <div class="pt-1 text-center">
+                        <a href="{{ route('tenant.bills.index') }}" class="text-[11px] font-bold text-blue-600 hover:text-blue-700 hover:underline">
+                            Lihat {{ $activePendingTopups->count() - 3 }} transaksi pending lainnya di Tagihan &rarr;
+                        </a>
+                    </div>
+                @endif
+            </div>
+        @endif
+
         {{-- 2. MODAL / CARD FORM TOP UP SALDO --}}
         <div x-show="showTopup" x-transition.opacity class="bg-white rounded-2xl border border-blue-200 p-4 shadow-sm space-y-3">
             <div class="flex items-center justify-between border-b border-slate-100 pb-2">

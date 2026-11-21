@@ -121,4 +121,48 @@ class PaymentController extends Controller
             'status' => $success ? 'success' : 'ignored',
         ]);
     }
+
+    /**
+     * Unggah foto/gambar bukti transfer manual oleh pengguna.
+     */
+    public function uploadProof(Request $request, string $referenceId): RedirectResponse
+    {
+        $user = auth()->user();
+
+        $transaction = Transaction::where('reference_id', $referenceId)
+            ->where('user_id', $user->id)
+            ->firstOrFail();
+
+        $request->validate([
+            'payment_proof' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
+            'proof_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
+            'sender_name' => 'nullable|string|max:150',
+            'sender_bank' => 'nullable|string|max:100',
+        ], [
+            'payment_proof.image' => 'Berkas harus berupa gambar (JPG, PNG, atau WEBP).',
+            'payment_proof.max' => 'Ukuran berkas bukti transfer maksimal 5 MB.',
+            'proof_image.image' => 'Berkas harus berupa gambar (JPG, PNG, atau WEBP).',
+            'proof_image.max' => 'Ukuran berkas bukti transfer maksimal 5 MB.',
+        ]);
+
+        $file = $request->file('payment_proof') ?? $request->file('proof_image');
+        if (! $file) {
+            return back()->with('error', 'Silakan pilih berkas foto bukti transfer Anda.');
+        }
+
+        $path = $file->store('proofs/payments', 'public');
+
+        $payload = $transaction->payload ?? [];
+        $payload['payment_proof_image'] = $path;
+        $payload['payment_proof_uploaded_at'] = now()->toDateTimeString();
+        $payload['payment_sender_name'] = $request->input('sender_name');
+        $payload['payment_sender_bank'] = $request->input('sender_bank');
+        $payload['payment_confirmation_status'] = 'awaiting_confirmation';
+
+        $transaction->update([
+            'payload' => $payload,
+        ]);
+
+        return back()->with('success', 'Foto bukti pembayaran berhasil diunggah! Mohon tunggu konfirmasi verifikasi dari tim admin SevenKost.');
+    }
 }

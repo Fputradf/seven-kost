@@ -34,11 +34,18 @@ class WalletController extends Controller
 
         $user->refresh();
 
+        // Ambil semua transaksi topup pending milik user untuk ditampilkan di UI
+        $activePendingTopups = Transaction::where('user_id', $user->id)
+            ->where('type', 'topup')
+            ->where('status', 'pending')
+            ->latest()
+            ->get();
+
         $transactions = $user->walletTransactions()
             ->latest()
             ->paginate(15);
 
-        return view('tenant.wallet.index', compact('user', 'transactions'));
+        return view('tenant.wallet.index', compact('user', 'transactions', 'activePendingTopups'));
     }
 
     /**

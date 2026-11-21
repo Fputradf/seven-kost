@@ -29,6 +29,12 @@ class DashboardController extends Controller
 
         $user->refresh();
 
+        // Ambil semua tagihan pending (booking, sewa, topup, layanan) untuk banner notifikasi dashboard
+        $userPendingBills = Transaction::where('user_id', $user->id)
+            ->where('status', 'pending')
+            ->latest()
+            ->get();
+
         // 1. Kamar hunian aktif / disetujui
         $activeBooking = $user->bookings()
             ->whereIn('status', ['approved', 'active'])
@@ -72,23 +78,33 @@ class DashboardController extends Controller
             ->take(4)
             ->get();
 
+        // 7. Pesanan Layanan Kamar Terkini (Laundry, Cleaning, AC, Katering)
+        $recentServiceOrders = Transaction::where('user_id', $user->id)
+            ->where('type', 'service')
+            ->latest()
+            ->take(3)
+            ->get();
+
         // Ringkasan metrik
         $stats = [
             'total_bookings' => $user->bookings()->count(),
             'total_wishlists' => $user->wishlists()->count(),
             'total_complaints' => Report::where('user_id', $user->id)->count(),
+            'total_service_orders' => Transaction::where('user_id', $user->id)->where('type', 'service')->count(),
             'has_active_stay' => $activeBooking !== null && $activeBooking->status === 'active',
             'wallet_balance' => (float) ($user->wallet_balance ?? 0),
         ];
 
         return view('tenant.dashboard', compact(
             'user',
+            'userPendingBills',
             'activeBooking',
             'renewalBill',
             'initialBill',
             'recentBookings',
             'favoriteKosts',
             'recentComplaints',
+            'recentServiceOrders',
             'stats'
         ));
     }

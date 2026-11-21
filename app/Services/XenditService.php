@@ -7,6 +7,7 @@ use App\Models\Booking;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Models\WalletTransaction;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -43,10 +44,19 @@ class XenditService
             ? route('tenant.bookings.payment', $externalId)
             : route('payments.checkout', $externalId);
 
+        $duration = $this->calculateInvoiceDuration($transaction);
+        $expiresAt = now()->addSeconds($duration);
+
+        $txPayload = $transaction->payload ?? [];
+        $txPayload['expires_at'] = $expiresAt->toIso8601String();
+        $txPayload['invoice_duration'] = $duration;
+        $transaction->update(['payload' => $txPayload]);
+
         $payload = [
             'external_id' => $externalId,
             'amount' => $amount,
             'description' => $description,
+            'invoice_duration' => $duration,
             'payer_email' => $customer['email'] ?? $transaction->user?->email,
             'customer' => [
                 'given_names' => $customer['name'] ?? $transaction->user?->name ?? 'Pelanggan SevenKost',
@@ -107,7 +117,9 @@ class XenditService
             ? route('tenant.bookings.payment', $externalId)
             : ($transaction->type === 'topup'
                 ? route('tenant.wallet.payment', $externalId)
-                : route('payments.checkout', $externalId));
+                : ($transaction->type === 'service'
+                    ? route('tenant.services.payment', $externalId)
+                    : route('payments.checkout', $externalId)));
 
         $transaction->update([
             'xendit_invoice_id' => $simulatedId,
@@ -236,7 +248,54 @@ class XenditService
             }
         }
 
+        // 6. Pemesanan Layanan Kebutuhan Kos (Laundry, Cleaning, AC, dll)
+        if ($transaction->type === 'service') {
+            // Status transaksi telah di-update menjadi 'paid' dan paid_at telah dicatat.
+            Log::info("Service order #{$transaction->reference_id} successfully paid via Xendit.");
+        }
+
         return true;
+    }
+
+    /**
+     * Hitung durasi aktif invoice (dalam detik) berdasarkan jenis transaksi:
+     * - Top up saldo dompet: 1 Jam (3600 detik)
+     * - Booking kamar baru: 2 Jam (7200 detik)
+     * - Perpanjangan / Tagihan sewa bulanan (renewal): Sampai tanggal jatuh tempo sewa (H-7 s/d Hari H)
+     * - Pesanan layanan kamar: 2 Jam (7200 detik)
+     * - Default lainnya: 24 Jam (86400 detik)
+     */
+    public function calculateInvoiceDuration(Transaction $transaction): int
+    {
+        return match ($transaction->type) {
+            'topup' => 3600,
+            'booking' => 7200,
+            'renewal' => $this->calculateRenewalDuration($transaction),
+            'service' => 7200,
+            default => 86400,
+        };
+    }
+
+    /**
+     * Hitung durasi invoice perpanjangan sewa kamar kost sampai tanggal jatuh tempo sewa.
+     */
+    protected function calculateRenewalDuration(Transaction $transaction): int
+    {
+        $booking = Booking::find($transaction->item_id);
+        if ($booking && $booking->end_date) {
+            $dueDate = Carbon::parse($booking->end_date)->endOfDay();
+            $secondsUntilDue = (int) now()->diffInSeconds($dueDate, false);
+
+            if ($secondsUntilDue > 3600) {
+                // Maksimal 7 hari (604.800 detik)
+                return min($secondsUntilDue, 7 * 86400);
+            }
+
+            // Jika sudah hari H atau lewat jatuh tempo, berikan toleransi 2 hari (172.800 detik)
+            return 2 * 86400;
+        }
+
+        return 7 * 86400;
     }
 
     /**
@@ -250,6 +309,10 @@ class XenditService
         }
 
         if (empty($transaction->xendit_invoice_id) || str_starts_with($transaction->xendit_invoice_id, 'xnd_inv_')) {
+            if ($transaction->status === 'pending' && $transaction->isExpired()) {
+                $transaction->update(['status' => 'expired']);
+            }
+
             return $transaction;
         }
 

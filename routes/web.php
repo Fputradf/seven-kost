@@ -16,6 +16,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\Tenant\BillController;
 use App\Http\Controllers\Tenant\ComplaintController as TenantComplaintController;
 use App\Http\Controllers\Tenant\DashboardController as TenantDashboardController;
 use App\Http\Controllers\Tenant\WalletController as TenantWalletController;
@@ -44,6 +45,10 @@ Route::get('/marketplace/{slug}', [MarketplaceController::class, 'show'])->name(
 
 // Pusat Bantuan & FAQ (Form bantuan & FAQ)
 Route::get('/bantuan', function () {
+    if (auth()->check() && auth()->user()->hasRole('penghuni')) {
+        return view('tenant.help');
+    }
+
     return view('bantuan');
 })->name('help');
 
@@ -78,6 +83,9 @@ Route::middleware('auth')->group(function () {
     // Marketplace: Jual Barang Kos (Hanya Pengguna Login)
     Route::get('/marketplace/jual/barang', [MarketplaceController::class, 'create'])->name('marketplace.create');
     Route::post('/marketplace/jual/simpan', [MarketplaceController::class, 'store'])->name('marketplace.store');
+    Route::get('/marketplace/{marketplaceItem}/edit', [MarketplaceController::class, 'edit'])->name('marketplace.edit');
+    Route::put('/marketplace/{marketplaceItem}', [MarketplaceController::class, 'update'])->name('marketplace.update');
+    Route::delete('/marketplace/{marketplaceItem}', [MarketplaceController::class, 'destroy'])->name('marketplace.destroy');
 
     // Pesan Paket Iklan, VIP & Banner via Xendit
     Route::post('/paket-iklan/pesan', [AdsPackageController::class, 'order'])->name('ads.packages.order');
@@ -88,6 +96,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/pembayaran/checkout/{referenceId}', [PaymentController::class, 'checkout'])->name('payments.checkout');
     Route::get('/pembayaran/sukses/{referenceId}', [PaymentController::class, 'success'])->name('payments.success');
     Route::post('/pembayaran/simulasi/{referenceId}', [PaymentController::class, 'simulate'])->name('payments.simulate');
+    Route::post('/pembayaran/upload-bukti/{referenceId}', [PaymentController::class, 'uploadProof'])->name('payments.upload-proof');
 
     // Portal Penghuni (Dashboard, Booking, Wishlist, Keluhan Fasilitas)
     Route::get('/penghuni/dashboard', [TenantDashboardController::class, 'index'])->name('tenant.dashboard');
@@ -103,6 +112,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/penghuni/pembayaran/{referenceId}', [BookingController::class, 'paymentCheckout'])->name('tenant.bookings.payment');
     Route::get('/penghuni/pembayaran/{referenceId}/sukses', [BookingController::class, 'paymentSuccess'])->name('tenant.bookings.payment-success');
     Route::post('/penghuni/pembayaran/{referenceId}/simulasi', [BookingController::class, 'paymentSimulate'])->name('tenant.bookings.simulate-payment');
+    Route::post('/penghuni/pembayaran/{referenceId}/upload-bukti', [PaymentController::class, 'uploadProof'])->name('tenant.bookings.upload-proof');
     Route::post('/kos/{kost}/booking', [BookingController::class, 'store'])->name('tenant.bookings.store');
     Route::delete('/penghuni/booking/{booking}/batal', [BookingController::class, 'cancel'])->name('tenant.bookings.cancel');
     Route::post('/penghuni/booking/{booking}/akhiri-sewa', [BookingController::class, 'terminateLease'])->name('tenant.bookings.terminate');
@@ -113,7 +123,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/penghuni/dompet/pembayaran/{referenceId}', [TenantWalletController::class, 'paymentCheckout'])->name('tenant.wallet.payment');
     Route::get('/penghuni/dompet/pembayaran/{referenceId}/sukses', [TenantWalletController::class, 'paymentSuccess'])->name('tenant.wallet.payment-success');
     Route::post('/penghuni/dompet/pembayaran/{referenceId}/simulasi', [TenantWalletController::class, 'paymentSimulate'])->name('tenant.wallet.simulate-payment');
+    Route::post('/penghuni/dompet/pembayaran/{referenceId}/upload-bukti', [PaymentController::class, 'uploadProof'])->name('tenant.wallet.upload-proof');
     Route::post('/penghuni/dompet/tarik', [TenantWalletController::class, 'withdraw'])->name('tenant.wallet.withdraw');
+
+    // Riwayat Tagihan & Pusat Pembayaran Penghuni
+    Route::get('/penghuni/tagihan', [BillController::class, 'index'])->name('tenant.bills.index');
+    Route::post('/penghuni/tagihan/{referenceId}/batal', [BillController::class, 'cancel'])->name('tenant.bills.cancel');
+
+    // Riwayat Tagihan & Pusat Pembayaran Penghuni
+    Route::get('/penghuni/tagihan', [BillController::class, 'index'])->name('tenant.bills.index');
+    Route::post('/penghuni/tagihan/{referenceId}/batal', [BillController::class, 'cancel'])->name('tenant.bills.cancel');
 
     // Wishlist / Favorit Kos Penghuni
     Route::get('/penghuni/favorit', [TenantWishlistController::class, 'index'])->name('tenant.wishlists.index');
@@ -123,6 +142,33 @@ Route::middleware('auth')->group(function () {
     Route::get('/penghuni/keluhan', [TenantComplaintController::class, 'index'])->name('tenant.complaints.index');
     Route::get('/penghuni/keluhan/buat', [TenantComplaintController::class, 'create'])->name('tenant.complaints.create');
     Route::post('/penghuni/keluhan', [TenantComplaintController::class, 'store'])->name('tenant.complaints.store');
+
+    // Marketplace Barang Kos Khusus Penghuni
+    Route::get('/penghuni/marketplace', [MarketplaceController::class, 'index'])->name('tenant.marketplace.index');
+    Route::get('/penghuni/marketplace/barang-saya', [MarketplaceController::class, 'myItems'])->name('tenant.marketplace.my-items');
+    Route::get('/penghuni/marketplace/jual', [MarketplaceController::class, 'create'])->name('tenant.marketplace.create');
+    Route::post('/penghuni/marketplace/jual', [MarketplaceController::class, 'store'])->name('tenant.marketplace.store');
+    Route::get('/penghuni/marketplace/{marketplaceItem}/edit', [MarketplaceController::class, 'edit'])->name('tenant.marketplace.edit');
+    Route::put('/penghuni/marketplace/{marketplaceItem}', [MarketplaceController::class, 'update'])->name('tenant.marketplace.update');
+    Route::delete('/penghuni/marketplace/{marketplaceItem}', [MarketplaceController::class, 'destroy'])->name('tenant.marketplace.destroy');
+    Route::patch('/penghuni/marketplace/{marketplaceItem}/terjual', [MarketplaceController::class, 'markAsSold'])->name('tenant.marketplace.mark-sold');
+    Route::get('/penghuni/marketplace/{slug}', [MarketplaceController::class, 'show'])->name('tenant.marketplace.show');
+
+    // Pemesanan & Pembayaran Layanan Mitra Kamar Kos
+    Route::post('/layanan/pesan', [ServiceController::class, 'order'])->name('services.order');
+    Route::get('/penghuni/layanan/pembayaran/{referenceId}', [ServiceController::class, 'paymentCheckout'])->name('tenant.services.payment');
+    Route::get('/penghuni/layanan/pembayaran/{referenceId}/sukses', [ServiceController::class, 'paymentSuccess'])->name('tenant.services.payment-success');
+    Route::get('/penghuni/layanan/pesanan/{referenceId}/lacak', [ServiceController::class, 'orderTracking'])->name('tenant.services.tracking');
+    Route::patch('/penghuni/layanan/pesanan/{referenceId}/catatan', [ServiceController::class, 'updateNotes'])->name('tenant.services.update-notes');
+    Route::patch('/penghuni/layanan/pesanan/{referenceId}/jadwalkan-ulang', [ServiceController::class, 'reschedule'])->name('tenant.services.reschedule');
+    Route::post('/penghuni/layanan/pesanan/{referenceId}/batalkan-refund', [ServiceController::class, 'cancelRefund'])->name('tenant.services.cancel-refund');
+    Route::post('/penghuni/layanan/pembayaran/{referenceId}/upload-bukti', [ServiceController::class, 'uploadProof'])->name('tenant.services.upload-proof');
+    Route::post('/penghuni/layanan/pembayaran/{referenceId}/simulasi', [ServiceController::class, 'paymentSimulate'])->name('tenant.services.simulate-payment');
+
+    // Pusat Bantuan & FAQ Khusus Penghuni
+    Route::get('/penghuni/bantuan', function () {
+        return view('tenant.help');
+    })->name('tenant.help');
 
     // Portal Pemilik Kos (Owner Dashboard, Listing, Kamar, Penyewa, Promosi)
     Route::get('/owner/dashboard', [OwnerDashboardController::class, 'index'])->name('owner.dashboard');
