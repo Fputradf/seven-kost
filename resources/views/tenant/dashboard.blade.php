@@ -379,7 +379,7 @@
                         <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
                         Pesanan Layanan Kamar
                     </span>
-                    <a href="{{ route('services.index', ['tab' => 'orders']) }}" class="text-xs font-bold text-blue-600 hover:text-blue-700">
+                    <a href="{{ route('tenant.services.index', ['tab' => 'orders']) }}" class="text-xs font-bold text-blue-600 hover:text-blue-700">
                         Lihat Semua &rarr;
                     </a>
                 </div>
@@ -427,7 +427,7 @@
             <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 px-1">Menu Utama</h3>
             <div class="grid grid-cols-4 gap-2 text-center">
                 {{-- Tile 1: Pesanan Layanan --}}
-                <a href="{{ route('services.index', ['tab' => 'orders']) }}" class="bg-white rounded-2xl p-2.5 sm:p-3 border border-slate-200/80 shadow-2xs flex flex-col items-center gap-1.5 transition active:scale-95 hover:border-blue-300 relative group">
+                <a href="{{ route('tenant.services.index', ['tab' => 'orders']) }}" class="bg-white rounded-2xl p-2.5 sm:p-3 border border-slate-200/80 shadow-2xs flex flex-col items-center gap-1.5 transition active:scale-95 hover:border-blue-300 relative group">
                     <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-blue-50 text-blue-700 border border-blue-100 flex items-center justify-center font-bold group-hover:bg-blue-100/70 transition-colors">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
                     </div>

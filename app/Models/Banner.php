@@ -45,11 +45,19 @@ class Banner extends Model
 
     public function getAdvertiserAttribute(): string
     {
+        if ($this->advertiser_name) {
+            return $this->advertiser_name;
+        }
+
+        if ($this->user?->servicePartner?->business_name) {
+            return $this->user->servicePartner->business_name;
+        }
+
         if ($this->user) {
             return $this->user->name;
         }
 
-        return $this->advertiser_name ?: 'Admin Seven Kost';
+        return 'Admin Seven Kost';
     }
 
     public function getImageUrlAttribute(): string

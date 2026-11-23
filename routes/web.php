@@ -11,6 +11,10 @@ use App\Http\Controllers\Owner\DashboardController as OwnerDashboardController;
 use App\Http\Controllers\Owner\KostController as OwnerKostController;
 use App\Http\Controllers\Owner\PromotionController as OwnerPromotionController;
 use App\Http\Controllers\Owner\RoomTenantController as OwnerRoomTenantController;
+use App\Http\Controllers\Partner\DashboardController as PartnerDashboardController;
+use App\Http\Controllers\Partner\FinanceController as PartnerFinanceController;
+use App\Http\Controllers\Partner\OrderController as PartnerOrderController;
+use App\Http\Controllers\Partner\ProfileController as PartnerProfileController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
@@ -155,6 +159,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/penghuni/marketplace/{slug}', [MarketplaceController::class, 'show'])->name('tenant.marketplace.show');
 
     // Pemesanan & Pembayaran Layanan Mitra Kamar Kos
+    Route::get('/penghuni/layanan', [ServiceController::class, 'tenantIndex'])->name('tenant.services.index');
     Route::post('/layanan/pesan', [ServiceController::class, 'order'])->name('services.order');
     Route::get('/penghuni/layanan/pembayaran/{referenceId}', [ServiceController::class, 'paymentCheckout'])->name('tenant.services.payment');
     Route::get('/penghuni/layanan/pembayaran/{referenceId}/sukses', [ServiceController::class, 'paymentSuccess'])->name('tenant.services.payment-success');
@@ -193,6 +198,27 @@ Route::middleware('auth')->group(function () {
     // Kelola Keluhan & Laporan
     Route::get('/owner/keluhan', [OwnerComplaintController::class, 'index'])->name('owner.complaints.index');
     Route::patch('/owner/keluhan/{report}/status', [OwnerComplaintController::class, 'updateStatus'])->name('owner.complaints.updateStatus');
+
+    // Portal Mitra Layanan SevenKost (Order Fulfillment, Kurir, Keuangan & Profil)
+    Route::prefix('mitra')->name('partner.')->group(function () {
+        Route::get('/dashboard', [PartnerDashboardController::class, 'index'])->name('dashboard');
+
+        Route::get('/pesanan', [PartnerOrderController::class, 'index'])->name('orders.index');
+        Route::get('/pesanan/{referenceId}', [PartnerOrderController::class, 'show'])->name('orders.show');
+        Route::post('/pesanan/{referenceId}/terima', [PartnerOrderController::class, 'accept'])->name('orders.accept');
+        Route::post('/pesanan/{referenceId}/tugaskan-kurir', [PartnerOrderController::class, 'assignCourier'])->name('orders.assign-courier');
+        Route::post('/pesanan/{referenceId}/mulai-kerja', [PartnerOrderController::class, 'startWork'])->name('orders.start-work');
+        Route::post('/pesanan/{referenceId}/siap-diambil', [PartnerOrderController::class, 'markReady'])->name('orders.mark-ready');
+        Route::post('/pesanan/{referenceId}/selesai', [PartnerOrderController::class, 'complete'])->name('orders.complete');
+        Route::post('/pesanan/{referenceId}/tolak', [PartnerOrderController::class, 'reject'])->name('orders.reject');
+
+        Route::get('/keuangan', [PartnerFinanceController::class, 'index'])->name('finances.index');
+        Route::post('/keuangan/tarik-saldo', [PartnerFinanceController::class, 'withdraw'])->name('finances.withdraw');
+
+        Route::get('/profil', [PartnerProfileController::class, 'index'])->name('profile.index');
+        Route::put('/profil', [PartnerProfileController::class, 'update'])->name('profile.update');
+        Route::patch('/profil/toggle-status', [PartnerProfileController::class, 'toggleStatus'])->name('profile.toggle-status');
+    });
 });
 
 Route::get('/dashboard', function () {
@@ -206,6 +232,10 @@ Route::get('/dashboard', function () {
 
     if (auth()->user()?->hasRole('pemilik')) {
         return redirect()->route('owner.dashboard');
+    }
+
+    if (auth()->user()?->hasRole('mitra')) {
+        return redirect()->route('partner.dashboard');
     }
 
     return redirect()->route('tenant.dashboard');

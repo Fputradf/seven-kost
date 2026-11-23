@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AppSetting;
 use App\Models\Banner;
+use App\Models\ServicePartner;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Services\XenditService;
@@ -17,10 +18,34 @@ use Illuminate\View\View;
 class ServiceController extends Controller
 {
     /**
-     * Tampilkan halaman katalog layanan kebutuhan kos (Layanan Mitra SevenKost).
-     * Terintegrasi dengan deteksi kamar kos aktif dan jangkauan mitra lokal di sekitar kos.
+     * Tampilkan halaman web katalog layanan kebutuhan kos publik (Layanan Mitra SevenKost).
+     * Terintegrasi dengan tampilan web responsif untuk pengunjung maupun penghuni.
      */
     public function index(): View
+    {
+        return view('layanan', $this->buildServicesData());
+    }
+
+    /**
+     * Tampilkan halaman layanan kebutuhan kos khusus portal penghuni (/penghuni/layanan).
+     * Menggunakan layout mobile-shell terpadu khas portal penghuni.
+     */
+    public function tenantIndex(): View
+    {
+        /** @var User $user */
+        $user = auth()->user();
+
+        if (! $user || ! $user->hasRole('penghuni')) {
+            abort(403, 'Halaman layanan ini khusus untuk akun penghuni kos SevenKost.');
+        }
+
+        return view('tenant.services.index', $this->buildServicesData());
+    }
+
+    /**
+     * Siapkan seluruh data katalog layanan, mitra regional, kamar aktif, dan riwayat pesanan.
+     */
+    private function buildServicesData(): array
     {
         // 1. Deteksi Kamar Kos Aktif Penghuni (Mendukung Multi-Kamar di Region Berbeda)
         $user = auth()->user();
@@ -302,7 +327,7 @@ class ServiceController extends Controller
             }
         }
 
-        // 3. Banner Iklan Komersial Aktif untuk Layanan
+        // 3. Banner Iklan Komersial Aktif untuk Layanan (Termasuk Banner Promosi Mitra)
         $banners = Banner::where('is_active', true)
             ->where(function ($q) {
                 $q->whereNull('starts_at')->orWhere('starts_at', '<=', now());
@@ -310,8 +335,8 @@ class ServiceController extends Controller
             ->where(function ($q) {
                 $q->whereNull('ends_at')->orWhere('ends_at', '>=', now());
             })
-            ->latest()
-            ->take(4)
+            ->latest('id')
+            ->take(10)
             ->get();
 
         // 4. Katalog Layanan dengan Injeksi Mitra Lokal Terdekat
@@ -448,7 +473,7 @@ class ServiceController extends Controller
 
         $isXenditActive = (bool) AppSetting::get('payment_xendit_enabled', false);
 
-        return view('layanan', compact(
+        return compact(
             'services',
             'banners',
             'activeBookings',
@@ -468,7 +493,7 @@ class ServiceController extends Controller
             'serviceOrders',
             'deliveryConfig',
             'isXenditActive'
-        ));
+        );
     }
 
     /**
@@ -533,6 +558,7 @@ class ServiceController extends Controller
             'order_time' => 'required|string|max:20',
             'order_notes' => 'nullable|string|max:500',
             'partner_name' => 'nullable|string|max:150',
+            'fulfillment_type' => 'nullable|string|in:delivery,self_service',
             'payment_method' => 'required|string|in:xendit,wallet',
         ], [
             'service_id.required' => 'Pilih jenis layanan yang ingin dipesan.',
@@ -561,8 +587,11 @@ class ServiceController extends Controller
         $subtotal = $unitPrice * $qty;
         $unitLabel = $validated['package_unit'] ?: 'unit';
 
+        $fulfillmentType = $validated['fulfillment_type'] ?? 'delivery';
+        $isSelfService = ($fulfillmentType === 'self_service');
+
         $distanceKm = (float) $request->input('distance_km', 1.4);
-        $deliveryFee = $this->calculateDeliveryFee($distanceKm);
+        $deliveryFee = $isSelfService ? 0.0 : $this->calculateDeliveryFee($distanceKm);
         $totalAmount = $subtotal + $deliveryFee;
 
         $refId = 'SRV-'.strtoupper(Str::random(10));
@@ -584,6 +613,7 @@ class ServiceController extends Controller
                 'package_unit' => $unitLabel,
                 'quantity' => $qty,
                 'subtotal' => $subtotal,
+                'fulfillment_type' => $fulfillmentType,
                 'distance_km' => round($distanceKm, 1),
                 'delivery_fee' => $deliveryFee,
                 'total_amount' => $totalAmount,
@@ -747,6 +777,53 @@ class ServiceController extends Controller
         $serviceId = $payload['service_id'] ?? 'laundry';
         $driver = $this->getDriverInfo($serviceId, $referenceId);
 
+        if (! empty($payload['courier_name'])) {
+            $driver['name'] = $payload['courier_name'];
+            $driver['phone'] = $payload['courier_phone'] ?? $driver['phone'];
+            $driver['vehicle'] = $payload['vehicle_info'] ?? $driver['vehicle'];
+            $driver['initials'] = strtoupper(substr($payload['courier_name'], 0, 2));
+        }
+
+        $orderStatus = $payload['service_order_status'] ?? null;
+        $isSelfService = ($payload['fulfillment_type'] ?? 'delivery') === 'self_service';
+
+        $partnerHub = null;
+        if ($transaction->partner_id) {
+            $partnerHub = $transaction->partner;
+        } elseif (! empty($payload['partner_name'])) {
+            $partnerHub = ServicePartner::where('business_name', $payload['partner_name'])->first();
+        }
+
+        if ($isSelfService) {
+            if ($orderStatus === 'confirmed') {
+                $driver['status_headline'] = 'Pesanan Diterima: Silakan Antar ke Toko Mitra';
+                $driver['status_desc'] = 'Mitra telah menerima pesanan Anda. Silakan bawa pakaian/cucian Anda ke outlet mitra di alamat yang tertera.';
+            } elseif ($orderStatus === 'in_progress') {
+                $driver['status_headline'] = 'Cucian Sedang Dikerjakan di Toko Mitra';
+                $driver['status_desc'] = 'Mitra telah menerima cucian Anda di outlet dan saat ini sedang dalam proses pengerjaan.';
+            } elseif ($orderStatus === 'ready_for_pickup') {
+                $driver['status_headline'] = '✨ Hore! Cucian Siap Diambil di Toko Mitra';
+                $driver['status_desc'] = 'Cucian Anda sudah bersih, wangi, dan selesai diproses. Silakan datang ke outlet toko untuk mengambil cucian Anda.';
+            } elseif ($orderStatus === 'completed') {
+                $driver['status_headline'] = 'Pesanan Selesai Diserahterimakan';
+                $driver['status_desc'] = 'Terima kasih telah menggunakan layanan mitra SevenKost! Cucian telah berhasil diserahterimakan di toko.';
+            } else {
+                $driver['status_headline'] = 'Menunggu Konfirmasi Toko Mitra';
+                $driver['status_desc'] = 'Pesanan telah dibuat dan menunggu konfirmasi penerimaan dari mitra layanan SevenKost.';
+            }
+        } else {
+            if ($orderStatus === 'on_the_way') {
+                $driver['status_headline'] = 'Mitra Sedang Menuju Kos Anda';
+                $driver['status_desc'] = 'Petugas / kurir sedang dalam perjalanan menuju kamar kos Anda.';
+            } elseif ($orderStatus === 'in_progress') {
+                $driver['status_headline'] = 'Mitra Sedang Mengerjakan Layanan di Kamar Kos';
+                $driver['status_desc'] = 'Petugas telah tiba dan sedang melakukan pengerjaan layanan.';
+            } elseif ($orderStatus === 'completed') {
+                $driver['status_headline'] = 'Pesanan Layanan Selesai Dilaksanakan';
+                $driver['status_desc'] = 'Pekerjaan telah selesai dilaksanakan dengan baik oleh mitra resmi SevenKost.';
+            }
+        }
+
         // Cek apakah jadwal kedatangan mitra telah terlewati
         $isOverdue = false;
         $minutesOverdue = 0;
@@ -762,7 +839,7 @@ class ServiceController extends Controller
             }
         }
 
-        return view('tenant.services.tracking', compact('transaction', 'payload', 'driver', 'isOverdue', 'minutesOverdue'));
+        return view('tenant.services.tracking', compact('transaction', 'payload', 'driver', 'isOverdue', 'minutesOverdue', 'partnerHub', 'isSelfService'));
     }
 
     /**

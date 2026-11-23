@@ -134,7 +134,7 @@
 
                             {{-- Item 2: Pesanan & Aktivitas Layanan --}}
                             <a 
-                                href="{{ route('services.index', ['tab' => 'orders']) }}" 
+                                href="{{ route('tenant.services.index', ['tab' => 'orders']) }}" 
                                 @click="notifOpen = false"
                                 class="block p-2.5 rounded-xl border {{ $activeSrvNotif > 0 ? 'bg-blue-50/70 border-blue-200 hover:bg-blue-50' : 'bg-slate-50/70 border-slate-200 hover:bg-slate-100' }} transition group"
                             >
@@ -522,12 +522,12 @@
                             <div class="space-y-1 pt-2 border-t border-slate-100">
                                 <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2 block mb-1">Layanan & Komunitas</span>
 
-                                <a href="{{ route('services.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition">
+                                <a href="{{ route('tenant.services.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition">
                                     <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
                                     <span>Pesan Layanan Kamar</span>
                                 </a>
 
-                                <a href="{{ route('services.index', ['tab' => 'orders']) }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition">
+                                <a href="{{ route('tenant.services.index', ['tab' => 'orders']) }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition">
                                     <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
                                     <span>Riwayat &amp; Status Layanan</span>
                                 </a>

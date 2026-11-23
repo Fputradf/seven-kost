@@ -268,13 +268,19 @@
         @endif
 
         {{-- 2. SHOPEEFOOD-STYLE STATUS STEPPER --}}
+        @php
+            $isSelfService = $isSelfService ?? (($payload['fulfillment_type'] ?? 'delivery') === 'self_service');
+            $currentStatus = $payload['service_order_status'] ?? ($transaction->status === 'paid' ? 'confirmed' : 'pending');
+        @endphp
         <div class="bg-white rounded-3xl border border-slate-200/90 p-4 sm:p-5 shadow-2xs space-y-3">
             <div class="flex items-center justify-between pb-2 border-b border-slate-100">
                 <h3 class="text-xs font-black text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
                     <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
                     <span>Status Tahapan Pesanan</span>
                 </h3>
-                <span class="text-[11px] font-bold text-blue-600">Langkah 3 dari 4</span>
+                <span class="text-[11px] font-bold text-blue-600">
+                    {{ $isSelfService ? 'Metode Mandiri (Self-Service)' : 'Metode Kurir Antar-Jemput' }}
+                </span>
             </div>
 
             <div class="relative pl-6 space-y-5 before:absolute before:left-2.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-200">
@@ -297,7 +303,7 @@
 
                 {{-- Step 2 --}}
                 <div class="relative">
-                    <div class="absolute -left-6 top-0.5 w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px] shadow-xs">
+                    <div class="absolute -left-6 top-0.5 w-5 h-5 rounded-full {{ in_array($currentStatus, ['confirmed', 'on_the_way', 'in_progress', 'ready_for_pickup', 'completed']) ? 'bg-emerald-600 text-white' : 'bg-slate-200 text-slate-500' }} flex items-center justify-center text-[10px] shadow-xs">
                         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                     </div>
                     <div>
@@ -306,7 +312,11 @@
                             <span class="text-[10px] text-slate-400 font-semibold">Terkonfirmasi</span>
                         </div>
                         <p class="text-[11px] text-slate-500 mt-0.5">
-                            {{ $payload['partner_name'] ?? 'Mitra Resmi SevenKost' }} menerima pesanan dan menugaskan petugas resmi.
+                            @if ($isSelfService)
+                                {{ $payload['partner_name'] ?? 'Mitra Resmi SevenKost' }} telah menerima pesanan. Silakan antarkan cucian Anda ke alamat outlet mitra.
+                            @else
+                                {{ $payload['partner_name'] ?? 'Mitra Resmi SevenKost' }} menerima pesanan dan menugaskan petugas resmi.
+                            @endif
                         </p>
                     </div>
                 </div>
@@ -326,11 +336,62 @@
                                 <span class="text-[10px] font-bold text-rose-700">Refund 100%</span>
                             </div>
                             <p class="text-[11px] text-rose-900 mt-1">
-                                Pesanan dibatalkan karena mitra melewati jadwal. Dana sebesar Rp {{ number_format($transaction->amount, 0, ',', '.') }} telah dikembalikan ke Saldo Dompet Anda.
+                                Pesanan dibatalkan. Dana sebesar Rp {{ number_format($transaction->amount, 0, ',', '.') }} telah dikembalikan ke Saldo Dompet Anda.
+                            </p>
+                        </div>
+                    </div>
+                @elseif ($isSelfService)
+                    {{-- Step 3 Versi Self-Service --}}
+                    <div class="relative">
+                        <div class="absolute -left-6 top-0.5 w-5 h-5 rounded-full {{ in_array($currentStatus, ['in_progress', 'ready_for_pickup', 'completed']) ? 'bg-purple-600 text-white' : 'bg-slate-200 text-slate-500' }} flex items-center justify-center text-[10px] shadow-xs">
+                            {{ in_array($currentStatus, ['ready_for_pickup', 'completed']) ? '✓' : '3' }}
+                        </div>
+                        <div class="{{ $currentStatus === 'in_progress' ? 'bg-purple-50/70 border border-purple-100 rounded-2xl p-2.5 -ml-1' : '' }}">
+                            <div class="flex items-center justify-between">
+                                <h4 class="text-xs font-black text-slate-900 flex items-center gap-1.5">
+                                    <span>🧺 Cucian Dicuci / Dikerjakan di Toko</span>
+                                    @if ($currentStatus === 'in_progress')
+                                        <span class="px-1.5 py-0.5 rounded-full text-[9px] font-black bg-purple-600 text-white uppercase">Proses</span>
+                                    @endif
+                                </h4>
+                                <span class="text-[10px] font-bold {{ $currentStatus === 'in_progress' ? 'text-purple-700' : 'text-slate-400' }}">
+                                    {{ in_array($currentStatus, ['ready_for_pickup', 'completed']) ? 'Selesai Cuci' : ($currentStatus === 'in_progress' ? 'Sedang Dicuci' : 'Menunggu Barang') }}
+                                </span>
+                            </div>
+                            <p class="text-[11px] text-slate-600 mt-1">
+                                Cucian Anda sedang diproses dan dicuci dengan higienis oleh mitra profesional.
+                            </p>
+                        </div>
+                    </div>
+
+                    {{-- Step 4 Versi Self-Service --}}
+                    <div class="relative">
+                        <div class="absolute -left-6 top-0.5 w-5 h-5 rounded-full {{ $currentStatus === 'completed' ? 'bg-emerald-600 text-white font-bold' : ($currentStatus === 'ready_for_pickup' ? 'bg-amber-500 text-white font-bold ring-4 ring-amber-100 animate-pulse' : 'bg-slate-200 text-slate-500') }} flex items-center justify-center text-[10px]">
+                            {{ $currentStatus === 'completed' ? '✓' : '4' }}
+                        </div>
+                        <div class="{{ $currentStatus === 'ready_for_pickup' ? 'bg-amber-50/80 border border-amber-200 rounded-2xl p-2.5 -ml-1' : '' }}">
+                            <div class="flex items-center justify-between">
+                                <h4 class="text-xs font-black {{ $currentStatus === 'ready_for_pickup' ? 'text-amber-950' : 'text-slate-700' }} flex items-center gap-1.5">
+                                    <span>✨ Siap Diambil di Outlet Toko</span>
+                                    @if ($currentStatus === 'ready_for_pickup')
+                                        <span class="px-1.5 py-0.5 rounded-full text-[9px] font-black bg-amber-600 text-white uppercase animate-bounce">Siap Ambil</span>
+                                    @endif
+                                </h4>
+                                <span class="text-[10px] {{ $currentStatus === 'completed' ? 'text-emerald-600 font-bold' : ($currentStatus === 'ready_for_pickup' ? 'text-amber-700 font-bold' : 'text-slate-400 font-semibold') }}">
+                                    {{ $currentStatus === 'completed' ? 'Telah Diambil' : ($currentStatus === 'ready_for_pickup' ? 'Siap di Rak' : 'Tahap Akhir') }}
+                                </span>
+                            </div>
+                            <p class="text-[11px] {{ $currentStatus === 'ready_for_pickup' ? 'text-amber-900 font-semibold' : 'text-slate-500' }} mt-0.5">
+                                @if ($currentStatus === 'ready_for_pickup')
+                                    Cucian telah rapi & siap diambil! Tunjukkan nomor pesanan (#{{ $transaction->reference_id }}) kepada petugas di outlet.
+                                @else
+                                    Pengambilan cucian bersih langsung di toko mitra oleh penghuni.
+                                @endif
                             </p>
                         </div>
                     </div>
                 @else
+                    {{-- Step 3 Versi Kurir Antar-Jemput --}}
                     <div class="relative">
                         <div class="absolute -left-6 top-0.5 w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px] shadow-md ring-4 ring-blue-100">
                             <span class="relative flex h-2 w-2">
@@ -351,83 +412,149 @@
                             </p>
                         </div>
                     </div>
+
+                    {{-- Step 4 Versi Kurir Antar-Jemput --}}
+                    <div class="relative {{ ($payload['service_order_status'] ?? '') === 'completed' ? 'opacity-100' : 'opacity-60' }}">
+                        <div class="absolute -left-6 top-0.5 w-5 h-5 rounded-full {{ ($payload['service_order_status'] ?? '') === 'completed' ? 'bg-emerald-600 text-white font-bold' : 'bg-slate-200 text-slate-500' }} flex items-center justify-center text-[10px]">
+                            ✓
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between">
+                                <h4 class="text-xs font-bold text-slate-700">Layanan Selesai & Diterima</h4>
+                                <span class="text-[10px] {{ ($payload['service_order_status'] ?? '') === 'completed' ? 'text-emerald-600 font-bold' : 'text-slate-400 font-semibold' }}">
+                                    {{ ($payload['service_order_status'] ?? '') === 'completed' ? 'Telah Selesai' : 'Tahap Akhir' }}
+                                </span>
+                            </div>
+                            <p class="text-[11px] text-slate-500 mt-0.5">
+                                Konfirmasi serah terima pakaian/layanan di kamar kos Anda.
+                            </p>
+                        </div>
+                    </div>
                 @endif
 
-                {{-- Step 4 --}}
-                <div class="relative opacity-60">
-                    <div class="absolute -left-6 top-0.5 w-5 h-5 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center text-[10px]">
-                        4
+            </div>
+        </div>
+
+        {{-- 3. MITRA / OUTLET HUB CARD --}}
+        @if ($isSelfService)
+            {{-- Card Outlet Toko Mitra untuk Pesanan Mandiri --}}
+            <div class="bg-white rounded-3xl border border-slate-200/90 p-4 sm:p-5 shadow-2xs space-y-3.5">
+                <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Lokasi Outlet / Toko Mitra</span>
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-emerald-100 text-emerald-800 border border-emerald-200 flex items-center gap-1">
+                        <span>🧺 Antar &amp; Ambil Sendiri</span>
+                    </span>
+                </div>
+
+                <div class="flex items-start gap-3.5">
+                    <div class="w-13 h-13 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-700 text-white font-black text-2xl flex items-center justify-center shadow-md shrink-0">
+                        🏪
                     </div>
-                    <div>
-                        <div class="flex items-center justify-between">
-                            <h4 class="text-xs font-bold text-slate-700">Layanan Selesai & Diterima</h4>
-                            <span class="text-[10px] text-slate-400 font-semibold">Tahap Akhir</span>
-                        </div>
-                        <p class="text-[11px] text-slate-500 mt-0.5">
-                            Konfirmasi serah terima pakaian/layanan di kamar kos Anda.
+                    <div class="min-w-0 flex-1 space-y-1">
+                        <h4 class="text-sm font-extrabold text-slate-900 truncate">
+                            {{ $partnerHub?->business_name ?? ($payload['partner_name'] ?? 'Seven Laundry Hub') }}
+                        </h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            📍 {{ $partnerHub?->address ?? ($payload['partner_address'] ?? 'Hub Toko Mitra SevenKost') }}
                         </p>
+                        <div class="flex flex-wrap items-center gap-2 pt-1 text-xs">
+                            <span class="inline-flex items-center gap-1 text-slate-500 font-bold bg-slate-100 px-2 py-0.5 rounded-lg text-[11px]">
+                                ⏰ {{ $partnerHub?->operational_hours ?? 'Buka: 08:00 - 21:00 WIB' }}
+                            </span>
+                            <span class="text-slate-300">•</span>
+                            <span class="text-emerald-700 font-bold text-[11px]">
+                                Bebas Biaya Ongkir (Rp 0)
+                            </span>
+                        </div>
                     </div>
                 </div>
 
-            </div>
-        </div>
-
-        {{-- 3. MITRA / DRIVER CARD (SHOPEEFOOD COURIER STYLE) --}}
-        <div class="bg-white rounded-3xl border border-slate-200/90 p-4 sm:p-5 shadow-2xs space-y-3">
-            <div class="flex items-center justify-between pb-2 border-b border-slate-100">
-                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Mitra Bertugas</span>
-                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200 flex items-center gap-1">
-                    <svg class="w-3 h-3 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                    <span>Terverifikasi SevenKost</span>
-                </span>
-            </div>
-
-            <div class="flex items-center gap-3.5">
-                <div class="w-13 h-13 rounded-2xl bg-gradient-to-tr {{ $driver['avatar_color'] ?? 'from-blue-600 to-indigo-600' }} text-white font-black text-lg flex items-center justify-center shadow-md shrink-0">
-                    {{ $driver['initials'] ?? 'MS' }}
-                </div>
-                <div class="min-w-0 flex-1">
-                    <div class="flex items-center gap-1.5">
-                        <h4 class="text-sm font-extrabold text-slate-900 truncate">{{ $driver['name'] }}</h4>
-                    </div>
-                    <p class="text-xs text-slate-500 font-medium truncate">{{ $driver['role'] }}</p>
-                    <div class="flex items-center gap-2 mt-1 text-xs">
-                        <span class="inline-flex items-center gap-1 text-amber-500 font-extrabold">
-                            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                            <span>{{ $driver['rating'] }}</span>
-                        </span>
-                        <span class="text-slate-300">&bull;</span>
-                        <span class="text-[11px] text-slate-500 font-semibold">{{ $driver['reviews_count'] }}+ pesanan</span>
-                        <span class="text-slate-300">&bull;</span>
-                        <span class="text-[11px] font-mono font-bold text-slate-700 bg-slate-100 px-1.5 py-0.5 rounded">{{ $driver['vehicle'] }}</span>
-                    </div>
+                @php
+                    $partnerPhone = $partnerHub?->phone ?? ($driver['phone'] ?? '081234567890');
+                    $cleanPartnerPhone = preg_replace('/[^0-9]/', '', $partnerPhone);
+                    if (str_starts_with($cleanPartnerPhone, '0')) {
+                        $cleanPartnerPhone = '62' . substr($cleanPartnerPhone, 1);
+                    }
+                    $hubWaText = "Halo " . ($partnerHub?->business_name ?? 'Mitra SevenKost') . ", saya " . ($payload['occupant_name'] ?? auth()->user()->name) . " terkait pesanan #" . $transaction->reference_id . " (Antar & Ambil Sendiri). Mau konfirmasi lokasi toko dan pengambilan cucian.";
+                    $hubWaUrl = "https://wa.me/" . $cleanPartnerPhone . "?text=" . urlencode($hubWaText);
+                @endphp
+                <div class="grid grid-cols-2 gap-2 pt-1">
+                    <a 
+                        href="{{ $hubWaUrl }}" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        class="py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-xs transition active:scale-95"
+                    >
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                        <span>Chat WhatsApp Toko</span>
+                    </a>
+                    <a 
+                        href="tel:{{ $partnerPhone }}" 
+                        class="py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-extrabold text-xs flex items-center justify-center gap-1.5 transition active:scale-95 border border-slate-200/80"
+                    >
+                        <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                        <span>Telepon Toko</span>
+                    </a>
                 </div>
             </div>
+        @else
+            {{-- 3. MITRA / DRIVER CARD (SHOPEEFOOD COURIER STYLE) --}}
+            <div class="bg-white rounded-3xl border border-slate-200/90 p-4 sm:p-5 shadow-2xs space-y-3">
+                <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Mitra Bertugas</span>
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200 flex items-center gap-1">
+                        <svg class="w-3 h-3 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                        <span>Terverifikasi SevenKost</span>
+                    </span>
+                </div>
 
-            {{-- Quick Action Buttons: WhatsApp & Call --}}
-            @php
-                $waText = "Halo Mas " . $driver['name'] . ", saya " . ($payload['occupant_name'] ?? auth()->user()->name) . " penghuni kamar " . ($payload['room_number'] ?? 'kos') . " di " . ($payload['kost_address'] ?? 'Seven Kost') . ". Mau konfirmasi pesanan SevenKost #" . $transaction->reference_id . " (" . ($payload['service_title'] ?? $transaction->title) . ").";
-                $waUrl = "https://wa.me/" . preg_replace('/[^0-9]/', '', $driver['phone']) . "?text=" . urlencode($waText);
-            @endphp
-            <div class="grid grid-cols-2 gap-2 pt-1">
-                <a 
-                    href="{{ $waUrl }}" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    class="py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-xs transition active:scale-95"
-                >
-                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-                    <span>Chat WhatsApp</span>
-                </a>
-                <a 
-                    href="tel:{{ $driver['phone'] }}" 
-                    class="py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-extrabold text-xs flex items-center justify-center gap-1.5 transition active:scale-95 border border-slate-200/80"
-                >
-                    <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-                    <span>Panggil Mitra</span>
-                </a>
+                <div class="flex items-center gap-3.5">
+                    <div class="w-13 h-13 rounded-2xl bg-gradient-to-tr {{ $driver['avatar_color'] ?? 'from-blue-600 to-indigo-600' }} text-white font-black text-lg flex items-center justify-center shadow-md shrink-0">
+                        {{ $driver['initials'] ?? 'MS' }}
+                    </div>
+                    <div class="min-w-0 flex-1">
+                        <div class="flex items-center gap-1.5">
+                            <h4 class="text-sm font-extrabold text-slate-900 truncate">{{ $driver['name'] }}</h4>
+                        </div>
+                        <p class="text-xs text-slate-500 font-medium truncate">{{ $driver['role'] }}</p>
+                        <div class="flex items-center gap-2 mt-1 text-xs">
+                            <span class="inline-flex items-center gap-1 text-amber-500 font-extrabold">
+                                <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                <span>{{ $driver['rating'] }}</span>
+                            </span>
+                            <span class="text-slate-300">&bull;</span>
+                            <span class="text-[11px] text-slate-500 font-semibold">{{ $driver['reviews_count'] }}+ pesanan</span>
+                            <span class="text-slate-300">&bull;</span>
+                            <span class="text-[11px] font-mono font-bold text-slate-700 bg-slate-100 px-1.5 py-0.5 rounded">{{ $driver['vehicle'] }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Quick Action Buttons: WhatsApp & Call --}}
+                @php
+                    $waText = "Halo Mas " . $driver['name'] . ", saya " . ($payload['occupant_name'] ?? auth()->user()->name) . " penghuni kamar " . ($payload['room_number'] ?? 'kos') . " di " . ($payload['kost_address'] ?? 'Seven Kost') . ". Mau konfirmasi pesanan SevenKost #" . $transaction->reference_id . " (" . ($payload['service_title'] ?? $transaction->title) . ").";
+                    $waUrl = "https://wa.me/" . preg_replace('/[^0-9]/', '', $driver['phone']) . "?text=" . urlencode($waText);
+                @endphp
+                <div class="grid grid-cols-2 gap-2 pt-1">
+                    <a 
+                        href="{{ $waUrl }}" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        class="py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 shadow-xs transition active:scale-95"
+                    >
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                        <span>Chat WhatsApp</span>
+                    </a>
+                    <a 
+                        href="tel:{{ $driver['phone'] }}" 
+                        class="py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-extrabold text-xs flex items-center justify-center gap-1.5 transition active:scale-95 border border-slate-200/80"
+                    >
+                        <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                        <span>Panggil Mitra</span>
+                    </a>
+                </div>
             </div>
-        </div>
+        @endif
 
         {{-- 4. RUTE & ALAMAT PENGANTARAN (SHOPEEFOOD DELIVERY ROUTE) --}}
         <div class="bg-white rounded-3xl border border-slate-200/90 p-4 sm:p-5 shadow-2xs space-y-3">

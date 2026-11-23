@@ -105,7 +105,7 @@ class ServiceTest extends TestCase
      */
     public function test_tenant_with_active_booking_sees_detected_room_and_local_partner(): void
     {
-        $tenant = User::factory()->create();
+        $tenant = User::factory()->create(['email' => 'tenant.hist.'.uniqid().'@test.com']);
         $tenant->assignRole('penghuni');
 
         $owner = User::firstOrCreate(
@@ -171,7 +171,7 @@ class ServiceTest extends TestCase
      */
     public function test_tenant_with_multiple_active_bookings_can_switch_rooms_and_regions(): void
     {
-        $tenant = User::factory()->create();
+        $tenant = User::factory()->create(['email' => 'tenant.hist.'.uniqid().'@test.com']);
         $tenant->assignRole('penghuni');
 
         $owner = User::firstOrCreate(
@@ -266,7 +266,7 @@ class ServiceTest extends TestCase
      */
     public function test_service_outside_five_km_radius_marked_as_out_of_range(): void
     {
-        $tenant = User::factory()->create();
+        $tenant = User::factory()->create(['email' => 'tenant.hist.'.uniqid().'@test.com']);
         $tenant->assignRole('penghuni');
 
         $owner = User::firstOrCreate(
@@ -330,7 +330,7 @@ class ServiceTest extends TestCase
     {
         AppSetting::set('payment_xendit_enabled', true, 'payment', 'boolean');
 
-        $tenant = User::factory()->create();
+        $tenant = User::factory()->create(['email' => 'tenant.hist.'.uniqid().'@test.com']);
         $tenant->assignRole('penghuni');
 
         $response = $this->actingAs($tenant)->post(route('services.order'), [
@@ -448,7 +448,7 @@ class ServiceTest extends TestCase
      */
     public function test_tenant_can_simulate_payment_on_service_invoice(): void
     {
-        $tenant = User::factory()->create();
+        $tenant = User::factory()->create(['email' => 'tenant.hist.'.uniqid().'@test.com']);
         $tenant->assignRole('penghuni');
 
         $transaction = Transaction::create([
@@ -480,7 +480,7 @@ class ServiceTest extends TestCase
      */
     public function test_tenant_can_view_service_orders_history_and_status(): void
     {
-        $tenant = User::factory()->create();
+        $tenant = User::factory()->create(['email' => 'tenant.hist.'.uniqid().'@test.com']);
         $tenant->assignRole('penghuni');
 
         Transaction::create([
@@ -520,7 +520,7 @@ class ServiceTest extends TestCase
      */
     public function test_tenant_can_track_service_order_live_shopeefood_style(): void
     {
-        $tenant = User::factory()->create();
+        $tenant = User::factory()->create(['email' => 'tenant.hist.'.uniqid().'@test.com']);
         $tenant->assignRole('penghuni');
 
         $futureTime = now()->addHours(2)->format('H:i');
@@ -591,7 +591,7 @@ class ServiceTest extends TestCase
      */
     public function test_delivery_fee_calculated_based_on_distance_tiers_and_superadmin_config(): void
     {
-        $tenant = User::factory()->create();
+        $tenant = User::factory()->create(['email' => 'tenant.hist.'.uniqid().'@test.com']);
         $tenant->assignRole('penghuni');
 
         // 1. Order jarak 1.2 km (<= 2.0 km) -> Dikenakan tarif dasar Rp 5.000 (bukan gratis)
@@ -674,7 +674,7 @@ class ServiceTest extends TestCase
      */
     public function test_tenant_can_update_order_notes_on_tracking_page(): void
     {
-        $tenant = User::factory()->create();
+        $tenant = User::factory()->create(['email' => 'tenant.hist.'.uniqid().'@test.com']);
         $tenant->assignRole('penghuni');
 
         $transaction = Transaction::create([
@@ -706,7 +706,7 @@ class ServiceTest extends TestCase
      */
     public function test_overdue_service_order_shows_warning_and_resolution_options(): void
     {
-        $tenant = User::factory()->create();
+        $tenant = User::factory()->create(['email' => 'tenant.hist.'.uniqid().'@test.com']);
         $tenant->assignRole('penghuni');
 
         $transaction = Transaction::create([
@@ -741,7 +741,7 @@ class ServiceTest extends TestCase
      */
     public function test_tenant_can_reschedule_overdue_service_order(): void
     {
-        $tenant = User::factory()->create();
+        $tenant = User::factory()->create(['email' => 'tenant.hist.'.uniqid().'@test.com']);
         $tenant->assignRole('penghuni');
 
         $transaction = Transaction::create([
@@ -821,7 +821,7 @@ class ServiceTest extends TestCase
         AppSetting::set('payment_xendit_enabled', false, 'payment', 'boolean');
         AppSetting::set('payment_manual_enabled', true, 'payment', 'boolean');
 
-        $tenant = User::factory()->create();
+        $tenant = User::factory()->create(['email' => 'tenant.hist.'.uniqid().'@test.com']);
         $tenant->assignRole('penghuni');
 
         $response = $this->actingAs($tenant)->post(route('services.order'), [
@@ -860,7 +860,7 @@ class ServiceTest extends TestCase
     {
         Storage::fake('public');
 
-        $tenant = User::factory()->create();
+        $tenant = User::factory()->create(['email' => 'tenant.hist.'.uniqid().'@test.com']);
         $tenant->assignRole('penghuni');
 
         $transaction = Transaction::create([
@@ -895,5 +895,78 @@ class ServiceTest extends TestCase
         $this->assertNotNull($freshPayload['payment_proof_image']);
 
         Storage::disk('public')->assertExists($freshPayload['payment_proof_image']);
+    }
+
+    /**
+     * Test penghuni dapat memesan layanan dengan opsi Mandiri / Self-Service (antar & ambil sendiri ke toko)
+     * dan biaya pengantaran / ongkir menjadi Rp 0 (Gratis Ongkir).
+     */
+    public function test_tenant_can_order_service_with_self_service_fulfillment_and_free_delivery_fee(): void
+    {
+        $tenant = User::factory()->create([
+            'wallet_balance' => 100000,
+        ]);
+        $tenant->assignRole('penghuni');
+
+        $orderPayload = [
+            'service_id' => 'laundry',
+            'package_name' => 'Cuci Kering Lipat Express 1 Hari',
+            'package_price' => 25000,
+            'package_unit' => 'kg',
+            'quantity' => 2, // Subtotal = 50.000
+            'fulfillment_type' => 'self_service', // Bebas ongkir (delivery_fee = 0)
+            'distance_km' => 3.5, // Walau jarak 3.5 km, ongkir tetap 0
+            'kost_address' => 'SevenKost Residence Dago No. 12',
+            'room_number' => 'B-04',
+            'occupant_name' => 'Ahmad Rasyid',
+            'occupant_phone' => '081299887766',
+            'order_date' => now()->toDateString(),
+            'order_time' => '14:00',
+            'order_notes' => 'Akan saya antarkan jam 2 siang ini.',
+            'payment_method' => 'wallet',
+        ];
+
+        $response = $this->actingAs($tenant)->post(route('services.order'), $orderPayload);
+
+        $response->assertRedirect();
+
+        $transaction = Transaction::where('user_id', $tenant->id)
+            ->where('type', 'service')
+            ->latest('id')
+            ->first();
+
+        $this->assertNotNull($transaction);
+        // Total amount harus persis sama dengan subtotal (50.000) tanpa ongkir
+        $this->assertEquals(50000, (float) $transaction->amount);
+        $this->assertEquals(0, (float) $transaction->payload['delivery_fee']);
+        $this->assertEquals('self_service', $transaction->payload['fulfillment_type']);
+
+        // Saldo dompet berkurang persis 50.000: 100.000 - 50.000 = 50.000
+        $this->assertEquals(50000, (float) $tenant->fresh()->wallet_balance);
+    }
+
+    /**
+     * Test penghuni dapat mengakses portal layanan khusus penghuni di /penghuni/layanan.
+     */
+    public function test_tenant_can_access_dedicated_tenant_service_portal(): void
+    {
+        $tenant = User::factory()->create(['email' => 'tenant.hist.'.uniqid().'@test.com']);
+        $tenant->assignRole('penghuni');
+
+        $response = $this->actingAs($tenant)->get(route('tenant.services.index'));
+
+        $response->assertStatus(200);
+        $response->assertSee('Katalog Layanan');
+        $response->assertSee('Seven Laundry Kos');
+    }
+
+    /**
+     * Test guest tidak dapat mengakses portal layanan penghuni dan diarahkan ke login.
+     */
+    public function test_guest_is_redirected_when_accessing_tenant_service_portal(): void
+    {
+        $response = $this->get(route('tenant.services.index'));
+
+        $response->assertRedirect(route('login'));
     }
 }
