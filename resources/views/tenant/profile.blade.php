@@ -97,6 +97,8 @@
             @endif
         </div>
 
+
+
         {{-- 3. EDIT PROFILE INFORMATION FORM --}}
         <div class="p-5 rounded-3xl bg-white border border-slate-200/80 shadow-xs space-y-4" x-data="{ avatarPreview: '{{ $user->avatar_url ?? '' }}' }">
             <div>

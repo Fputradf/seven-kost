@@ -181,6 +181,12 @@
 │   │       │   │   │   └── 📄 KostForm.php
 │   │       │   │   └── 📁 Tables/
 │   │       │   │       └── 📄 KostsTable.php
+│   │       │   ├── 📁 KycVerifications/
+│   │       │   │   ├── 📄 KycVerificationResource.php
+│   │       │   │   ├── 📁 Pages/
+│   │       │   │   │   └── 📄 ListKycVerifications.php
+│   │       │   │   └── 📁 Tables/
+│   │       │   │       └── 📄 KycVerificationsTable.php
 │   │       │   ├── 📁 MarketplaceItems/
 │   │       │   │   ├── 📄 MarketplaceItemResource.php
 │   │       │   │   ├── 📁 Pages/
@@ -244,6 +250,7 @@
 │   │   │   ├── 📄 Controller.php
 │   │   │   ├── 📄 HomeController.php
 │   │   │   ├── 📄 KostDetailController.php
+│   │   │   ├── 📄 KycController.php
 │   │   │   ├── 📄 MapController.php
 │   │   │   ├── 📄 MarketplaceController.php
 │   │   │   ├── 📁 Owner/
@@ -271,6 +278,7 @@
 │   │   │   │   └── 📄 WishlistController.php
 │   │   │   └── 📄 WilayahController.php
 │   │   ├── 📁 Middleware/
+│   │   │   ├── 📄 EnsureKycVerified.php
 │   │   │   └── 📄 EnsureUserNotBanned.php
 │   │   └── 📁 Requests/
 │   │       ├── 📁 Auth/
@@ -287,6 +295,7 @@
 │   │   ├── 📄 Facility.php
 │   │   ├── 📄 Kost.php
 │   │   ├── 📄 KostImage.php
+│   │   ├── 📄 KycVerification.php
 │   │   ├── 📄 MarketplaceItem.php
 │   │   ├── 📄 MarketplaceItemImage.php
 │   │   ├── 📄 Province.php
@@ -373,7 +382,9 @@
 │   │   ├── 📄 2026_11_19_140604_add_rental_and_late_fee_settings_to_app_settings_table.php
 │   │   ├── 📄 2026_11_19_142041_create_wallet_tables.php
 │   │   ├── 📄 2026_11_23_132741_create_service_partners_table.php
-│   │   └── 📄 2026_11_23_195400_add_banner_image_to_service_partners_table.php
+│   │   ├── 📄 2026_11_23_195400_add_banner_image_to_service_partners_table.php
+│   │   ├── 📄 2026_11_24_175118_create_kyc_verifications_table.php
+│   │   └── 📄 2026_11_24_195000_add_tenant_identity_columns_to_bookings_table.php
 │   └── 📁 seeders/
 │       ├── 📄 AdsPackageSeeder.php
 │       ├── 📄 DashboardDemoSeeder.php
@@ -657,6 +668,10 @@
 │       │       └── 📁 widgets/
 │       │           └── 📄 platform-analytics-chart.blade.php
 │       ├── 📄 kost-detail.blade.php
+│       ├── 📁 kyc/
+│       │   ├── 📄 index.blade.php
+│       │   └── 📁 partials/
+│       │       └── 📄 content.blade.php
 │       ├── 📄 layanan.blade.php
 │       ├── 📁 layouts/
 │       │   ├── 📄 app.blade.php
@@ -787,6 +802,7 @@
 │   │       ├── 📄 .gitignore
 │   │       ├── 📁 avatars/
 │   │       │   ├── 📄 LPKx8UPOWo50hXES6YPF0B9ZxdrXPsB9b0tDL9Sh.jpg
+│   │       │   ├── 📄 Man4fyygZXNckEQDIYtVvOqDuhKjNKSyB0Vw4VqR.jpg
 │   │       │   └── 📄 Sd6o3KqUuro44JSYjINBYwNiMR9fI2QI1SFR761k.jpg
 │   │       ├── 📁 images/
 │   │       │   └── 📄 logo-seven-kost.png
@@ -915,9 +931,8 @@
 │   │   │   ├── 📄 .gitignore
 │   │   │   └── 📁 disks/
 │   │   │       ├── 📁 public/
-│   │   │       │   └── 📁 proofs/
-│   │   │       │       └── 📁 payments/
-│   │   │       │           └── 📄 0uOFsos3G1QfajyFYPW7ZrIgjebc6TDZ3rRGMkkM.png
+│   │   │       │   └── 📁 service-cards/
+│   │   │       │       └── 📄 TIUaoO6GScd9gLBSezhqIN5qDzR9mcsVCMBxvIqo.jpg
 │   │   │       └── 📁 tmp-for-tests/
 │   │   │           └── 📁 livewire-tmp/
 │   │   │               └── 📄 TdNC2RFbmw6MeVJ7Ltg3ZpbAhTZxsAHafQLTnZYq.png.json
@@ -933,14 +948,17 @@
 │   │       ├── 📄 1a9dfb9505693721783dd2cee36490d7.php
 │   │       ├── 📄 2067122e10fdc9e51c356f8bbadf029c.php
 │   │       ├── 📄 21ce1a07eb531ce18af400f0e82b442f.php
+│   │       ├── 📄 27e06ac999ba729e61aec3c7677bd58b.php
 │   │       ├── 📄 2b4525a05eac0b808486def8581bc872.php
 │   │       ├── 📄 2d92d3751b0350164cfc9cd4199c93a9.php
 │   │       ├── 📄 306c1b7844ed35df52d05c6fa377b411.php
 │   │       ├── 📄 3250b76407007457f397559cf1fba22b.php
 │   │       ├── 📄 3663a565db9f674cb2a8d33176098870.php
 │   │       ├── 📄 36a67b7aae46cb5f2a60857996f4483f.php
+│   │       ├── 📄 4c7398906a183afa6f771c4c30174fa8.php
 │   │       ├── 📄 50c54807ccdfa7d10abc2523a7c2041a.php
 │   │       ├── 📄 57487ea9ba254876481d6a9b2f677d53.php
+│   │       ├── 📄 5df34508c3b81b2704b6439892e3b444.php
 │   │       ├── 📄 61e26aed2b463b1f2684633871801f0b.php
 │   │       ├── 📄 62db2057226c2d111a77e867c595ee8f.php
 │   │       ├── 📄 68bd94e7fa4f514ea9fcf1b9721d97f3.php
@@ -953,9 +971,11 @@
 │   │       ├── 📄 80ee7f4f789bc5d65dd80de372b327b9.php
 │   │       ├── 📄 82cb0751e0f9a883cbf4387c1e28643a.php
 │   │       ├── 📄 84d80e328a56ccfae00b47772cb9af8d.php
+│   │       ├── 📄 84fd10794213dff83a609ff042e43844.php
 │   │       ├── 📄 877eae2646cde6bfd897c022dcc12502.php
 │   │       ├── 📄 9573ffb70b0f586470714eb4227e17c8.php
 │   │       ├── 📄 9a81c56c256df36ae8d5d8e2ef7a5d66.php
+│   │       ├── 📄 9d3ab3a73f095965e6dd09e352bb4e0b.php
 │   │       ├── 📄 9ebc23191b3eff702feea72d0440424a.php
 │   │       ├── 📄 af99aa6b333cd5341c59d6eedee202f6.php
 │   │       ├── 📄 b438d0f3c6d89375f0492e6be84ffccd.php
@@ -1002,6 +1022,7 @@
 │   │   ├── 📄 FrontendHomeTest.php
 │   │   ├── 📄 HelpFaqTest.php
 │   │   ├── 📄 KostDetailTest.php
+│   │   ├── 📄 KycVerificationTest.php
 │   │   ├── 📄 MarketplaceTest.php
 │   │   ├── 📄 OwnerDashboardTest.php
 │   │   ├── 📄 PartnerPortalTest.php

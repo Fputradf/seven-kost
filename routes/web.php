@@ -4,6 +4,7 @@ use App\Http\Controllers\AdsPackageController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KostDetailController;
+use App\Http\Controllers\KycController;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\MarketplaceController;
 use App\Http\Controllers\Owner\ComplaintController as OwnerComplaintController;
@@ -200,7 +201,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/owner/keluhan/{report}/status', [OwnerComplaintController::class, 'updateStatus'])->name('owner.complaints.updateStatus');
 
     // Portal Mitra Layanan SevenKost (Order Fulfillment, Kurir, Keuangan & Profil)
-    Route::prefix('mitra')->name('partner.')->group(function () {
+    Route::prefix('mitra')->name('partner.')->middleware('kyc.verified')->group(function () {
         Route::get('/dashboard', [PartnerDashboardController::class, 'index'])->name('dashboard');
 
         Route::get('/pesanan', [PartnerOrderController::class, 'index'])->name('orders.index');
@@ -242,6 +243,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/kyc/verifikasi', [KycController::class, 'index'])->name('kyc.index');
+    Route::post('/kyc/verifikasi', [KycController::class, 'store'])->name('kyc.store');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

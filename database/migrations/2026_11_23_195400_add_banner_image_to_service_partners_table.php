@@ -11,15 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('service_partners', function (Blueprint $table) {
-            $table->string('banner_image', 255)->nullable()->after('operational_hours');
-        });
+        if (! Schema::hasColumn('service_partners', 'banner_image')) {
+            Schema::table('service_partners', function (Blueprint $table) {
+                $table->string('banner_image', 255)->nullable()->after('operational_hours');
+            });
+        }
     }
 
     public function down(): void
     {
-        Schema::table('service_partners', function (Blueprint $table) {
-            $table->dropColumn('banner_image');
-        });
+        if (Schema::hasColumn('service_partners', 'banner_image')) {
+            Schema::table('service_partners', function (Blueprint $table) {
+                $table->dropColumn('banner_image');
+            });
+        }
     }
 };

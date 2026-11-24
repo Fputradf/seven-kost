@@ -447,8 +447,26 @@ class ServiceController extends Controller
             ],
         ];
 
+        $partnerModels = ServicePartner::where('verification_status', 'verified')->get();
+
         foreach ($services as &$svc) {
             $cat = $svc['category'];
+
+            // Resolusi gambar card kustom dari mitra layanan jika ada foto yang diunggah
+            $dbPartner = null;
+            if ($user && $user->hasRole('mitra') && $user->servicePartner && $user->servicePartner->category === $cat) {
+                $dbPartner = $user->servicePartner;
+            } elseif ($activeBooking && $activeBooking->kost && $activeBooking->kost->regency_id) {
+                $dbPartner = $partnerModels->where('category', $cat)->where('regency_id', $activeBooking->kost->regency_id)->whereNotNull('banner_image')->first();
+            }
+            if (! $dbPartner) {
+                $dbPartner = $partnerModels->where('category', $cat)->whereNotNull('banner_image')->first();
+            }
+
+            if ($dbPartner && $dbPartner->banner_image) {
+                $svc['image'] = $dbPartner->banner_url;
+            }
+
             $partner = $currentRegional[$cat] ?? null;
             $svc['local_partner'] = $partner;
             $svc['distance_km'] = $partner['distance_km'] ?? 2.0;

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\KycVerification;
 use App\Models\ServicePartner;
 use App\Models\Transaction;
 use App\Models\User;
@@ -27,6 +28,7 @@ class PartnerPortalTest extends TestCase
     {
         /** @var User $user */
         $user = User::factory()->create([
+            'email' => 'partner_'.uniqid().'@example.com',
             'wallet_balance' => $attributes['wallet_balance'] ?? 0,
         ]);
         $user->assignRole('mitra');
@@ -42,6 +44,18 @@ class PartnerPortalTest extends TestCase
             'bank_account_holder' => $attributes['bank_account_holder'] ?? $user->name,
             'verification_status' => 'verified',
             'operational_hours' => '08:00 - 20:00 WIB',
+        ]);
+
+        KycVerification::create([
+            'user_id' => $user->id,
+            'role' => 'mitra',
+            'nik' => fake()->unique()->numerify('################'),
+            'full_name' => $user->name,
+            'ktp_path' => 'kyc/ktp/dummy.jpg',
+            'selfie_path' => 'kyc/selfie/dummy.jpg',
+            'status' => 'verified',
+            'submitted_at' => now(),
+            'reviewed_at' => now(),
         ]);
 
         return [$user, $partner];
@@ -402,6 +416,8 @@ class PartnerPortalTest extends TestCase
 
         $response->assertSessionHas('success');
 
+        $this->assertNotNull($partner->fresh()->banner_image);
+
         $this->assertDatabaseHas('banners', [
             'user_id' => $user->id,
             'title' => 'Diskon Kilat Profil 35% Hari Ini',
@@ -474,9 +490,9 @@ class PartnerPortalTest extends TestCase
     }
 
     /**
-     * Test mitra dapat melihat bagian pengelolaan banner iklan di halaman profil usaha.
+     * Test mitra dapat melihat bagian pengelolaan foto kartu layanan di halaman pengaturan usaha.
      */
-    public function test_mitra_profile_page_renders_banner_management_section(): void
+    public function test_mitra_profile_page_renders_service_card_image_management_section(): void
     {
         [$user, $partner] = $this->createPartnerUser('laundry', [
             'business_name' => 'Laundry Bersih Dago',
@@ -485,8 +501,137 @@ class PartnerPortalTest extends TestCase
         $response = $this->actingAs($user)->get(route('partner.profile.index'));
 
         $response->assertStatus(200);
-        $response->assertSee('Banner Iklan Halaman /layanan');
-        $response->assertSee('Unggah / Ganti Gambar Banner');
-        $response->assertSee('Judul Promo / Headline Banner Iklan');
+        $response->assertSee('Foto Utama Kartu Layanan');
+        $response->assertSee('Unggah / Ganti Foto Kartu Layanan');
+    }
+
+    /**
+     * Test formulir pengaturan mitra merender dropdown wilayah dinamis dan tombol radius di samping alamat.
+     */
+    public function test_mitra_profile_page_renders_dynamic_location_and_radius_stepper(): void
+    {
+        [$user, $partner] = $this->createPartnerUser('laundry', [
+            'service_radius_km' => 6.5,
+        ]);
+
+        $response = $this->actingAs($user)->get(route('partner.profile.index'));
+
+        $response->assertStatus(200);
+        $response->assertSee('Radius Layanan (KM)');
+        $response->assertSee('Kurangi radius (-0.5 km)');
+        $response->assertSee('Tambah radius (+0.5 km)');
+        $response->assertSee('onProvChange(');
+        $response->assertSee('onRegencyChange()');
+    }
+
+    /**
+     * Test halaman pengaturan mitra memisahkan formulir ke dalam sistem tab navigasi.
+     */
+    public function test_mitra_profile_page_renders_separated_tab_navigation(): void
+    {
+        [$user, $partner] = $this->createPartnerUser('laundry');
+
+        $response = $this->actingAs($user)->get(route('partner.profile.index'));
+
+        $response->assertStatus(200);
+        $response->assertSee('1. Profil &amp; Kartu Layanan', false);
+        $response->assertSee('2. Wilayah &amp; Lokasi Hub', false);
+        $response->assertSee('3. Rekening Bank Pencairan', false);
+        $response->assertSee('4. Profil Pengelola');
+        $response->assertSee('Simpan Profil Usaha');
+        $response->assertSee('Simpan Pengaturan Lokasi');
+        $response->assertSee('Simpan Rekening Bank');
+        $response->assertSee('Simpan Profil Pengelola');
+        $response->assertSee('Pengelola:');
+    }
+
+    /**
+     * Test mitra yang belum verifikasi KYC tidak dapat mengakses fitur operasional (fitur dikunci).
+     */
+    public function test_unverified_mitra_cannot_access_operational_features_and_redirects_to_kyc(): void
+    {
+        /** @var User $unverifiedUser */
+        $unverifiedUser = User::factory()->create();
+        $unverifiedUser->assignRole('mitra');
+
+        ServicePartner::create([
+            'user_id' => $unverifiedUser->id,
+            'business_name' => 'Mitra Baru Laundry',
+            'category' => 'laundry',
+            'phone' => '081234567891',
+            'is_open' => false,
+            'verification_status' => 'pending',
+            'operational_hours' => '08:00 - 20:00 WIB',
+        ]);
+
+        // Coba akses dasbor, pesanan, dan keuangan
+        $resDash = $this->actingAs($unverifiedUser)->get(route('partner.dashboard'));
+        $resDash->assertRedirect(route('kyc.index'));
+        $resDash->assertSessionHas('warning');
+
+        $resOrders = $this->actingAs($unverifiedUser)->get(route('partner.orders.index'));
+        $resOrders->assertRedirect(route('kyc.index'));
+
+        $resFinances = $this->actingAs($unverifiedUser)->get(route('partner.finances.index'));
+        $resFinances->assertRedirect(route('kyc.index'));
+    }
+
+    /**
+     * Test halaman KYC menampilkan sidebar mitra dan menandai fitur lain sebagai Terkunci.
+     */
+    public function test_kyc_page_renders_with_partner_sidebar_and_shows_locked_features_for_unverified_mitra(): void
+    {
+        /** @var User $unverifiedUser */
+        $unverifiedUser = User::factory()->create();
+        $unverifiedUser->assignRole('mitra');
+
+        ServicePartner::create([
+            'user_id' => $unverifiedUser->id,
+            'business_name' => 'Mitra Baru Laundry',
+            'category' => 'laundry',
+            'phone' => '081234567891',
+            'is_open' => false,
+            'verification_status' => 'pending',
+            'operational_hours' => '08:00 - 20:00 WIB',
+        ]);
+
+        $response = $this->actingAs($unverifiedUser)->get(route('kyc.index'));
+        $response->assertStatus(200);
+
+        // Memastikan sidebar mitra dirender
+        $response->assertSee('Ikhtisar Operasional');
+        $response->assertSee('Pesanan Layanan');
+        $response->assertSee('Dompet & Keuangan', false);
+        $response->assertSee('Profil & Pengaturan', false);
+
+        // Tidak menampilkan teks 'Terkunci' pada sidebar sesuai preferensi UI
+        $response->assertDontSee('Terkunci');
+
+        // Menampilkan card gradient pada form
+        $response->assertSee('Verifikasi Identitas Pengguna');
+
+        // Menu KYC aktif dan wajib
+        $response->assertSee('Verifikasi Identitas (KYC)');
+        $response->assertSee('Wajib');
+    }
+
+    /**
+     * Test menu KYC hilang dari sidebar setelah mitra menyelesaikan verifikasi KYC.
+     */
+    public function test_kyc_menu_item_disappears_from_sidebar_once_mitra_is_verified(): void
+    {
+        [$user, $partner] = $this->createPartnerUser('laundry');
+
+        $response = $this->actingAs($user)->get(route('partner.dashboard'));
+        $response->assertStatus(200);
+
+        // Menu KYC hilang dari navigasi sidebar setelah verifikasi selesai
+        $response->assertDontSee('Verifikasi Identitas (KYC)');
+
+        // Fitur lain terbuka dan tidak ada badge Terkunci
+        $response->assertDontSee('Terkunci');
+        $response->assertSee('Daftar Pesanan');
+        $response->assertSee('Dompet Pendapatan');
+        $response->assertSee('Pengaturan Usaha');
     }
 }

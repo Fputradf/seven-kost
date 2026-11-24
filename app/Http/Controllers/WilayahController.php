@@ -14,7 +14,7 @@ class WilayahController extends Controller
     {
         $regencies = Regency::where('province_id', $provinceId)
             ->orderBy('name')
-            ->get(['id', 'name', 'type']);
+            ->get(['id', 'name', 'type', 'latitude', 'longitude']);
 
         return response()->json($regencies);
     }

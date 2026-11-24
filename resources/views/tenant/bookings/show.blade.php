@@ -315,6 +315,49 @@
             @endif
         </div>
 
+        {{-- 3. DATA DIRI PENGHUNI --}}
+        <div class="bg-white rounded-2xl border border-slate-200/90 p-4 shadow-2xs space-y-3">
+            <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                <span>Data Diri Penghuni</span>
+            </h4>
+
+            <div class="space-y-2 text-xs divide-y divide-slate-100">
+                <div class="flex items-center justify-between pt-1">
+                    <span class="text-slate-500">Nama Lengkap:</span>
+                    <strong class="text-slate-800 font-bold">{{ $booking->tenant_name ?: ($booking->tenant->name ?? '-') }}</strong>
+                </div>
+                <div class="flex items-center justify-between pt-2">
+                    <span class="text-slate-500">Nomor WhatsApp:</span>
+                    <strong class="text-slate-800 font-bold">{{ $booking->tenant_phone ?: ($booking->tenant->phone ?? '-') }}</strong>
+                </div>
+                @if($booking->tenant_nik)
+                    <div class="flex items-center justify-between pt-2">
+                        <span class="text-slate-500">NIK KTP:</span>
+                        <strong class="text-slate-800 font-mono font-bold">{{ $booking->tenant_nik }}</strong>
+                    </div>
+                @endif
+                @if($booking->tenant_gender)
+                    <div class="flex items-center justify-between pt-2">
+                        <span class="text-slate-500">Jenis Kelamin:</span>
+                        <strong class="text-slate-800 font-bold capitalize">{{ $booking->tenant_gender }}</strong>
+                    </div>
+                @endif
+                @if($booking->tenant_job)
+                    <div class="flex items-center justify-between pt-2">
+                        <span class="text-slate-500">Pekerjaan / Status:</span>
+                        <strong class="text-slate-800 font-bold">{{ $booking->tenant_job }}</strong>
+                    </div>
+                @endif
+                @if($booking->emergency_phone)
+                    <div class="flex items-center justify-between pt-2">
+                        <span class="text-slate-500">Kontak Darurat:</span>
+                        <strong class="text-slate-800 font-bold">{{ $booking->emergency_phone }}</strong>
+                    </div>
+                @endif
+            </div>
+        </div>
+
         {{-- 4. RINCIAN SEWA & PEMBAYARAN --}}
         <div class="bg-white rounded-2xl border border-slate-200/90 p-4 shadow-2xs space-y-3">
             <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">

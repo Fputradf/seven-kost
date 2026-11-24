@@ -269,6 +269,12 @@ class TenantPortalTest extends TestCase
             'duration_months' => '3', // String passed from form input
             'notes' => 'Catatan booking test',
             'is_for_other' => '0',
+            'tenant_name' => 'Penghuni Mandiri',
+            'tenant_phone' => '081234567890',
+            'tenant_nik' => '3271012345678901',
+            'tenant_gender' => 'pria',
+            'tenant_job' => 'Software Engineer',
+            'emergency_phone' => '081298765432',
         ]);
 
         $response->assertRedirect(route('tenant.bookings.index'));
@@ -279,6 +285,10 @@ class TenantPortalTest extends TestCase
             'duration_months' => 3,
             'status' => 'pending',
             'is_for_other' => false,
+            'tenant_nik' => '3271012345678901',
+            'tenant_gender' => 'pria',
+            'tenant_job' => 'Software Engineer',
+            'emergency_phone' => '081298765432',
         ]);
     }
 

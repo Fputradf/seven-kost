@@ -40,8 +40,8 @@ class ProfileController extends Controller
 
         $provinces = Province::orderBy('name')->get();
         $regencies = $partner->province_id
-            ? Regency::where('province_id', $partner->province_id)->orderBy('name')->get()
-            : Regency::take(30)->get();
+            ? Regency::where('province_id', $partner->province_id)->orderBy('name')->get(['id', 'name', 'type', 'latitude', 'longitude'])
+            : collect();
 
         $banner = Banner::where('user_id', $user->id)->first();
 
@@ -90,16 +90,16 @@ class ProfileController extends Controller
 
         $bannerPath = null;
         if ($request->hasFile('banner_image')) {
-            $bannerPath = $request->file('banner_image')->store('banners', 'public');
+            $bannerPath = $request->file('banner_image')->store('service-cards', 'public');
             $validated['banner_image'] = $bannerPath;
         }
 
         $partnerData = collect($validated)->except(['banner_title', 'banner_target_url', 'banner_is_active'])->all();
         $partner->update($partnerData);
 
-        // Sinkronisasi Banner Iklan Layanan Mitra (tampil di halaman /layanan)
+        // Sinkronisasi Banner/Katalog Layanan Mitra (tampil di halaman /layanan)
         $existingBanner = Banner::where('user_id', $user->id)->first();
-        $bannerImagePath = $bannerPath ?? $existingBanner?->image_path ?? $partner->banner_image ?? 'images/frontend/banner-jakarta-wide.jpg';
+        $bannerImagePath = $bannerPath ?? $existingBanner?->image_path ?? $partner->banner_image ?? 'images/frontend/service-laundry.jpg';
         $bannerTitle = $request->input('banner_title') ?: ($existingBanner?->title ?: ('Promo Spesial '.$validated['business_name']));
         $bannerTargetUrl = $request->input('banner_target_url') ?: ($existingBanner?->target_url ?: route('services.index'));
         $bannerIsActive = $request->has('banner_is_active') ? $request->boolean('banner_is_active') : ($existingBanner ? (bool) $existingBanner->is_active : true);
@@ -119,7 +119,10 @@ class ProfileController extends Controller
             ]
         );
 
-        return back()->with('success', 'Profil usaha dan banner iklan layanan Anda berhasil diperbarui.');
+        $activeTab = $request->input('active_tab');
+
+        return redirect()->route('partner.profile.index', array_filter(['tab' => $activeTab]))
+            ->with('success', 'Pengaturan usaha dan gambar kartu layanan Anda berhasil diperbarui.');
     }
 
     /**

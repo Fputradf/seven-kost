@@ -213,6 +213,31 @@
                                                 <svg class="w-3.5 h-3.5 text-emerald-500 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.587 1.961.954 3.031.954 3.183 0 5.768-2.587 5.769-5.766.001-3.187-2.575-5.77-5.76-5.77zm0-2.172c4.398 0 7.969 3.568 7.969 7.942 0 4.375-3.571 7.941-7.969 7.941-1.391 0-2.709-.364-3.856-1.002l-4.529 1.187 1.21-4.417c-.742-1.229-1.174-2.656-1.174-4.184 0-4.375 3.571-7.942 7.969-7.942z"/></svg>
                                                 <span>{{ $booking->tenant_phone ?: ($booking->tenant->phone ?? 'Belum ada kontak') }}</span>
                                             </a>
+
+                                            @if($booking->tenant_nik || $booking->tenant_gender || $booking->tenant_job || $booking->emergency_phone)
+                                                <div class="pt-1 text-[11px] text-slate-500 flex flex-wrap gap-x-2 gap-y-1 items-center border-t border-slate-100">
+                                                    @if($booking->tenant_nik)
+                                                        <span class="inline-flex items-center gap-1 font-mono font-medium text-slate-700 bg-slate-100 px-1.5 py-0.5 rounded">
+                                                            NIK: {{ $booking->tenant_nik }}
+                                                        </span>
+                                                    @endif
+                                                    @if($booking->tenant_gender)
+                                                        <span class="inline-flex items-center gap-1 font-medium capitalize text-slate-600">
+                                                            • {{ $booking->tenant_gender }}
+                                                        </span>
+                                                    @endif
+                                                    @if($booking->tenant_job)
+                                                        <span class="inline-flex items-center gap-1 font-medium text-slate-600">
+                                                            • {{ $booking->tenant_job }}
+                                                        </span>
+                                                    @endif
+                                                    @if($booking->emergency_phone)
+                                                        <span class="inline-flex items-center gap-1 font-medium text-blue-700 bg-blue-50 px-1.5 py-0.5 rounded">
+                                                            Darurat: {{ $booking->emergency_phone }}
+                                                        </span>
+                                                    @endif
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </td>

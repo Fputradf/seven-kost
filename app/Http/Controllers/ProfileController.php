@@ -44,6 +44,10 @@ class ProfileController extends Controller
             ]);
         }
 
+        if ($user && $user->hasRole('mitra')) {
+            return redirect()->route('partner.profile.index', ['tab' => 'account']);
+        }
+
         return view('profile.edit', [
             'user' => $user,
         ]);
@@ -70,6 +74,12 @@ class ProfileController extends Controller
         }
 
         $request->user()->save();
+
+        if ($request->user()->hasRole('mitra')) {
+            return Redirect::route('partner.profile.index', ['tab' => 'account'])
+                ->with('status', 'profile-updated')
+                ->with('success', 'Profil akun pengelola berhasil diperbarui.');
+        }
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }

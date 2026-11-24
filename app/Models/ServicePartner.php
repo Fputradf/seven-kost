@@ -39,7 +39,7 @@ class ServicePartner extends Model
     ];
 
     /**
-     * URL Banner usaha mitra.
+     * URL Banner / Foto Kartu Layanan usaha mitra.
      */
     public function getBannerUrlAttribute(): string
     {
@@ -51,7 +51,12 @@ class ServicePartner extends Model
             return Storage::disk('public')->url($this->banner_image);
         }
 
-        return asset('images/frontend/banner-jakarta-wide.jpg');
+        return match ($this->category) {
+            'cleaning' => asset('images/frontend/service-cleaning.jpg'),
+            'catering' => asset('images/frontend/service-catering.jpg'),
+            'maintenance' => asset('images/frontend/cta-kost-room.jpg'),
+            default => asset('images/frontend/service-laundry.jpg'),
+        };
     }
 
     /**

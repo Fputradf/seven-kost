@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\ServicePartner;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -46,9 +47,24 @@ class RegisteredUserController extends Controller
         $role = in_array($request->role, ['penghuni', 'pemilik', 'mitra']) ? $request->role : 'penghuni';
         $user->assignRole($role);
 
+        if ($role === 'mitra') {
+            ServicePartner::create([
+                'user_id' => $user->id,
+                'business_name' => 'Mitra Layanan '.$user->name,
+                'category' => 'laundry',
+                'phone' => $user->phone ?? '-',
+                'is_open' => true,
+                'verification_status' => 'pending',
+            ]);
+        }
+
         event(new Registered($user));
 
         Auth::login($user);
+
+        if ($request->filled('role') && $request->role === 'mitra') {
+            return redirect()->route('kyc.index')->with('info', 'Selamat datang di SevenKost! Harap lengkapi verifikasi identitas (KYC) Anda untuk mengaktifkan akun toko mitra Anda.');
+        }
 
         return redirect(route('dashboard', absolute: false));
     }

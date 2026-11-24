@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\EnsureKycVerified;
 use App\Http\Middleware\EnsureUserNotBanned;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -17,6 +18,9 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->appendToGroup('web', [
             EnsureUserNotBanned::class,
+        ]);
+        $middleware->alias([
+            'kyc.verified' => EnsureKycVerified::class,
         ]);
         $middleware->validateCsrfTokens(except: [
             'api/*',

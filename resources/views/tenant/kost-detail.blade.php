@@ -390,54 +390,125 @@
                         </select>
                     </div>
 
-                    {{-- Pemesanan Untuk Siapa --}}
-                    <div class="space-y-2 p-3 rounded-xl bg-slate-50 border border-slate-200/80">
-                        <label class="block text-xs font-bold text-slate-700 uppercase">Pemesanan Untuk:</label>
-                        <div class="grid grid-cols-2 gap-2">
-                            <label 
-                                class="flex items-center gap-2 p-2 rounded-xl border cursor-pointer text-xs font-bold transition select-none"
-                                :class="!isForOther ? 'bg-blue-50 border-blue-300 text-blue-700 shadow-2xs' : 'bg-white border-slate-200 text-slate-600'"
-                            >
-                                <input type="radio" name="booking_for" value="myself" class="text-blue-600 focus:ring-blue-500" @change="isForOther = false" checked>
-                                <span>Diri Sendiri</span>
+                    {{-- Data Diri Calon Penghuni --}}
+                    <div class="space-y-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80">
+                        <div class="flex items-center justify-between">
+                            <label class="block text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
+                                <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                                <span>Data Diri Calon Penghuni</span>
                             </label>
-                            <label 
-                                class="flex items-center gap-2 p-2 rounded-xl border cursor-pointer text-xs font-bold transition select-none"
-                                :class="isForOther ? 'bg-blue-50 border-blue-300 text-blue-700 shadow-2xs' : 'bg-white border-slate-200 text-slate-600'"
-                            >
-                                <input type="radio" name="booking_for" value="other" class="text-blue-600 focus:ring-blue-500" @change="isForOther = true">
-                                <span>Orang Lain</span>
-                            </label>
+                            <span class="text-[10px] font-bold text-blue-700 bg-blue-100/80 px-2 py-0.5 rounded-md">Wajib Diisi</span>
                         </div>
-                        <input type="hidden" name="is_for_other" :value="isForOther ? '1' : '0'">
 
-                        {{-- Input Khusus Orang Lain --}}
-                        <div x-show="isForOther" x-transition class="space-y-2 pt-2 border-t border-slate-200/70" style="display: none;">
+                        {{-- Pemesanan Untuk Siapa --}}
+                        <div class="space-y-1.5">
+                            <span class="text-[11px] font-semibold text-slate-600">Pemesanan Untuk:</span>
+                            <div class="grid grid-cols-2 gap-2">
+                                <label 
+                                    class="flex items-center gap-2 p-2 rounded-xl border cursor-pointer text-xs font-bold transition select-none"
+                                    :class="!isForOther ? 'bg-blue-50 border-blue-400 text-blue-700 shadow-2xs' : 'bg-white border-slate-200 text-slate-600'"
+                                >
+                                    <input type="radio" name="booking_for" value="myself" class="text-blue-600 focus:ring-blue-500" @change="isForOther = false" checked>
+                                    <span>Diri Sendiri</span>
+                                </label>
+                                <label 
+                                    class="flex items-center gap-2 p-2 rounded-xl border cursor-pointer text-xs font-bold transition select-none"
+                                    :class="isForOther ? 'bg-blue-50 border-blue-400 text-blue-700 shadow-2xs' : 'bg-white border-slate-200 text-slate-600'"
+                                >
+                                    <input type="radio" name="booking_for" value="other" class="text-blue-600 focus:ring-blue-500" @change="isForOther = true">
+                                    <span>Orang Lain</span>
+                                </label>
+                            </div>
+                            <input type="hidden" name="is_for_other" :value="isForOther ? '1' : '0'">
+                        </div>
+
+                        {{-- Nama & Nomor Telepon --}}
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                             <div class="space-y-1">
-                                <label class="block text-xs font-bold text-slate-700 uppercase">Nama Penghuni (Maks. 50 Karakter)</label>
+                                <label class="block text-[11px] font-bold text-slate-700">Nama Lengkap <span class="text-rose-500">*</span></label>
                                 <input 
                                     type="text" 
                                     name="tenant_name" 
-                                    maxlength="50"
-                                    value="{{ old('tenant_name') }}"
-                                    placeholder="Nama lengkap penghuni" 
-                                    :required="isForOther" 
-                                    class="w-full text-xs font-semibold rounded-xl border-slate-200 py-2"
+                                    maxlength="100"
+                                    :value="isForOther ? '{{ old('tenant_name') }}' : '{{ old('tenant_name', Auth::user()?->name) }}'"
+                                    placeholder="Nama sesuai KTP" 
+                                    required 
+                                    class="w-full text-xs font-semibold rounded-xl border-slate-200 py-2 focus:ring-blue-500 focus:border-blue-500"
                                 >
                             </div>
                             <div class="space-y-1">
-                                <label class="block text-xs font-bold text-slate-700 uppercase">No. WhatsApp Penghuni (9-16 digit)</label>
+                                <label class="block text-[11px] font-bold text-slate-700">No. WhatsApp <span class="text-rose-500">*</span></label>
                                 <input 
                                     type="tel" 
                                     name="tenant_phone" 
                                     maxlength="16"
                                     minlength="9"
                                     inputmode="numeric"
-                                    value="{{ old('tenant_phone') }}"
+                                    :value="isForOther ? '{{ old('tenant_phone') }}' : '{{ old('tenant_phone', Auth::user()?->phone) }}'"
                                     oninput="this.value = this.value.replace(/[^0-9+]/g, '')"
-                                    placeholder="Contoh: 081234567890" 
-                                    :required="isForOther" 
-                                    class="w-full text-xs font-semibold rounded-xl border-slate-200 py-2"
+                                    placeholder="081234567890" 
+                                    required 
+                                    class="w-full text-xs font-semibold rounded-xl border-slate-200 py-2 focus:ring-blue-500 focus:border-blue-500"
+                                >
+                            </div>
+                        </div>
+
+                        {{-- NIK KTP & Jenis Kelamin --}}
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <div class="space-y-1">
+                                <label class="block text-[11px] font-bold text-slate-700">NIK KTP (16 Digit) <span class="text-rose-500">*</span></label>
+                                <input 
+                                    type="text" 
+                                    name="tenant_nik" 
+                                    maxlength="16"
+                                    minlength="16"
+                                    inputmode="numeric"
+                                    value="{{ old('tenant_nik') }}"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                                    placeholder="16 digit angka NIK" 
+                                    required 
+                                    class="w-full text-xs font-semibold rounded-xl border-slate-200 py-2 tracking-wider focus:ring-blue-500 focus:border-blue-500"
+                                >
+                            </div>
+                            <div class="space-y-1">
+                                <label class="block text-[11px] font-bold text-slate-700">Jenis Kelamin <span class="text-rose-500">*</span></label>
+                                <select 
+                                    name="tenant_gender" 
+                                    required 
+                                    class="w-full text-xs font-semibold rounded-xl border-slate-200 py-2 focus:ring-blue-500 focus:border-blue-500"
+                                >
+                                    <option value="" disabled {{ old('tenant_gender') ? '' : 'selected' }}>Pilih Jenis Kelamin</option>
+                                    <option value="pria" {{ old('tenant_gender') === 'pria' ? 'selected' : '' }}>Pria</option>
+                                    <option value="wanita" {{ old('tenant_gender') === 'wanita' ? 'selected' : '' }}>Wanita</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        {{-- Pekerjaan & Kontak Darurat --}}
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <div class="space-y-1">
+                                <label class="block text-[11px] font-bold text-slate-700">Pekerjaan / Status</label>
+                                <input 
+                                    type="text" 
+                                    name="tenant_job" 
+                                    maxlength="100"
+                                    value="{{ old('tenant_job') }}"
+                                    placeholder="Cth: Mahasiswa / Karyawan" 
+                                    class="w-full text-xs font-semibold rounded-xl border-slate-200 py-2 focus:ring-blue-500 focus:border-blue-500"
+                                >
+                            </div>
+                            <div class="space-y-1">
+                                <label class="block text-[11px] font-bold text-slate-700">Kontak Darurat (Kerabat/Ortu)</label>
+                                <input 
+                                    type="tel" 
+                                    name="emergency_phone" 
+                                    maxlength="16"
+                                    minlength="9"
+                                    inputmode="numeric"
+                                    value="{{ old('emergency_phone') }}"
+                                    oninput="this.value = this.value.replace(/[^0-9+]/g, '')"
+                                    placeholder="08xxxxxxxxxx" 
+                                    class="w-full text-xs font-semibold rounded-xl border-slate-200 py-2 focus:ring-blue-500 focus:border-blue-500"
                                 >
                             </div>
                         </div>

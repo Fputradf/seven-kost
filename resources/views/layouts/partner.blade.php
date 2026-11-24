@@ -31,6 +31,7 @@
 >
     @php
         $partner = auth()->user()?->servicePartner;
+        $isKycVerified = auth()->user()?->isKycVerified();
     @endphp
 
     {{-- =========================================================================
@@ -149,8 +150,22 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                         </svg>
-                        <span>Profil Usaha</span>
+                        <span>Pengaturan Usaha</span>
                     </a>
+
+                    {{-- MENU KYC: HANYA TAMPIL JIKA MITRA BELUM SELESAI KYC (HILANG SETELAH VERIFIKASI) --}}
+                    @if (! $isKycVerified)
+                        <a 
+                            href="{{ route('kyc.index') }}" 
+                            class="flex items-center justify-between px-3 py-2.5 rounded-xl text-[13px] transition-all {{ request()->routeIs('kyc.*') ? 'bg-blue-600 text-white font-bold shadow-md shadow-blue-500/30' : 'text-blue-100 font-semibold bg-white/10 hover:bg-white/15 border border-white/15' }}"
+                        >
+                            <div class="flex items-center gap-3">
+                                <svg class="w-4 h-4 flex-shrink-0 {{ request()->routeIs('kyc.*') ? 'text-white' : 'text-blue-300' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                                <span>Verifikasi Identitas (KYC)</span>
+                            </div>
+                            <span class="px-1.5 py-0.5 rounded text-[10px] font-extrabold {{ request()->routeIs('kyc.*') ? 'bg-white/20 text-white' : 'bg-blue-500 text-white' }}">Wajib</span>
+                        </a>
+                    @endif
 
                     <a 
                         href="{{ route('services.index') }}" 
@@ -162,6 +177,10 @@
                         </svg>
                         <span>Katalog Layanan Publik</span>
                     </a>
+                </nav>
+            </div>
+
+        </div>
                 </nav>
             </div>
 
@@ -216,9 +235,13 @@
                         type="button" 
                         class="flex items-center gap-2.5 p-1 rounded-full text-sm hover:bg-slate-100 transition focus:outline-none"
                     >
-                        <div class="h-8 w-8 rounded-full bg-blue-700 text-white font-semibold text-xs ring-2 ring-blue-500/20 flex items-center justify-center shadow-xs">
-                            {{ strtoupper(substr(Auth::user()->name ?? 'M', 0, 1)) }}
-                        </div>
+                        @if(Auth::user()->avatar_url)
+                            <img src="{{ Auth::user()->avatar_url }}" alt="{{ Auth::user()->name }}" class="h-8 w-8 rounded-full object-cover ring-2 ring-blue-500/20 shadow-xs">
+                        @else
+                            <div class="h-8 w-8 rounded-full bg-blue-700 text-white font-semibold text-xs ring-2 ring-blue-500/20 flex items-center justify-center shadow-xs">
+                                {{ strtoupper(substr(Auth::user()->name ?? 'M', 0, 1)) }}
+                            </div>
+                        @endif
                         <span class="text-[13px] font-medium text-slate-800 hidden md:inline">{{ Auth::user()->name }}</span>
                         <svg class="h-3.5 w-3.5 text-slate-400 hidden sm:inline" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -229,26 +252,54 @@
                     <div 
                         x-show="userDropdownOpen" 
                         x-transition 
-                        class="absolute right-0 mt-2 w-56 rounded-2xl bg-white p-2 shadow-xl ring-1 ring-black/5 text-slate-800 z-50" 
+                        class="absolute right-0 mt-2 w-60 rounded-2xl bg-white p-2 shadow-xl ring-1 ring-black/5 text-slate-800 z-50 overflow-hidden" 
                         style="display: none;"
                     >
-                        <div class="px-3 py-2 border-b border-slate-100">
-                            <p class="text-[11px] text-slate-400 font-medium">Masuk sebagai</p>
-                            <p class="text-xs font-bold text-slate-900 truncate">{{ Auth::user()->email }}</p>
-                            <span class="inline-block mt-1 px-2 py-0.5 rounded text-[10px] font-bold bg-amber-50 text-amber-700 border border-amber-200">
-                                {{ $partner?->business_name ?? 'Mitra Layanan' }}
-                            </span>
+                        <div class="px-3 py-2.5 border-b border-slate-100 flex items-center gap-2.5">
+                            @if(Auth::user()->avatar_url)
+                                <img src="{{ Auth::user()->avatar_url }}" alt="{{ Auth::user()->name }}" class="h-9 w-9 rounded-full object-cover ring-1 ring-slate-200 shrink-0">
+                            @else
+                                <div class="h-9 w-9 rounded-full bg-blue-700 text-white font-bold text-xs flex items-center justify-center shrink-0">
+                                    {{ strtoupper(substr(Auth::user()->name ?? 'M', 0, 1)) }}
+                                </div>
+                            @endif
+                            <div class="min-w-0 flex-1">
+                                <p class="text-xs font-bold text-slate-900 truncate">{{ Auth::user()->name }}</p>
+                                <p class="text-[11px] text-slate-400 truncate">{{ Auth::user()->email }}</p>
+                            </div>
                         </div>
 
-                        <a href="{{ route('partner.profile.index') }}" class="flex items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition">
-                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-                            Profil Usaha
-                        </a>
+                        <div class="px-3 py-1.5 bg-slate-50/80 border-b border-slate-100 flex items-center justify-between text-[11px]">
+                            <span class="text-slate-500 font-medium">Usaha:</span>
+                            <span class="font-bold text-blue-700 truncate max-w-[140px]">{{ $partner?->business_name ?? 'Mitra Layanan' }}</span>
+                        </div>
 
-                        <a href="{{ route('partner.finances.index') }}" class="flex items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition">
-                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
-                            Dompet Saldo
-                        </a>
+                        <div class="pt-1 space-y-0.5">
+                            @if ($isKycVerified)
+                                <a href="{{ route('partner.profile.index', ['tab' => 'account']) }}" class="flex items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition">
+                                    <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                                    Profil Pengelola
+                                </a>
+
+                                <a href="{{ route('partner.profile.index') }}" class="flex items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition">
+                                    <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                    Pengaturan Usaha
+                                </a>
+
+                                <a href="{{ route('partner.finances.index') }}" class="flex items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition">
+                                    <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+                                    Dompet Saldo
+                                </a>
+                            @else
+                                <a href="{{ route('kyc.index') }}" class="flex items-center justify-between rounded-xl px-3 py-2 text-xs font-bold text-amber-900 bg-amber-50 hover:bg-amber-100 transition">
+                                    <span class="flex items-center gap-2">
+                                        <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                                        Verifikasi KYC
+                                    </span>
+                                    <span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-amber-400 text-slate-950">Wajib</span>
+                                </a>
+                            @endif
+                        </div>
 
                         <div class="my-1 border-t border-slate-100"></div>
 
@@ -280,6 +331,51 @@
                     <svg class="w-5 h-5 text-rose-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     <span>{{ session('error') }}</span>
                 </div>
+            </div>
+        @endif
+
+        {{-- KYC Verification Notice for Partner --}}
+        @php
+            $partnerUserKyc = auth()->user()?->kyc;
+        @endphp
+        @if (! request()->routeIs('kyc.*') && (! $partnerUserKyc || ! $partnerUserKyc->isVerified()))
+            <div class="px-4 sm:px-6 lg:px-8 pt-4">
+                @if (! $partnerUserKyc)
+                    <div class="rounded-2xl bg-blue-50/80 border border-blue-200 p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-blue-950 shadow-xs">
+                        <div class="flex items-center gap-3">
+                            <div class="h-9 w-9 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-blue-950">Identitas Belum Terverifikasi (KYC)</h4>
+                                <p class="text-[11px] text-blue-800/90">Harap unggah KTP, foto selfie, dan berkas pendukung untuk mengaktifkan status verifikasi resmi toko Anda.</p>
+                            </div>
+                        </div>
+                        <a href="{{ route('kyc.index') }}" class="px-4 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition shrink-0 text-center">
+                            Verifikasi Sekarang &rarr;
+                        </a>
+                    </div>
+                @elseif ($partnerUserKyc->isPending())
+                    <div class="rounded-2xl bg-blue-50 border border-blue-200 p-3.5 flex items-center gap-3 text-blue-900 text-xs shadow-xs">
+                        <svg class="w-5 h-5 text-blue-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <span>Dokumen KYC Anda sedang ditinjau oleh Admin SevenKost (NIK: <strong>{{ substr($partnerUserKyc->nik, 0, 6) }}******{{ substr($partnerUserKyc->nik, -4) }}</strong>).</span>
+                    </div>
+                @elseif ($partnerUserKyc->isRejected())
+                    <div class="rounded-2xl bg-rose-50 border border-rose-200 p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-rose-900 shadow-xs">
+                        <div class="flex items-center gap-3">
+                            <div class="h-9 w-9 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-rose-950">Verifikasi Identitas Ditolak</h4>
+                                <p class="text-[11px] text-rose-800">Alasan: {{ $partnerUserKyc->rejection_reason ?: 'Berkas tidak sesuai.' }}</p>
+                            </div>
+                        </div>
+                        <a href="{{ route('kyc.index') }}" class="px-4 py-2 rounded-xl text-xs font-bold bg-rose-600 hover:bg-rose-700 text-white shadow-xs transition shrink-0 text-center">
+                            Unggah Ulang Dokumen &rarr;
+                        </a>
+                    </div>
+                @endif
             </div>
         @endif
 

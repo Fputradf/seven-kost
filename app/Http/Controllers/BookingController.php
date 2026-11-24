@@ -105,15 +105,25 @@ class BookingController extends Controller
             'duration_months' => 'required|integer|min:1|max:24',
             'notes' => 'nullable|string|max:500',
             'is_for_other' => 'nullable|boolean',
-            'tenant_name' => 'nullable|required_if:is_for_other,1|string|max:50',
-            'tenant_phone' => 'nullable|required_if:is_for_other,1|string|min:9|max:16|regex:/^[0-9+]{9,16}$/',
+            'tenant_name' => 'nullable|string|max:100',
+            'tenant_phone' => 'nullable|string|min:9|max:16|regex:/^[0-9+]{9,16}$/',
+            'tenant_nik' => 'nullable|string|size:16|regex:/^[0-9]{16}$/',
+            'tenant_gender' => 'nullable|in:pria,wanita',
+            'tenant_job' => 'nullable|string|max:100',
+            'emergency_phone' => 'nullable|string|min:9|max:16|regex:/^[0-9+]{9,16}$/',
         ], [
             'start_date.before_or_equal' => 'Tanggal masuk kamar maksimal 7 hari ke depan dari hari ini.',
             'start_date.after_or_equal' => 'Tanggal masuk kamar minimal adalah hari ini.',
-            'tenant_name.max' => 'Nama penghuni maksimal 50 karakter.',
+            'tenant_name.max' => 'Nama penghuni maksimal 100 karakter.',
             'tenant_phone.min' => 'Nomor WhatsApp penghuni minimal 9 karakter/digit.',
             'tenant_phone.max' => 'Nomor WhatsApp penghuni maksimal 16 karakter/digit.',
             'tenant_phone.regex' => 'Format nomor WhatsApp penghuni tidak valid (hanya angka dan tanda +).',
+            'tenant_nik.size' => 'NIK KTP harus tepat 16 digit angka.',
+            'tenant_nik.regex' => 'Format NIK KTP harus 16 digit angka.',
+            'tenant_gender.in' => 'Pilihan jenis kelamin tidak valid (pria/wanita).',
+            'emergency_phone.min' => 'Nomor kontak darurat minimal 9 karakter/digit.',
+            'emergency_phone.max' => 'Nomor kontak darurat maksimal 16 karakter/digit.',
+            'emergency_phone.regex' => 'Format nomor kontak darurat tidak valid (hanya angka dan tanda +).',
         ]);
 
         $room = Room::where('kost_id', $kost->id)->findOrFail($validated['room_id']);
@@ -131,8 +141,16 @@ class BookingController extends Controller
         $endDate = $startDate->copy()->addMonths($durationMonths);
 
         $isForOther = $request->boolean('is_for_other');
-        $tenantName = ($isForOther && ! empty($validated['tenant_name'])) ? $validated['tenant_name'] : $user->name;
-        $tenantPhone = ($isForOther && ! empty($validated['tenant_phone'])) ? $validated['tenant_phone'] : ($user->phone ?? '');
+        $tenantName = ($isForOther && ! empty($validated['tenant_name']))
+            ? $validated['tenant_name']
+            : (! empty($validated['tenant_name']) ? $validated['tenant_name'] : $user->name);
+        $tenantPhone = ($isForOther && ! empty($validated['tenant_phone']))
+            ? $validated['tenant_phone']
+            : (! empty($validated['tenant_phone']) ? $validated['tenant_phone'] : ($user->phone ?? ''));
+
+        if (empty($user->phone) && ! empty($tenantPhone) && ! $isForOther) {
+            $user->update(['phone' => $tenantPhone]);
+        }
 
         Booking::create([
             'user_id' => $user->id,
@@ -147,6 +165,10 @@ class BookingController extends Controller
             'is_for_other' => $isForOther,
             'tenant_name' => $tenantName,
             'tenant_phone' => $tenantPhone,
+            'tenant_nik' => $validated['tenant_nik'] ?? null,
+            'tenant_gender' => $validated['tenant_gender'] ?? null,
+            'tenant_job' => $validated['tenant_job'] ?? null,
+            'emergency_phone' => $validated['emergency_phone'] ?? null,
         ]);
 
         return redirect()->route('tenant.bookings.index')

@@ -23,6 +23,10 @@ class Booking extends Model
         'is_for_other',
         'tenant_name',
         'tenant_phone',
+        'tenant_nik',
+        'tenant_gender',
+        'tenant_job',
+        'emergency_phone',
     ];
 
     protected $casts = [

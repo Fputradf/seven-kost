@@ -105,6 +105,30 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
     }
 
     /**
+     * Data verifikasi identitas resmi (KYC).
+     */
+    public function kyc(): HasOne
+    {
+        return $this->hasOne(KycVerification::class, 'user_id');
+    }
+
+    /**
+     * Cek apakah status KYC pengguna telah terverifikasi resmi.
+     */
+    public function isKycVerified(): bool
+    {
+        return $this->kyc?->status === 'verified';
+    }
+
+    /**
+     * Ambil status KYC pengguna saat ini.
+     */
+    public function kycStatus(): string
+    {
+        return $this->kyc?->status ?? 'unverified';
+    }
+
+    /**
      * Riwayat transaksi dompet (wallet transactions).
      */
     public function walletTransactions(): HasMany
