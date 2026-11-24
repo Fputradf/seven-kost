@@ -153,7 +153,7 @@
 
                 <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                     <div class="lg:col-span-8 space-y-4">
-                        <h2 class="text-2xl sm:text-3xl font-black tracking-tight leading-snug">
+                        <h2 class="text-2xl sm:text-3xl font-black tracking-tight leading-snug text-white">
                             Pasang & Kelola Iklan Kos Anda Secara Gratis
                         </h2>
                         <p class="text-xs sm:text-sm text-slate-200 leading-relaxed max-w-2xl">
