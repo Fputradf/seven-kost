@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AppSetting;
 use App\Models\Banner;
 use App\Models\ServicePartner;
+use App\Models\ServicePartnerBranch;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Services\XenditService;
@@ -87,9 +88,15 @@ class ServiceController extends Controller
             $tenantAddress = $activeBooking->kost->address ?: ($tenantKostName.', '.$tenantRegionName);
             $tenantOccupantName = $activeBooking->tenant_name ?: $user->name;
             $tenantOccupantPhone = $activeBooking->tenant_phone ?: ($user->phone ?? '');
+        }
+
+        // Resolusi pilihan kota/wilayah: prioritaskan parameter URL ?kota= agar filter wilayah relevan dan dapat dijelajahi
+        if (request()->filled('kota')) {
+            $selectedCity = (string) request('kota');
+        } elseif ($tenantRegionName) {
             $selectedCity = $tenantRegionName;
         } else {
-            $selectedCity = request('kota', 'Jakarta');
+            $selectedCity = 'Jakarta';
         }
 
         // 2. Data Jaringan Mitra Regional (Coverage Radius per Kota/Wilayah)
@@ -276,6 +283,60 @@ class ServiceController extends Controller
             ],
         ];
 
+        $partnerModels = ServicePartner::where('verification_status', 'verified')
+            ->with(['regency', 'packages' => fn ($q) => $q->where('is_active', true)->orderBy('price')])
+            ->get();
+        $branchModels = ServicePartnerBranch::whereHas('servicePartner', function ($q) {
+            $q->where('verification_status', 'verified');
+        })->with(['servicePartner.packages' => fn ($q) => $q->where('is_active', true)->orderBy('price'), 'regency'])->get();
+
+        // Sinkronkan kota/kabupaten tambahan dari hub mitra & cabang mitra di database ke daftar wilayah
+        $dynamicRegencies = $partnerModels->pluck('regency')
+            ->merge($branchModels->pluck('regency'))
+            ->filter()
+            ->unique('id');
+
+        foreach ($dynamicRegencies as $dynReg) {
+            $dynName = strtolower($dynReg->name);
+            $alreadyCovered = str_contains($dynName, 'jakarta')
+                || str_contains($dynName, 'depok')
+                || str_contains($dynName, 'bandung')
+                || str_contains($dynName, 'sleman')
+                || str_contains($dynName, 'yogyakarta')
+                || str_contains($dynName, 'jogja')
+                || str_contains($dynName, 'surabaya')
+                || str_contains($dynName, 'malang');
+
+            if (! $alreadyCovered) {
+                $dynKey = 'regency_'.$dynReg->id;
+                $shortCity = trim(str_ireplace(['Kota ', 'Kabupaten '], '', $dynReg->name));
+                $regionalPartners[$dynKey] = [
+                    'city_label' => $dynReg->name,
+                    'badge_city' => $shortCity,
+                    'hub_lat' => $dynReg->latitude ?: -6.2088,
+                    'hub_lon' => $dynReg->longitude ?: 106.8456,
+                    'laundry' => [
+                        'partner_name' => 'Belum ada mitra di '.$shortCity,
+                        'coverage_area' => 'Belum ada cabang/mitra aktif di wilayah ini',
+                        'default_distance' => 2.0,
+                        'delivery_time' => 'Tidak Tersedia',
+                    ],
+                    'cleaning' => [
+                        'partner_name' => 'Belum ada mitra di '.$shortCity,
+                        'coverage_area' => 'Belum ada cabang/mitra aktif di wilayah ini',
+                        'default_distance' => 2.0,
+                        'delivery_time' => 'Tidak Tersedia',
+                    ],
+                    'catering' => [
+                        'partner_name' => 'Belum ada mitra di '.$shortCity,
+                        'coverage_area' => 'Belum ada cabang/mitra aktif di wilayah ini',
+                        'default_distance' => 2.0,
+                        'delivery_time' => 'Tidak Tersedia',
+                    ],
+                ];
+            }
+        }
+
         // Resolusi City Key
         $searchKey = strtolower($selectedCity);
         $cityKey = 'jakarta';
@@ -290,6 +351,13 @@ class ServiceController extends Controller
             $cityKey = 'surabaya';
         } elseif (str_contains($searchKey, 'malang')) {
             $cityKey = 'malang';
+        } else {
+            foreach ($regionalPartners as $rKey => $rVal) {
+                if (str_starts_with($rKey, 'regency_') && (str_contains($searchKey, strtolower($rVal['badge_city'])) || str_contains($searchKey, strtolower($rVal['city_label'])))) {
+                    $cityKey = $rKey;
+                    break;
+                }
+            }
         }
 
         $currentRegional = $regionalPartners[$cityKey];
@@ -309,7 +377,7 @@ class ServiceController extends Controller
 
         $maxDistance = (float) AppSetting::get('service_max_distance_km', 5.0);
         $hasOutOfRangeService = false;
-        foreach (['laundry', 'cleaning', 'catering', 'maintenance'] as $serviceKey) {
+        foreach (['laundry', 'cleaning', 'catering'] as $serviceKey) {
             $baseDistance = $currentRegional[$serviceKey]['default_distance'] ?? 2.0;
             $dist = $forcedDistance ?? ($calculatedDistance ?? $baseDistance);
             $isInRange = $dist <= $maxDistance;
@@ -320,10 +388,14 @@ class ServiceController extends Controller
 
             $currentRegional[$serviceKey]['distance_km'] = $dist;
             $currentRegional[$serviceKey]['is_in_range'] = $isInRange;
-            if ($isInRange) {
-                $currentRegional[$serviceKey]['distance_approx'] = "{$dist} km dari kos Anda";
+            if ($hasActiveBooking) {
+                if ($isInRange) {
+                    $currentRegional[$serviceKey]['distance_approx'] = "{$dist} km dari kos Anda";
+                } else {
+                    $currentRegional[$serviceKey]['distance_approx'] = "{$dist} km (Di luar jangkauan > {$maxDistance} km)";
+                }
             } else {
-                $currentRegional[$serviceKey]['distance_approx'] = "{$dist} km (Di luar jangkauan > {$maxDistance} km)";
+                $currentRegional[$serviceKey]['distance_approx'] = "Radius s/d {$maxDistance} km";
             }
         }
 
@@ -419,55 +491,143 @@ class ServiceController extends Controller
                     ['name' => 'Paket Bulanan Super Hemat (20 Hari)', 'price' => 450000, 'unit' => '/bulan'],
                 ],
             ],
-            [
-                'id' => 'maintenance',
-                'category' => 'maintenance',
-                'title' => 'Seven Care Teknisi & AC',
-                'badge' => 'Teknisi Berpengalaman',
-                'is_available' => true,
-                'image' => asset('images/frontend/cta-kost-room.jpg'),
-                'description' => 'Layanan perbaikan kelistrikan, servis cuci AC dingin, dan perbaikan perabot kamar kos oleh teknisi tersertifikasi.',
-                'price_start' => 40000,
-                'price_unit' => '/ sesi',
-                'rating' => 4.9,
-                'reviews_count' => 42,
-                'local_partner' => $currentRegional['maintenance'],
-                'features' => [
-                    'Cuci AC hemat freon & pengecekan kebocoran',
-                    'Perbaikan lampu, colokan listrik & saklar kos',
-                    'Perbaikan engsel pintu, kunci kamar & shower',
-                    'Garansi servis 14 hari kerja',
-                ],
-                'packages' => [
-                    ['name' => 'Cuci AC Standar 0.5 - 1 PK', 'price' => 75000, 'unit' => '/unit'],
-                    ['name' => 'Isi Ulang Freon AC R32/R410A', 'price' => 150000, 'unit' => '/unit'],
-                    ['name' => 'Cek Kelistrikan & Pasang Lampu', 'price' => 40000, 'unit' => '/sesi'],
-                    ['name' => 'Perbaikan Pipa & Kran Bocor', 'price' => 50000, 'unit' => '/titik'],
-                ],
-            ],
         ];
-
-        $partnerModels = ServicePartner::where('verification_status', 'verified')->get();
 
         foreach ($services as &$svc) {
             $cat = $svc['category'];
 
-            // Resolusi gambar card kustom dari mitra layanan jika ada foto yang diunggah
-            $dbPartner = null;
-            if ($user && $user->hasRole('mitra') && $user->servicePartner && $user->servicePartner->category === $cat) {
-                $dbPartner = $user->servicePartner;
-            } elseif ($activeBooking && $activeBooking->kost && $activeBooking->kost->regency_id) {
-                $dbPartner = $partnerModels->where('category', $cat)->where('regency_id', $activeBooking->kost->regency_id)->whereNotNull('banner_image')->first();
-            }
-            if (! $dbPartner) {
-                $dbPartner = $partnerModels->where('category', $cat)->whereNotNull('banner_image')->first();
+            // 1. Cari cabang mitra terverifikasi di database untuk wilayah terpilih
+            $matchedBranch = $branchModels->filter(fn ($b) => $b->servicePartner && $b->servicePartner->category === $cat)
+                ->first(fn ($b) => $this->matchesCityKey($b->regency?->name, $b->address, $cityKey, $currentRegional['badge_city'] ?? $selectedCity));
+
+            // 2. Cari hub utama mitra terverifikasi di database untuk wilayah terpilih
+            $dbPartner = $partnerModels->where('category', $cat)
+                ->first(fn ($p) => $this->matchesCityKey($p->regency?->name, $p->address, $cityKey, $currentRegional['badge_city'] ?? $selectedCity));
+
+            // Prioritaskan gambar dari mitra atau cabang yang cocok
+            $bannerSource = $dbPartner ?? $matchedBranch?->servicePartner;
+            if (! $bannerSource) {
+                $bannerSource = $partnerModels->where('category', $cat)->whereNotNull('banner_image')->first();
             }
 
-            if ($dbPartner && $dbPartner->banner_image) {
-                $svc['image'] = $dbPartner->banner_url;
+            if ($bannerSource && $bannerSource->banner_image) {
+                $svc['image'] = $bannerSource->banner_url;
             }
 
             $partner = $currentRegional[$cat] ?? null;
+
+            // Jika ada hub utama mitra terverifikasi di database untuk kota ini, perbarui info partner
+            if ($dbPartner && $this->matchesCityKey($dbPartner->regency?->name, $dbPartner->address, $cityKey, $currentRegional['badge_city'] ?? $selectedCity)) {
+                $partner['partner_id'] = $dbPartner->id;
+                $partner['branch_id'] = null;
+                $partner['branch_name'] = null;
+                $partner['is_branch'] = false;
+                $partner['partner_name'] = $dbPartner->business_name;
+                $partner['partner_address'] = $dbPartner->address ?: ($dbPartner->regency->name ?? '');
+                $partner['is_open'] = (bool) $dbPartner->is_open;
+                $partner['has_real_partner'] = true;
+                if (! empty($dbPartner->address)) {
+                    $partner['coverage_area'] = 'Pusat: '.$dbPartner->address;
+                }
+                if (! empty($dbPartner->operational_hours)) {
+                    $partner['delivery_time'] = 'Jam Operasional: '.$dbPartner->operational_hours;
+                }
+                $partnerRadius = (float) ($dbPartner->service_radius_km ?: $maxDistance);
+                if ($activeBooking && $activeBooking->kost && $activeBooking->kost->latitude && $activeBooking->kost->longitude && $dbPartner->latitude && $dbPartner->longitude) {
+                    $partnerDist = $this->calculateDistance(
+                        (float) $activeBooking->kost->latitude,
+                        (float) $activeBooking->kost->longitude,
+                        (float) $dbPartner->latitude,
+                        (float) $dbPartner->longitude
+                    );
+                    $partnerInRange = $partnerDist <= $partnerRadius;
+                    $partner['distance_km'] = $partnerDist;
+                    $partner['is_in_range'] = $partnerInRange;
+                    $partner['distance_approx'] = $partnerInRange
+                        ? "{$partnerDist} km dari kos Anda"
+                        : "{$partnerDist} km (Di luar jangkauan > {$partnerRadius} km)";
+                } else {
+                    $partner['distance_approx'] = "Radius s/d {$partnerRadius} km";
+                }
+                $svc['is_available'] = (bool) $dbPartner->is_open;
+            } elseif ($matchedBranch && $matchedBranch->servicePartner) {
+                // Jika kota ini dilayani oleh cabang mitra, gunakan data cabang tersebut
+                $parentPartner = $matchedBranch->servicePartner;
+                $partner['partner_id'] = $parentPartner->id;
+                $partner['branch_id'] = $matchedBranch->id;
+                $partner['branch_name'] = $matchedBranch->branch_name;
+                $partner['is_branch'] = true;
+                $partner['partner_name'] = $parentPartner->business_name.' - '.$matchedBranch->branch_name;
+                $partner['partner_address'] = $matchedBranch->address;
+                $partner['is_open'] = (bool) $matchedBranch->is_open;
+                $partner['has_real_partner'] = true;
+                $partner['coverage_area'] = 'Cabang: '.$matchedBranch->address;
+
+                $hours = $matchedBranch->operational_hours ?: $parentPartner->operational_hours;
+                if (! empty($hours)) {
+                    $partner['delivery_time'] = 'Jam Operasional: '.$hours;
+                }
+
+                // Hitung ulang jarak jika kost dan cabang memiliki koordinat
+                $branchRadius = (float) ($matchedBranch->service_radius_km ?: $maxDistance);
+                if ($activeBooking && $activeBooking->kost && $activeBooking->kost->latitude && $activeBooking->kost->longitude && $matchedBranch->latitude && $matchedBranch->longitude) {
+                    $branchDist = $this->calculateDistance(
+                        (float) $activeBooking->kost->latitude,
+                        (float) $activeBooking->kost->longitude,
+                        (float) $matchedBranch->latitude,
+                        (float) $matchedBranch->longitude
+                    );
+                    $branchInRange = $branchDist <= $branchRadius;
+                    $partner['distance_km'] = $branchDist;
+                    $partner['is_in_range'] = $branchInRange;
+                    $partner['distance_approx'] = $branchInRange
+                        ? "{$branchDist} km dari kos Anda"
+                        : "{$branchDist} km (Di luar jangkauan > {$branchRadius} km)";
+                } else {
+                    $partner['distance_approx'] = "Radius s/d {$branchRadius} km";
+                }
+
+                $svc['is_available'] = (bool) $matchedBranch->is_open;
+            } elseif ($partnerModels->isNotEmpty()) {
+                // Database memiliki mitra terdaftar, namun tidak ada hub/cabang aktif di kota ini
+                $svc['is_available'] = false;
+                $partner['has_real_partner'] = false;
+                $partner['is_open'] = false;
+                $partner['is_in_range'] = true;
+                $partner['partner_name'] = 'Belum ada mitra di '.$currentRegional['badge_city'];
+                $partner['coverage_area'] = 'Belum ada cabang/mitra aktif di wilayah ini';
+                $partner['delivery_time'] = 'Tidak Tersedia';
+                $partner['distance_approx'] = '-';
+            } elseif (isset($partner['delivery_time']) && str_contains(strtolower($partner['delivery_time']), 'coming soon')) {
+                $svc['is_available'] = false;
+                $partner['has_real_partner'] = false;
+                $partner['is_open'] = false;
+            } else {
+                $partner['has_real_partner'] = false;
+                $partner['is_open'] = true;
+            }
+
+            // Sinkronkan paket kustom dan keunggulan layanan mitra jika tersedia
+            $activePackageOwner = $dbPartner ?? $matchedBranch?->servicePartner;
+            if ($activePackageOwner && ($partner['has_real_partner'] ?? false)) {
+                if ($activePackageOwner->packages->isNotEmpty()) {
+                    $svc['packages'] = $activePackageOwner->packages->map(fn ($pkg) => [
+                        'name' => $pkg->name,
+                        'price' => (int) $pkg->price,
+                        'unit' => $pkg->unit,
+                        'description' => $pkg->description,
+                    ])->values()->all();
+                    $svc['price_start'] = $svc['packages'][0]['price'];
+                    $svc['price_unit'] = $svc['packages'][0]['unit'];
+                }
+
+                if (! empty($activePackageOwner->service_features) && is_array($activePackageOwner->service_features)) {
+                    $svc['features'] = array_values(array_filter($activePackageOwner->service_features));
+                }
+            }
+
+            $svc['has_real_partner'] = $partner['has_real_partner'] ?? false;
+            $svc['is_open'] = $partner['is_open'] ?? ($svc['is_available'] ?? true);
             $svc['local_partner'] = $partner;
             $svc['distance_km'] = $partner['distance_km'] ?? 2.0;
             $svc['is_in_range'] = $partner['is_in_range'] ?? true;
@@ -512,6 +672,31 @@ class ServiceController extends Controller
             'deliveryConfig',
             'isXenditActive'
         );
+    }
+
+    /**
+     * Cocokkan kabupaten/kota mitra atau cabang terhadap kunci wilayah yang dipilih.
+     * Memprioritaskan nama kabupaten/kota agar nama kecamatan (mis. Depok di Sleman) tidak tertukar dengan Kota Depok.
+     */
+    private function matchesCityKey(?string $regencyName, ?string $address, string $cityKey, string $badgeCity = ''): bool
+    {
+        $target = strtolower(trim((string) $regencyName));
+        if ($target === '') {
+            $target = strtolower(trim((string) $address));
+        }
+
+        if ($target === '') {
+            return false;
+        }
+
+        if (str_starts_with($cityKey, 'regency_') && $badgeCity !== '') {
+            return str_contains($target, strtolower($badgeCity));
+        }
+
+        return match ($cityKey) {
+            'yogyakarta' => str_contains($target, 'yogyakarta') || str_contains($target, 'sleman') || str_contains($target, 'jogja') || str_contains($target, 'bantul'),
+            default => str_contains($target, $cityKey),
+        };
     }
 
     /**
@@ -563,7 +748,7 @@ class ServiceController extends Controller
         }
 
         $validated = $request->validate([
-            'service_id' => 'required|string|in:laundry,cleaning,catering,maintenance',
+            'service_id' => 'required|string|in:laundry,cleaning,catering',
             'package_name' => 'required|string|max:150',
             'package_price' => 'required|numeric|min:1000',
             'package_unit' => 'nullable|string|max:50',
@@ -596,7 +781,6 @@ class ServiceController extends Controller
             'laundry' => 'Seven Laundry Kos',
             'cleaning' => 'Seven Clean Kamar & Toilet',
             'catering' => 'Seven Katering Harian',
-            'maintenance' => 'Seven Care Teknisi & AC',
         ];
         $serviceTitle = $serviceTitles[$validated['service_id']] ?? 'Layanan Mitra Kos';
 
@@ -614,8 +798,59 @@ class ServiceController extends Controller
 
         $refId = 'SRV-'.strtoupper(Str::random(10));
 
+        // Resolusi partner_id & branch_id jika ada, serta verifikasi status buka/tutup toko
+        $partnerNameInput = $validated['partner_name'] ?? '';
+        $branchIdInput = $request->input('branch_id');
+        $branchNameInput = $request->input('branch_name');
+        $partnerAddressInput = $request->input('partner_address');
+        $resolvedPartnerId = null;
+        $resolvedBranchId = null;
+
+        if ($branchIdInput) {
+            $branchObj = ServicePartnerBranch::with('servicePartner')->find($branchIdInput);
+            if ($branchObj) {
+                if (! $branchObj->is_open || ($branchObj->servicePartner && ! $branchObj->servicePartner->is_open)) {
+                    return back()->withErrors(['service_id' => 'Maaf, cabang "'.$branchObj->branch_name.'" saat ini sedang TUTUP dan tidak dapat menerima pesanan baru.'])->withInput();
+                }
+                $resolvedBranchId = $branchObj->id;
+                $resolvedPartnerId = $branchObj->service_partner_id;
+                $branchNameInput = $branchObj->branch_name;
+                $partnerAddressInput = $branchObj->address;
+            }
+        }
+
+        if (! $resolvedPartnerId && $partnerNameInput !== '') {
+            $matchedPartner = ServicePartner::where('business_name', $partnerNameInput)->first();
+            if ($matchedPartner) {
+                if (! $matchedPartner->is_open) {
+                    return back()->withErrors(['service_id' => 'Maaf, mitra tempat usaha "'.$matchedPartner->business_name.'" saat ini sedang TUTUP dan tidak dapat menerima pesanan baru.'])->withInput();
+                }
+                $resolvedPartnerId = $matchedPartner->id;
+                if (! $partnerAddressInput) {
+                    $partnerAddressInput = $matchedPartner->address;
+                }
+            } else {
+                $matchedBranchOrder = ServicePartnerBranch::with('servicePartner')
+                    ->get()
+                    ->first(fn ($b) => $b->servicePartner && (
+                        ($b->servicePartner->business_name.' - '.$b->branch_name) === $partnerNameInput
+                        || ($b->servicePartner->business_name.' ('.$b->branch_name.')') === $partnerNameInput
+                    ));
+                if ($matchedBranchOrder) {
+                    if (! $matchedBranchOrder->is_open || ($matchedBranchOrder->servicePartner && ! $matchedBranchOrder->servicePartner->is_open)) {
+                        return back()->withErrors(['service_id' => 'Maaf, cabang "'.$matchedBranchOrder->branch_name.'" saat ini sedang TUTUP dan tidak dapat menerima pesanan baru.'])->withInput();
+                    }
+                    $resolvedBranchId = $matchedBranchOrder->id;
+                    $resolvedPartnerId = $matchedBranchOrder->service_partner_id;
+                    $branchNameInput = $matchedBranchOrder->branch_name;
+                    $partnerAddressInput = $matchedBranchOrder->address;
+                }
+            }
+        }
+
         $transaction = Transaction::create([
             'user_id' => $user->id,
+            'partner_id' => $resolvedPartnerId,
             'reference_id' => $refId,
             'type' => 'service',
             'item_id' => $validated['service_id'],
@@ -636,6 +871,10 @@ class ServiceController extends Controller
                 'delivery_fee' => $deliveryFee,
                 'total_amount' => $totalAmount,
                 'partner_name' => $validated['partner_name'] ?? 'Mitra Resmi SevenKost',
+                'branch_id' => $resolvedBranchId,
+                'branch_name' => $branchNameInput,
+                'partner_address' => $partnerAddressInput,
+                'store_status' => 'open',
                 'kost_address' => $validated['kost_address'],
                 'room_number' => $validated['room_number'],
                 'occupant_name' => $validated['occupant_name'],

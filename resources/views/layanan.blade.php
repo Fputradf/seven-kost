@@ -30,8 +30,12 @@
 
             selectedDistanceKm: 1.4,
             fulfillmentType: 'delivery',
+            selectedPartnerAddress: '',
+            selectedBranchName: '',
+            selectedBranchId: null,
+            selectedIsOpen: true,
 
-            openOrderModal(serviceId, serviceName, defaultPkgName, defaultPrice, defaultUnit, partnerName = '', distanceKm = 1.4) {
+            openOrderModal(serviceId, serviceName, defaultPkgName, defaultPrice, defaultUnit, partnerName = '', distanceKm = 1.4, partnerAddress = '', branchName = '', isOpen = true, branchId = null) {
                 if (!this.hasActiveStay) {
                     this.alertNoActiveStay = true;
                     return;
@@ -43,6 +47,10 @@
                 this.selectedPackageUnit = defaultUnit;
                 this.selectedPartnerName = partnerName;
                 this.selectedDistanceKm = Number(distanceKm) || 1.4;
+                this.selectedPartnerAddress = partnerAddress;
+                this.selectedBranchName = branchName;
+                this.selectedBranchId = branchId;
+                this.selectedIsOpen = Boolean(isOpen);
                 this.fulfillmentType = 'delivery';
                 this.quantity = 1;
                 this.paymentMethod = 'xendit';
@@ -114,63 +122,49 @@
             @endif
 
             {{-- 1. HERO SECTION WEB (DESKTOP FULL WIDTH BANNER) --}}
-            <div class="relative overflow-hidden rounded-3xl text-white p-6 sm:p-8 md:p-10 shadow-xl border border-blue-400/25" style="background: linear-gradient(135deg, #091e3a 0%, #0f3d7c 50%, #1d4ed8 100%);">
+            <div class="relative overflow-hidden rounded-2xl text-white p-4 sm:p-5 md:py-5 md:px-6 shadow-md border border-blue-400/25" style="background: linear-gradient(135deg, #091e3a 0%, #0f3d7c 50%, #1d4ed8 100%);">
                 {{-- Decorative circles --}}
-                <div class="absolute -right-16 -bottom-16 w-64 h-64 rounded-full bg-white/5 pointer-events-none blur-xl"></div>
-                <div class="absolute right-1/4 -top-12 w-48 h-48 rounded-full bg-blue-400/10 pointer-events-none blur-lg"></div>
+                <div class="absolute -right-10 -bottom-10 w-44 h-44 rounded-full bg-white/5 pointer-events-none blur-xl"></div>
+                <div class="absolute right-1/4 -top-8 w-32 h-32 rounded-full bg-blue-400/10 pointer-events-none blur-lg"></div>
 
-                <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-                    <div class="max-w-2xl space-y-3">
-                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-xs font-bold text-blue-100 border border-white/15">
-                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-4 lg:gap-6">
+                    <div class="max-w-2xl space-y-2">
+                        <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/10 backdrop-blur-md text-[11px] font-bold text-blue-100 border border-white/15">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                             <span>Layanan Mitra Resmi SevenKost &bull; Mitra Siap Melayani Hari Ini</span>
                         </div>
-                        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-white leading-tight">
+                        <h1 class="text-lg sm:text-xl md:text-2xl font-black tracking-tight text-white leading-snug">
                             Kebutuhan Kamar Kos Beres Tanpa Ribet
                         </h1>
-                        <p class="text-sm sm:text-base text-blue-100/90 leading-relaxed font-normal">
-                            Nikmati kemudahan laundry antar-jemput ke kamar, jasa bersih-bersih kamar & toilet, servis AC terpercaya, hingga katering harian langsung dari mitra lokal terverifikasi di sekitar kos Anda.
+                        <p class="text-xs sm:text-sm text-blue-100/90 leading-relaxed font-normal max-w-xl">
+                            Nikmati kemudahan laundry antar-jemput ke kamar, jasa bersih-bersih kamar & toilet, hingga katering harian langsung dari mitra lokal terverifikasi di sekitar kos Anda.
                         </p>
-                        <div class="flex flex-wrap items-center gap-4 pt-2 text-xs font-semibold text-blue-200">
+                        <div class="flex flex-wrap items-center gap-3 pt-1 text-[11px] font-semibold text-blue-200">
                             <span class="flex items-center gap-1.5">
-                                <svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                <svg class="w-3.5 h-3.5 text-emerald-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
                                 Mitra Terverifikasi Resmi
                             </span>
                             <span class="flex items-center gap-1.5">
-                                <svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                                Gratis Ongkir (Ambil Sendiri di Toko)
+                                <svg class="w-3.5 h-3.5 text-emerald-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                Jangkauan Operasional 5 KM
                             </span>
                             <span class="flex items-center gap-1.5">
-                                <svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                                Bisa Bayar QRIS & Dompet
+                                <svg class="w-3.5 h-3.5 text-emerald-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                Bayar QRIS & Dompet
                             </span>
                         </div>
                     </div>
 
-                    {{-- Right Box: Filter Wilayah & Portal Khusus Penghuni --}}
-                    <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-white/20 space-y-3 shrink-0 lg:w-80">
-                        <div class="text-xs font-bold text-blue-200 uppercase tracking-wider">Wilayah Layanan Mitra</div>
-                        <form method="GET" action="{{ route('services.index') }}" class="space-y-2">
-                            <label for="kota-filter-web" class="text-xs text-white/90 block">Pilih Kota / Wilayah Mitra:</label>
-                            <select id="kota-filter-web" name="kota" onchange="this.form.submit()" class="w-full text-xs font-bold py-2.5 px-3 rounded-xl border-white/20 bg-white text-slate-800 shadow-sm focus:ring-2 focus:ring-blue-400">
-                                @foreach($regionalPartners as $rKey => $rVal)
-                                    <option value="{{ $rVal['badge_city'] }}" {{ $cityKey === $rKey ? 'selected' : '' }}>
-                                        {{ $rVal['city_label'] }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </form>
-                        @auth
-                            @if(auth()->user()->hasRole('penghuni'))
-                                <div class="pt-2 border-t border-white/15">
-                                    <a href="{{ route('tenant.services.index') }}" class="inline-flex items-center justify-center gap-2 w-full py-2 px-3 rounded-xl bg-white text-blue-900 hover:bg-blue-50 text-xs font-black transition shadow-sm">
-                                        <span>Buka Portal Layanan Penghuni</span>
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                                    </a>
-                                </div>
-                            @endif
-                        @endauth
-                    </div>
+                    @auth
+                        @if(auth()->user()->hasRole('penghuni'))
+                            <div class="shrink-0">
+                                <a href="{{ route('tenant.services.index') }}" class="inline-flex items-center justify-center gap-2 py-2 px-4 rounded-xl bg-white text-blue-900 hover:bg-blue-50 text-xs font-black transition shadow-sm">
+                                    <span>Buka Portal Layanan Penghuni</span>
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                                </a>
+                            </div>
+                        @endif
+                    @endauth
                 </div>
             </div>
 
@@ -273,20 +267,19 @@
                     $svcBanners = [
                         ['img' => asset('images/frontend/banner-jakarta-wide.jpg'), 'link' => route('services.index'), 'alt' => 'Promo Layanan Laundry Kos', 'advertiser' => 'Seven Laundry'],
                         ['img' => asset('images/frontend/banner-bandung-wide.jpg'), 'link' => route('services.index'), 'alt' => 'Promo Bersih-Bersih Kos', 'advertiser' => 'Seven Clean'],
-                        ['img' => asset('images/frontend/banner-yogyakarta-wide.jpg'), 'link' => route('services.index'), 'alt' => 'Promo Teknisi AC Kos', 'advertiser' => 'Seven Care'],
                     ];
                 }
             @endphp
 
             @if(count($svcBanners) > 0)
                 <div 
-                    class="group/banner relative overflow-hidden rounded-3xl bg-slate-900 border border-slate-200/80 shadow-sm"
+                    class="group/banner relative overflow-hidden rounded-2xl bg-slate-900 border border-slate-200/80 shadow-xs"
                     x-data="{
                         activeBanner: 0,
                         totalBanners: {{ count($svcBanners) }},
                         timer: null,
                         start() {
-                            this.timer = setInterval(() => { this.next(); }, 6000);
+                            this.timer = setInterval(() => { this.next(); }, 5000);
                         },
                         stop() { clearInterval(this.timer); },
                         next() { this.activeBanner = (this.activeBanner + 1) % this.totalBanners; },
@@ -296,7 +289,7 @@
                     @mouseenter="stop()"
                     @mouseleave="start()"
                 >
-                    <div class="relative w-full h-40 sm:h-56 md:h-64 lg:h-72 overflow-hidden">
+                    <div class="relative w-full h-32 sm:h-44 md:h-52 overflow-hidden">
                         @foreach($svcBanners as $idx => $bItem)
                             <div 
                                 x-show="activeBanner === {{ $idx }}"
@@ -309,22 +302,22 @@
                                 <a href="{{ $bItem['link'] }}" class="block w-full h-full group">
                                     <img src="{{ $bItem['img'] }}" alt="{{ $bItem['alt'] }}" class="w-full h-full object-cover group-hover:scale-102 transition duration-500">
                                     <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
-                                    <div class="absolute top-4 left-4 px-3 py-1 rounded-xl bg-black/60 text-white text-xs font-semibold tracking-wider uppercase backdrop-blur-xs flex items-center gap-1.5">
-                                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                                    <div class="absolute top-2.5 sm:top-3 left-3 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg bg-black/60 text-white text-[9px] sm:text-[10px] font-bold tracking-wider uppercase backdrop-blur-xs flex items-center gap-1.5">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                                         <span>Iklan Sponsor &bull; Promo Eksklusif</span>
                                     </div>
-                                    <div class="absolute bottom-4 left-4 right-32 sm:right-48 max-w-xl space-y-1">
+                                    <div class="absolute bottom-2.5 sm:bottom-3 left-3 right-28 sm:right-36 max-w-sm sm:max-w-md space-y-0.5">
                                         @if(!empty($bItem['advertiser']))
-                                            <span class="inline-block px-2.5 py-0.5 rounded-md bg-blue-600/90 text-white text-[10px] sm:text-[11px] font-black uppercase tracking-wider backdrop-blur-xs">
+                                            <span class="inline-block px-2 py-0.5 rounded-md bg-blue-600/90 text-white text-[9px] font-black uppercase tracking-wider backdrop-blur-xs">
                                                 {{ $bItem['advertiser'] }}
                                             </span>
                                         @endif
-                                        <h3 class="text-white text-sm sm:text-base md:text-lg font-black drop-shadow-md line-clamp-1 leading-snug">
+                                        <h3 class="text-white text-xs sm:text-sm font-black drop-shadow-md line-clamp-1 leading-snug">
                                             {{ $bItem['alt'] }}
                                         </h3>
                                     </div>
-                                    <div class="absolute bottom-4 right-4">
-                                        <div class="text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-xl backdrop-blur-xs shadow-md transition">
+                                    <div class="absolute bottom-2.5 sm:bottom-3 right-3">
+                                        <div class="text-[11px] sm:text-xs font-bold text-white bg-blue-600/95 hover:bg-blue-600 px-3 py-1.5 rounded-lg backdrop-blur-xs shadow-md transition">
                                             Lihat Penawaran &rarr;
                                         </div>
                                     </div>
@@ -338,17 +331,34 @@
                         <button 
                             type="button" 
                             @click.prevent="prev()" 
-                            class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/45 hover:bg-black/75 text-white flex items-center justify-center transition-all opacity-0 group-hover/banner:opacity-100 hover:scale-105 active:scale-95 shadow-md backdrop-blur-xs z-10 cursor-pointer"
+                            aria-label="Banner Sebelumnya"
+                            class="absolute left-2.5 sm:left-3.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/45 hover:bg-black/75 text-white flex items-center justify-center transition-all opacity-0 group-hover/banner:opacity-100 hover:scale-105 active:scale-95 focus:opacity-100 shadow-md backdrop-blur-xs z-10 cursor-pointer"
                         >
-                            <svg class="w-5 h-5 -ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+                            <svg class="w-4 h-4 -ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
                         </button>
                         <button 
                             type="button" 
                             @click.prevent="next()" 
-                            class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/45 hover:bg-black/75 text-white flex items-center justify-center transition-all opacity-0 group-hover/banner:opacity-100 hover:scale-105 active:scale-95 shadow-md backdrop-blur-xs z-10 cursor-pointer"
+                            aria-label="Banner Selanjutnya"
+                            class="absolute right-2.5 sm:right-3.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/45 hover:bg-black/75 text-white flex items-center justify-center transition-all opacity-0 group-hover/banner:opacity-100 hover:scale-105 active:scale-95 focus:opacity-100 shadow-md backdrop-blur-xs z-10 cursor-pointer"
                         >
-                            <svg class="w-5 h-5 -mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                            <svg class="w-4 h-4 -mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
                         </button>
+                    @endif
+
+                    {{-- Dots Indicator --}}
+                    @if(count($svcBanners) > 1)
+                        <div class="absolute bottom-2.5 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-xs z-10">
+                            @foreach($svcBanners as $idx => $bItem)
+                                <button 
+                                    type="button" 
+                                    @click="activeBanner = {{ $idx }}" 
+                                    class="h-1.5 rounded-full transition-all cursor-pointer"
+                                    :class="activeBanner === {{ $idx }} ? 'w-5 bg-white' : 'w-1.5 bg-white/50'"
+                                    aria-label="Slide {{ $idx + 1 }}"
+                                ></button>
+                            @endforeach
+                        </div>
                     @endif
                 </div>
             @endif
@@ -415,14 +425,6 @@
                             :class="activeCategory === 'catering' ? 'bg-blue-600 text-white shadow-xs' : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'"
                         >
                             <span>🍱 Katering Harian (Coming Soon)</span>
-                        </button>
-                        <button 
-                            @click="activeCategory = 'maintenance'" 
-                            type="button" 
-                            class="px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition cursor-pointer flex items-center gap-1.5"
-                            :class="activeCategory === 'maintenance' ? 'bg-blue-600 text-white shadow-xs' : 'bg-white text-slate-700 hover:bg-slate-100 border border-slate-200'"
-                        >
-                            <span>🛠️ Teknisi (Coming Soon)</span>
                         </button>
                     </div>
                 @endif
@@ -557,6 +559,43 @@
 
             {{-- 6. CONTENT AREA: TAB KATALOG LAYANAN (DESKTOP RESPONSIVE GRID 4 KOLOM) --}}
             @else
+                {{-- Banner Wilayah Operasional Mitra Aktif & Switcher --}}
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-3.5 sm:px-5 sm:py-3 rounded-2xl border border-slate-200 shadow-xs">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        </div>
+                        <div>
+                            <div class="text-xs font-bold text-slate-800 flex items-center gap-2 flex-wrap">
+                                <span>Wilayah Operasional Mitra:</span>
+                                <span class="px-2 py-0.5 rounded-md bg-blue-100 text-blue-800 font-extrabold text-xs">
+                                    {{ $currentRegional['city_label'] }}
+                                </span>
+                            </div>
+                            <p class="text-[11px] text-slate-500 mt-0.5">
+                                Menampilkan katalog mitra resmi terverifikasi yang melayani kos di wilayah ini.
+                            </p>
+                        </div>
+                    </div>
+
+                    <form method="GET" action="{{ route('services.index') }}" class="flex items-center gap-2 shrink-0">
+                        @if(request('tab'))
+                            <input type="hidden" name="tab" value="{{ request('tab') }}">
+                        @endif
+                        @if(request('kamar_id'))
+                            <input type="hidden" name="kamar_id" value="{{ request('kamar_id') }}">
+                        @endif
+                        <label for="kota-filter-catalog" class="text-xs font-bold text-slate-600 whitespace-nowrap">Ganti Wilayah:</label>
+                        <select id="kota-filter-catalog" name="kota" onchange="this.form.submit()" class="text-xs font-bold py-1.5 px-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 hover:bg-slate-100 transition focus:ring-2 focus:ring-blue-500 shadow-2xs">
+                            @foreach($regionalPartners as $rKey => $rVal)
+                                <option value="{{ $rVal['badge_city'] }}" {{ $cityKey === $rKey ? 'selected' : '' }}>
+                                    {{ $rVal['city_label'] }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </form>
+                </div>
+
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     @foreach($services as $svc)
                         @php
@@ -580,6 +619,24 @@
                                     <span class="px-2.5 py-1 rounded-lg text-xs font-black bg-black/60 text-white backdrop-blur-xs">
                                         {{ ucfirst($svc['category']) }}
                                     </span>
+                                    @if(isset($svc['is_open']))
+                                        @if($svc['is_open'])
+                                            <span class="px-2 py-0.5 rounded-lg text-[10px] font-black bg-emerald-600/90 text-white backdrop-blur-xs flex items-center gap-1 shadow-xs">
+                                                <span class="h-1.5 w-1.5 rounded-full bg-emerald-300 animate-pulse"></span>
+                                                <span>Buka</span>
+                                            </span>
+                                        @else
+                                            <span class="px-2 py-0.5 rounded-lg text-[10px] font-black bg-rose-600/90 text-white backdrop-blur-xs flex items-center gap-1 shadow-xs">
+                                                <span class="h-1.5 w-1.5 rounded-full bg-rose-300"></span>
+                                                <span>Tutup</span>
+                                            </span>
+                                        @endif
+                                    @endif
+                                </div>
+                                <div class="absolute top-3 right-3 flex items-center gap-1.5">
+                                    <span class="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-blue-600/90 text-white backdrop-blur-xs">
+                                        📍 {{ $currentRegional['badge_city'] }}
+                                    </span>
                                 </div>
                                 <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white">
                                     <div class="flex items-center gap-1 text-xs font-extrabold text-amber-300 bg-black/60 backdrop-blur-xs px-2 py-0.5 rounded-lg">
@@ -598,10 +655,44 @@
                             {{-- Body: Title, Description & Features --}}
                             <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
                                 <div class="space-y-2">
-                                    <h3 class="text-base font-extrabold text-slate-900 leading-snug">{{ $svc['title'] }}</h3>
+                                    <div class="space-y-1">
+                                        <h3 class="text-base font-extrabold text-slate-900 leading-snug">{{ $svc['title'] }}</h3>
+                                        @if(!empty($svc['local_partner']['partner_name']))
+                                            <div class="flex items-center gap-1.5 text-xs text-blue-700 font-bold truncate">
+                                                <svg class="w-3.5 h-3.5 text-blue-600 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a8 8 0 100 16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                                <span class="truncate">{{ $svc['local_partner']['partner_name'] }}</span>
+                                                @if(!empty($svc['local_partner']['is_branch']))
+                                                    <span class="px-1.5 py-0.2 rounded text-[9px] font-bold bg-indigo-50 text-indigo-700 border border-indigo-200 shrink-0">Cabang</span>
+                                                @elseif(!empty($svc['local_partner']['has_real_partner']))
+                                                    <span class="px-1.5 py-0.2 rounded text-[9px] font-bold bg-blue-50 text-blue-700 border border-blue-200 shrink-0">Pusat</span>
+                                                @endif
+                                            </div>
+                                        @endif
+                                    </div>
+
                                     <p class="text-xs text-slate-500 line-clamp-2 leading-relaxed">
                                         {{ $svc['description'] }}
                                     </p>
+
+                                    {{-- Info Jangkauan & Mitra Wilayah Terpilih --}}
+                                    @if(isset($svc['local_partner']))
+                                        <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-100 text-[11px] space-y-1">
+                                            <div class="flex items-start gap-1.5 text-slate-600">
+                                                <svg class="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                                <span class="line-clamp-1"><strong class="text-slate-700">Area:</strong> {{ $svc['local_partner']['coverage_area'] ?? '-' }}</span>
+                                            </div>
+                                            <div class="flex items-center justify-between text-slate-500 pt-0.5">
+                                                <span>{{ $svc['local_partner']['delivery_time'] ?? 'Siap Melayani' }}</span>
+                                                <span class="font-bold text-blue-600">
+                                                    @if($hasActiveBooking)
+                                                        {{ $svc['local_partner']['distance_approx'] ?? ($svc['distance_km'] . ' km dari kos Anda') }}
+                                                    @else
+                                                        {{ $svc['local_partner']['distance_approx'] ?? 'Radius s/d 5.0 km' }}
+                                                    @endif
+                                                </span>
+                                            </div>
+                                        </div>
+                                    @endif
 
                                     {{-- Kelebihan Layanan --}}
                                     <div class="pt-2 border-t border-slate-100 space-y-1.5">
@@ -628,17 +719,45 @@
 
                                     @php
                                         $isInRange = $svc['is_in_range'] ?? true;
+                                        $isOpen = $svc['is_open'] ?? true;
+                                        $hasRealPartner = $svc['has_real_partner'] ?? false;
                                         $defaultPkg = $svc['packages'][0] ?? null;
                                         $partnerName = $svc['local_partner']['partner_name'] ?? 'Mitra Resmi SevenKost';
+                                        $partnerAddr = $svc['local_partner']['partner_address'] ?? ($svc['local_partner']['coverage_area'] ?? '');
+                                        $branchName = $svc['local_partner']['branch_name'] ?? '';
+                                        $branchId = $svc['local_partner']['branch_id'] ?? '';
                                         $dist = $svc['local_partner']['distance_km'] ?? 1.4;
                                     @endphp
 
-                                    @if($isAvail && $isInRange)
+                                    @if(!$isAvail)
+                                        <button 
+                                            type="button" 
+                                            disabled 
+                                            class="w-full py-2.5 px-4 rounded-xl bg-slate-100 text-slate-500 font-bold text-xs text-center cursor-not-allowed flex items-center justify-center gap-1.5"
+                                        >
+                                            @if($hasRealPartner && !$isOpen)
+                                                <span class="h-2 w-2 rounded-full bg-amber-500"></span>
+                                                <span>Toko Sedang Tutup</span>
+                                            @elseif(($svc['local_partner']['delivery_time'] ?? '') === 'Tidak Tersedia')
+                                                <span>Tidak Tersedia di {{ $currentRegional['badge_city'] }}</span>
+                                            @else
+                                                <span>Segera Hadir di {{ $currentRegional['badge_city'] }}</span>
+                                            @endif
+                                        </button>
+                                    @elseif(!$isInRange)
+                                        <button 
+                                            type="button" 
+                                            @click="alertOutOfRange = true; selectedOutOfRangeDistance = '{{ $svc['local_partner']['distance_km'] ?? 0 }} km'; selectedOutOfRangeService = '{{ addslashes($svc['title']) }}'" 
+                                            class="w-full py-2.5 px-4 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 font-bold text-xs text-center cursor-pointer"
+                                        >
+                                            Di Luar Jangkauan (> 5 km)
+                                        </button>
+                                    @else
                                         @auth
                                             @if(auth()->user()->hasRole('penghuni'))
                                                 <button 
                                                     type="button" 
-                                                    @click="openOrderModal('{{ $svc['id'] }}', '{{ addslashes($svc['title']) }}', '{{ addslashes($defaultPkg['name'] ?? '') }}', {{ $defaultPkg['price'] ?? 0 }}, '{{ $defaultPkg['unit'] ?? '' }}', '{{ addslashes($partnerName) }}', {{ $dist }})"
+                                                    @click="openOrderModal('{{ $svc['id'] }}', '{{ addslashes($svc['title']) }}', '{{ addslashes($defaultPkg['name'] ?? '') }}', {{ $defaultPkg['price'] ?? 0 }}, '{{ $defaultPkg['unit'] ?? '' }}', '{{ addslashes($partnerName) }}', {{ $dist }}, '{{ addslashes($partnerAddr) }}', '{{ addslashes($branchName) }}', true, '{{ $branchId }}')"
                                                     class="w-full py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-black text-xs text-center shadow-md shadow-blue-600/20 transition active:scale-98 cursor-pointer flex items-center justify-center gap-1.5"
                                                 >
                                                     <span>Pesan Layanan</span>
@@ -661,22 +780,6 @@
                                                 Pesan Sekarang
                                             </a>
                                         @endauth
-                                    @elseif(!$isInRange)
-                                        <button 
-                                            type="button" 
-                                            @click="alertOutOfRange = true; selectedOutOfRangeDistance = '{{ $svc['local_partner']['distance_km'] ?? 0 }} km'; selectedOutOfRangeService = '{{ addslashes($svc['title']) }}'" 
-                                            class="w-full py-2.5 px-4 rounded-xl bg-rose-50 text-rose-700 border border-rose-200 font-bold text-xs text-center cursor-pointer"
-                                        >
-                                            Di Luar Jangkauan (> 5 km)
-                                        </button>
-                                    @else
-                                        <button 
-                                            type="button" 
-                                            disabled 
-                                            class="w-full py-2.5 px-4 rounded-xl bg-slate-100 text-slate-400 font-bold text-xs text-center cursor-not-allowed"
-                                        >
-                                            Segera Hadir
-                                        </button>
                                     @endif
                                 </div>
                             </div>
@@ -719,6 +822,9 @@
                             <input type="hidden" name="package_price" :value="selectedPackagePrice">
                             <input type="hidden" name="package_unit" :value="selectedPackageUnit">
                             <input type="hidden" name="partner_name" :value="selectedPartnerName">
+                            <input type="hidden" name="branch_id" :value="selectedBranchId">
+                            <input type="hidden" name="branch_name" :value="selectedBranchName">
+                            <input type="hidden" name="partner_address" :value="selectedPartnerAddress">
                             <input type="hidden" name="booking_id" :value="selectedBookingId">
                             <input type="hidden" name="distance_km" :value="selectedDistanceKm">
 
@@ -842,11 +948,49 @@
                                 </div>
                             </div>
 
-                            {{-- Mitra Pelaksana --}}
+                            {{-- Lokasi Tempat Usaha / Cabang & Status Toko --}}
                             <template x-if="selectedPartnerName">
-                                <div class="px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-between text-xs">
-                                    <span class="text-slate-500 font-medium">Mitra Pelaksana:</span>
-                                    <span class="font-bold text-slate-800 truncate" x-text="selectedPartnerName"></span>
+                                <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2 text-xs">
+                                    <div class="flex items-center justify-between gap-2">
+                                        <div class="flex items-center gap-1.5 font-extrabold text-slate-900 truncate">
+                                            <svg class="w-4 h-4 text-blue-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                                            <span class="truncate" x-text="selectedPartnerName"></span>
+                                            <template x-if="selectedBranchName">
+                                                <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-indigo-100 text-indigo-700 shrink-0">Cabang</span>
+                                            </template>
+                                            <template x-if="!selectedBranchName">
+                                                <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-700 shrink-0">Pusat</span>
+                                            </template>
+                                        </div>
+
+                                        <template x-if="selectedIsOpen">
+                                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 shrink-0">
+                                                <span class="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                                <span>Toko Buka</span>
+                                            </span>
+                                        </template>
+                                        <template x-if="!selectedIsOpen">
+                                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-800 shrink-0">
+                                                <span class="h-1.5 w-1.5 rounded-full bg-rose-500"></span>
+                                                <span>Toko Tutup</span>
+                                            </span>
+                                        </template>
+                                    </div>
+
+                                    <div class="flex items-start gap-1.5 text-slate-600 text-[11px]">
+                                        <svg class="w-3.5 h-3.5 text-slate-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                        <div>
+                                            <strong class="text-slate-800" x-text="selectedBranchName ? 'Alamat Cabang: ' : 'Alamat Tempat Usaha: '"></strong>
+                                            <span x-text="selectedPartnerAddress || 'Alamat operasional terdaftar'"></span>
+                                        </div>
+                                    </div>
+
+                                    <template x-if="!selectedIsOpen">
+                                        <div class="p-2 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-[11px] font-bold flex items-center gap-1.5">
+                                            <svg class="w-4 h-4 text-rose-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                                            <span>Saat ini tempat usaha/cabang sedang TUTUP sehingga belum menerima pesanan baru.</span>
+                                        </div>
+                                    </template>
                                 </div>
                             </template>
 
@@ -982,11 +1126,11 @@
                                 </button>
                                 <button 
                                     type="submit" 
-                                    :disabled="paymentMethod === 'wallet' && userWalletBalance < totalOrderPrice"
-                                    :class="paymentMethod === 'wallet' && userWalletBalance < totalOrderPrice ? 'opacity-50 cursor-not-allowed bg-slate-400' : 'bg-blue-600 hover:bg-blue-500 active:scale-98 cursor-pointer'"
+                                    :disabled="!selectedIsOpen || (paymentMethod === 'wallet' && userWalletBalance < totalOrderPrice)"
+                                    :class="!selectedIsOpen || (paymentMethod === 'wallet' && userWalletBalance < totalOrderPrice) ? 'opacity-50 cursor-not-allowed bg-slate-400' : 'bg-blue-600 hover:bg-blue-500 active:scale-98 cursor-pointer'"
                                     class="px-6 py-2.5 rounded-xl text-white text-xs font-extrabold shadow-md shadow-blue-600/20 text-center transition"
                                 >
-                                    <span x-text="paymentMethod === 'wallet' ? 'Bayar via Dompet' : 'Lanjut ke Pembayaran'"></span>
+                                    <span x-text="!selectedIsOpen ? 'Toko Sedang Tutup' : (paymentMethod === 'wallet' ? 'Bayar via Dompet' : 'Lanjut ke Pembayaran')"></span>
                                 </button>
                             </div>
                         </form>
@@ -1012,7 +1156,7 @@
                 <div>
                     <h3 class="text-base font-bold text-slate-900">Khusus Akun Penghuni Kos</h3>
                     <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
-                        Pemesanan layanan harian (laundry, cleaning, teknisi) hanya dapat dilakukan oleh akun yang terdaftar sebagai penghuni kos aktif di SevenKost.
+                        Pemesanan layanan harian (laundry, cleaning, katering) hanya dapat dilakukan oleh akun yang terdaftar sebagai penghuni kos aktif di SevenKost.
                     </p>
                 </div>
                 <button 

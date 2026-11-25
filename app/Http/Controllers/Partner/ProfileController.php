@@ -38,6 +38,8 @@ class ProfileController extends Controller
             ]);
         }
 
+        $partner->load(['branches.province', 'branches.regency', 'packages']);
+
         $provinces = Province::orderBy('name')->get();
         $regencies = $partner->province_id
             ? Regency::where('province_id', $partner->province_id)->orderBy('name')->get(['id', 'name', 'type', 'latitude', 'longitude'])
@@ -76,6 +78,8 @@ class ProfileController extends Controller
             'banner_title' => ['nullable', 'string', 'max:150'],
             'banner_target_url' => ['nullable', 'url', 'max:255'],
             'banner_is_active' => ['nullable', 'boolean'],
+            'service_features' => ['nullable', 'array', 'max:6'],
+            'service_features.*' => ['nullable', 'string', 'max:150'],
         ], [
             'business_name.required' => 'Nama brand atau usaha mitra wajib diisi.',
             'category.required' => 'Pilih kategori layanan utama Anda.',
@@ -95,6 +99,13 @@ class ProfileController extends Controller
         }
 
         $partnerData = collect($validated)->except(['banner_title', 'banner_target_url', 'banner_is_active'])->all();
+        if ($request->has('service_features_submitted')) {
+            $cleanedFeatures = array_values(array_filter(
+                array_map(fn ($item) => trim((string) $item), $request->input('service_features', [])),
+                fn ($item) => $item !== ''
+            ));
+            $partnerData['service_features'] = ! empty($cleanedFeatures) ? $cleanedFeatures : null;
+        }
         $partner->update($partnerData);
 
         // Sinkronisasi Banner/Katalog Layanan Mitra (tampil di halaman /layanan)

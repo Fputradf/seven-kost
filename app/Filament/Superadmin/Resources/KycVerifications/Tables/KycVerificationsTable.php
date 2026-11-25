@@ -21,6 +21,9 @@ class KycVerificationsTable
     {
         return $table
             ->defaultSort('submitted_at', 'desc')
+            ->striped()
+            ->emptyStateHeading('Belum ada pengajuan verifikasi KYC')
+            ->emptyStateDescription('Pengajuan verifikasi KTP dan selfie dari pengguna akan muncul di sini.')
             ->columns([
                 TextColumn::make('user.name')
                     ->label('Pengguna')
@@ -107,6 +110,35 @@ class KycVerificationsTable
                         ->modalDescription('Periksa keaslian foto KTP, selfie wajah, dan berkas pendukung.')
                         ->modalContent(fn (KycVerification $record): HtmlString => new HtmlString('
                             <div class="space-y-4 text-xs">
+                                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200">
+                                    <div>
+                                        <span class="text-[10px] font-bold uppercase text-slate-400 block">Nama KTP</span>
+                                        <span class="font-bold text-slate-800">'.e($record->full_name).'</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-[10px] font-bold uppercase text-slate-400 block">NIK</span>
+                                        <span class="font-mono font-bold text-slate-800">'.e($record->nik).'</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-[10px] font-bold uppercase text-slate-400 block">Akun / Email</span>
+                                        <span class="font-semibold text-slate-700">'.e($record->user?->email ?? '-').'</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-[10px] font-bold uppercase text-slate-400 block">Status</span>
+                                        <span class="font-bold text-slate-800">'.e(match ($record->status) {
+                            'pending' => 'Menunggu Review',
+                            'verified' => 'Terverifikasi',
+                            'rejected' => 'Ditolak',
+                            default => ucfirst($record->status),
+                        }).'</span>
+                                    </div>
+                                </div>
+                                '.($record->rejection_reason ? '
+                                <div class="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-800">
+                                    <span class="font-bold block mb-0.5">Alasan Penolakan Sebelumnya:</span>
+                                    <span>'.e($record->rejection_reason).'</span>
+                                </div>
+                                ' : '').'
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div class="p-3 border rounded-xl bg-slate-50">
                                         <p class="font-bold text-slate-700 mb-2">Foto KTP Asli:</p>

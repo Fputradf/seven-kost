@@ -12,9 +12,11 @@ use App\Http\Controllers\Owner\DashboardController as OwnerDashboardController;
 use App\Http\Controllers\Owner\KostController as OwnerKostController;
 use App\Http\Controllers\Owner\PromotionController as OwnerPromotionController;
 use App\Http\Controllers\Owner\RoomTenantController as OwnerRoomTenantController;
+use App\Http\Controllers\Partner\BranchController as PartnerBranchController;
 use App\Http\Controllers\Partner\DashboardController as PartnerDashboardController;
 use App\Http\Controllers\Partner\FinanceController as PartnerFinanceController;
 use App\Http\Controllers\Partner\OrderController as PartnerOrderController;
+use App\Http\Controllers\Partner\PackageController as PartnerPackageController;
 use App\Http\Controllers\Partner\ProfileController as PartnerProfileController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
@@ -219,6 +221,15 @@ Route::middleware('auth')->group(function () {
         Route::get('/profil', [PartnerProfileController::class, 'index'])->name('profile.index');
         Route::put('/profil', [PartnerProfileController::class, 'update'])->name('profile.update');
         Route::patch('/profil/toggle-status', [PartnerProfileController::class, 'toggleStatus'])->name('profile.toggle-status');
+
+        Route::post('/cabang', [PartnerBranchController::class, 'store'])->name('branches.store');
+        Route::put('/cabang/{branch}', [PartnerBranchController::class, 'update'])->name('branches.update');
+        Route::delete('/cabang/{branch}', [PartnerBranchController::class, 'destroy'])->name('branches.destroy');
+        Route::patch('/cabang/{branch}/toggle-status', [PartnerBranchController::class, 'toggleStatus'])->name('branches.toggle-status');
+
+        Route::post('/paket', [PartnerPackageController::class, 'store'])->name('packages.store');
+        Route::put('/paket/{package}', [PartnerPackageController::class, 'update'])->name('packages.update');
+        Route::delete('/paket/{package}', [PartnerPackageController::class, 'destroy'])->name('packages.destroy');
     });
 });
 

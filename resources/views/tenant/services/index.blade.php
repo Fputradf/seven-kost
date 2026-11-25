@@ -379,15 +379,6 @@
                     <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
                     <span>Katering Harian (Coming Soon)</span>
                 </button>
-                <button 
-                    @click="activeCategory = 'maintenance'" 
-                    type="button" 
-                    class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all flex items-center gap-2"
-                    :class="activeCategory === 'maintenance' ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' : 'bg-transparent text-slate-600 hover:bg-slate-100'"
-                >
-                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/></svg>
-                    <span>Teknisi & Servis AC</span>
-                </button>
             </div>
         </div>
 
@@ -408,7 +399,6 @@
                 $svcBanners = [
                     ['img' => asset('images/frontend/banner-jakarta-wide.jpg'), 'link' => route('tenant.services.index'), 'alt' => 'Promo Layanan Laundry Kos', 'advertiser' => 'Seven Laundry'],
                     ['img' => asset('images/frontend/banner-bandung-wide.jpg'), 'link' => route('tenant.services.index'), 'alt' => 'Promo Bersih-Bersih Kos', 'advertiser' => 'Seven Clean'],
-                    ['img' => asset('images/frontend/banner-yogyakarta-wide.jpg'), 'link' => route('tenant.services.index'), 'alt' => 'Promo Teknisi AC Kos', 'advertiser' => 'Seven Care'],
                 ];
             }
         @endphp
@@ -718,9 +708,15 @@
                                 <button 
                                     type="button" 
                                     disabled 
-                                    class="w-full py-2.5 rounded-xl bg-amber-50 text-amber-800 border border-amber-200/80 text-xs sm:text-sm font-bold cursor-not-allowed flex items-center justify-center gap-1 shadow-2xs"
+                                    class="w-full py-2.5 rounded-xl bg-slate-100 text-slate-500 border border-slate-200 text-xs sm:text-sm font-bold cursor-not-allowed flex items-center justify-center gap-1 shadow-2xs"
                                 >
-                                    Segera Hadir
+                                    @if(($svc['has_real_partner'] ?? false) && !($svc['is_open'] ?? true))
+                                        Toko Sedang Tutup
+                                    @elseif(($svc['local_partner']['delivery_time'] ?? '') === 'Tidak Tersedia')
+                                        Tidak Tersedia di {{ $currentRegional['badge_city'] }}
+                                    @else
+                                        Segera Hadir
+                                    @endif
                                 </button>
                             @endif
                         </div>
@@ -1116,7 +1112,7 @@
                 <div>
                     <h3 class="text-base sm:text-lg font-bold text-slate-900">Khusus Akun Penghuni Kos</h3>
                     <p class="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed">
-                        Pemesanan layanan harian (laundry, cleaning, teknisi) hanya dapat dilakukan oleh akun yang terdaftar sebagai penghuni kos aktif di SevenKost.
+                        Pemesanan layanan harian (laundry, cleaning, katering) hanya dapat dilakukan oleh akun yang terdaftar sebagai penghuni kos aktif di SevenKost.
                     </p>
                 </div>
                 <button 

@@ -18,7 +18,17 @@
                 </div>
 
                 {{-- Status Toko Badge & Action --}}
-                <div class="flex items-center gap-2.5">
+                <div class="flex flex-wrap items-center gap-2.5">
+                    <a href="{{ route('partner.profile.index', ['tab' => 'profile']) }}" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/15 flex items-center gap-1.5 text-xs font-semibold text-white transition">
+                        <svg class="w-3.5 h-3.5 text-sky-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                        <span>Paket ({{ $partner->packages()->count() }})</span>
+                    </a>
+
+                    <a href="{{ route('partner.profile.index', ['tab' => 'location']) }}" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/15 flex items-center gap-1.5 text-xs font-semibold text-white transition">
+                        <svg class="w-3.5 h-3.5 text-sky-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/></svg>
+                        <span>Cabang ({{ $partner->branches()->count() }})</span>
+                    </a>
+
                     <div class="px-3 py-1.5 rounded-xl bg-white/10 backdrop-blur-md border border-white/15 flex items-center gap-2">
                         <div class="h-2 w-2 rounded-full {{ $partner->is_open ? 'bg-emerald-400' : 'bg-rose-400' }}"></div>
                         <span class="text-xs font-semibold text-white">

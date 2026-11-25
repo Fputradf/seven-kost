@@ -35,6 +35,7 @@ class ServicePartner extends Model
         'bank_account_holder',
         'verification_status',
         'operational_hours',
+        'service_features',
         'banner_image',
     ];
 
@@ -69,6 +70,7 @@ class ServicePartner extends Model
         'latitude' => 'float',
         'longitude' => 'float',
         'service_radius_km' => 'float',
+        'service_features' => 'array',
     ];
 
     /**
@@ -101,6 +103,22 @@ class ServicePartner extends Model
     public function transactions(): HasMany
     {
         return $this->hasMany(Transaction::class, 'partner_id');
+    }
+
+    /**
+     * Daftar cabang operasional milik mitra ini.
+     */
+    public function branches(): HasMany
+    {
+        return $this->hasMany(ServicePartnerBranch::class, 'service_partner_id')->latest();
+    }
+
+    /**
+     * Daftar paket layanan milik mitra ini.
+     */
+    public function packages(): HasMany
+    {
+        return $this->hasMany(ServicePartnerPackage::class, 'service_partner_id')->orderBy('price');
     }
 
     /**

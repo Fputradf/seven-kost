@@ -50,14 +50,13 @@ class ServiceTest extends TestCase
         $response->assertSee('Laundry Kiloan');
         $response->assertSee('Kebersihan Kamar');
         $response->assertSee('Katering Harian');
-        $response->assertSee('Teknisi');
         $response->assertSee('Coming Soon');
 
         // Katalog Layanan
         $response->assertSee('Seven Laundry Kos');
         $response->assertSee('Seven Clean Kamar');
         $response->assertSee('Seven Katering Harian');
-        $response->assertSee('Seven Care Teknisi');
+        $response->assertDontSee('Seven Care Teknisi');
 
         // Paket & Tombol Pemesanan (Arahkan ke Login untuk Guest)
         $response->assertSee('Laundry Kiloan Reguler');

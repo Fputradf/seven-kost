@@ -95,11 +95,25 @@
             </div>
         @endif
 
+        @if (session('success'))
+            <div class="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold flex items-center gap-2 shadow-2xs">
+                <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>{{ session('success') }}</span>
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-semibold flex items-center gap-2 shadow-2xs">
+                <svg class="w-4 h-4 text-rose-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span>{{ session('error') }}</span>
+            </div>
+        @endif
+
         {{-- Form Pengaturan Usaha dengan Tab Navigasi Terpisah --}}
         <div 
             class="rounded-2xl bg-white border border-slate-200/90 shadow-xs overflow-hidden"
             x-data="{
-                activeTab: new URLSearchParams(window.location.search).get('tab') || 'profile',
+                activeTab: ((new URLSearchParams(window.location.search).get('tab') === 'branches' ? 'location' : new URLSearchParams(window.location.search).get('tab')) || 'profile'),
                 setTab(tab) {
                     this.activeTab = tab;
                     const url = new URL(window.location.href);
@@ -128,7 +142,7 @@
                     <span>1. Profil &amp; Kartu Layanan</span>
                 </button>
 
-                {{-- Tab 2: Wilayah & Lokasi --}}
+                {{-- Tab 2: Wilayah & Lokasi Hub (+ Cabang) --}}
                 <button 
                     type="button"
                     @click="setTab('location')"
@@ -137,6 +151,9 @@
                 >
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                     <span>2. Wilayah &amp; Lokasi Hub</span>
+                    <span class="px-1.5 py-0.5 rounded-md text-[10px] font-black" :class="activeTab === 'location' ? 'bg-white/20 text-white' : 'bg-blue-100 text-blue-700'">
+                        {{ $partner->branches->count() }} Cabang
+                    </span>
                 </button>
 
                 {{-- Tab 3: Rekening Bank --}}
@@ -320,6 +337,89 @@
                                 <span class="text-[10px] text-slate-400 mt-1 block">Tampil pada tombol Chat WhatsApp pelacakan pesanan.</span>
                             </div>
                         </div>
+
+                        {{-- Keunggulan & Keterangan Layanan (Tampil di Kartu Katalog) --}}
+                        @php
+                            $defaultFeaturesByCategory = match ($partner->category) {
+                                'cleaning' => [
+                                    'Pembersihan kerak kloset & dinding kamar mandi',
+                                    'Sapu, pel wangi, dan vakum debu menyeluruh',
+                                    'Pembersihan kaca jendela & perabot meja/lemari',
+                                ],
+                                'catering' => [
+                                    'Menu berganti setiap hari (bebas bosan)',
+                                    'Bebas MSG berlebih, higienis & halal',
+                                    'Pengantaran tepat waktu makan siang & malam',
+                                ],
+                                default => [
+                                    'Layanan antar-jemput langsung ke pintu kamar kos',
+                                    'Deterjen anti-bakteri & pewangi grade hotel',
+                                    'Pemisahan pakaian putih dan berwarna',
+                                ],
+                            };
+                            $initialFeatures = old('service_features', $partner->service_features ?: $defaultFeaturesByCategory);
+                            if (empty($initialFeatures)) {
+                                $initialFeatures = $defaultFeaturesByCategory;
+                            }
+                        @endphp
+                        <div
+                            class="pt-4 border-t border-slate-100 space-y-3"
+                            x-data="{
+                                features: @js(array_values($initialFeatures)),
+                                addFeature() {
+                                    if (this.features.length < 6) {
+                                        this.features.push('');
+                                    }
+                                },
+                                removeFeature(idx) {
+                                    if (this.features.length > 1) {
+                                        this.features.splice(idx, 1);
+                                    } else {
+                                        this.features[0] = '';
+                                    }
+                                }
+                            }"
+                        >
+                            <input type="hidden" name="service_features_submitted" value="1">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-800">Keunggulan &amp; Keterangan Layanan (Kartu Katalog)</label>
+                                    <p class="text-[11px] text-slate-500">Poin-poin ini tampil di bawah deskripsi kartu layanan Anda pada halaman katalog penghuni.</p>
+                                </div>
+                                <button
+                                    type="button"
+                                    @click="addFeature()"
+                                    x-show="features.length < 6"
+                                    class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 text-[11px] font-bold transition cursor-pointer w-fit"
+                                >
+                                    <span>+ Tambah Poin</span>
+                                </button>
+                            </div>
+
+                            <div class="space-y-2">
+                                <template x-for="(feat, idx) in features" :key="idx">
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-5 h-5 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 text-[10px] font-black">✓</span>
+                                        <input
+                                            type="text"
+                                            name="service_features[]"
+                                            x-model="features[idx]"
+                                            maxlength="150"
+                                            placeholder="Contoh: Layanan antar-jemput langsung ke pintu kamar kos"
+                                            class="flex-1 px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition"
+                                        >
+                                        <button
+                                            type="button"
+                                            @click="removeFeature(idx)"
+                                            class="p-2 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition cursor-pointer"
+                                            title="Hapus poin"
+                                        >
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                                        </button>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
                     </div>
 
                     {{-- Submit Button Tab 1 --}}
@@ -408,13 +508,27 @@
 
                         {{-- 3. Alamat Lengkap Hub / Toko (Sebelah Kiri Radius) --}}
                         <div class="md:col-span-8">
-                            <label class="block text-xs font-bold text-slate-700 mb-1.5">Alamat Lengkap Hub / Toko</label>
+                            <div class="flex items-center justify-between gap-2 mb-1.5">
+                                <label class="block text-xs font-bold text-slate-700">Alamat Lengkap Hub / Toko</label>
+                                <button
+                                    type="button"
+                                    @click="geocodeHubAddress()"
+                                    :disabled="isGeocoding"
+                                    class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 text-[11px] font-bold transition cursor-pointer disabled:opacity-50"
+                                >
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                                    <span x-text="isGeocoding ? 'Mencari titik...' : 'Cari Titik di Peta'"></span>
+                                </button>
+                            </div>
                             <textarea 
                                 name="address" 
+                                id="hubAddressInput"
+                                x-model="hubAddress"
                                 rows="2"
                                 placeholder="Jalan, nomor bangunan, patokan..."
                                 class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition"
                             >{{ old('address', $partner->address) }}</textarea>
+                            <p x-show="geocodeMessage" x-text="geocodeMessage" class="text-[10px] text-amber-600 font-medium mt-1" style="display: none;"></p>
                         </div>
 
                         {{-- 4. Text Field & Button Radius (Sebelah Kanan Alamat Lengkap) --}}
@@ -569,6 +683,180 @@
             </form>
 
             {{-- =========================================================
+                 MANAJEMEN PAKET LAYANAN (BAGIAN DARI TAB 1: PROFIL & KARTU LAYANAN)
+                 ========================================================= --}}
+            <div x-show="activeTab === 'profile'" x-data="partnerPackageManager()" class="p-5 sm:p-6 space-y-6 border-t border-slate-200 bg-slate-50/40">
+                <div class="pb-3 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div>
+                        <h2 class="text-sm font-bold text-slate-800">Daftar Paket &amp; Harga Layanan</h2>
+                        <p class="text-[11px] text-slate-500">Tambahkan, ubah, atau hapus paket layanan yang ditawarkan {{ $partner->business_name }} di katalog penghuni.</p>
+                    </div>
+                    <button
+                        type="button"
+                        @click="openCreateModal()"
+                        class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-xs transition cursor-pointer shrink-0 w-fit"
+                    >
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                        <span>Tambah Paket Layanan</span>
+                    </button>
+                </div>
+
+                @if($partner->packages->isEmpty())
+                    <div class="rounded-2xl border border-dashed border-slate-300 bg-white/80 p-7 text-center space-y-3">
+                        <div class="w-11 h-11 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center mx-auto">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xs sm:text-sm font-bold text-slate-800">Belum Ada Paket Kustom</h3>
+                            <p class="text-[11px] text-slate-500 max-w-md mx-auto mt-1">
+                                Saat ini katalog menampilkan paket standar kategori <strong>{{ $partner->category_label }}</strong>. Tambahkan paket Anda sendiri untuk mengatur nama paket, harga, dan satuannya secara langsung.
+                            </p>
+                        </div>
+                        <button
+                            type="button"
+                            @click="openCreateModal()"
+                            class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-xs transition cursor-pointer"
+                        >
+                            <span>+ Buat Paket Pertama</span>
+                        </button>
+                    </div>
+                @else
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        @foreach($partner->packages as $pkg)
+                            <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-2xs hover:shadow-sm transition flex flex-col justify-between space-y-3">
+                                <div class="space-y-1.5">
+                                    <div class="flex items-start justify-between gap-2">
+                                        <div>
+                                            <h3 class="text-sm font-extrabold text-slate-900">{{ $pkg->name }}</h3>
+                                            @if($pkg->description)
+                                                <p class="text-[11px] text-slate-500 mt-1 line-clamp-2">{{ $pkg->description }}</p>
+                                            @endif
+                                        </div>
+                                        <div class="text-right shrink-0">
+                                            <span class="text-sm font-black text-blue-600">Rp {{ number_format($pkg->price, 0, ',', '.') }}</span>
+                                            <span class="text-[10px] text-slate-400 font-semibold block">{{ $pkg->unit }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="pt-2 border-t border-slate-100 flex items-center justify-end gap-1.5">
+                                    <button
+                                        type="button"
+                                        @click='openEditModal(@json($pkg))'
+                                        class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-bold transition cursor-pointer"
+                                    >
+                                        Edit
+                                    </button>
+                                    <form method="POST" action="{{ route('partner.packages.destroy', $pkg) }}" onsubmit="return confirm('Yakin ingin menghapus paket {{ addslashes($pkg->name) }}?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button
+                                            type="submit"
+                                            class="px-3 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 text-[11px] font-bold transition cursor-pointer"
+                                        >
+                                            Hapus
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+
+                {{-- Modal Tambah / Edit Paket Layanan --}}
+                <div
+                    x-show="modalOpen"
+                    x-transition.opacity
+                    class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4"
+                    style="display: none;"
+                >
+                    <div
+                        @click.outside="modalOpen = false"
+                        class="bg-white rounded-2xl max-w-lg w-full p-5 sm:p-6 shadow-2xl space-y-4"
+                    >
+                        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                            <div>
+                                <h3 class="text-sm sm:text-base font-extrabold text-slate-900" x-text="isEditing ? 'Edit Paket Layanan' : 'Tambah Paket Layanan'"></h3>
+                                <p class="text-[11px] text-slate-500">Atur nama, harga, dan satuan paket yang tampil pada halaman layanan kos.</p>
+                            </div>
+                            <button type="button" @click="modalOpen = false" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 cursor-pointer">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                            </button>
+                        </div>
+
+                        <form method="POST" :action="formAction" class="space-y-4">
+                            @csrf
+                            <template x-if="isEditing">
+                                <input type="hidden" name="_method" value="PUT">
+                            </template>
+
+                            <div class="space-y-3.5">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Nama Paket Layanan *</label>
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        x-model="form.name"
+                                        required
+                                        placeholder="Contoh: Cuci Kering Setrika Kilat (24 Jam)"
+                                        class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+                                    >
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-700 mb-1">Harga (Rp) *</label>
+                                        <input
+                                            type="number"
+                                            name="price"
+                                            x-model="form.price"
+                                            min="1000"
+                                            step="500"
+                                            required
+                                            placeholder="10000"
+                                            class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+                                        >
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-xs font-bold text-slate-700 mb-1">Satuan *</label>
+                                        <input
+                                            type="text"
+                                            name="unit"
+                                            x-model="form.unit"
+                                            required
+                                            placeholder="/kg, /sesi, /hari, /set"
+                                            class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+                                        >
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Keterangan Singkat (Opsional)</label>
+                                    <input
+                                        type="text"
+                                        name="description"
+                                        x-model="form.description"
+                                        placeholder="Contoh: Termasuk pewangi premium dan lipat rapi"
+                                        class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+                                    >
+                                </div>
+                            </div>
+
+                            <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
+                                <button type="button" @click="modalOpen = false" class="px-4 py-2 rounded-xl border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50 cursor-pointer">
+                                    Batal
+                                </button>
+                                <button type="submit" class="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-xs transition cursor-pointer">
+                                    <span x-text="isEditing ? 'Simpan Perubahan Paket' : 'Simpan Paket'"></span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            {{-- =========================================================
                  TAB 4: AKUN & KEAMANAN PENGELOLA
                  ========================================================= --}}
             <div x-show="activeTab === 'account'" class="p-5 sm:p-6 space-y-8" style="display: none;">
@@ -655,6 +943,298 @@
                     </form>
                 </div>
             </div>
+
+            {{-- =========================================================
+                 MANAJEMEN CABANG USAHA (BAGIAN DARI TAB 2: WILAYAH & LOKASI HUB)
+                 ========================================================= --}}
+            <div x-show="activeTab === 'location'" x-data="partnerBranchManager()" class="p-5 sm:p-6 space-y-6 border-t border-slate-200 bg-slate-50/40" style="display: none;">
+                <div class="pb-3 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div>
+                        <h2 class="text-sm font-bold text-slate-800">Daftar Cabang Operasional Mitra</h2>
+                        <p class="text-[11px] text-slate-500">Perluas jangkauan layanan {{ $partner->business_name }} ke berbagai kota/wilayah kos dengan menambahkan cabang baru.</p>
+                    </div>
+                    <button
+                        type="button"
+                        @click="openCreateModal()"
+                        class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-xs transition cursor-pointer shrink-0 w-fit"
+                    >
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                        <span>Tambah Cabang Baru</span>
+                    </button>
+                </div>
+
+                {{-- Daftar Cabang --}}
+                @if($partner->branches->isEmpty())
+                    <div class="rounded-2xl border border-dashed border-slate-300 bg-slate-50/70 p-8 text-center space-y-3">
+                        <div class="w-12 h-12 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center mx-auto">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xs sm:text-sm font-bold text-slate-800">Belum Ada Cabang Terdaftar</h3>
+                            <p class="text-[11px] text-slate-500 max-w-md mx-auto mt-1">
+                                Saat ini hanya hub utama Anda yang aktif. Tambahkan cabang baru jika Anda melayani area atau kota lain agar penghuni di wilayah tersebut dapat memesan layanan Anda.
+                            </p>
+                        </div>
+                        <button
+                            type="button"
+                            @click="openCreateModal()"
+                            class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-xs transition cursor-pointer"
+                        >
+                            <span>+ Tambah Cabang Pertama</span>
+                        </button>
+                    </div>
+                @else
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        @foreach($partner->branches as $branch)
+                            <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-2xs hover:shadow-sm transition flex flex-col justify-between space-y-3">
+                                <div class="space-y-2">
+                                    <div class="flex items-start justify-between gap-2">
+                                        <div>
+                                            <div class="flex items-center gap-2 flex-wrap">
+                                                <h3 class="text-sm font-extrabold text-slate-900">{{ $branch->branch_name }}</h3>
+                                                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold {{ $branch->is_open ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700' }}">
+                                                    {{ $branch->is_open ? 'Buka' : 'Tutup' }}
+                                                </span>
+                                            </div>
+                                            <p class="text-[11px] font-semibold text-blue-600 mt-0.5">
+                                                {{ $branch->regency?->name ?? 'Kota/Kabupaten' }}{{ $branch->province ? ', '.$branch->province->name : '' }}
+                                            </p>
+                                        </div>
+                                        <span class="px-2 py-0.5 rounded-lg bg-slate-100 text-slate-700 text-[10px] font-bold shrink-0">
+                                            Radius {{ number_format((float) $branch->service_radius_km, 1) }} km
+                                        </span>
+                                    </div>
+
+                                    <div class="text-[11px] text-slate-600 space-y-1 bg-slate-50 rounded-xl p-2.5 border border-slate-100">
+                                        <p class="line-clamp-2"><strong class="text-slate-700">Alamat:</strong> {{ $branch->address }}</p>
+                                        <div class="flex flex-wrap items-center justify-between gap-2 pt-1 text-slate-500">
+                                            <span>Jam: <strong class="text-slate-700">{{ $branch->operational_hours ?: ($partner->operational_hours ?: '08:00 - 20:00 WIB') }}</strong></span>
+                                            <span>Telp: <strong class="text-slate-700">{{ $branch->phone ?: $partner->phone }}</strong></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="pt-2 border-t border-slate-100 flex items-center justify-between gap-2">
+                                    <form method="POST" action="{{ route('partner.branches.toggle-status', $branch) }}">
+                                        @csrf
+                                        @method('PATCH')
+                                        <button
+                                            type="submit"
+                                            class="px-2.5 py-1.5 rounded-lg text-[11px] font-bold transition cursor-pointer {{ $branch->is_open ? 'bg-amber-50 text-amber-700 hover:bg-amber-100 border border-amber-200' : 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200' }}"
+                                        >
+                                            {{ $branch->is_open ? 'Tutup Cabang' : 'Buka Cabang' }}
+                                        </button>
+                                    </form>
+
+                                    <div class="flex items-center gap-1.5">
+                                        <button
+                                            type="button"
+                                            @click='openEditModal(@json($branch))'
+                                            class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-bold transition cursor-pointer"
+                                        >
+                                            Edit
+                                        </button>
+                                        <form method="POST" action="{{ route('partner.branches.destroy', $branch) }}" onsubmit="return confirm('Yakin ingin menghapus cabang {{ addslashes($branch->branch_name) }}?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button
+                                                type="submit"
+                                                class="px-3 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 text-[11px] font-bold transition cursor-pointer"
+                                            >
+                                                Hapus
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+
+                {{-- Modal Tambah / Edit Cabang --}}
+                <div
+                    x-show="modalOpen"
+                    x-transition.opacity
+                    class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4"
+                    style="display: none;"
+                >
+                    <div
+                        @click.outside="modalOpen = false"
+                        class="bg-white rounded-2xl max-w-2xl w-full p-5 sm:p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto"
+                    >
+                        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                            <div>
+                                <h3 class="text-sm sm:text-base font-extrabold text-slate-900" x-text="isEditing ? 'Edit Cabang Mitra' : 'Tambah Cabang Baru'"></h3>
+                                <p class="text-[11px] text-slate-500">Isi lokasi dan detail operasional cabang agar tampil di katalog wilayah terkait.</p>
+                            </div>
+                            <button type="button" @click="modalOpen = false" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 cursor-pointer">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                            </button>
+                        </div>
+
+                        <form method="POST" :action="formAction" class="space-y-4">
+                            @csrf
+                            <template x-if="isEditing">
+                                <input type="hidden" name="_method" value="PUT">
+                            </template>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                                <div class="sm:col-span-2">
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Nama Cabang *</label>
+                                    <input
+                                        type="text"
+                                        name="branch_name"
+                                        x-model="form.branch_name"
+                                        required
+                                        placeholder="Contoh: Cabang Dago Bandung"
+                                        class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+                                    >
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Provinsi *</label>
+                                    <select
+                                        name="province_id"
+                                        x-model="form.province_id"
+                                        @change="onProvChange()"
+                                        required
+                                        class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+                                    >
+                                        <option value="">-- Pilih Provinsi --</option>
+                                        @foreach($provinces as $prov)
+                                            <option value="{{ $prov->id }}">{{ $prov->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <div class="flex items-center justify-between mb-1">
+                                        <label class="block text-xs font-bold text-slate-700">Kota / Kabupaten *</label>
+                                        <span x-show="isLoadingRegencies" class="text-[10px] text-blue-600 font-semibold" style="display: none;">Memuat...</span>
+                                    </div>
+                                    <select
+                                        name="regency_id"
+                                        x-model="form.regency_id"
+                                        @change="onRegencyChange()"
+                                        :disabled="!form.province_id || isLoadingRegencies"
+                                        required
+                                        class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white disabled:bg-slate-50 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+                                    >
+                                        <option value="">-- Pilih Kota/Kabupaten --</option>
+                                        <template x-for="reg in regencies" :key="reg.id">
+                                            <option :value="reg.id" x-text="reg.name" :selected="String(reg.id) === String(form.regency_id)"></option>
+                                        </template>
+                                    </select>
+                                </div>
+
+                                <div class="sm:col-span-2">
+                                    <div class="flex items-center justify-between gap-2 mb-1">
+                                        <label class="block text-xs font-bold text-slate-700">Alamat Lengkap Cabang *</label>
+                                        <button
+                                            type="button"
+                                            @click="geocodeBranchAddress()"
+                                            :disabled="isGeocodingBranch"
+                                            class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 text-[11px] font-bold transition cursor-pointer disabled:opacity-50"
+                                        >
+                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                                            <span x-text="isGeocodingBranch ? 'Mencari titik...' : 'Cari Titik di Peta'"></span>
+                                        </button>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        name="address"
+                                        x-model="form.address"
+                                        required
+                                        placeholder="Jl. Ir. H. Juanda No. 88, Coblong, Bandung"
+                                        class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+                                    >
+                                    <p x-show="geocodeBranchMessage" x-text="geocodeBranchMessage" class="text-[10px] text-amber-600 font-medium mt-1" style="display: none;"></p>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">No. Telepon / WhatsApp Cabang</label>
+                                    <input
+                                        type="text"
+                                        name="phone"
+                                        x-model="form.phone"
+                                        placeholder="{{ $partner->phone ?? '081234567890' }}"
+                                        class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+                                    >
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Jam Operasional</label>
+                                    <input
+                                        type="text"
+                                        name="operational_hours"
+                                        x-model="form.operational_hours"
+                                        placeholder="08:00 - 20:00 WIB"
+                                        class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+                                    >
+                                </div>
+
+                                <div class="sm:col-span-2">
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Radius Layanan (KM) *</label>
+                                    <input
+                                        type="number"
+                                        step="0.5"
+                                        min="0.5"
+                                        max="25"
+                                        name="service_radius_km"
+                                        x-model="form.service_radius_km"
+                                        @input="onBranchRadiusInput()"
+                                        class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500"
+                                    >
+                                    <p class="text-[10px] text-slate-400 mt-1">Jarak radius jangkauan layanan kurir dari titik lokasi cabang ini.</p>
+                                </div>
+
+                                {{-- Hidden Coordinates untuk Cabang --}}
+                                <input type="hidden" name="latitude" x-model="form.latitude">
+                                <input type="hidden" name="longitude" x-model="form.longitude">
+
+                                {{-- Leaflet Interactive Map Picker untuk Cabang --}}
+                                <div class="sm:col-span-2 space-y-2 pt-1">
+                                    <div class="flex items-center justify-between text-xs">
+                                        <span class="font-bold text-slate-700">Area Jangkauan & Radius Layanan Cabang</span>
+                                        <span class="text-[11px] text-blue-600 font-bold" x-text="(form.service_radius_km || 5) + ' KM Radius'"></span>
+                                    </div>
+
+                                    {{-- Leaflet Map Canvas --}}
+                                    <div id="branchMapPicker" class="h-60 sm:h-64 w-full rounded-2xl border border-slate-200 overflow-hidden shadow-inner relative z-0"></div>
+
+                                    <div class="flex items-center justify-between text-[11px] text-slate-400">
+                                        <span>Klik peta, geser pin manual, cari dari alamat, atau gunakan GPS untuk menentukan titik pusat radius.</span>
+                                        <button 
+                                            type="button" 
+                                            @click="detectBranchGps()"
+                                            class="inline-flex items-center gap-1 text-blue-600 hover:text-blue-700 font-semibold cursor-pointer"
+                                        >
+                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                            <span x-text="isDetectingGps ? 'Mendeteksi...' : 'Gunakan Lokasi GPS'"></span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="sm:col-span-2">
+                                    <label class="inline-flex items-center gap-2 text-xs font-semibold text-slate-700 cursor-pointer">
+                                        <input type="checkbox" name="is_open" value="1" x-model="form.is_open" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500">
+                                        <span>Cabang langsung dibuka dan siap menerima pesanan</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
+                                <button type="button" @click="modalOpen = false" class="px-4 py-2 rounded-xl border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50 cursor-pointer">
+                                    Batal
+                                </button>
+                                <button type="submit" class="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-xs transition cursor-pointer">
+                                    <span x-text="isEditing ? 'Simpan Perubahan Cabang' : 'Simpan Cabang Baru'"></span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -668,12 +1248,308 @@
                 };
             }
 
+            function partnerPackageManager() {
+                return {
+                    modalOpen: false,
+                    isEditing: false,
+                    formAction: @js(route('partner.packages.store')),
+                    form: {
+                        name: '',
+                        price: 10000,
+                        unit: '/kg',
+                        description: '',
+                        is_active: true,
+                    },
+
+                    openCreateModal() {
+                        this.isEditing = false;
+                        this.formAction = @js(route('partner.packages.store'));
+                        this.form = {
+                            name: '',
+                            price: 10000,
+                            unit: @js($partner->category === 'cleaning' ? '/sesi' : ($partner->category === 'catering' ? '/hari' : '/kg')),
+                            description: '',
+                            is_active: true,
+                        };
+                        this.modalOpen = true;
+                    },
+
+                    openEditModal(pkg) {
+                        this.isEditing = true;
+                        this.formAction = `/mitra/paket/${pkg.id}`;
+                        this.form = {
+                            name: pkg.name || '',
+                            price: pkg.price || 10000,
+                            unit: pkg.unit || '/paket',
+                            description: pkg.description || '',
+                            is_active: Boolean(pkg.is_active),
+                        };
+                        this.modalOpen = true;
+                    }
+                };
+            }
+
+            function partnerBranchManager() {
+                return {
+                    modalOpen: false,
+                    isEditing: false,
+                    formAction: @js(route('partner.branches.store')),
+                    regencies: [],
+                    isLoadingRegencies: false,
+                    isDetectingGps: false,
+                    isGeocodingBranch: false,
+                    geocodeBranchMessage: '',
+                    branchMap: null,
+                    branchMarker: null,
+                    branchCircle: null,
+                    form: {
+                        branch_name: '',
+                        province_id: '',
+                        regency_id: '',
+                        address: '',
+                        phone: '',
+                        operational_hours: '08:00 - 20:00 WIB',
+                        service_radius_km: 5,
+                        latitude: '',
+                        longitude: '',
+                        is_open: true,
+                    },
+
+                    openCreateModal() {
+                        this.isEditing = false;
+                        this.formAction = @js(route('partner.branches.store'));
+                        this.regencies = [];
+
+                        const defaultLat = parseFloat(@js($partner->latitude ?? -6.2088)) || -6.2088;
+                        const defaultLng = parseFloat(@js($partner->longitude ?? 106.8456)) || 106.8456;
+                        const defaultRadius = parseFloat(@js($partner->service_radius_km ?? 5)) || 5;
+
+                        this.form = {
+                            branch_name: '',
+                            province_id: '',
+                            regency_id: '',
+                            address: '',
+                            phone: '',
+                            operational_hours: @js($partner->operational_hours ?? '08:00 - 20:00 WIB'),
+                            service_radius_km: defaultRadius,
+                            latitude: defaultLat.toFixed(7),
+                            longitude: defaultLng.toFixed(7),
+                            is_open: true,
+                        };
+                        this.modalOpen = true;
+
+                        setTimeout(() => {
+                            this.initBranchMap(defaultLat, defaultLng, defaultRadius);
+                        }, 200);
+                    },
+
+                    async openEditModal(branch) {
+                        this.isEditing = true;
+                        this.formAction = `/mitra/cabang/${branch.id}`;
+
+                        const defaultLat = parseFloat(branch.latitude || @js($partner->latitude ?? -6.2088)) || -6.2088;
+                        const defaultLng = parseFloat(branch.longitude || @js($partner->longitude ?? 106.8456)) || 106.8456;
+                        const defaultRadius = parseFloat(branch.service_radius_km || @js($partner->service_radius_km ?? 5)) || 5;
+
+                        this.form = {
+                            branch_name: branch.branch_name || '',
+                            province_id: String(branch.province_id || ''),
+                            regency_id: String(branch.regency_id || ''),
+                            address: branch.address || '',
+                            phone: branch.phone || '',
+                            operational_hours: branch.operational_hours || '08:00 - 20:00 WIB',
+                            service_radius_km: defaultRadius,
+                            latitude: defaultLat.toFixed(7),
+                            longitude: defaultLng.toFixed(7),
+                            is_open: Boolean(branch.is_open),
+                        };
+                        this.modalOpen = true;
+
+                        setTimeout(() => {
+                            this.initBranchMap(defaultLat, defaultLng, defaultRadius);
+                        }, 200);
+
+                        if (this.form.province_id) {
+                            await this.loadRegencies(this.form.province_id);
+                        }
+                    },
+
+                    initBranchMap(lat, lng, radiusKm) {
+                        const container = document.getElementById('branchMapPicker');
+                        if (!container) return;
+
+                        if (this.branchMap) {
+                            this.branchMap.invalidateSize();
+                            this.setBranchMapLocation(lat, lng, 14);
+                            this.updateBranchCircle(lat, lng, radiusKm);
+                            return;
+                        }
+
+                        this.branchMap = L.map('branchMapPicker').setView([lat, lng], 14);
+
+                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            maxZoom: 19,
+                            attribution: '© OpenStreetMap contributors'
+                        }).addTo(this.branchMap);
+
+                        // Pin marker dapat digeser dan peta dapat diklik untuk penyesuaian titik lokasi cabang secara akurat
+                        this.branchMarker = L.marker([lat, lng], { draggable: true }).addTo(this.branchMap);
+
+                        this.branchCircle = L.circle([lat, lng], {
+                            color: '#2563eb',
+                            fillColor: '#3b82f6',
+                            fillOpacity: 0.15,
+                            radius: (parseFloat(radiusKm) || 5) * 1000
+                        }).addTo(this.branchMap);
+
+                        this.branchMarker.on('dragend', () => {
+                            const pos = this.branchMarker.getLatLng();
+                            this.syncCoords(pos.lat, pos.lng);
+                        });
+
+                        this.branchMap.on('click', (e) => {
+                            this.branchMarker.setLatLng(e.latlng);
+                            this.syncCoords(e.latlng.lat, e.latlng.lng);
+                        });
+                    },
+
+                    setBranchMapLocation(lat, lng, zoomLevel) {
+                        if (!this.branchMap) return;
+                        if (zoomLevel) {
+                            this.branchMap.setView([lat, lng], zoomLevel);
+                        } else {
+                            this.branchMap.panTo([lat, lng]);
+                        }
+                        if (this.branchMarker) {
+                            this.branchMarker.setLatLng([lat, lng]);
+                        }
+                        if (this.branchCircle) {
+                            this.branchCircle.setLatLng([lat, lng]);
+                        }
+                    },
+
+                    updateBranchCircle(lat, lng, radiusKm) {
+                        if (!this.branchCircle) return;
+                        const r = (parseFloat(radiusKm) || 5) * 1000;
+                        this.branchCircle.setLatLng([lat, lng]);
+                        this.branchCircle.setRadius(r);
+                    },
+
+                    syncCoords(lat, lng) {
+                        this.form.latitude = Number(lat).toFixed(7);
+                        this.form.longitude = Number(lng).toFixed(7);
+                        if (this.branchCircle) {
+                            this.branchCircle.setLatLng([lat, lng]);
+                        }
+                    },
+
+                    onBranchRadiusInput() {
+                        const r = parseFloat(this.form.service_radius_km) || 1;
+                        if (this.branchCircle) {
+                            this.branchCircle.setRadius(r * 1000);
+                        }
+                    },
+
+                    onBranchCoordsInput() {
+                        const lat = parseFloat(this.form.latitude);
+                        const lng = parseFloat(this.form.longitude);
+                        if (!isNaN(lat) && !isNaN(lng)) {
+                            this.setBranchMapLocation(lat, lng);
+                        }
+                    },
+
+                    async onProvChange() {
+                        this.form.regency_id = '';
+                        this.regencies = [];
+                        if (!this.form.province_id) return;
+                        await this.loadRegencies(this.form.province_id);
+                    },
+
+                    async loadRegencies(provId) {
+                        this.isLoadingRegencies = true;
+                        try {
+                            const res = await fetch(`/api/wilayah/provinces/${provId}/regencies`);
+                            this.regencies = await res.json();
+                        } catch (err) {
+                            console.error('Gagal mengambil data kab/kota cabang:', err);
+                        } finally {
+                            this.isLoadingRegencies = false;
+                        }
+                    },
+
+                    onRegencyChange() {
+                        const selected = this.regencies.find(r => String(r.id) === String(this.form.regency_id));
+                        if (selected && selected.latitude && selected.longitude) {
+                            const lat = parseFloat(selected.latitude);
+                            const lng = parseFloat(selected.longitude);
+                            this.form.latitude = lat.toFixed(7);
+                            this.form.longitude = lng.toFixed(7);
+                            this.setBranchMapLocation(lat, lng, 13);
+                        }
+                    },
+
+                    detectBranchGps() {
+                        if (!navigator.geolocation) {
+                            alert('Geolocation tidak didukung oleh browser Anda.');
+                            return;
+                        }
+                        this.isDetectingGps = true;
+                        navigator.geolocation.getCurrentPosition((pos) => {
+                            const lat = pos.coords.latitude;
+                            const lng = pos.coords.longitude;
+                            this.syncCoords(lat, lng);
+                            this.setBranchMapLocation(lat, lng, 15);
+                            this.isDetectingGps = false;
+                        }, (err) => {
+                            alert('Gagal mendeteksi lokasi GPS: ' + err.message);
+                            this.isDetectingGps = false;
+                        }, {
+                            enableHighAccuracy: true,
+                            timeout: 8000
+                        });
+                    },
+
+                    async geocodeBranchAddress() {
+                        const addr = (this.form.address || '').trim();
+                        if (!addr) {
+                            this.geocodeBranchMessage = 'Isi alamat lengkap cabang terlebih dahulu sebelum mencari titik di peta.';
+                            return;
+                        }
+
+                        const selectedReg = this.regencies.find(r => String(r.id) === String(this.form.regency_id));
+                        const query = [addr, selectedReg ? selectedReg.name : '', 'Indonesia'].filter(Boolean).join(', ');
+
+                        this.isGeocodingBranch = true;
+                        this.geocodeBranchMessage = '';
+                        try {
+                            const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=id&q=${encodeURIComponent(query)}`);
+                            const results = await res.json();
+                            if (Array.isArray(results) && results.length > 0) {
+                                const lat = parseFloat(results[0].lat);
+                                const lng = parseFloat(results[0].lon);
+                                this.syncCoords(lat, lng);
+                                this.setBranchMapLocation(lat, lng, 16);
+                            } else {
+                                this.geocodeBranchMessage = 'Alamat tidak ditemukan otomatis. Silakan klik peta atau geser pin secara manual.';
+                            }
+                        } catch (err) {
+                            this.geocodeBranchMessage = 'Gagal mencari alamat otomatis. Silakan tentukan titik langsung pada peta.';
+                        } finally {
+                            this.isGeocodingBranch = false;
+                        }
+                    }
+                };
+            }
+
             function partnerLocationManager() {
                 return {
                     provId: @js((string) old('province_id', $partner->province_id ?? '')),
                     regId: @js((string) old('regency_id', $partner->regency_id ?? '')),
                     regencies: @js($regencies),
                     isLoadingRegencies: false,
+                    hubAddress: @js(old('address', $partner->address ?? '')),
+                    isGeocoding: false,
+                    geocodeMessage: '',
                     radiusKm: Number(@js(old('service_radius_km', $partner->service_radius_km ?? 5))),
 
                     async onProvChange(e) {
@@ -719,6 +1595,33 @@
                         let val = parseFloat(this.radiusKm) || 1;
                         if (window.updatePartnerMapRadius) {
                             window.updatePartnerMapRadius(val);
+                        }
+                    },
+
+                    async geocodeHubAddress() {
+                        const addr = (this.hubAddress || '').trim();
+                        if (!addr) {
+                            this.geocodeMessage = 'Isi alamat lengkap hub terlebih dahulu sebelum mencari titik di peta.';
+                            return;
+                        }
+
+                        const selectedReg = this.regencies.find(r => String(r.id) === String(this.regId));
+                        const query = [addr, selectedReg ? selectedReg.name : '', 'Indonesia'].filter(Boolean).join(', ');
+
+                        this.isGeocoding = true;
+                        this.geocodeMessage = '';
+                        try {
+                            const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=id&q=${encodeURIComponent(query)}`);
+                            const results = await res.json();
+                            if (Array.isArray(results) && results.length > 0 && window.setPartnerMapLocation) {
+                                window.setPartnerMapLocation(parseFloat(results[0].lat), parseFloat(results[0].lon), 16);
+                            } else {
+                                this.geocodeMessage = 'Alamat tidak ditemukan otomatis. Silakan klik peta atau geser pin secara manual.';
+                            }
+                        } catch (err) {
+                            this.geocodeMessage = 'Gagal mencari alamat otomatis. Silakan tentukan titik langsung pada peta.';
+                        } finally {
+                            this.isGeocoding = false;
                         }
                     }
                 };

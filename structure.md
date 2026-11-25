@@ -260,9 +260,11 @@
 │   │   │   │   ├── 📄 PromotionController.php
 │   │   │   │   └── 📄 RoomTenantController.php
 │   │   │   ├── 📁 Partner/
+│   │   │   │   ├── 📄 BranchController.php
 │   │   │   │   ├── 📄 DashboardController.php
 │   │   │   │   ├── 📄 FinanceController.php
 │   │   │   │   ├── 📄 OrderController.php
+│   │   │   │   ├── 📄 PackageController.php
 │   │   │   │   └── 📄 ProfileController.php
 │   │   │   ├── 📄 PaymentController.php
 │   │   │   ├── 📄 ProfileController.php
@@ -303,6 +305,8 @@
 │   │   ├── 📄 Report.php
 │   │   ├── 📄 Room.php
 │   │   ├── 📄 ServicePartner.php
+│   │   ├── 📄 ServicePartnerBranch.php
+│   │   ├── 📄 ServicePartnerPackage.php
 │   │   ├── 📄 Transaction.php
 │   │   ├── 📄 User.php
 │   │   ├── 📄 WalletTransaction.php
@@ -384,7 +388,10 @@
 │   │   ├── 📄 2026_11_23_132741_create_service_partners_table.php
 │   │   ├── 📄 2026_11_23_195400_add_banner_image_to_service_partners_table.php
 │   │   ├── 📄 2026_11_24_175118_create_kyc_verifications_table.php
-│   │   └── 📄 2026_11_24_195000_add_tenant_identity_columns_to_bookings_table.php
+│   │   ├── 📄 2026_11_24_195000_add_tenant_identity_columns_to_bookings_table.php
+│   │   ├── 📄 2026_11_25_134104_create_service_partner_branches_table.php
+│   │   ├── 📄 2026_11_25_193806_create_service_partner_packages_table.php
+│   │   └── 📄 2026_11_25_195931_add_service_features_to_service_partners_table.php
 │   └── 📁 seeders/
 │       ├── 📄 AdsPackageSeeder.php
 │       ├── 📄 DashboardDemoSeeder.php
@@ -441,7 +448,7 @@
 │   ├── 📄 .htaccess
 │   ├── 📁 build/
 │   │   ├── 📁 assets/
-│   │   │   ├── 📄 app-C8YlCxJQ.css
+│   │   │   ├── 📄 app-Dld2XTPe.css
 │   │   │   └── 📄 app-Dr67-uCa.js
 │   │   └── 📄 manifest.json
 │   ├── 📁 css/
@@ -647,6 +654,9 @@
 │       │       │   │       ├── 📄 create-kost.blade.php
 │       │       │   │       ├── 📄 edit-kost.blade.php
 │       │       │   │       └── 📄 list-kosts.blade.php
+│       │       │   ├── 📁 kyc-verifications/
+│       │       │   │   └── 📁 pages/
+│       │       │   │       └── 📄 list-kyc-verifications.blade.php
 │       │       │   ├── 📁 marketplace-items/
 │       │       │   │   └── 📁 pages/
 │       │       │   │       ├── 📄 create-marketplace-item.blade.php
@@ -852,6 +862,13 @@
 │   │       │   ├── 📄 service-catering.jpg
 │   │       │   ├── 📄 service-cleaning.jpg
 │   │       │   └── 📄 service-laundry.jpg
+│   │       ├── 📁 kyc/
+│   │       │   ├── 📁 documents/
+│   │       │   │   └── 📄 NSUITNald3N9U7x01jXa1DGUxMXfzDdfaBhVdQmb.jpg
+│   │       │   ├── 📁 ktp/
+│   │       │   │   └── 📄 iozOh1a33ntb2ZibBK1ZcQ9jdnqdkVRE6FTQLtdo.jpg
+│   │       │   └── 📁 selfie/
+│   │       │       └── 📄 noLbrd36UBMfbxgRQ9MLCXs90hEdRC7raxLYWHZO.jpg
 │   │       ├── 📁 marketplace/
 │   │       │   ├── 📄 3vr6S2wsGPUbQEn1uIJI02Ae2Blt5HbHSBNA7hpX.jpg
 │   │       │   ├── 📄 banner-bandung-hd.jpg
@@ -899,6 +916,8 @@
 │   │       │   ├── 📄 service-catering.jpg
 │   │       │   ├── 📄 service-cleaning.jpg
 │   │       │   └── 📄 service-laundry.jpg
+│   │       ├── 📁 service-cards/
+│   │       │   └── 📄 YIsBWX8y2uBF4TSGZamvZk6Og2ukMKLIWtJwbsne.jpg
 │   │       └── 📁 settings/
 │   │           ├── 📄 1hWZYkGr9VU6i8LKncwO9BghldnjtElnYYn5N3rk.png
 │   │           ├── 📄 4LAoEqcKYth9DFgExY5WLUx0Ho5rJ7pwjeoRNGdg.jpg
@@ -932,76 +951,32 @@
 │   │   │   └── 📁 disks/
 │   │   │       ├── 📁 public/
 │   │   │       │   └── 📁 service-cards/
-│   │   │       │       └── 📄 TIUaoO6GScd9gLBSezhqIN5qDzR9mcsVCMBxvIqo.jpg
+│   │   │       │       └── 📄 vdny0KVjf8X1e7J2RHHZ7XygR7QOeftU9KP601ZT.jpg
 │   │   │       └── 📁 tmp-for-tests/
 │   │   │           └── 📁 livewire-tmp/
 │   │   │               └── 📄 TdNC2RFbmw6MeVJ7Ltg3ZpbAhTZxsAHafQLTnZYq.png.json
 │   │   └── 📁 views/
 │   │       ├── 📄 .gitignore
 │   │       ├── 📄 05fa32b5deb16c18f50115064ff449df.php
-│   │       ├── 📄 06453edcfd39f4f50da614ba51c334d6.php
-│   │       ├── 📄 06525a6a093ac6cf6e23a13d606695cf.php
-│   │       ├── 📄 0b51b9c94d7dc367e1955c17a1c67fc1.php
-│   │       ├── 📄 0c113b5c45d1fa62135004ebec938c33.php
 │   │       ├── 📄 111f06b85e197d0aa30975d266a03485.php
 │   │       ├── 📄 125258b3b15f7dbc8816bcb5a527c5f1.php
-│   │       ├── 📄 1288003ed32b0676e6ccb14eb5942b70.php
-│   │       ├── 📄 1807d3741cafbb28190875a2bc68cd8a.php
 │   │       ├── 📄 1a9dfb9505693721783dd2cee36490d7.php
 │   │       ├── 📄 2067122e10fdc9e51c356f8bbadf029c.php
-│   │       ├── 📄 21ce1a07eb531ce18af400f0e82b442f.php
 │   │       ├── 📄 27e06ac999ba729e61aec3c7677bd58b.php
-│   │       ├── 📄 2b4525a05eac0b808486def8581bc872.php
-│   │       ├── 📄 2d92d3751b0350164cfc9cd4199c93a9.php
-│   │       ├── 📄 306c1b7844ed35df52d05c6fa377b411.php
-│   │       ├── 📄 3250b76407007457f397559cf1fba22b.php
-│   │       ├── 📄 3663a565db9f674cb2a8d33176098870.php
-│   │       ├── 📄 36a67b7aae46cb5f2a60857996f4483f.php
 │   │       ├── 📄 4c7398906a183afa6f771c4c30174fa8.php
-│   │       ├── 📄 50c54807ccdfa7d10abc2523a7c2041a.php
+│   │       ├── 📄 508910d7ed7cc8a2dbce9488548c338f.php
 │   │       ├── 📄 57487ea9ba254876481d6a9b2f677d53.php
-│   │       ├── 📄 5df34508c3b81b2704b6439892e3b444.php
 │   │       ├── 📄 61e26aed2b463b1f2684633871801f0b.php
-│   │       ├── 📄 62db2057226c2d111a77e867c595ee8f.php
 │   │       ├── 📄 68bd94e7fa4f514ea9fcf1b9721d97f3.php
-│   │       ├── 📄 6c00b85a2d558fbfe61c4c20af3b2449.php
 │   │       ├── 📄 6c6c2eee907e89a46f22558977fc732e.php
 │   │       ├── 📄 6df829b7c1d0b639e681869dfabad9b6.php
-│   │       ├── 📄 6f812d570b33db8d46c9ce443b23154f.php
 │   │       ├── 📄 6febe8e954eec830aa2292896e384ce0.php
 │   │       ├── 📄 78029afd8380e277140a5196c33b6a22.php
-│   │       ├── 📄 80ee7f4f789bc5d65dd80de372b327b9.php
-│   │       ├── 📄 82cb0751e0f9a883cbf4387c1e28643a.php
-│   │       ├── 📄 84d80e328a56ccfae00b47772cb9af8d.php
-│   │       ├── 📄 84fd10794213dff83a609ff042e43844.php
-│   │       ├── 📄 877eae2646cde6bfd897c022dcc12502.php
-│   │       ├── 📄 9573ffb70b0f586470714eb4227e17c8.php
 │   │       ├── 📄 9a81c56c256df36ae8d5d8e2ef7a5d66.php
-│   │       ├── 📄 9d3ab3a73f095965e6dd09e352bb4e0b.php
-│   │       ├── 📄 9ebc23191b3eff702feea72d0440424a.php
-│   │       ├── 📄 af99aa6b333cd5341c59d6eedee202f6.php
 │   │       ├── 📄 b438d0f3c6d89375f0492e6be84ffccd.php
-│   │       ├── 📄 b68e6a31ee76443f03c7fdc54fef1278.php
 │   │       ├── 📄 b7c4a40ea7608f4cb2d25ba42921e6ec.php
-│   │       ├── 📄 ba6ddb7d9c0c3ae83408c3cdbc9ac356.php
-│   │       ├── 📄 ba9748c3c8f2c139eb64a3f732e0124f.php
 │   │       ├── 📄 bdb3f5bfcf91d9675141a4a1f2b9cd8e.php
-│   │       ├── 📄 c921e6d779d7d3e3dbdb2a09b2a298c1.php
-│   │       ├── 📄 c96567d61d612823c09f1fb54e352fac.php
-│   │       ├── 📄 ca70e4b6a82317648a52f8629800a119.php
-│   │       ├── 📄 d1a7887c90a319470cfbf13eb666f346.php
-│   │       ├── 📄 d234e85c38fe2850cb0b1cf457e6fc8c.php
-│   │       ├── 📄 d525209119bc62f5d80d13fe2bd482bd.php
-│   │       ├── 📄 d842e2867dc7c868640b7324649b705f.php
-│   │       ├── 📄 dee2446b7a6e97462da9f6ae447d8d5c.php
-│   │       ├── 📄 ed193cae1b30170d712ec1bd55dcfb10.php
-│   │       ├── 📄 ee6bc2f249879b0f7166ff8554d0ba4e.php
-│   │       ├── 📄 eea2247c5960730fd4c921f669c14a6f.php
-│   │       ├── 📄 f5683d1403b9a018eb9244b3774579dc.php
-│   │       ├── 📄 f7ae3b6788dec2445ff93b0168ca22cd.php
-│   │       ├── 📄 faddb8c13d503aa66f7d3c7a3bb049fe.php
-│   │       ├── 📄 fc936bc3bc9adc0efa3af6e09a7aad70.php
-│   │       └── 📄 ffe847a00699cd7a895b145a84e2ee4c.php
+│   │       └── 📄 eea2247c5960730fd4c921f669c14a6f.php
 │   └── 📁 logs/
 │       ├── 📄 .gitignore
 │       ├── 📄 browser.log
@@ -1027,6 +1002,8 @@
 │   │   ├── 📄 KycVerificationTest.php
 │   │   ├── 📄 MarketplaceTest.php
 │   │   ├── 📄 OwnerDashboardTest.php
+│   │   ├── 📄 PartnerBranchTest.php
+│   │   ├── 📄 PartnerPackageTest.php
 │   │   ├── 📄 PartnerPortalTest.php
 │   │   ├── 📄 ProfileTest.php
 │   │   ├── 📄 RoomFacilitiesTest.php

@@ -424,6 +424,15 @@
                         <span class="text-slate-700 leading-relaxed">{{ $payload['kost_address'] ?? '-' }}</span>
                     </div>
 
+                    @if (!empty($payload['branch_name']))
+                        <div>
+                            <span class="text-slate-400 block">Cabang Pelaksana:</span>
+                            <span class="font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded text-[11px] inline-flex items-center gap-1">
+                                🏢 {{ $payload['branch_name'] }}
+                            </span>
+                        </div>
+                    @endif
+
                     @if (!empty($payload['order_notes']))
                         <div class="rounded-2xl bg-amber-50 p-3 border border-amber-200 text-amber-900">
                             <strong>Catatan Khusus:</strong><br>
